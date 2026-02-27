@@ -207,6 +207,11 @@ body {
 
 .hero-image {
     text-align: center;
+    min-width: 0; /* 防止 grid 子项被内容撑开 */
+}
+
+.hero-image img {
+    max-width: 100%;
 }
 
 .placeholder-image {
@@ -224,6 +229,7 @@ body {
 .avatar-image {
     width: 300px;
     height: 300px;
+    max-width: 100%;
     border-radius: 50%;
     object-fit: cover;
     margin: 0 auto;
