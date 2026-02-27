@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Notes &amp; Blogs - 博客和笔记，未来对接 Notion 接口">
+    <title>Notes &amp; Blogs - 个人网站</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .notes-blogs-section {
+            padding: 4rem 0;
+        }
+        .content-category {
+            margin-bottom: 3rem;
+        }
+        .content-category h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .content-list {
+            list-style: none;
+        }
+        .content-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.2s;
+        }
+        .content-list li:last-child {
+            border-bottom: none;
+        }
+        .content-list li:hover {
+            background-color: var(--bg-light);
+        }
+        .content-list a {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            color: var(--text-color);
+            text-decoration: none;
+            gap: 1rem;
+        }
+        .content-list a:hover {
+            color: var(--secondary-color);
+        }
+        .content-title {
+            font-weight: 500;
+            flex: 1;
+        }
+        .content-date {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+        .empty-state {
+            color: var(--text-muted);
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .notion-note {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 3rem;
+            padding: 1rem;
+            background-color: var(--bg-light);
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html">我的网站</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">About me</a></li>
+                <li><a href="strategy-dashboard.html">Strategy Dashboard</a></li>
+                <li><a href="notes-blogs.html" class="active">Notes &amp; Blogs</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="notes-blogs-section">
+            <div class="container">
+                <h1 class="section-title">Notes &amp; Blogs</h1>
+                <p style="text-align: center; margin-bottom: 3rem; color: var(--text-muted);">
+                    博客文章和学习笔记，未来将对接 Notion 接口自动同步
+                </p>
+
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <!-- 博客栏目 -->
+                    <div class="content-category">
+                        <h2>博客</h2>
+                        <ul class="content-list" id="blog-list">
+                            <li>
+                                <a href="#">
+                                    <span class="content-title">示例博客文章标题</span>
+                                    <span class="content-date">2025-02-26</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="content-title">另一篇博客文章</span>
+                                    <span class="content-date">2025-02-20</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- 笔记栏目 -->
+                    <div class="content-category">
+                        <h2>笔记</h2>
+                        <ul class="content-list" id="notes-list">
+                            <li>
+                                <a href="#">
+                                    <span class="content-title">示例笔记标题</span>
+                                    <span class="content-date">2025-02-25</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="content-title">另一则学习笔记</span>
+                                    <span class="content-date">2025-02-22</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="notion-note">
+                        📌 此页面结构已为 Notion API 对接预留，未来可通过 Notion 数据库自动拉取并展示博客与笔记内容。
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 你的名字. 保留所有权利.</p>
+            <div class="social-links">
+                <a href="#" aria-label="GitHub">GitHub</a>
+                <a href="#" aria-label="LinkedIn">LinkedIn</a>
+                <a href="#" aria-label="Twitter">Twitter</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
