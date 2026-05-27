@@ -56,6 +56,7 @@
             <ul class="nav-menu">
                 <li><a href="index.html">About me</a></li>
                 <li><a href="strategy-dashboard.html" class="active">Strategy Dashboard</a></li>
+                <li><a href="factor-dashboard/index.html">因子看板</a></li>
                 <li><a href="notes-blogs.html">Notes &amp; Blogs</a></li>
             </ul>
             <div class="hamburger">
@@ -71,7 +72,9 @@
             <div class="container dashboard-container">
                 <h1 class="section-title">Strategy Dashboard</h1>
                 <div class="dashboard-placeholder">
-                    <h2>Coming Soon</h2>
+                    <h2>正在跳转到 Strategy Dashboard...</h2>
+                    <p>如果没有自动跳转，请手动打开：</p>
+                    <p><a href="http://127.0.0.1:5173" target="_blank" rel="noopener noreferrer">http://127.0.0.1:5173</a></p>
                 </div>
             </div>
         </section>
@@ -89,5 +92,11 @@
     </footer>
 
     <script src="js/main.js?v=1.0.2"></script>
+    <script>
+        // Forward users from static entry page to the actual Vue dashboard app in dev mode.
+        setTimeout(function () {
+            window.location.href = "http://127.0.0.1:5173";
+        }, 300);
+    </script>
 </body>
 </html>

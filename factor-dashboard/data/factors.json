@@ -1,0 +1,178 @@
+[
+  {
+    "factor_name": "Alpha006",
+    "lifecycle_status": "active",
+    "updated_at": "2026-05-07 23:16:48",
+    "version": "v1",
+    "version_id": "ver_09ad02e73e3f",
+    "evidence_path": "factors\\calculated\\Alpha006",
+    "latest_factor_date": "2026-05-19",
+    "latest_coverage_count": 5194,
+    "ic_1": -0.009416528885561689,
+    "ic_5": 0.0065741947183613255,
+    "ic_22": 0.042744305398359994,
+    "sharpe": 6.236562309361243,
+    "coverage_ratio": 1.0,
+    "latest_backtest": {
+      "run_id": "bt-20260512-152545-b5cc137e",
+      "created_at": "2026-05-12 15:25:45",
+      "status": "success"
+    }
+  },
+  {
+    "factor_name": "Alpha007",
+    "lifecycle_status": "candidate",
+    "updated_at": "2026-05-09 19:11:37",
+    "version": "v3",
+    "version_id": "ver_e713ef4d6531",
+    "evidence_path": "factors\\calculated\\Alpha007",
+    "latest_factor_date": "2026-05-19",
+    "latest_coverage_count": 5180,
+    "ic_1": 0.015845525070346707,
+    "ic_5": null,
+    "ic_22": null,
+    "sharpe": 0.4377571413922804,
+    "coverage_ratio": 0.9871327547412407,
+    "latest_backtest": null
+  },
+  {
+    "factor_name": "Alpha008",
+    "lifecycle_status": "candidate",
+    "updated_at": "2026-05-15 16:00:04",
+    "version": "v1",
+    "version_id": "ver_f837202481c4",
+    "evidence_path": "factors\\calculated\\Alpha008",
+    "latest_factor_date": "2026-05-19",
+    "latest_coverage_count": 2302,
+    "ic_1": -0.005171358301365414,
+    "ic_5": -0.005074605368300327,
+    "ic_22": -0.0020330017887383325,
+    "sharpe": -1.188286672462023,
+    "coverage_ratio": 0.9656430976430976,
+    "latest_backtest": {
+      "run_id": "bt-20260515-161935-95d66590",
+      "created_at": "2026-05-15 16:19:35",
+      "status": "success"
+    }
+  },
+  {
+    "factor_name": "Alpha014",
+    "lifecycle_status": "candidate",
+    "updated_at": "2026-05-26 17:24:57",
+    "version": "v1",
+    "version_id": "ver_f86589330822",
+    "evidence_path": "factors/calculated/alpha/alpha014_risk_adj_mom_12_1",
+    "latest_factor_date": "2026-05-19",
+    "latest_coverage_count": 5110,
+    "ic_1": 0.014677280027942927,
+    "ic_5": 0.02553314633501489,
+    "ic_22": 0.034692127794926655,
+    "sharpe": 0.7543036073449605,
+    "coverage_ratio": 0.9868441847452342,
+    "latest_backtest": {
+      "run_id": "bt-20260526-114003-f4b93181",
+      "created_at": "2026-05-26 11:40:03",
+      "status": "success"
+    }
+  },
+  {
+    "factor_name": "Alpha009",
+    "lifecycle_status": "draft",
+    "updated_at": "2026-05-15 17:28:51",
+    "version": "v1",
+    "version_id": "ver_de5dadf6b3e7",
+    "evidence_path": "backtest_results/single_factors/Alpha009/bt-20260515-175304-694d017d",
+    "latest_factor_date": "2026-05-14",
+    "latest_coverage_count": 2301,
+    "ic_1": -0.0027075697573396423,
+    "ic_5": 0.0001328445761570719,
+    "ic_22": 0.0031224060800601784,
+    "sharpe": -0.5107952363672711,
+    "coverage_ratio": 0.9656430976430976,
+    "latest_backtest": {
+      "run_id": "bt-20260515-175304-694d017d",
+      "created_at": "2026-05-15 17:53:04",
+      "status": "success"
+    }
+  },
+  {
+    "factor_name": "Alpha010",
+    "lifecycle_status": "draft",
+    "updated_at": "2026-05-16 23:58:42",
+    "version": "v1",
+    "version_id": "ver_87947f61febc",
+    "evidence_path": "backtest_results/single_factors/Alpha010/bt-20260517-001406-4251a44c",
+    "latest_factor_date": "2026-05-15",
+    "latest_coverage_count": 2301,
+    "ic_1": -0.00741934511303341,
+    "ic_5": -0.01721167487897996,
+    "ic_22": -0.027882449682919575,
+    "sharpe": -1.4443793309890791,
+    "coverage_ratio": 0.9653077699293643,
+    "latest_backtest": {
+      "run_id": "bt-20260517-001406-4251a44c",
+      "created_at": "2026-05-17 00:14:06",
+      "status": "success"
+    }
+  },
+  {
+    "factor_name": "Alpha011",
+    "lifecycle_status": "draft",
+    "updated_at": "2026-05-17 14:03:18",
+    "version": "v1",
+    "version_id": "ver_a1f799c27532",
+    "evidence_path": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha011\\bt-20260517-145143-8b67ab93",
+    "latest_factor_date": "2026-05-15",
+    "latest_coverage_count": 2301,
+    "ic_1": -0.0023861711013074267,
+    "ic_5": -0.004829423912570963,
+    "ic_22": -0.01620341416539686,
+    "sharpe": -0.44681588393943494,
+    "coverage_ratio": 0.9653077699293643,
+    "latest_backtest": {
+      "run_id": "bt-20260517-145143-8b67ab93",
+      "created_at": "2026-05-17 14:51:43",
+      "status": "success"
+    }
+  },
+  {
+    "factor_name": "Alpha012",
+    "lifecycle_status": "draft",
+    "updated_at": "2026-05-17 17:08:31",
+    "version": "v1",
+    "version_id": "ver_7f464c8a46ed",
+    "evidence_path": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha012\\bt-20260517-174840-26f851ae",
+    "latest_factor_date": "2026-05-15",
+    "latest_coverage_count": 2301,
+    "ic_1": -0.007507559744886749,
+    "ic_5": -0.01579437242868553,
+    "ic_22": -0.028740670375929245,
+    "sharpe": -1.5190755928473667,
+    "coverage_ratio": 0.9653077699293643,
+    "latest_backtest": {
+      "run_id": "bt-20260517-174840-26f851ae",
+      "created_at": "2026-05-17 17:48:40",
+      "status": "success"
+    }
+  },
+  {
+    "factor_name": "Alpha015",
+    "lifecycle_status": "draft",
+    "updated_at": "2026-05-27 11:30:59",
+    "version": "v1",
+    "version_id": "ver_33acbc88943b",
+    "evidence_path": "factors/calculated/alpha/alpha015_chip_arc_regime",
+    "latest_factor_date": "2026-05-19",
+    "latest_coverage_count": 2302,
+    "ic_1": 0.006700597042007691,
+    "ic_5": 0.02280408925553426,
+    "ic_22": 0.04240666689476774,
+    "sharpe": 0.4675073536148915,
+    "coverage_ratio": 0.9646391406512252,
+    "latest_backtest": {
+      "run_id": "bt-20260527-114837-24160707",
+      "created_at": "2026-05-27 11:48:37",
+      "status": "success"
+    }
+  }
+]
