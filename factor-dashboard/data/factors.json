@@ -5,9 +5,12 @@
     "lifecycle_status": "candidate",
     "version_id": "ver_f86589330822",
     "version": "v1",
+    "latest_factor_value_date": "2026-05-29",
     "latest_metric_date": "2026-04-14",
     "rolling_ic_mean": 0.017335788086197908,
     "rolling_icir": 0.17399937982917046,
+    "rolling_annual_return": -0.6470144120284056,
+    "rolling_vol": 0.8130438179008121,
     "rolling_sharpe": -0.875092176838587
   },
   {
@@ -16,9 +19,12 @@
     "lifecycle_status": "candidate",
     "version_id": "ver_33acbc88943b",
     "version": "v1",
+    "latest_factor_value_date": "2026-05-29",
     "latest_metric_date": "2026-04-14",
     "rolling_ic_mean": 0.021273767021598736,
     "rolling_icir": 0.35097790678510815,
+    "rolling_annual_return": 169.2109081050746,
+    "rolling_vol": 1.2870217595635927,
     "rolling_sharpe": 4.6399194529272085
   },
   {
@@ -27,9 +33,12 @@
     "lifecycle_status": "candidate",
     "version_id": "ver_8a20de9f3d5d",
     "version": "v1",
+    "latest_factor_value_date": "2026-05-29",
     "latest_metric_date": "2026-04-14",
     "rolling_ic_mean": 0.04675349120303631,
     "rolling_icir": 0.9772691577954853,
+    "rolling_annual_return": -0.9720194352922162,
+    "rolling_vol": 0.8752077712306129,
     "rolling_sharpe": -3.6228154356944358
   },
   {
@@ -38,9 +47,12 @@
     "lifecycle_status": "candidate",
     "version_id": "ver_931312aa6c1c",
     "version": "v1",
+    "latest_factor_value_date": "2026-05-29",
     "latest_metric_date": "2026-04-14",
     "rolling_ic_mean": 0.036880901660561925,
     "rolling_icir": 0.7142779179746318,
+    "rolling_annual_return": -0.4029428358129141,
+    "rolling_vol": 0.9786417857028934,
     "rolling_sharpe": -0.04793186776318255
   },
   {
@@ -49,9 +61,12 @@
     "lifecycle_status": "candidate",
     "version_id": "ver_ca4cb8ed3d3c",
     "version": "v1",
+    "latest_factor_value_date": "2026-05-29",
     "latest_metric_date": "2026-04-14",
     "rolling_ic_mean": 0.0057136994307885715,
     "rolling_icir": 0.10263879911341692,
+    "rolling_annual_return": 194.92332416129994,
+    "rolling_vol": 1.2753680126975677,
     "rolling_sharpe": 4.7852006582656275
   },
   {
@@ -60,9 +75,12 @@
     "lifecycle_status": "candidate",
     "version_id": "ver_6d89fa6a44bc",
     "version": "v1",
+    "latest_factor_value_date": "2026-05-29",
     "latest_metric_date": "2026-04-14",
     "rolling_ic_mean": 0.004317894166800376,
     "rolling_icir": 0.06730952559294368,
+    "rolling_annual_return": 330.4486500781791,
+    "rolling_vol": 1.2552200176716906,
     "rolling_sharpe": 5.267328556430608
   },
   {
@@ -71,9 +89,12 @@
     "lifecycle_status": "draft",
     "version_id": "ver_09ad02e73e3f",
     "version": "v1",
+    "latest_factor_value_date": "2026-05-19",
     "latest_metric_date": "2026-04-14",
     "rolling_ic_mean": 0.026843282869652173,
     "rolling_icir": 0.5584759819359599,
+    "rolling_annual_return": 33.26049827124218,
+    "rolling_vol": 1.2045931032600585,
     "rolling_sharpe": 3.529314133067465
   },
   {
@@ -82,9 +103,12 @@
     "lifecycle_status": "draft",
     "version_id": "ver_e713ef4d6531",
     "version": "v3",
+    "latest_factor_value_date": "2026-05-19",
     "latest_metric_date": "2026-04-14",
     "rolling_ic_mean": 0.01669298818461358,
     "rolling_icir": 0.30870884790338404,
+    "rolling_annual_return": 127.73061907428067,
+    "rolling_vol": 1.272166775918986,
     "rolling_sharpe": 4.458392609397348
   },
   {
@@ -93,9 +117,12 @@
     "lifecycle_status": "draft",
     "version_id": "ver_f837202481c4",
     "version": "v1",
+    "latest_factor_value_date": "2026-05-19",
     "latest_metric_date": "2026-04-14",
     "rolling_ic_mean": 0.007596663985968138,
     "rolling_icir": 0.17028869509670175,
+    "rolling_annual_return": 385.3369500049574,
+    "rolling_vol": 1.2238045005283533,
     "rolling_sharpe": 5.506651085211237
   },
   {
@@ -104,9 +131,12 @@
     "lifecycle_status": "draft",
     "version_id": "ver_de5dadf6b3e7",
     "version": "v1",
+    "latest_factor_value_date": "2026-05-14",
     "latest_metric_date": "2026-04-09",
     "rolling_ic_mean": -0.002218993870612004,
     "rolling_icir": -0.03439914268440969,
+    "rolling_annual_return": 314.0764654807738,
+    "rolling_vol": 1.1783150271838319,
     "rolling_sharpe": 5.4925445365730585
   },
   {
@@ -115,9 +145,12 @@
     "lifecycle_status": "draft",
     "version_id": "ver_87947f61febc",
     "version": "v1",
+    "latest_factor_value_date": "2026-05-15",
     "latest_metric_date": "2026-04-10",
     "rolling_ic_mean": 0.029275430693332178,
     "rolling_icir": 0.2763681319140066,
+    "rolling_annual_return": 3.2685895792938906,
+    "rolling_vol": 1.1219801651929489,
     "rolling_sharpe": 1.8398707543596906
   },
   {
@@ -126,9 +159,12 @@
     "lifecycle_status": "draft",
     "version_id": "ver_a1f799c27532",
     "version": "v1",
+    "latest_factor_value_date": "2026-05-15",
     "latest_metric_date": "2026-04-10",
     "rolling_ic_mean": -0.021056054566594443,
     "rolling_icir": -0.5423312257621875,
+    "rolling_annual_return": 47.28980653825658,
+    "rolling_vol": 1.2130895579627308,
     "rolling_sharpe": 3.8038888428268685
   },
   {
@@ -137,9 +173,12 @@
     "lifecycle_status": "draft",
     "version_id": "ver_7f464c8a46ed",
     "version": "v1",
+    "latest_factor_value_date": "2026-05-15",
     "latest_metric_date": "2026-04-10",
     "rolling_ic_mean": 0.023007440256552523,
     "rolling_icir": 0.320917831500462,
+    "rolling_annual_return": 0.9213681543593184,
+    "rolling_vol": 1.1963182716885985,
     "rolling_sharpe": 1.1236340103762896
   },
   {
@@ -148,9 +187,12 @@
     "lifecycle_status": "draft",
     "version_id": "ver_b6bfdec70050",
     "version": "v1",
+    "latest_factor_value_date": "2026-05-28",
     "latest_metric_date": null,
     "rolling_ic_mean": null,
     "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
     "rolling_sharpe": null
   },
   {
@@ -159,9 +201,12 @@
     "lifecycle_status": "draft",
     "version_id": "ver_debad32baf02",
     "version": "v1",
+    "latest_factor_value_date": "2026-05-28",
     "latest_metric_date": null,
     "rolling_ic_mean": null,
     "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
     "rolling_sharpe": null
   },
   {
@@ -170,9 +215,12 @@
     "lifecycle_status": "draft",
     "version_id": "ver_b5edbce8895a",
     "version": "v1",
+    "latest_factor_value_date": "2026-05-29",
     "latest_metric_date": null,
     "rolling_ic_mean": null,
     "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
     "rolling_sharpe": null
   }
 ]
