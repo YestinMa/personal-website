@@ -9,9 +9,9 @@
     "latest_metric_date": "2026-04-14",
     "rolling_ic_mean": 0.017335788086197908,
     "rolling_icir": 0.17399937982917046,
-    "rolling_annual_return": -0.6470144120284056,
-    "rolling_vol": 0.8130438179008121,
-    "rolling_sharpe": -0.875092176838587
+    "rolling_annual_return": 9714.286196658184,
+    "rolling_vol": 0.7896405088558212,
+    "rolling_sharpe": 12.210199035183452
   },
   {
     "factor_name": "Alpha015",
@@ -23,9 +23,9 @@
     "latest_metric_date": "2026-04-14",
     "rolling_ic_mean": 0.021273767021598736,
     "rolling_icir": 0.35097790678510815,
-    "rolling_annual_return": 169.2109081050746,
-    "rolling_vol": 1.2870217595635927,
-    "rolling_sharpe": 4.6399194529272085
+    "rolling_annual_return": -0.9279839042359652,
+    "rolling_vol": 0.503938022378933,
+    "rolling_sharpe": -4.940840129392708
   },
   {
     "factor_name": "Alpha016",
@@ -37,9 +37,9 @@
     "latest_metric_date": "2026-04-14",
     "rolling_ic_mean": 0.04675349120303631,
     "rolling_icir": 0.9772691577954853,
-    "rolling_annual_return": -0.9720194352922162,
-    "rolling_vol": 0.8752077712306129,
-    "rolling_sharpe": -3.6228154356944358
+    "rolling_annual_return": 6221.2455551557805,
+    "rolling_vol": 0.4094534858495756,
+    "rolling_sharpe": 21.902922454802244
   },
   {
     "factor_name": "Alpha017",
@@ -51,9 +51,9 @@
     "latest_metric_date": "2026-04-14",
     "rolling_ic_mean": 0.036880901660561925,
     "rolling_icir": 0.7142779179746318,
-    "rolling_annual_return": -0.4029428358129141,
-    "rolling_vol": 0.9786417857028934,
-    "rolling_sharpe": -0.04793186776318255
+    "rolling_annual_return": 244.55974822949307,
+    "rolling_vol": 0.38173599793769575,
+    "rolling_sharpe": 14.758384458291752
   },
   {
     "factor_name": "Alpha018",
@@ -65,9 +65,9 @@
     "latest_metric_date": "2026-04-14",
     "rolling_ic_mean": 0.0057136994307885715,
     "rolling_icir": 0.10263879911341692,
-    "rolling_annual_return": 194.92332416129994,
-    "rolling_vol": 1.2753680126975677,
-    "rolling_sharpe": 4.7852006582656275
+    "rolling_annual_return": -0.951063408981518,
+    "rolling_vol": 0.4224105303845087,
+    "rolling_sharpe": -6.88794147294437
   },
   {
     "factor_name": "Alpha019",
@@ -79,9 +79,9 @@
     "latest_metric_date": "2026-04-14",
     "rolling_ic_mean": 0.004317894166800376,
     "rolling_icir": 0.06730952559294368,
-    "rolling_annual_return": 330.4486500781791,
-    "rolling_vol": 1.2552200176716906,
-    "rolling_sharpe": 5.267328556430608
+    "rolling_annual_return": -0.9799796375037849,
+    "rolling_vol": 0.4707656801547378,
+    "rolling_sharpe": -8.007880040764507
   },
   {
     "factor_name": "Alpha006",
@@ -93,9 +93,9 @@
     "latest_metric_date": "2026-04-14",
     "rolling_ic_mean": 0.026843282869652173,
     "rolling_icir": 0.5584759819359599,
-    "rolling_annual_return": 33.26049827124218,
-    "rolling_vol": 1.2045931032600585,
-    "rolling_sharpe": 3.529314133067465
+    "rolling_annual_return": -0.7054628908111764,
+    "rolling_vol": 0.18821095269386814,
+    "rolling_sharpe": -6.385418096024029
   },
   {
     "factor_name": "Alpha007",
@@ -107,9 +107,9 @@
     "latest_metric_date": "2026-04-14",
     "rolling_ic_mean": 0.01669298818461358,
     "rolling_icir": 0.30870884790338404,
-    "rolling_annual_return": 127.73061907428067,
-    "rolling_vol": 1.272166775918986,
-    "rolling_sharpe": 4.458392609397348
+    "rolling_annual_return": -0.98969092555367,
+    "rolling_vol": 0.3272073484823943,
+    "rolling_sharpe": -13.690530645945762
   },
   {
     "factor_name": "Alpha008",
@@ -121,9 +121,9 @@
     "latest_metric_date": "2026-04-14",
     "rolling_ic_mean": 0.007596663985968138,
     "rolling_icir": 0.17028869509670175,
-    "rolling_annual_return": 385.3369500049574,
-    "rolling_vol": 1.2238045005283533,
-    "rolling_sharpe": 5.506651085211237
+    "rolling_annual_return": -0.9967631738606113,
+    "rolling_vol": 0.44605882111504525,
+    "rolling_sharpe": -12.480200106876893
   },
   {
     "factor_name": "Alpha009",
@@ -135,9 +135,9 @@
     "latest_metric_date": "2026-04-09",
     "rolling_ic_mean": -0.002218993870612004,
     "rolling_icir": -0.03439914268440969,
-    "rolling_annual_return": 314.0764654807738,
-    "rolling_vol": 1.1783150271838319,
-    "rolling_sharpe": 5.4925445365730585
+    "rolling_annual_return": -0.992267020068291,
+    "rolling_vol": 0.35059478226045937,
+    "rolling_sharpe": -13.558778134809248
   },
   {
     "factor_name": "Alpha010",
@@ -149,9 +149,9 @@
     "latest_metric_date": "2026-04-10",
     "rolling_ic_mean": 0.029275430693332178,
     "rolling_icir": 0.2763681319140066,
-    "rolling_annual_return": 3.2685895792938906,
-    "rolling_vol": 1.1219801651929489,
-    "rolling_sharpe": 1.8398707543596906
+    "rolling_annual_return": 1.2459398231879808,
+    "rolling_vol": 0.389419694632834,
+    "rolling_sharpe": 2.2747394227020012
   },
   {
     "factor_name": "Alpha011",
@@ -163,9 +163,9 @@
     "latest_metric_date": "2026-04-10",
     "rolling_ic_mean": -0.021056054566594443,
     "rolling_icir": -0.5423312257621875,
-    "rolling_annual_return": 47.28980653825658,
-    "rolling_vol": 1.2130895579627308,
-    "rolling_sharpe": 3.8038888428268685
+    "rolling_annual_return": -0.9972827666227976,
+    "rolling_vol": 0.31239373025636313,
+    "rolling_sharpe": -18.53447944557491
   },
   {
     "factor_name": "Alpha012",
@@ -177,9 +177,9 @@
     "latest_metric_date": "2026-04-10",
     "rolling_ic_mean": 0.023007440256552523,
     "rolling_icir": 0.320917831500462,
-    "rolling_annual_return": 0.9213681543593184,
-    "rolling_vol": 1.1963182716885985,
-    "rolling_sharpe": 1.1236340103762896
+    "rolling_annual_return": 3.3792759434609554,
+    "rolling_vol": 0.2893955577365006,
+    "rolling_sharpe": 5.260784590835989
   },
   {
     "factor_name": "Alpha020",
