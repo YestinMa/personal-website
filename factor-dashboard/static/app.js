@@ -483,7 +483,7 @@ async function fetchNav(factor, evalType) {
   const q = new URLSearchParams({
     factor,
     universe: "ALL",
-    horizon: "22",
+    horizon: "1",
     eval_type: evalType,
     weighting: "equal_weight",
     transform_type: "industry_size_neutral",

@@ -98,7 +98,7 @@
                 <button
                   class="info-tip"
                   type="button"
-                  title="表内指标来自 factor_rolling_metrics 的最新 60 日滚动值，统计口径为当前版本对应的 active/candidate 因子。年化收益率、年化波动率和年化Sharpe分别对应 rolling_annual_return、rolling_vol、rolling_sharpe；滚动窗口按 metric_window=60 计算，起始点来自各因子在 factor_rolling_metrics 中的最新可用日期。"
+                  title="表内指标来自 factor_rolling_metrics 的最新 60 日滚动值，统计口径为当前版本对应的 active/candidate 因子。年化收益率、年化波动率和年化Sharpe分别对应 rolling_annual_return、rolling_vol、rolling_sharpe；这里使用的是 horizon=1 的日频 long_short_ret 口径，滚动窗口为 metric_window=60，起始点来自 factor_rolling_metrics 中的最新可用日期。"
                   aria-label="指标说明"
                 >i</button>
               </h2>
