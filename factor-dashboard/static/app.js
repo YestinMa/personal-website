@@ -14,6 +14,11 @@ const state = {
     ic: { start: 0, end: 0 },
     ls: { start: 0, end: 0 },
   },
+  factorTable: {
+    statusFilter: "all",
+    sortBy: "lifecycle_status",
+    sortDir: "desc",
+  },
 };
 
 const STATIC_MODE = Boolean(window.FACTOR_DASHBOARD_STATIC);
@@ -468,10 +473,14 @@ function renderSummary() {
 function renderFactors() {
   const tbody = document.getElementById("factorTable");
   const query = document.getElementById("searchInput").value.trim().toLowerCase();
-  const filtered = state.factors.filter((item) =>
-    item.factor_name.toLowerCase().includes(query) ||
-    (item.factor_family || "").toLowerCase().includes(query)
-  );
+  const { statusFilter, sortBy, sortDir } = state.factorTable;
+  const filtered = state.factors
+    .filter((item) =>
+      item.factor_name.toLowerCase().includes(query) ||
+      (item.factor_family || "").toLowerCase().includes(query)
+    )
+    .filter((item) => statusFilter === "all" || item.lifecycle_status === statusFilter)
+    .sort((left, right) => compareFactorRows(left, right, sortBy, sortDir));
   setText("factorCount", `(${filtered.length})`);
   tbody.innerHTML = filtered
     .map((item) => `
@@ -482,6 +491,7 @@ function renderFactors() {
         <td class="${cssNum(item.rolling_annual_return)}">${pct(item.rolling_annual_return)}</td>
         <td class="${cssNum(item.rolling_vol)}">${pct(item.rolling_vol)}</td>
         <td class="${cssNum(item.rolling_sharpe)}">${fmt(item.rolling_sharpe, 2)}</td>
+        <td class="${cssNum(item.rolling_win_rate)}">${pct(item.rolling_win_rate)}</td>
         <td title="${item.latest_factor_value_date || item.latest_metric_date || "--"}">${getDisplayFactorValueDate(item)}</td>
       </tr>
     `)
@@ -490,6 +500,41 @@ function renderFactors() {
   tbody.querySelectorAll("tr").forEach((tr) => {
     tr.addEventListener("click", () => selectFactor(tr.dataset.factor));
   });
+}
+
+function statusRank(status) {
+  if (status === "active") return 3;
+  if (status === "candidate") return 2;
+  if (status === "draft") return 1;
+  return 0;
+}
+
+function compareNullableNumbers(left, right) {
+  const l = Number(left);
+  const r = Number(right);
+  const lValid = Number.isFinite(l);
+  const rValid = Number.isFinite(r);
+  if (!lValid && !rValid) return 0;
+  if (!lValid) return -1;
+  if (!rValid) return 1;
+  return l - r;
+}
+
+function compareFactorRows(left, right, sortBy, sortDir) {
+  let result = 0;
+  if (sortBy === "lifecycle_status") {
+    result = statusRank(left.lifecycle_status) - statusRank(right.lifecycle_status);
+  } else if (sortBy === "factor_name") {
+    result = String(left.factor_name || "").localeCompare(String(right.factor_name || ""));
+  } else if (sortBy === "latest_factor_value_date") {
+    result = String(left.latest_factor_value_date || left.latest_metric_date || "").localeCompare(String(right.latest_factor_value_date || right.latest_metric_date || ""));
+  } else {
+    result = compareNullableNumbers(left[sortBy], right[sortBy]);
+  }
+  if (result === 0) {
+    result = String(left.factor_name || "").localeCompare(String(right.factor_name || ""));
+  }
+  return sortDir === "asc" ? result : -result;
 }
 
 function renderJobs() {
@@ -542,13 +587,6 @@ function renderLsMetrics(stats) {
   setText("annualReturnValue", pct(stats?.annual_return));
   setText("annualVolatilityValue", pct(stats?.annual_volatility));
   setText("maxDrawdownValue", pct(stats?.max_drawdown));
-  const range = stats?.max_drawdown_range;
-  if (!range?.peak_date || !range?.trough_date) {
-    setText("maxDrawdownRangeValue", "--");
-    return;
-  }
-  const recoveryPart = range.recovery_date ? `，恢复 ${range.recovery_date}` : "，尚未恢复";
-  setText("maxDrawdownRangeValue", `${range.peak_date} -> ${range.trough_date}${recoveryPart}`);
 }
 
 function renderLongShortChart() {
@@ -788,6 +826,19 @@ function bindEvents() {
     });
   });
   document.getElementById("searchInput").addEventListener("input", renderFactors);
+  document.getElementById("statusFilter").addEventListener("change", (event) => {
+    state.factorTable.statusFilter = event.target.value;
+    renderFactors();
+  });
+  document.getElementById("sortBy").addEventListener("change", (event) => {
+    state.factorTable.sortBy = event.target.value;
+    renderFactors();
+  });
+  document.getElementById("sortDirBtn").addEventListener("click", () => {
+    state.factorTable.sortDir = state.factorTable.sortDir === "asc" ? "desc" : "asc";
+    document.getElementById("sortDirBtn").textContent = state.factorTable.sortDir === "asc" ? "↑" : "↓";
+    renderFactors();
+  });
   document.getElementById("showJobItemsBtn").addEventListener("click", () => {
     showLatestJobItems().catch((err) => {
       console.error(err);

@@ -11,7 +11,8 @@
     "rolling_icir": -0.07554692648143087,
     "rolling_annual_return": 0.7644923753239912,
     "rolling_vol": 0.1367315496831087,
-    "rolling_sharpe": 4.224986472561602
+    "rolling_sharpe": 4.224986472561602,
+    "rolling_win_rate": 0.6166666666666667
   },
   {
     "factor_name": "Alpha015",
@@ -25,7 +26,8 @@
     "rolling_icir": 0.1249791018971892,
     "rolling_annual_return": -0.2984041528755771,
     "rolling_vol": 0.15016783097142755,
-    "rolling_sharpe": -2.284362334380917
+    "rolling_sharpe": -2.284362334380917,
+    "rolling_win_rate": 0.4666666666666667
   },
   {
     "factor_name": "Alpha016",
@@ -39,7 +41,8 @@
     "rolling_icir": 0.06174964406574958,
     "rolling_annual_return": 0.9708579662022938,
     "rolling_vol": 0.1196239577480729,
-    "rolling_sharpe": 5.737915487858218
+    "rolling_sharpe": 5.737915487858218,
+    "rolling_win_rate": 0.6833333333333333
   },
   {
     "factor_name": "Alpha017",
@@ -53,7 +56,8 @@
     "rolling_icir": 0.08290208041632237,
     "rolling_annual_return": 0.4728456898143951,
     "rolling_vol": 0.08150685469037237,
-    "rolling_sharpe": 4.79418812292628
+    "rolling_sharpe": 4.79418812292628,
+    "rolling_win_rate": 0.6166666666666667
   },
   {
     "factor_name": "Alpha018",
@@ -67,7 +71,8 @@
     "rolling_icir": 0.18104131765631565,
     "rolling_annual_return": -0.07701572055203798,
     "rolling_vol": 0.12204260916583673,
-    "rolling_sharpe": -0.5964954769501456
+    "rolling_sharpe": -0.5964954769501456,
+    "rolling_win_rate": 0.5
   },
   {
     "factor_name": "Alpha019",
@@ -81,7 +86,8 @@
     "rolling_icir": 0.08000328396580714,
     "rolling_annual_return": -0.4719032376931095,
     "rolling_vol": 0.1464181028793721,
-    "rolling_sharpe": -4.282956541524249
+    "rolling_sharpe": -4.282956541524249,
+    "rolling_win_rate": 0.4
   },
   {
     "factor_name": "Alpha006",
@@ -95,7 +101,8 @@
     "rolling_icir": 0.34343294580488604,
     "rolling_annual_return": -0.03785192182820529,
     "rolling_vol": 0.061483511599609554,
-    "rolling_sharpe": -0.5972943567975852
+    "rolling_sharpe": -0.5972943567975852,
+    "rolling_win_rate": 0.48333333333333334
   },
   {
     "factor_name": "Alpha007",
@@ -109,7 +116,8 @@
     "rolling_icir": 0.21867502112290615,
     "rolling_annual_return": -0.11837282205485744,
     "rolling_vol": 0.09396105019455508,
-    "rolling_sharpe": -1.2942252705131747
+    "rolling_sharpe": -1.2942252705131747,
+    "rolling_win_rate": 0.55
   },
   {
     "factor_name": "Alpha008",
@@ -123,7 +131,8 @@
     "rolling_icir": 0.09737771606703965,
     "rolling_annual_return": -0.60669397515841,
     "rolling_vol": 0.14660450191774863,
-    "rolling_sharpe": -6.2810247197518745
+    "rolling_sharpe": -6.2810247197518745,
+    "rolling_win_rate": 0.38333333333333336
   },
   {
     "factor_name": "Alpha009",
@@ -137,7 +146,8 @@
     "rolling_icir": 0.07477422792894803,
     "rolling_annual_return": -0.542906593061466,
     "rolling_vol": 0.14877149497467868,
-    "rolling_sharpe": -5.1806234862368665
+    "rolling_sharpe": -5.1806234862368665,
+    "rolling_win_rate": 0.4
   },
   {
     "factor_name": "Alpha010",
@@ -151,7 +161,8 @@
     "rolling_icir": 0.07388889055824596,
     "rolling_annual_return": -0.1569535058769468,
     "rolling_vol": 0.09379364795917414,
-    "rolling_sharpe": -1.773553444283464
+    "rolling_sharpe": -1.773553444283464,
+    "rolling_win_rate": 0.48333333333333334
   },
   {
     "factor_name": "Alpha011",
@@ -165,7 +176,8 @@
     "rolling_icir": -0.05757214192317826,
     "rolling_annual_return": -0.3320338926299804,
     "rolling_vol": 0.1130085922495888,
-    "rolling_sharpe": -3.512172569975956
+    "rolling_sharpe": -3.512172569975956,
+    "rolling_win_rate": 0.4
   },
   {
     "factor_name": "Alpha012",
@@ -179,7 +191,8 @@
     "rolling_icir": 0.15592977005182282,
     "rolling_annual_return": -0.020170268425251603,
     "rolling_vol": 0.07888318941014942,
-    "rolling_sharpe": -0.21946194882238027
+    "rolling_sharpe": -0.21946194882238027,
+    "rolling_win_rate": 0.55
   },
   {
     "factor_name": "Alpha020",
@@ -193,7 +206,8 @@
     "rolling_icir": null,
     "rolling_annual_return": null,
     "rolling_vol": null,
-    "rolling_sharpe": null
+    "rolling_sharpe": null,
+    "rolling_win_rate": null
   },
   {
     "factor_name": "Alpha021",
@@ -207,7 +221,8 @@
     "rolling_icir": null,
     "rolling_annual_return": null,
     "rolling_vol": null,
-    "rolling_sharpe": null
+    "rolling_sharpe": null,
+    "rolling_win_rate": null
   },
   {
     "factor_name": "Alpha022",
@@ -221,7 +236,8 @@
     "rolling_icir": null,
     "rolling_annual_return": null,
     "rolling_vol": null,
-    "rolling_sharpe": null
+    "rolling_sharpe": null,
+    "rolling_win_rate": null
   },
   {
     "factor_name": "Alpha023",
@@ -235,6 +251,7 @@
     "rolling_icir": null,
     "rolling_annual_return": null,
     "rolling_vol": null,
-    "rolling_sharpe": null
+    "rolling_sharpe": null,
+    "rolling_win_rate": null
   }
 ]

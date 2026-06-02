@@ -157,6 +157,16 @@ h1 span {
   gap: 14px;
 }
 
+.toolbar-select {
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: #374151;
+  font-size: 13px;
+}
+
 .search input {
   width: 320px;
   height: 38px;
@@ -288,16 +298,19 @@ h1 span {
   background: var(--red-soft);
 }
 
-.label {
+.stat-card .label,
+.status-card .label {
   display: block;
   margin-bottom: 6px;
   color: var(--muted);
   font-size: 12px;
   font-weight: 700;
   white-space: nowrap;
+  line-height: 1.2;
 }
 
-.stat-card strong {
+.stat-card strong,
+.status-card strong {
   font-size: 22px;
   line-height: 1;
   white-space: nowrap;
@@ -344,6 +357,7 @@ h1 span {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
+  flex-wrap: wrap;
   margin-bottom: 12px;
 }
 
@@ -570,7 +584,7 @@ canvas {
 
 .ls-metrics {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
   margin: 4px 0 12px;
 }
@@ -580,20 +594,19 @@ canvas {
   background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
 }
 
-.metric-chip.wide {
-  grid-column: span 1;
-}
-
 .metric-chip span {
   display: block;
   margin-bottom: 6px;
   color: var(--muted);
   font-size: 11px;
   font-weight: 700;
+  line-height: 1.25;
 }
 
 .metric-chip strong {
   font-size: 16px;
+  line-height: 1.2;
+  white-space: nowrap;
 }
 
 .range-control {

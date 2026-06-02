@@ -38,6 +38,22 @@
           <label class="search">
             <input id="searchInput" type="search" placeholder="搜索因子..." />
           </label>
+          <select id="statusFilter" class="toolbar-select" aria-label="状态筛选">
+            <option value="all">全部状态</option>
+            <option value="active">Active</option>
+            <option value="candidate">Candidate</option>
+            <option value="draft">Draft</option>
+          </select>
+          <select id="sortBy" class="toolbar-select" aria-label="排序方式">
+            <option value="lifecycle_status">按状态排序</option>
+            <option value="rolling_annual_return">按年化收益率</option>
+            <option value="rolling_vol">按年化波动率</option>
+            <option value="rolling_sharpe">按年化Sharpe</option>
+            <option value="rolling_win_rate">按胜率</option>
+            <option value="latest_factor_value_date">按最近因子值</option>
+            <option value="factor_name">按因子名</option>
+          </select>
+          <button id="sortDirBtn" class="icon-button" title="切换升降序">↓</button>
           <button id="refreshBtn" class="icon-button" title="刷新">↻</button>
           <div class="user-chip">researcher</div>
         </div>
@@ -116,6 +132,7 @@
                       <th>年化收益率</th>
                       <th>年化波动率</th>
                       <th>年化Sharpe</th>
+                      <th>胜率</th>
                       <th>最近因子值</th>
                     </tr>
                   </thead>
@@ -178,10 +195,6 @@
                 <div class="metric-chip">
                   <span>最大回撤</span>
                   <strong id="maxDrawdownValue">--</strong>
-                </div>
-                <div class="metric-chip wide">
-                  <span>最大回撤区间</span>
-                  <strong id="maxDrawdownRangeValue">--</strong>
                 </div>
               </div>
               <div class="chart-box">
