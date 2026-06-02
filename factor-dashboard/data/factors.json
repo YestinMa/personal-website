@@ -222,5 +222,19 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null
+  },
+  {
+    "factor_name": "Alpha023",
+    "factor_family": "momentum",
+    "lifecycle_status": "draft",
+    "version_id": "ver_41d927802e1f",
+    "version": "v1",
+    "latest_factor_value_date": "2026-05-29",
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null
   }
 ]

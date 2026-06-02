@@ -3,7 +3,13 @@ const state = {
   factors: [],
   jobs: [],
   selectedFactor: null,
-  chartData: { ic: [], ls: [] },
+  currentView: "overview",
+  chartData: {
+    ic: [],
+    group: { columns: [], series: [] },
+    lsRaw: [],
+    ls: [],
+  },
   ranges: {
     ic: { start: 0, end: 0 },
     ls: { start: 0, end: 0 },
@@ -11,9 +17,24 @@ const state = {
 };
 
 const STATIC_MODE = Boolean(window.FACTOR_DASHBOARD_STATIC);
+const VIEW_META = {
+  overview: {
+    title: "因子总览 <span>Factor Overview</span>",
+    subtitle: "聚焦因子表现、分组收益与区间收益分析",
+  },
+  status: {
+    title: "任务与数据状态 <span>Task & Data Status</span>",
+    subtitle: "聚焦日更任务、最近运行结果与数据新鲜度",
+  },
+};
+
+let lsAnalysisToken = 0;
+let lsAnalysisTimer = null;
+let toastTimer = null;
 
 const fmt = (value, digits = 3) => (value === null || value === undefined || Number.isNaN(Number(value)) ? "--" : Number(value).toFixed(digits));
-const pct = (value) => (value === null || value === undefined || Number.isNaN(Number(value)) ? "--" : `${(Number(value) * 100).toFixed(1)}%`);
+const pct = (value, digits = 1) => (value === null || value === undefined || Number.isNaN(Number(value)) ? "--" : `${(Number(value) * 100).toFixed(digits)}%`);
+const numericOrNaN = (value) => (value === null || value === undefined || value === "" ? NaN : Number(value));
 const cssNum = (value) => {
   const n = Number(value);
   if (Number.isNaN(n) || n === 0) return "num";
@@ -31,6 +52,11 @@ function setText(id, text) {
   if (node) node.textContent = text ?? "--";
 }
 
+function setHtml(id, html) {
+  const node = document.getElementById(id);
+  if (node) node.innerHTML = html;
+}
+
 function dataPath(path) {
   return `./data/${path}`;
 }
@@ -43,20 +69,55 @@ function getSeriesDate(item) {
   return item?.trade_date || item?.date || "";
 }
 
-function getSeriesValue(item) {
-  return item?.value ?? item?.nav ?? null;
-}
-
 function getDisplayFactorValueDate(item) {
   return item?.latest_factor_value_date || item?.latest_metric_date || "--";
+}
+
+function getSelectedFactorMeta() {
+  return state.factors.find((item) => item.factor_name === state.selectedFactor) || null;
+}
+
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  if (!toast) return;
+  toast.textContent = message;
+  toast.hidden = false;
+  if (toastTimer) window.clearTimeout(toastTimer);
+  toastTimer = window.setTimeout(() => {
+    toast.hidden = true;
+  }, 1800);
+}
+
+function updatePageHeader() {
+  const meta = VIEW_META[state.currentView] || VIEW_META.overview;
+  setHtml("pageTitle", meta.title);
+  setText("pageSubtitle", meta.subtitle);
+}
+
+function switchView(nextView) {
+  state.currentView = nextView;
+  document.querySelectorAll(".view-section").forEach((section) => {
+    const active = section.id === `${nextView}View`;
+    section.hidden = !active;
+    section.classList.toggle("is-active", active);
+  });
+  document.querySelectorAll("nav a[data-view]").forEach((link) => {
+    link.classList.toggle("active", link.dataset.view === nextView);
+  });
+  updatePageHeader();
+  window.requestAnimationFrame(() => {
+    renderIcChart();
+    renderGroupChart();
+    renderLongShortChart();
+  });
 }
 
 function setRangeBackground(chartKey) {
   const bar = document.querySelector(`.range-control[data-chart="${chartKey}"] .dual-range`);
   if (!bar) return;
   const range = state.ranges[chartKey];
-  const list = state.chartData[chartKey] || [];
-  const length = list.length;
+  const list = chartKey === "ls" ? state.chartData.lsRaw : state.chartData[chartKey];
+  const length = Array.isArray(list) ? list.length : 0;
   if (!length) {
     bar.style.background = "linear-gradient(#dbe5f3, #dbe5f3) center / 100% 4px no-repeat";
     return;
@@ -72,38 +133,34 @@ function setRangeBackground(chartKey) {
     #dbe5f3 100%) center / 100% 4px no-repeat`;
 }
 
-function setRangeLabel(chartKey) {
-  const label = document.getElementById(`${chartKey}RangeLabel`);
-  const list = state.chartData[chartKey] || [];
-  if (!label) return;
-  if (!list.length) {
-    label.textContent = "--";
-    return;
-  }
-  const range = normalizeRange(chartKey);
-  const startItem = list[range.start];
-  const endItem = list[range.end];
-  label.textContent = `${getSeriesDate(startItem)} ~ ${getSeriesDate(endItem)}`;
-}
-
 function normalizeRange(chartKey) {
-  const list = state.chartData[chartKey] || [];
-  const max = Math.max(0, list.length - 1);
+  const list = chartKey === "ls" ? state.chartData.lsRaw : state.chartData[chartKey];
+  const max = Math.max(0, (list?.length || 0) - 1);
   const range = state.ranges[chartKey];
   let start = Number.isFinite(range.start) ? Math.floor(range.start) : 0;
   let end = Number.isFinite(range.end) ? Math.floor(range.end) : max;
   start = Math.max(0, Math.min(start, max));
   end = Math.max(0, Math.min(end, max));
-  if (start > end) {
-    [start, end] = [end, start];
-  }
+  if (start > end) [start, end] = [end, start];
   state.ranges[chartKey] = { start, end };
   return state.ranges[chartKey];
 }
 
+function setRangeLabel(chartKey) {
+  const label = document.getElementById(`${chartKey}RangeLabel`);
+  const list = chartKey === "ls" ? state.chartData.lsRaw : state.chartData[chartKey];
+  if (!label) return;
+  if (!list?.length) {
+    label.textContent = "--";
+    return;
+  }
+  const range = normalizeRange(chartKey);
+  label.textContent = `${getSeriesDate(list[range.start])} ~ ${getSeriesDate(list[range.end])}`;
+}
+
 function setRangeInputs(chartKey) {
-  const list = state.chartData[chartKey] || [];
-  const max = Math.max(0, list.length - 1);
+  const list = chartKey === "ls" ? state.chartData.lsRaw : state.chartData[chartKey];
+  const max = Math.max(0, (list?.length || 0) - 1);
   const startInput = document.getElementById(`${chartKey}RangeStart`);
   const endInput = document.getElementById(`${chartKey}RangeEnd`);
   if (!startInput || !endInput) return;
@@ -112,10 +169,8 @@ function setRangeInputs(chartKey) {
   endInput.max = String(max);
   startInput.min = "0";
   endInput.min = "0";
-  startInput.step = "1";
-  endInput.step = "1";
 
-  if (!list.length) {
+  if (!list?.length) {
     startInput.value = "0";
     endInput.value = "0";
     startInput.disabled = true;
@@ -128,69 +183,286 @@ function setRangeInputs(chartKey) {
 
   startInput.disabled = false;
   endInput.disabled = false;
-
   const current = normalizeRange(chartKey);
-  if (current.start === 0 && current.end === 0 && max > 0) {
-    state.ranges[chartKey] = { start: 0, end: max };
-  }
-  startInput.value = String(state.ranges[chartKey].start);
-  endInput.value = String(state.ranges[chartKey].end);
+  startInput.value = String(current.start);
+  endInput.value = String(current.end);
   setRangeLabel(chartKey);
   setRangeBackground(chartKey);
 }
 
-function attachRangeHandlers() {
-  ["ic", "ls"].forEach((chartKey) => {
-    const startInput = document.getElementById(`${chartKey}RangeStart`);
-    const endInput = document.getElementById(`${chartKey}RangeEnd`);
-    if (!startInput || !endInput || startInput.dataset.bound === "1") return;
+function mergeIC(ic1, ic5, ic22) {
+  const out = {};
+  [ic1, ic5, ic22].forEach((arr, idx) => {
+    const key = idx === 0 ? "ic_1" : idx === 1 ? "ic_5" : "ic_22";
+    (arr || []).forEach((row) => {
+      const d = row.date;
+      out[d] = out[d] || { trade_date: d, ic_1: NaN, ic_5: NaN, ic_22: NaN };
+      out[d][key] = Number(row.value);
+    });
+  });
+  return Object.values(out).sort((a, b) => String(a.trade_date).localeCompare(String(b.trade_date)));
+}
 
-    const handleRangeInput = (kind) => (event) => {
-      const rawValue = Number(event.target.value);
-      const list = state.chartData[chartKey] || [];
-      const max = Math.max(0, list.length - 1);
-      const nextValue = Math.max(0, Math.min(max, Math.floor(rawValue)));
-      const current = normalizeRange(chartKey);
-      if (kind === "start") {
-        current.start = Math.min(nextValue, current.end);
-      } else {
-        current.end = Math.max(nextValue, current.start);
-      }
-      state.ranges[chartKey] = current;
-      startInput.value = String(current.start);
-      endInput.value = String(current.end);
-      setRangeLabel(chartKey);
-      setRangeBackground(chartKey);
-      if (chartKey === "ic") {
-        renderIcChart();
-      } else {
-        renderLongShortChart();
-      }
-    };
+function setupCanvas(canvas) {
+  const box = canvas.parentElement.getBoundingClientRect();
+  const ratio = window.devicePixelRatio || 1;
+  const width = Math.max(320, Math.floor(box.width));
+  const height = Math.max(220, Math.floor(box.height));
+  canvas.style.width = `${width}px`;
+  canvas.style.height = `${height}px`;
+  canvas.width = Math.floor(width * ratio);
+  canvas.height = Math.floor(height * ratio);
+  const ctx = canvas.getContext("2d");
+  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  return { ctx, width, height };
+}
 
-    startInput.addEventListener("input", handleRangeInput("start"));
-    endInput.addEventListener("input", handleRangeInput("end"));
-    startInput.dataset.bound = "1";
-    endInput.dataset.bound = "1";
+function drawLineChart(canvasId, seriesList, options = {}) {
+  const canvas = document.getElementById(canvasId);
+  const { ctx, width, height } = setupCanvas(canvas);
+  const padding = { left: 52, right: 20, top: 30, bottom: 34 };
+  const allPoints = seriesList.flatMap((s) => s.points || []).filter((p) => Number.isFinite(p.value));
+  if (!allPoints.length) {
+    ctx.clearRect(0, 0, width, height);
+    ctx.fillStyle = "#6b7280";
+    ctx.font = "14px Segoe UI, Arial";
+    ctx.textAlign = "center";
+    ctx.fillText(options.emptyText || "暂无可展示数据", width / 2, height / 2);
+    return;
+  }
+
+  const values = allPoints.map((p) => p.value);
+  let min = Math.min(...values);
+  let max = Math.max(...values);
+  if (options.zeroLine) {
+    min = Math.min(min, 0);
+    max = Math.max(max, 0);
+  }
+  if (min === max) {
+    min -= 1;
+    max += 1;
+  }
+  const span = max - min;
+  min -= span * 0.08;
+  max += span * 0.08;
+
+  const plotW = width - padding.left - padding.right;
+  const plotH = height - padding.top - padding.bottom;
+  const xFor = (i, n) => padding.left + (n <= 1 ? 0 : (i / (n - 1)) * plotW);
+  const yFor = (v) => padding.top + (1 - (v - min) / (max - min)) * plotH;
+
+  ctx.clearRect(0, 0, width, height);
+  ctx.strokeStyle = "#e5eaf2";
+  ctx.lineWidth = 1;
+  ctx.fillStyle = "#6b7280";
+  ctx.font = "12px Segoe UI, Arial";
+  ctx.textAlign = "right";
+  for (let i = 0; i <= 4; i += 1) {
+    const y = padding.top + (i / 4) * plotH;
+    const value = max - (i / 4) * (max - min);
+    ctx.beginPath();
+    ctx.moveTo(padding.left, y);
+    ctx.lineTo(width - padding.right, y);
+    ctx.stroke();
+    ctx.fillText(options.percent ? `${(value * 100).toFixed(0)}%` : value.toFixed(2), padding.left - 8, y + 4);
+  }
+
+  if (options.highlightRange && allPoints.length > 1) {
+    const range = options.highlightRange;
+    const refSeries = seriesList.find((item) => item.name === range.seriesName) || seriesList[0];
+    const points = refSeries.points || [];
+    const startIdx = points.findIndex((point) => point.date === range.startDate);
+    const endIdx = points.findIndex((point) => point.date === range.endDate);
+    if (startIdx >= 0 && endIdx >= 0 && endIdx >= startIdx) {
+      const xStart = xFor(startIdx, points.length);
+      const xEnd = xFor(endIdx, points.length);
+      ctx.fillStyle = "rgba(229, 83, 83, 0.10)";
+      ctx.fillRect(xStart, padding.top, xEnd - xStart, plotH);
+    }
+  }
+
+  if (options.zeroLine && min < 0 && max > 0) {
+    const y = yFor(0);
+    ctx.strokeStyle = "#cbd5e1";
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.moveTo(padding.left, y);
+    ctx.lineTo(width - padding.right, y);
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  seriesList.forEach((series) => {
+    const points = (series.points || []).filter((p) => Number.isFinite(p.value));
+    if (!points.length) return;
+    ctx.strokeStyle = series.color;
+    ctx.lineWidth = series.lineWidth || 2;
+    ctx.setLineDash(series.dash ? [6, 5] : []);
+    ctx.beginPath();
+    points.forEach((p, i) => {
+      const x = xFor(i, points.length);
+      const y = yFor(p.value);
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+    ctx.setLineDash([]);
+  });
+
+  if (options.markers) {
+    const markerSeries = seriesList.find((item) => item.name === options.markers.seriesName) || seriesList[0];
+    const points = markerSeries.points || [];
+    options.markers.items.forEach((marker) => {
+      const idx = points.findIndex((point) => point.date === marker.date);
+      if (idx < 0) return;
+      const point = points[idx];
+      if (!Number.isFinite(point.value)) return;
+      const x = xFor(idx, points.length);
+      const y = yFor(point.value);
+      ctx.fillStyle = marker.color;
+      ctx.beginPath();
+      ctx.arc(x, y, 4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = marker.color;
+      ctx.textAlign = "left";
+      ctx.fillText(marker.label, Math.min(width - padding.right - 32, x + 6), Math.max(padding.top + 12, y - 8));
+    });
+  }
+
+  const longestSeries = seriesList.reduce((best, item) => ((item.points || []).length > (best.points || []).length ? item : best), { points: [] });
+  const first = longestSeries.points[0]?.date;
+  const last = longestSeries.points[longestSeries.points.length - 1]?.date;
+  ctx.fillStyle = "#6b7280";
+  ctx.textAlign = "left";
+  ctx.fillText(first || "", padding.left, height - 10);
+  ctx.textAlign = "right";
+  ctx.fillText(last || "", width - padding.right, height - 10);
+
+  let legendX = padding.left;
+  seriesList.forEach((series) => {
+    ctx.strokeStyle = series.color;
+    ctx.lineWidth = series.lineWidth || 2;
+    ctx.setLineDash(series.dash ? [6, 5] : []);
+    ctx.beginPath();
+    ctx.moveTo(legendX, 14);
+    ctx.lineTo(legendX + 22, 14);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillText(series.name || "", legendX + 28, 18);
+    legendX += 24 + ctx.measureText(series.name || "").width + 18;
   });
 }
 
-function sliceByRange(points, chartKey) {
-  const range = normalizeRange(chartKey);
-  if (!points.length) return [];
-  return points.slice(range.start, range.end + 1);
+function computeStaticAnalysis(rawSeries, startIdx, endIdx) {
+  const max = Math.max(0, rawSeries.length - 1);
+  const safeStart = Math.max(0, Math.min(max, startIdx ?? 0));
+  const safeEnd = Math.max(0, Math.min(max, endIdx ?? max));
+  const [start, end] = safeStart <= safeEnd ? [safeStart, safeEnd] : [safeEnd, safeStart];
+  const window = rawSeries.slice(start, end + 1);
+  const normalize = (field) => {
+    const first = window.find((item) => Number.isFinite(Number(item[field])));
+    const base = first ? Number(first[field]) : NaN;
+    return window.map((item) => {
+      const value = Number(item[field]);
+      return {
+        date: item.date,
+        value: Number.isFinite(value) && Number.isFinite(base) && base !== 0 ? value / base : null,
+      };
+    });
+  };
+  const long = normalize("long_value");
+  const short = normalize("short_value");
+  const longShort = normalize("long_short_value");
+  const lsValues = longShort.filter((item) => Number.isFinite(Number(item.value)));
+  let annualReturn = null;
+  let annualVolatility = null;
+  let maxDrawdown = null;
+  let range = null;
+  if (lsValues.length) {
+    const navs = lsValues.map((item) => Number(item.value));
+    if (navs.length > 1) {
+      annualReturn = navs[navs.length - 1] ** (252 / (navs.length - 1)) - 1;
+      const returns = [];
+      for (let idx = 1; idx < navs.length; idx += 1) {
+        returns.push(navs[idx] / navs[idx - 1] - 1);
+      }
+      if (returns.length) {
+        const mean = returns.reduce((sum, value) => sum + value, 0) / returns.length;
+        const variance = returns.reduce((sum, value) => sum + (value - mean) ** 2, 0) / returns.length;
+        annualVolatility = Math.sqrt(variance) * Math.sqrt(252);
+      }
+    }
+    let runningMax = -Infinity;
+    let peakIdx = 0;
+    let troughIdx = 0;
+    let worst = 0;
+    navs.forEach((nav, idx) => {
+      if (nav > runningMax) {
+        runningMax = nav;
+        peakIdx = idx;
+      }
+      const drawdown = nav / runningMax - 1;
+      if (drawdown < worst) {
+        worst = drawdown;
+        troughIdx = idx;
+      }
+    });
+    maxDrawdown = worst;
+    let actualPeakIdx = 0;
+    let peakValue = -Infinity;
+    for (let idx = 0; idx <= troughIdx; idx += 1) {
+      if (navs[idx] >= peakValue) {
+        peakValue = navs[idx];
+        actualPeakIdx = idx;
+      }
+    }
+    let recoveryDate = null;
+    for (let idx = troughIdx; idx < navs.length; idx += 1) {
+      if (navs[idx] >= peakValue) {
+        recoveryDate = lsValues[idx].date;
+        break;
+      }
+    }
+    range = {
+      peak_date: lsValues[actualPeakIdx]?.date || null,
+      trough_date: lsValues[troughIdx]?.date || null,
+      recovery_date: recoveryDate,
+    };
+  }
+  return {
+    series: window.map((item, idx) => ({
+      date: item.date,
+      long_value: long[idx]?.value ?? null,
+      short_value: short[idx]?.value ?? null,
+      long_short_value: longShort[idx]?.value ?? null,
+    })),
+    stats: {
+      annual_return: annualReturn,
+      annual_volatility: annualVolatility,
+      max_drawdown: maxDrawdown,
+      max_drawdown_range: range,
+    },
+  };
 }
 
 function renderSummary() {
   const s = state.summary;
   if (!s) return;
-  setText("latestTradeDate", s.latest_trade_date);
+  setText("latestTradeDate", s.market_latest_trade_date || s.latest_trade_date);
   setText("latestFactorDate", s.latest_factor_date);
   setText("activeCount", s.status_counts.active || 0);
   setText("candidateCount", s.status_counts.candidate || 0);
   setText("draftCount", s.status_counts.draft || 0);
-  const statusEl = document.getElementById("latestJobStatus");
-  if (statusEl) statusEl.textContent = s.latest_job?.status || "--";
+  setText("latestJobStatus", s.latest_job?.status || "--");
+  setText("statusMarketTradeDate", s.market_latest_trade_date || s.latest_trade_date);
+  setText("statusFactorDate", s.latest_factor_date);
+  setText("statusLatestJob", s.latest_job?.status || "--");
+  const latestJobStatus = document.getElementById("latestJobStatus");
+  const statusLatestJob = document.getElementById("statusLatestJob");
+  [latestJobStatus, statusLatestJob].forEach((node) => {
+    if (!node) return;
+    node.className = s.latest_job?.status || "";
+  });
 }
 
 function renderFactors() {
@@ -200,7 +472,7 @@ function renderFactors() {
     item.factor_name.toLowerCase().includes(query) ||
     (item.factor_family || "").toLowerCase().includes(query)
   );
-  document.getElementById("factorCount").textContent = `(${filtered.length})`;
+  setText("factorCount", `(${filtered.length})`);
   tbody.innerHTML = filtered
     .map((item) => `
       <tr data-factor="${item.factor_name}" class="${state.selectedFactor === item.factor_name ? "selected" : ""}">
@@ -235,306 +507,201 @@ function renderJobs() {
     .join("");
 }
 
-function setupCanvas(canvas) {
-  const box = canvas.parentElement.getBoundingClientRect();
-  const ratio = window.devicePixelRatio || 1;
-  const width = Math.max(320, Math.floor(box.width));
-  const height = Math.max(220, Math.floor(box.height));
-  canvas.style.width = `${width}px`;
-  canvas.style.height = `${height}px`;
-  canvas.width = Math.floor(width * ratio);
-  canvas.height = Math.floor(height * ratio);
-  const ctx = canvas.getContext("2d");
-  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-  return { ctx, width, height };
-}
-
-function drawLineChart(canvasId, seriesList, options = {}) {
-  const canvas = document.getElementById(canvasId);
-  const { ctx, width, height } = setupCanvas(canvas);
-  const padding = { left: 48, right: 18, top: 28, bottom: 34 };
-  const allPoints = seriesList.flatMap((s) => s.points || []).filter((p) => Number.isFinite(p.value));
-  if (!allPoints.length) {
-    ctx.clearRect(0, 0, width, height);
-    ctx.fillStyle = "#6b7280";
-    ctx.font = "14px Segoe UI, Arial";
-    ctx.textAlign = "center";
-    ctx.fillText("暂无可展示数据", width / 2, height / 2);
-    return;
-  }
-
-  const values = allPoints.map((p) => p.value);
-  let min = Math.min(...values);
-  let max = Math.max(...values);
-  if (options.zeroLine) {
-    min = Math.min(min, 0);
-    max = Math.max(max, 0);
-  }
-  if (min === max) {
-    min -= 1;
-    max += 1;
-  }
-  const span = max - min;
-  min -= span * 0.1;
-  max += span * 0.1;
-
-  const plotW = width - padding.left - padding.right;
-  const plotH = height - padding.top - padding.bottom;
-  const xFor = (i, n) => padding.left + (n <= 1 ? 0 : (i / (n - 1)) * plotW);
-  const yFor = (v) => padding.top + (1 - (v - min) / (max - min)) * plotH;
-
-  ctx.clearRect(0, 0, width, height);
-  ctx.strokeStyle = "#e5eaf2";
-  ctx.lineWidth = 1;
-  ctx.fillStyle = "#6b7280";
-  ctx.font = "12px Segoe UI, Arial";
-  ctx.textAlign = "right";
-  for (let i = 0; i <= 4; i += 1) {
-    const y = padding.top + (i / 4) * plotH;
-    const value = max - (i / 4) * (max - min);
-    ctx.beginPath();
-    ctx.moveTo(padding.left, y);
-    ctx.lineTo(width - padding.right, y);
-    ctx.stroke();
-    ctx.fillText(options.percent ? `${(value * 100).toFixed(0)}%` : value.toFixed(2), padding.left - 8, y + 4);
-  }
-
-  if (options.zeroLine && min < 0 && max > 0) {
-    const y = yFor(0);
-    ctx.strokeStyle = "#cbd5e1";
-    ctx.setLineDash([4, 4]);
-    ctx.beginPath();
-    ctx.moveTo(padding.left, y);
-    ctx.lineTo(width - padding.right, y);
-    ctx.stroke();
-    ctx.setLineDash([]);
-  }
-
-  seriesList.forEach((series) => {
-    const points = (series.points || []).filter((p) => Number.isFinite(p.value));
-    if (!points.length) return;
-    ctx.strokeStyle = series.color;
-    ctx.lineWidth = 2;
-    ctx.setLineDash(series.dash ? [6, 5] : []);
-    ctx.beginPath();
-    points.forEach((p, i) => {
-      const x = xFor(i, points.length);
-      const y = yFor(p.value);
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
-    });
-    ctx.stroke();
-    ctx.setLineDash([]);
-  });
-
-  const longestSeries = seriesList.reduce((best, item) =>
-    (item.points || []).length > (best.points || []).length ? item : best,
-  { points: [] });
-  const first = longestSeries.points[0]?.date;
-  const last = longestSeries.points[longestSeries.points.length - 1]?.date;
-  ctx.fillStyle = "#6b7280";
-  ctx.textAlign = "left";
-  ctx.fillText(first || "", padding.left, height - 10);
-  ctx.textAlign = "right";
-  ctx.fillText(last || "", width - padding.right, height - 10);
-
-  let legendX = padding.left;
-  seriesList.forEach((series) => {
-    ctx.strokeStyle = series.color;
-    ctx.lineWidth = 2;
-    ctx.setLineDash(series.dash ? [6, 5] : []);
-    ctx.beginPath();
-    ctx.moveTo(legendX, 14);
-    ctx.lineTo(legendX + 22, 14);
-    ctx.stroke();
-    ctx.setLineDash([]);
-    ctx.fillText(series.name || "", legendX + 28, 18);
-    legendX += 24 + ctx.measureText(series.name || "").width + 18;
-  });
-}
-
-function mergeIC(ic1, ic5, ic22) {
-  const out = {};
-  [ic1, ic5, ic22].forEach((arr, idx) => {
-    const key = idx === 0 ? "ic_1" : idx === 1 ? "ic_5" : "ic_22";
-    (arr || []).forEach((row) => {
-      const d = row.date;
-      out[d] = out[d] || { trade_date: d, ic_1: NaN, ic_5: NaN, ic_22: NaN };
-      out[d][key] = Number(row.value);
-    });
-  });
-  return Object.values(out).sort((a, b) => String(a.trade_date).localeCompare(String(b.trade_date)));
-}
-
 function renderIcChart() {
-  const points = sliceByRange(state.chartData.ic || [], "ic");
+  const range = normalizeRange("ic");
+  const points = (state.chartData.ic || []).slice(range.start, range.end + 1);
   const visible = {
     ic_1: document.getElementById("toggleIc1").checked,
     ic_5: document.getElementById("toggleIc5").checked,
     ic_22: document.getElementById("toggleIc22").checked,
   };
   const series = [];
-  if (visible.ic_1) series.push({ name: "IC_1", color: "#2563eb", points: points.map((p) => ({ date: p.trade_date, value: Number(p.ic_1) })) });
-  if (visible.ic_5) series.push({ name: "IC_5", color: "#2f9e65", points: points.map((p) => ({ date: p.trade_date, value: Number(p.ic_5) })) });
-  if (visible.ic_22) series.push({ name: "IC_22", color: "#e79b28", points: points.map((p) => ({ date: p.trade_date, value: Number(p.ic_22) })) });
-  drawLineChart("icChart", series, false);
+  if (visible.ic_1) series.push({ name: "IC_1", color: "#2563eb", points: points.map((p) => ({ date: p.trade_date, value: numericOrNaN(p.ic_1) })) });
+  if (visible.ic_5) series.push({ name: "IC_5", color: "#2f9e65", points: points.map((p) => ({ date: p.trade_date, value: numericOrNaN(p.ic_5) })) });
+  if (visible.ic_22) series.push({ name: "IC_22", color: "#e79b28", points: points.map((p) => ({ date: p.trade_date, value: numericOrNaN(p.ic_22) })) });
+  drawLineChart("icChart", series, { zeroLine: true });
   setRangeLabel("ic");
   setRangeBackground("ic");
 }
 
-function mergeLS(longNav, shortNav, lsNav) {
-  const out = {};
-  const fill = (arr, key) => (arr || []).forEach((row) => {
-    const d = row.date;
-    out[d] = out[d] || { date: d, long_value: NaN, short_value: NaN, long_short_value: NaN };
-    out[d][key] = Number(row.nav);
-  });
-  fill(longNav, "long_value");
-  fill(shortNav, "short_value");
-  fill(lsNav, "long_short_value");
-  return Object.values(out).sort((a, b) => String(a.date).localeCompare(String(b.date)));
+function renderGroupChart() {
+  const payload = state.chartData.group;
+  const columns = payload.columns || [];
+  const seriesRows = payload.series || [];
+  const palette = ["#2563eb", "#2f9e65", "#e79b28", "#ef5552", "#7c3aed", "#0891b2", "#c2410c", "#0f766e", "#4f46e5", "#be123c"];
+  const series = columns.map((column, idx) => ({
+    name: `Q${column}`,
+    color: palette[idx % palette.length],
+    lineWidth: column === columns[0] || column === columns[columns.length - 1] ? 2.4 : 1.4,
+    points: seriesRows.map((row) => ({ date: row.date, value: numericOrNaN(row[column]) })),
+  }));
+  drawLineChart("groupChart", series, { emptyText: "暂无全区间分组收益数据" });
+}
+
+function renderLsMetrics(stats) {
+  setText("annualReturnValue", pct(stats?.annual_return));
+  setText("annualVolatilityValue", pct(stats?.annual_volatility));
+  setText("maxDrawdownValue", pct(stats?.max_drawdown));
+  const range = stats?.max_drawdown_range;
+  if (!range?.peak_date || !range?.trough_date) {
+    setText("maxDrawdownRangeValue", "--");
+    return;
+  }
+  const recoveryPart = range.recovery_date ? `，恢复 ${range.recovery_date}` : "，尚未恢复";
+  setText("maxDrawdownRangeValue", `${range.peak_date} -> ${range.trough_date}${recoveryPart}`);
 }
 
 function renderLongShortChart() {
-  const points = sliceByRange(state.chartData.ls || [], "ls");
+  const points = state.chartData.ls || [];
   const visible = {
     long_value: document.getElementById("toggleLong").checked,
     short_value: document.getElementById("toggleShort").checked,
     long_short_value: document.getElementById("toggleLongShort").checked,
   };
   const series = [];
-  if (visible.long_value) series.push({ name: "Long", color: "#2563eb", points: points.map((p) => ({ date: p.date, value: Number(p.long_value) })) });
-  if (visible.short_value) series.push({ name: "Short", color: "#ef5552", points: points.map((p) => ({ date: p.date, value: Number(p.short_value) })) });
-  if (visible.long_short_value) series.push({ name: "LongShort", color: "#2f9e65", points: points.map((p) => ({ date: p.date, value: Number(p.long_short_value) })) });
-  drawLineChart("lsChart", series, false);
+  if (visible.long_value) series.push({ name: "Long", color: "#2563eb", points: points.map((p) => ({ date: p.date, value: numericOrNaN(p.long_value) })) });
+  if (visible.short_value) series.push({ name: "Short", color: "#ef5552", points: points.map((p) => ({ date: p.date, value: numericOrNaN(p.short_value) })) });
+  if (visible.long_short_value) series.push({ name: "LongShort", color: "#2f9e65", lineWidth: 2.6, points: points.map((p) => ({ date: p.date, value: numericOrNaN(p.long_short_value) })) });
+
+  const stats = state.chartData.lsStats || {};
+  const range = stats.max_drawdown_range;
+  const highlightRange = range?.peak_date && range?.trough_date
+    ? { seriesName: "LongShort", startDate: range.peak_date, endDate: range.trough_date }
+    : null;
+  const markers = range?.peak_date && range?.trough_date
+    ? {
+        seriesName: "LongShort",
+        items: [
+          { date: range.peak_date, color: "#e55353", label: "Peak" },
+          { date: range.trough_date, color: "#e55353", label: "Trough" },
+          ...(range.recovery_date ? [{ date: range.recovery_date, color: "#2563eb", label: "Recover" }] : []),
+        ],
+      }
+    : null;
+
+  drawLineChart("lsChart", series, {
+    highlightRange,
+    markers,
+    emptyText: "暂无全区间收益序列数据",
+  });
+  renderLsMetrics(stats);
   setRangeLabel("ls");
   setRangeBackground("ls");
 }
 
-function getFactorSeriesPayload(url, factorName, seriesKey) {
-  return getJson(url).then((payload) => ({
-    factor_name: payload.factor_name || factorName,
-    version_id: payload.version_id || null,
-    series: (payload.series || []).map((row) => ({
-      date: row.trade_date || row.date,
-      value: row[seriesKey] ?? row.value,
-    })),
-  }));
-}
-
 async function fetchSummary() {
-  if (STATIC_MODE) {
-    return getJson(dataPath("summary.json"));
-  }
-  return getJson("/api/summary");
+  return STATIC_MODE ? getJson(dataPath("summary.json")) : getJson("/api/summary");
 }
 
 async function fetchFactors() {
-  if (STATIC_MODE) {
-    return getJson(dataPath("factors.json"));
-  }
-  return getJson("/api/factors");
+  return STATIC_MODE ? getJson(dataPath("factors.json")) : getJson("/api/factors");
 }
 
 async function fetchJobs() {
-  if (STATIC_MODE) {
-    return getJson(dataPath("jobs.json"));
-  }
-  return getJson("/api/jobs");
+  return STATIC_MODE ? getJson(dataPath("jobs.json")) : getJson("/api/jobs");
 }
 
-async function fetchEvalSeries(factor, evalType, horizon) {
+async function fetchEvalSeries(factor, horizon) {
   if (STATIC_MODE) {
     const payload = await getJson(dataPath(`ic/${factorKey(factor)}.json`));
     const seriesKey = horizon === 1 ? "ic_1" : horizon === 5 ? "ic_5" : "ic_22";
-    return {
-      factor_name: payload.factor_name || factor,
-      version_id: payload.version_id || null,
-      series: (payload.series || []).map((row) => ({
-        date: row.trade_date,
-        value: row[seriesKey],
-      })),
-    };
+    return (payload.series || []).map((row) => ({ date: row.trade_date, value: row[seriesKey] }));
   }
   const q = new URLSearchParams({
     factor,
     universe: "ALL",
     horizon: String(horizon),
-    eval_type: evalType,
+    eval_type: "rank_ic",
     weighting: "equal_weight",
     transform_type: "industry_size_neutral",
   });
-  return getJson(`/api/eval-series?${q.toString()}`);
+  const payload = await getJson(`/api/eval-series?${q.toString()}`);
+  return (payload.series || []).map((row) => ({ date: row.date, value: row.value }));
 }
 
-async function fetchNav(factor, evalType) {
+async function fetchBacktestNav(factor) {
+  if (STATIC_MODE) return getJson(dataPath(`long-short/${factorKey(factor)}.json`));
+  const factorMeta = getSelectedFactorMeta();
+  const q = new URLSearchParams({ factor, version_id: factorMeta?.version_id || "" });
+  return getJson(`/api/backtest-nav?${q.toString()}`);
+}
+
+async function fetchGroupReturns(factor) {
+  if (STATIC_MODE) return getJson(dataPath(`group-returns/${factorKey(factor)}.json`));
+  const factorMeta = getSelectedFactorMeta();
+  const q = new URLSearchParams({ factor, version_id: factorMeta?.version_id || "" });
+  return getJson(`/api/group-returns?${q.toString()}`);
+}
+
+async function fetchBacktestAnalysis(factor, startIdx, endIdx) {
   if (STATIC_MODE) {
-    const payload = await getJson(dataPath(`long-short/${factorKey(factor)}.json`));
-    const field = evalType === "long_ret" ? "long_value" : evalType === "short_ret" ? "short_value" : "long_short_value";
-    return {
-      factor_name: payload.factor_name || factor,
-      version_id: payload.version_id || null,
-      series: (payload.series || []).map((row) => ({
-        date: row.date,
-        nav: row[field],
-      })),
-    };
+    return computeStaticAnalysis(state.chartData.lsRaw || [], startIdx, endIdx);
   }
+  const factorMeta = getSelectedFactorMeta();
   const q = new URLSearchParams({
     factor,
-    universe: "ALL",
-    horizon: "1",
-    eval_type: evalType,
-    weighting: "equal_weight",
-    transform_type: "industry_size_neutral",
+    version_id: factorMeta?.version_id || "",
+    start_idx: String(startIdx),
+    end_idx: String(endIdx),
   });
-  return getJson(`/api/nav-drawdown?${q.toString()}`);
-}
-
-function syncPanelHeights() {
-  const factorPanel = document.querySelector(".factor-panel");
-  const icPanel = document.getElementById("icChart")?.closest(".panel");
-  if (!factorPanel || !icPanel) return;
-  factorPanel.style.height = "";
-  const targetHeight = Math.round(icPanel.getBoundingClientRect().height);
-  if (targetHeight > 0) {
-    factorPanel.style.height = `${targetHeight}px`;
-  }
+  return getJson(`/api/backtest-analysis?${q.toString()}`);
 }
 
 function chooseDefaultFactor() {
   state.selectedFactor = state.factors[0]?.factor_name || null;
-  document.getElementById("selectedFactorHint").textContent = state.selectedFactor ? `当前: ${state.selectedFactor}` : "";
+  setText("selectedFactorHint", state.selectedFactor ? `当前: ${state.selectedFactor}` : "");
 }
 
-async function loadCharts() {
+async function updateLongShortAnalysis() {
   if (!state.selectedFactor) return;
-  const [ic1, ic5, ic22, longRet, shortRet, lsRet] = await Promise.all([
-    fetchEvalSeries(state.selectedFactor, "rank_ic", 1),
-    fetchEvalSeries(state.selectedFactor, "rank_ic", 5),
-    fetchEvalSeries(state.selectedFactor, "rank_ic", 22),
-    fetchNav(state.selectedFactor, "long_ret"),
-    fetchNav(state.selectedFactor, "short_ret"),
-    fetchNav(state.selectedFactor, "long_short_ret"),
+  const token = ++lsAnalysisToken;
+  const range = normalizeRange("ls");
+  const payload = await fetchBacktestAnalysis(state.selectedFactor, range.start, range.end);
+  if (token !== lsAnalysisToken) return;
+  state.chartData.ls = payload.series || [];
+  state.chartData.lsStats = payload.stats || {};
+  renderLongShortChart();
+}
+
+function queueLongShortAnalysis() {
+  if (lsAnalysisTimer) window.clearTimeout(lsAnalysisTimer);
+  lsAnalysisTimer = window.setTimeout(() => {
+    updateLongShortAnalysis().catch((err) => {
+      console.error(err);
+      showToast(`收益区间分析失败: ${err.message}`);
+    });
+  }, 90);
+}
+
+async function loadFactorDependentPanels() {
+  if (!state.selectedFactor) return;
+  const [ic1, ic5, ic22, backtestNav, groupReturns] = await Promise.all([
+    fetchEvalSeries(state.selectedFactor, 1),
+    fetchEvalSeries(state.selectedFactor, 5),
+    fetchEvalSeries(state.selectedFactor, 22),
+    fetchBacktestNav(state.selectedFactor),
+    fetchGroupReturns(state.selectedFactor),
   ]);
-  state.chartData.ic = mergeIC(ic1.series, ic5.series, ic22.series);
-  state.chartData.ls = mergeLS(longRet.series, shortRet.series, lsRet.series);
+  state.chartData.ic = mergeIC(ic1, ic5, ic22);
+  state.chartData.group = groupReturns || { columns: [], series: [] };
+  state.chartData.lsRaw = backtestNav?.series || [];
   state.ranges.ic = { start: 0, end: Math.max(0, state.chartData.ic.length - 1) };
-  state.ranges.ls = { start: 0, end: Math.max(0, state.chartData.ls.length - 1) };
+  state.ranges.ls = { start: 0, end: Math.max(0, state.chartData.lsRaw.length - 1) };
   setRangeInputs("ic");
   setRangeInputs("ls");
-  document.getElementById("icChartTitle").textContent = state.selectedFactor;
-  document.getElementById("lsChartTitle").textContent = state.selectedFactor;
+  setText("icChartTitle", state.selectedFactor);
+  setText("groupChartTitle", state.selectedFactor);
+  setText("lsChartTitle", state.selectedFactor);
   renderIcChart();
-  renderLongShortChart();
-  syncPanelHeights();
+  renderGroupChart();
+  await updateLongShortAnalysis();
 }
 
 async function selectFactor(factorName) {
   state.selectedFactor = factorName;
-  document.getElementById("selectedFactorHint").textContent = `当前: ${factorName}`;
+  setText("selectedFactorHint", factorName ? `当前: ${factorName}` : "");
   renderFactors();
-  await loadCharts();
+  await loadFactorDependentPanels();
 }
 
 async function showLatestJobItems() {
@@ -544,9 +711,13 @@ async function showLatestJobItems() {
     box.textContent = "暂无任务记录";
     return;
   }
+  if (STATIC_MODE) {
+    box.textContent = "静态发布版暂不包含任务明细，请在本地服务版查看。";
+    return;
+  }
   const items = await getJson(`/api/job-items?run_id=${encodeURIComponent(latest.run_id)}`);
   box.innerHTML = items.length
-    ? items.map((item) => `<div class="job-item-row"><strong>${item.factor_name}</strong> <span class="badge ${item.status}">${item.status}</span> <span>${item.error_type || item.rows_written || ""} ${item.error_message || ""}</span></div>`).join("")
+    ? items.map((item) => `<div class="job-item-row"><strong>${item.factor_name}</strong><span class="badge ${item.status}">${item.status}</span><span>${item.error_type || item.rows_written || ""} ${item.error_message || ""}</span></div>`).join("")
     : "最近任务没有明细记录";
 }
 
@@ -559,22 +730,83 @@ async function loadDashboard() {
   renderSummary();
   renderFactors();
   renderJobs();
-  await loadCharts();
-  attachRangeHandlers();
-  syncPanelHeights();
+  await loadFactorDependentPanels();
 }
 
-document.getElementById("refreshBtn").addEventListener("click", loadDashboard);
-document.getElementById("searchInput").addEventListener("input", renderFactors);
-document.getElementById("showJobItemsBtn").addEventListener("click", showLatestJobItems);
-["toggleIc1", "toggleIc5", "toggleIc22"].forEach((id) => document.getElementById(id).addEventListener("change", renderIcChart));
-["toggleLong", "toggleShort", "toggleLongShort"].forEach((id) => document.getElementById(id).addEventListener("change", renderLongShortChart));
-window.addEventListener("resize", () => {
-  renderIcChart();
-  renderLongShortChart();
-  syncPanelHeights();
-});
+function bindNavigation() {
+  document.querySelectorAll("nav a[data-view]").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const view = link.dataset.view;
+      if (view === "building") {
+        event.preventDefault();
+        showToast("敬请期待");
+        return;
+      }
+      event.preventDefault();
+      switchView(view);
+    });
+    if (link.dataset.view === "building") {
+      link.addEventListener("mouseenter", () => {
+        showToast("敬请期待");
+      });
+    }
+  });
+}
 
+function bindRangeHandlers() {
+  ["ic", "ls"].forEach((chartKey) => {
+    const startInput = document.getElementById(`${chartKey}RangeStart`);
+    const endInput = document.getElementById(`${chartKey}RangeEnd`);
+    const handle = (kind) => (event) => {
+      const list = chartKey === "ls" ? state.chartData.lsRaw : state.chartData[chartKey];
+      const max = Math.max(0, (list?.length || 0) - 1);
+      const next = Math.max(0, Math.min(max, Math.floor(Number(event.target.value))));
+      const current = normalizeRange(chartKey);
+      if (kind === "start") current.start = Math.min(next, current.end);
+      else current.end = Math.max(next, current.start);
+      state.ranges[chartKey] = current;
+      startInput.value = String(current.start);
+      endInput.value = String(current.end);
+      setRangeLabel(chartKey);
+      setRangeBackground(chartKey);
+      if (chartKey === "ic") {
+        renderIcChart();
+      } else {
+        queueLongShortAnalysis();
+      }
+    };
+    startInput.addEventListener("input", handle("start"));
+    endInput.addEventListener("input", handle("end"));
+  });
+}
+
+function bindEvents() {
+  document.getElementById("refreshBtn").addEventListener("click", () => {
+    loadDashboard().catch((err) => {
+      console.error(err);
+      alert(`看板加载失败: ${err.message}`);
+    });
+  });
+  document.getElementById("searchInput").addEventListener("input", renderFactors);
+  document.getElementById("showJobItemsBtn").addEventListener("click", () => {
+    showLatestJobItems().catch((err) => {
+      console.error(err);
+      showToast(`任务明细加载失败: ${err.message}`);
+    });
+  });
+  ["toggleIc1", "toggleIc5", "toggleIc22"].forEach((id) => document.getElementById(id).addEventListener("change", renderIcChart));
+  ["toggleLong", "toggleShort", "toggleLongShort"].forEach((id) => document.getElementById(id).addEventListener("change", renderLongShortChart));
+  window.addEventListener("resize", () => {
+    renderIcChart();
+    renderGroupChart();
+    renderLongShortChart();
+  });
+  bindNavigation();
+  bindRangeHandlers();
+}
+
+bindEvents();
+switchView("overview");
 loadDashboard().catch((err) => {
   console.error(err);
   alert(`看板加载失败: ${err.message}`);

@@ -17,21 +17,22 @@
       </div>
       <nav>
         <a class="active" href="#overview" data-view="overview"><span class="nav-icon">▦</span>因子总览</a>
-        <a href="#factor-detail" data-view="building"><span class="nav-icon">⌁</span>单因子详情</a>
-        <a href="#jobs" data-view="building"><span class="nav-icon">◷</span>任务监控</a>
-        <a href="#data" data-view="building"><span class="nav-icon">◎</span>数据状态</a>
+        <a href="#status" data-view="status"><span class="nav-icon">◷</span>任务与数据状态</a>
+        <a href="#portfolio" data-view="building" title="敬请期待"><span class="nav-icon">◫</span>组合回测</a>
+        <a href="#paper" data-view="building" title="敬请期待"><span class="nav-icon">◎</span>模拟盘监控</a>
       </nav>
       <div class="sidebar-footer">
         <strong>本地研究系统</strong>
         <span>因子研究与回测平台</span>
-        <small>v0.1.0</small>
+        <small>v0.2.0</small>
       </div>
     </aside>
 
     <main class="app">
       <header class="topbar">
         <div>
-          <h1>因子看板 <span>Factor Dashboard</span></h1>
+          <h1 id="pageTitle">因子总览 <span>Factor Overview</span></h1>
+          <p id="pageSubtitle" class="page-subtitle">聚焦因子表现、分组收益与区间收益分析</p>
         </div>
         <div class="top-actions">
           <label class="search">
@@ -42,151 +43,207 @@
         </div>
       </header>
 
-      <div id="toast" class="toast" hidden>正在施工中</div>
+      <div id="toast" class="toast" hidden>敬请期待</div>
 
-      <section class="content" id="dashboardContent">
-        <section class="stats-grid">
-          <article class="stat-card">
-            <span class="stat-icon blue">□</span>
-            <div>
-              <span class="label">最新交易日</span>
-              <strong id="latestTradeDate">--</strong>
-            </div>
-          </article>
-          <article class="stat-card">
-            <span class="stat-icon blue">□</span>
-            <div>
-              <span class="label">因子值最新日期</span>
-              <strong id="latestFactorDate">--</strong>
-            </div>
-          </article>
-          <article class="stat-card">
-            <span class="stat-icon green">⌁</span>
-            <div>
-              <span class="label">Active</span>
-              <strong id="activeCount">0</strong>
-            </div>
-          </article>
-          <article class="stat-card">
-            <span class="stat-icon blue">◇</span>
-            <div>
-              <span class="label">Candidate</span>
-              <strong id="candidateCount">0</strong>
-            </div>
-          </article>
-          <article class="stat-card">
-            <span class="stat-icon amber">▤</span>
-            <div>
-              <span class="label">Draft</span>
-              <strong id="draftCount">0</strong>
-            </div>
-          </article>
-          <article class="stat-card alert" id="jobStatusCard">
-            <span class="stat-icon red">!</span>
-            <div>
-              <span class="label">最近日更状态</span>
-              <strong id="latestJobStatus">--</strong>
-            </div>
-          </article>
+      <section class="content">
+        <section id="overviewView" class="view-section is-active">
+          <section class="stats-grid">
+            <article class="stat-card">
+              <span class="stat-icon blue">□</span>
+              <div>
+                <span class="label">市场最新交易日</span>
+                <strong id="latestTradeDate">--</strong>
+              </div>
+            </article>
+            <article class="stat-card">
+              <span class="stat-icon blue">□</span>
+              <div>
+                <span class="label">因子值最新日期</span>
+                <strong id="latestFactorDate">--</strong>
+              </div>
+            </article>
+            <article class="stat-card">
+              <span class="stat-icon green">⌁</span>
+              <div>
+                <span class="label">Active</span>
+                <strong id="activeCount">0</strong>
+              </div>
+            </article>
+            <article class="stat-card">
+              <span class="stat-icon blue">◇</span>
+              <div>
+                <span class="label">Candidate</span>
+                <strong id="candidateCount">0</strong>
+              </div>
+            </article>
+            <article class="stat-card">
+              <span class="stat-icon amber">▤</span>
+              <div>
+                <span class="label">Draft</span>
+                <strong id="draftCount">0</strong>
+              </div>
+            </article>
+            <article class="stat-card alert">
+              <span class="stat-icon red">!</span>
+              <div>
+                <span class="label">最近日更状态</span>
+                <strong id="latestJobStatus">--</strong>
+              </div>
+            </article>
+          </section>
+
+          <section class="dashboard-grid">
+            <article class="panel factor-panel">
+              <div class="panel-head">
+                <h2 class="panel-title-with-tip">
+                  因子列表 <span id="factorCount"></span>
+                  <button
+                    class="info-tip"
+                    type="button"
+                    title="表内指标来自 factor_rolling_metrics 的最新 60 日滚动值，统计口径为当前版本对应的 active/candidate 因子。年化收益率、年化波动率和年化Sharpe分别对应 rolling_annual_return、rolling_vol、rolling_sharpe；这里使用的是 horizon=1 的日频 long_short_ret 口径，滚动窗口为 metric_window=60。"
+                    aria-label="指标说明"
+                  >i</button>
+                </h2>
+                <span id="selectedFactorHint" class="muted"></span>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>因子名</th>
+                      <th>状态</th>
+                      <th>当前版本</th>
+                      <th>年化收益率</th>
+                      <th>年化波动率</th>
+                      <th>年化Sharpe</th>
+                      <th>最近因子值</th>
+                    </tr>
+                  </thead>
+                  <tbody id="factorTable"></tbody>
+                </table>
+              </div>
+            </article>
+
+            <article class="panel chart-panel">
+              <div class="panel-head">
+                <h2>IC_1 / IC_5 / IC_22</h2>
+                <span class="muted" id="icChartTitle">--</span>
+              </div>
+              <div class="series-toggles" data-chart="ic">
+                <label><input type="checkbox" id="toggleIc1" data-series="ic_1" /> IC_1</label>
+                <label><input type="checkbox" id="toggleIc5" data-series="ic_5" /> IC_5</label>
+                <label><input type="checkbox" id="toggleIc22" data-series="ic_22" checked /> IC_22</label>
+              </div>
+              <div class="chart-box">
+                <canvas id="icChart"></canvas>
+              </div>
+              <div class="range-control" data-chart="ic">
+                <div class="dual-range">
+                  <input id="icRangeStart" class="range-start" type="range" min="0" max="0" value="0" aria-label="IC 起点" />
+                  <input id="icRangeEnd" class="range-end" type="range" min="0" max="0" value="0" aria-label="IC 终点" />
+                </div>
+                <span id="icRangeLabel">--</span>
+              </div>
+            </article>
+
+            <article class="panel chart-panel">
+              <div class="panel-head">
+                <h2>分组收益</h2>
+                <span class="muted" id="groupChartTitle">--</span>
+              </div>
+              <p class="panel-note">数据源来自当前因子最新成功的全区间回测产物 `quantile_cumulative_returns.csv`。</p>
+              <div class="chart-box">
+                <canvas id="groupChart"></canvas>
+              </div>
+            </article>
+
+            <article class="panel chart-panel">
+              <div class="panel-head">
+                <h2>收益序列</h2>
+                <span class="muted" id="lsChartTitle">--</span>
+              </div>
+              <div class="series-toggles" data-chart="ls">
+                <label><input type="checkbox" id="toggleLong" data-series="long_value" checked /> 多头</label>
+                <label><input type="checkbox" id="toggleShort" data-series="short_value" checked /> 空头</label>
+                <label><input type="checkbox" id="toggleLongShort" data-series="long_short_value" checked /> 多空对冲</label>
+              </div>
+              <div class="ls-metrics" id="lsMetrics">
+                <div class="metric-chip">
+                  <span>区间年化收益</span>
+                  <strong id="annualReturnValue">--</strong>
+                </div>
+                <div class="metric-chip">
+                  <span>区间年化波动</span>
+                  <strong id="annualVolatilityValue">--</strong>
+                </div>
+                <div class="metric-chip">
+                  <span>最大回撤</span>
+                  <strong id="maxDrawdownValue">--</strong>
+                </div>
+                <div class="metric-chip wide">
+                  <span>最大回撤区间</span>
+                  <strong id="maxDrawdownRangeValue">--</strong>
+                </div>
+              </div>
+              <div class="chart-box">
+                <canvas id="lsChart"></canvas>
+              </div>
+              <div class="range-control" data-chart="ls">
+                <div class="dual-range">
+                  <input id="lsRangeStart" class="range-start" type="range" min="0" max="0" value="0" aria-label="净值起点" />
+                  <input id="lsRangeEnd" class="range-end" type="range" min="0" max="0" value="0" aria-label="净值终点" />
+                </div>
+                <span id="lsRangeLabel">--</span>
+              </div>
+            </article>
+          </section>
         </section>
 
-        <section class="dashboard-grid">
-          <article class="panel factor-panel">
-            <div class="panel-head">
-              <h2 class="panel-title-with-tip">
-                因子列表 <span id="factorCount"></span>
-                <button
-                  class="info-tip"
-                  type="button"
-                  title="表内指标来自 factor_rolling_metrics 的最新 60 日滚动值，统计口径为当前版本对应的 active/candidate 因子。年化收益率、年化波动率和年化Sharpe分别对应 rolling_annual_return、rolling_vol、rolling_sharpe；这里使用的是 horizon=1 的日频 long_short_ret 口径，滚动窗口为 metric_window=60，起始点来自 factor_rolling_metrics 中的最新可用日期。"
-                  aria-label="指标说明"
-                >i</button>
-              </h2>
-              <span id="selectedFactorHint" class="muted"></span>
-            </div>
-            <div class="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th>因子名</th>
-                    <th>状态</th>
-                    <th>当前版本</th>
-                    <th>年化收益率</th>
-                    <th>年化波动率</th>
-                    <th>年化Sharpe</th>
-                    <th>最近因子值</th>
-                  </tr>
-                </thead>
-                <tbody id="factorTable"></tbody>
-              </table>
-            </div>
-          </article>
-
-          <article class="panel chart-panel">
-            <div class="panel-head">
-              <h2>IC_1 / IC_5 / IC_22</h2>
-              <span class="muted" id="icChartTitle">--</span>
-            </div>
-            <div class="series-toggles" data-chart="ic">
-              <label><input type="checkbox" id="toggleIc1" data-series="ic_1" /> IC_1</label>
-              <label><input type="checkbox" id="toggleIc5" data-series="ic_5" /> IC_5</label>
-              <label><input type="checkbox" id="toggleIc22" data-series="ic_22" checked /> IC_22</label>
-            </div>
-            <div class="chart-box">
-              <canvas id="icChart"></canvas>
-            </div>
-            <div class="range-control" data-chart="ic">
-              <div class="dual-range">
-                <input id="icRangeStart" class="range-start" type="range" min="0" max="0" value="0" aria-label="IC 起点" />
-                <input id="icRangeEnd" class="range-end" type="range" min="0" max="0" value="0" aria-label="IC 终点" />
+        <section id="statusView" class="view-section" hidden>
+          <section class="status-grid">
+            <article class="panel status-summary-panel">
+              <div class="panel-head">
+                <h2>任务与数据监控</h2>
+                <button id="showJobItemsBtn" class="text-button">查看最近任务明细</button>
               </div>
-              <span id="icRangeLabel">--</span>
-            </div>
-          </article>
-
-          <article class="panel job-panel">
-            <div class="panel-head">
-              <h2>任务监控</h2>
-              <button id="showJobItemsBtn" class="text-button">查看最近任务明细</button>
-            </div>
-            <div class="table-wrap compact">
-              <table>
-                <thead>
-                  <tr>
-                    <th>run_id</th>
-                    <th>日期</th>
-                    <th>状态</th>
-                    <th>成功</th>
-                    <th>失败</th>
-                  </tr>
-                </thead>
-                <tbody id="jobTable"></tbody>
-              </table>
-            </div>
-            <div id="jobItems" class="job-items"></div>
-          </article>
-
-          <article class="panel chart-panel">
-            <div class="panel-head">
-              <h2>多空净值曲线</h2>
-              <span class="muted" id="lsChartTitle">--</span>
-            </div>
-            <div class="series-toggles" data-chart="ls">
-              <label><input type="checkbox" id="toggleLong" data-series="long_value" checked /> 多头</label>
-              <label><input type="checkbox" id="toggleShort" data-series="short_value" checked /> 空头</label>
-              <label><input type="checkbox" id="toggleLongShort" data-series="long_short_value" checked /> 多空对冲</label>
-            </div>
-            <div class="chart-box">
-              <canvas id="lsChart"></canvas>
-            </div>
-            <div class="range-control" data-chart="ls">
-              <div class="dual-range">
-                <input id="lsRangeStart" class="range-start" type="range" min="0" max="0" value="0" aria-label="净值起点" />
-                <input id="lsRangeEnd" class="range-end" type="range" min="0" max="0" value="0" aria-label="净值终点" />
+              <div class="status-cards">
+                <div class="status-card">
+                  <span class="label">市场最新交易日</span>
+                  <strong id="statusMarketTradeDate">--</strong>
+                </div>
+                <div class="status-card">
+                  <span class="label">因子值最新日期</span>
+                  <strong id="statusFactorDate">--</strong>
+                </div>
+                <div class="status-card">
+                  <span class="label">最近日更状态</span>
+                  <strong id="statusLatestJob">--</strong>
+                </div>
               </div>
-              <span id="lsRangeLabel">--</span>
-            </div>
-          </article>
+              <div id="jobItems" class="job-items"></div>
+            </article>
+
+            <article class="panel job-panel">
+              <div class="panel-head">
+                <h2>最近任务运行</h2>
+                <span class="muted">`factor_job_runs` 最近 8 条</span>
+              </div>
+              <div class="table-wrap compact">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>run_id</th>
+                      <th>日期</th>
+                      <th>状态</th>
+                      <th>成功</th>
+                      <th>失败</th>
+                    </tr>
+                  </thead>
+                  <tbody id="jobTable"></tbody>
+                </table>
+              </div>
+            </article>
+          </section>
         </section>
       </section>
     </main>

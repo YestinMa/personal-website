@@ -4,7 +4,7 @@
   "latest_factor_date": "2026-05-29",
   "status_counts": {
     "candidate": 6,
-    "draft": 10
+    "draft": 11
   },
   "latest_job": {
     "run_id": "20260602-085618-factor-daily",
