@@ -422,6 +422,27 @@ function getFactorSeriesPayload(url, factorName, seriesKey) {
   }));
 }
 
+async function fetchSummary() {
+  if (STATIC_MODE) {
+    return getJson(dataPath("summary.json"));
+  }
+  return getJson("/api/summary");
+}
+
+async function fetchFactors() {
+  if (STATIC_MODE) {
+    return getJson(dataPath("factors.json"));
+  }
+  return getJson("/api/factors");
+}
+
+async function fetchJobs() {
+  if (STATIC_MODE) {
+    return getJson(dataPath("jobs.json"));
+  }
+  return getJson("/api/jobs");
+}
+
 async function fetchEvalSeries(factor, evalType, horizon) {
   if (STATIC_MODE) {
     const payload = await getJson(dataPath(`ic/${factorKey(factor)}.json`));
