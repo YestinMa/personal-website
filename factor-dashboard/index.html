@@ -46,6 +46,8 @@
           </select>
           <select id="sortBy" class="toolbar-select" aria-label="排序方式">
             <option value="lifecycle_status">按状态排序</option>
+            <option value="rolling_ic_mean">按IC均值</option>
+            <option value="rolling_icir">按ICIR</option>
             <option value="rolling_annual_return">按年化收益率</option>
             <option value="rolling_vol">按年化波动率</option>
             <option value="rolling_sharpe">按年化Sharpe</option>
@@ -63,6 +65,57 @@
 
       <section class="content">
         <section id="overviewView" class="view-section is-active">
+          <section class="metric-filter-bar">
+            <div class="metric-filter-head">
+              <strong>指标筛选</strong>
+              <button id="clearMetricFiltersBtn" class="text-button" type="button">清空筛选</button>
+            </div>
+            <div class="metric-filter-grid">
+              <label class="metric-filter-item">
+                <span>年化收益率</span>
+                <div class="metric-filter-inputs">
+                  <input id="filterRollingAnnualReturnMin" type="number" step="0.001" placeholder="最小值" />
+                  <input id="filterRollingAnnualReturnMax" type="number" step="0.001" placeholder="最大值" />
+                </div>
+              </label>
+              <label class="metric-filter-item">
+                <span>年化波动率</span>
+                <div class="metric-filter-inputs">
+                  <input id="filterRollingVolMin" type="number" step="0.001" placeholder="最小值" />
+                  <input id="filterRollingVolMax" type="number" step="0.001" placeholder="最大值" />
+                </div>
+              </label>
+              <label class="metric-filter-item">
+                <span>年化 Sharpe</span>
+                <div class="metric-filter-inputs">
+                  <input id="filterRollingSharpeMin" type="number" step="0.01" placeholder="最小值" />
+                  <input id="filterRollingSharpeMax" type="number" step="0.01" placeholder="最大值" />
+                </div>
+              </label>
+              <label class="metric-filter-item">
+                <span>胜率(%)</span>
+                <div class="metric-filter-inputs">
+                  <input id="filterRollingWinRateMin" type="number" step="0.1" placeholder="最小值" />
+                  <input id="filterRollingWinRateMax" type="number" step="0.1" placeholder="最大值" />
+                </div>
+              </label>
+              <label class="metric-filter-item">
+                <span>IC 均值</span>
+                <div class="metric-filter-inputs">
+                  <input id="filterRollingIcMeanMin" type="number" step="0.001" placeholder="最小值" />
+                  <input id="filterRollingIcMeanMax" type="number" step="0.001" placeholder="最大值" />
+                </div>
+              </label>
+              <label class="metric-filter-item">
+                <span>ICIR</span>
+                <div class="metric-filter-inputs">
+                  <input id="filterRollingIcirMin" type="number" step="0.01" placeholder="最小值" />
+                  <input id="filterRollingIcirMax" type="number" step="0.01" placeholder="最大值" />
+                </div>
+              </label>
+            </div>
+          </section>
+
           <section class="stats-grid">
             <article class="stat-card">
               <span class="stat-icon blue">□</span>
@@ -129,6 +182,8 @@
                       <th>因子名</th>
                       <th>状态</th>
                       <th>当前版本</th>
+                      <th>IC均值</th>
+                      <th>ICIR</th>
                       <th>年化收益率</th>
                       <th>年化波动率</th>
                       <th>年化Sharpe</th>
@@ -216,7 +271,6 @@
             <article class="panel status-summary-panel">
               <div class="panel-head">
                 <h2>任务与数据监控</h2>
-                <button id="showJobItemsBtn" class="text-button">查看最近任务明细</button>
               </div>
               <div class="status-cards">
                 <div class="status-card">
@@ -232,28 +286,28 @@
                   <strong id="statusLatestJob">--</strong>
                 </div>
               </div>
-              <div id="jobItems" class="job-items"></div>
+              <div id="statusScheduler" class="job-items"></div>
             </article>
 
             <article class="panel job-panel">
               <div class="panel-head">
-                <h2>最近任务运行</h2>
-                <span class="muted">`factor_job_runs` 最近 8 条</span>
+                <h2>数据层报告</h2>
               </div>
-              <div class="table-wrap compact">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>run_id</th>
-                      <th>日期</th>
-                      <th>状态</th>
-                      <th>成功</th>
-                      <th>失败</th>
-                    </tr>
-                  </thead>
-                  <tbody id="jobTable"></tbody>
-                </table>
+              <div id="statusDataLayer" class="job-items"></div>
+            </article>
+
+            <article class="panel job-panel">
+              <div class="panel-head">
+                <h2>因子层报告</h2>
               </div>
+              <div id="statusFactorLayer" class="job-items"></div>
+            </article>
+
+            <article class="panel job-panel">
+              <div class="panel-head">
+                <h2>回测层报告</h2>
+              </div>
+              <div id="statusBacktestLayer" class="job-items"></div>
             </article>
           </section>
         </section>

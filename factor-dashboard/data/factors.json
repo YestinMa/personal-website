@@ -328,5 +328,35 @@
     "rolling_vol": null,
     "rolling_sharpe": null,
     "rolling_win_rate": null
+  },
+  {
+    "factor_name": "Alpha028",
+    "factor_family": "momentum",
+    "lifecycle_status": "draft",
+    "version_id": "ver_30e6d700e242",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null
+  },
+  {
+    "factor_name": "Alpha029",
+    "factor_family": "momentum",
+    "lifecycle_status": "draft",
+    "version_id": "ver_d04c6b78bb24",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null
   }
 ]

@@ -2,6 +2,7 @@ const state = {
   summary: null,
   factors: [],
   jobs: [],
+  status: null,
   selectedFactor: null,
   currentView: "overview",
   chartData: {
@@ -18,6 +19,14 @@ const state = {
     statusFilter: "all",
     sortBy: "lifecycle_status",
     sortDir: "desc",
+    metricFilters: {
+      rolling_annual_return: { min: "", max: "" },
+      rolling_vol: { min: "", max: "" },
+      rolling_sharpe: { min: "", max: "" },
+      rolling_win_rate: { min: "", max: "" },
+      rolling_ic_mean: { min: "", max: "" },
+      rolling_icir: { min: "", max: "" },
+    },
   },
 };
 
@@ -45,6 +54,14 @@ const cssNum = (value) => {
   if (Number.isNaN(n) || n === 0) return "num";
   return n > 0 ? "num pos" : "num neg";
 };
+const METRIC_FILTER_CONFIG = [
+  { key: "rolling_annual_return", minId: "filterRollingAnnualReturnMin", maxId: "filterRollingAnnualReturnMax", valueScale: 1 },
+  { key: "rolling_vol", minId: "filterRollingVolMin", maxId: "filterRollingVolMax", valueScale: 1 },
+  { key: "rolling_sharpe", minId: "filterRollingSharpeMin", maxId: "filterRollingSharpeMax", valueScale: 1 },
+  { key: "rolling_win_rate", minId: "filterRollingWinRateMin", maxId: "filterRollingWinRateMax", valueScale: 0.01 },
+  { key: "rolling_ic_mean", minId: "filterRollingIcMeanMin", maxId: "filterRollingIcMeanMax", valueScale: 1 },
+  { key: "rolling_icir", minId: "filterRollingIcirMin", maxId: "filterRollingIcirMax", valueScale: 1 },
+];
 
 async function getJson(url) {
   const res = await fetch(url);
@@ -473,13 +490,14 @@ function renderSummary() {
 function renderFactors() {
   const tbody = document.getElementById("factorTable");
   const query = document.getElementById("searchInput").value.trim().toLowerCase();
-  const { statusFilter, sortBy, sortDir } = state.factorTable;
+  const { statusFilter, sortBy, sortDir, metricFilters } = state.factorTable;
   const filtered = state.factors
     .filter((item) =>
       item.factor_name.toLowerCase().includes(query) ||
       (item.factor_family || "").toLowerCase().includes(query)
     )
     .filter((item) => statusFilter === "all" || item.lifecycle_status === statusFilter)
+    .filter((item) => passesMetricFilters(item, metricFilters))
     .sort((left, right) => compareFactorRows(left, right, sortBy, sortDir));
   setText("factorCount", `(${filtered.length})`);
   tbody.innerHTML = filtered
@@ -488,6 +506,8 @@ function renderFactors() {
         <td class="factor-name">${item.factor_name}</td>
         <td><span class="badge ${item.lifecycle_status}">${item.lifecycle_status}</span></td>
         <td>${item.version || "--"}</td>
+        <td class="${cssNum(item.rolling_ic_mean)}">${fmt(item.rolling_ic_mean, 3)}</td>
+        <td class="${cssNum(item.rolling_icir)}">${fmt(item.rolling_icir, 2)}</td>
         <td class="${cssNum(item.rolling_annual_return)}">${pct(item.rolling_annual_return)}</td>
         <td class="${cssNum(item.rolling_vol)}">${pct(item.rolling_vol)}</td>
         <td class="${cssNum(item.rolling_sharpe)}">${fmt(item.rolling_sharpe, 2)}</td>
@@ -499,6 +519,21 @@ function renderFactors() {
 
   tbody.querySelectorAll("tr").forEach((tr) => {
     tr.addEventListener("click", () => selectFactor(tr.dataset.factor));
+  });
+}
+
+function passesMetricFilters(item, metricFilters) {
+  return METRIC_FILTER_CONFIG.every((config) => {
+    const filter = metricFilters[config.key] || {};
+    const hasMin = filter.min !== "" && filter.min !== null && filter.min !== undefined;
+    const hasMax = filter.max !== "" && filter.max !== null && filter.max !== undefined;
+    if (!hasMin && !hasMax) return true;
+    const rawValue = numericOrNaN(item[config.key]);
+    if (!Number.isFinite(rawValue)) return false;
+    const value = rawValue / config.valueScale;
+    if (hasMin && value < Number(filter.min)) return false;
+    if (hasMax && value > Number(filter.max)) return false;
+    return true;
   });
 }
 
@@ -537,19 +572,64 @@ function compareFactorRows(left, right, sortBy, sortDir) {
   return sortDir === "asc" ? result : -result;
 }
 
+function bindMetricFilterInputs() {
+  METRIC_FILTER_CONFIG.forEach((config) => {
+    const minInput = document.getElementById(config.minId);
+    const maxInput = document.getElementById(config.maxId);
+    const sync = () => {
+      state.factorTable.metricFilters[config.key] = {
+        min: minInput.value.trim(),
+        max: maxInput.value.trim(),
+      };
+      renderFactors();
+    };
+    minInput.addEventListener("input", sync);
+    maxInput.addEventListener("input", sync);
+  });
+
+  document.getElementById("clearMetricFiltersBtn").addEventListener("click", () => {
+    METRIC_FILTER_CONFIG.forEach((config) => {
+      document.getElementById(config.minId).value = "";
+      document.getElementById(config.maxId).value = "";
+      state.factorTable.metricFilters[config.key] = { min: "", max: "" };
+    });
+    renderFactors();
+  });
+}
+
 function renderJobs() {
-  const tbody = document.getElementById("jobTable");
-  tbody.innerHTML = state.jobs
-    .map((job) => `
-      <tr data-run-id="${job.run_id}">
-        <td>${job.run_id}</td>
-        <td>${job.job_date}</td>
-        <td><span class="badge ${job.status}">${job.status}</span></td>
-        <td>${job.success_count}</td>
-        <td>${job.failed_count}</td>
-      </tr>
-    `)
-    .join("");
+  const payload = state.status || {};
+  const scheduler = payload.scheduler || {};
+  const dataLayer = payload.data_layer || { summary: {} };
+  const factorLayer = payload.factor_layer || { summary: {}, rolling_metrics: {} };
+  const backtestLayer = payload.backtest_layer || { summary: {} };
+  const schedulerBox = document.getElementById("statusScheduler");
+  const dataBox = document.getElementById("statusDataLayer");
+  const factorBox = document.getElementById("statusFactorLayer");
+  const backtestBox = document.getElementById("statusBacktestLayer");
+  const row = (left, badge, right) => `<div class="job-item-row"><strong>${left}</strong><span class="${badge}">${right}</span></div>`;
+  schedulerBox.innerHTML = (scheduler.stages || []).length
+    ? (scheduler.stages || []).map((stage) => `<div class="job-item-row"><strong>${stage.stage_name}</strong><span class="badge ${stage.status}">${stage.status}</span><span>${stage.trade_date || "--"}</span></div>`).join("")
+    : "暂无调度记录";
+  dataBox.innerHTML = `
+    ${row("rows_written", "num", dataLayer.summary?.rows_written || 0)}
+    ${row("field_values_written", "num", dataLayer.summary?.field_values_written || 0)}
+    ${row("financial_raw_new_rows", "num", dataLayer.summary?.financial_raw_new_rows || 0)}
+    ${(dataLayer.daily_update || []).slice(0, 6).map((item) => `<div class="job-item-row"><strong>${item.table_name}</strong><span class="badge ${item.status}">${item.status}</span><span>${item.rows_written || 0} rows / ${item.field_values_written || 0} fields</span></div>`).join("") || "暂无数据层报告"}
+  `;
+  factorBox.innerHTML = `
+    ${row("success", "num", factorLayer.summary?.success_factor_count || 0)}
+    ${row("failed", "num", factorLayer.summary?.failed_factor_count || 0)}
+    ${row("skipped", "num", factorLayer.summary?.skipped_factor_count || 0)}
+    ${(factorLayer.factor_value_update || []).slice(0, 8).map((item) => `<div class="job-item-row"><strong>${item.factor_name}</strong><span class="badge ${item.status}">${item.status}</span><span>${item.phase} / ${item.rows_written || 0} rows</span></div>`).join("") || "暂无因子层报告"}
+    ${factorLayer.rolling_metrics ? `<div class="job-item-row"><strong>rolling_metrics</strong><span class="badge ${factorLayer.rolling_metrics.status || "skipped"}">${factorLayer.rolling_metrics.status || "skipped"}</span><span>${factorLayer.rolling_metrics.rows_written || 0} rows</span></div>` : ""}
+  `;
+  backtestBox.innerHTML = `
+    ${row("success", "num", backtestLayer.summary?.success_count || 0)}
+    ${row("failed", "num", backtestLayer.summary?.failed_count || 0)}
+    ${row("running", "num", backtestLayer.summary?.running_count || 0)}
+    ${(backtestLayer.runs || []).slice(0, 8).map((item) => `<div class="job-item-row"><strong>${item.factor_name}</strong><span class="badge ${item.status}">${item.status}</span><span>${item.start_date || "--"} ~ ${item.end_date || "--"}</span></div>`).join("") || "暂无回测层报告"}
+  `;
 }
 
 function renderIcChart() {
@@ -636,7 +716,7 @@ async function fetchFactors() {
 }
 
 async function fetchJobs() {
-  return STATIC_MODE ? getJson(dataPath("jobs.json")) : getJson("/api/jobs");
+  return STATIC_MODE ? getJson(dataPath("status.json")) : getJson("/api/status");
 }
 
 async function fetchEvalSeries(factor, horizon) {
@@ -760,10 +840,11 @@ async function showLatestJobItems() {
 }
 
 async function loadDashboard() {
-  const [summary, factors, jobs] = await Promise.all([fetchSummary(), fetchFactors(), fetchJobs()]);
+  const [summary, factors, statusPayload] = await Promise.all([fetchSummary(), fetchFactors(), fetchJobs()]);
   state.summary = summary;
   state.factors = factors;
-  state.jobs = jobs;
+  state.status = statusPayload;
+  state.jobs = statusPayload?.scheduler?.recent_stages || [];
   if (!state.selectedFactor) chooseDefaultFactor();
   renderSummary();
   renderFactors();
@@ -839,12 +920,6 @@ function bindEvents() {
     document.getElementById("sortDirBtn").textContent = state.factorTable.sortDir === "asc" ? "↑" : "↓";
     renderFactors();
   });
-  document.getElementById("showJobItemsBtn").addEventListener("click", () => {
-    showLatestJobItems().catch((err) => {
-      console.error(err);
-      showToast(`任务明细加载失败: ${err.message}`);
-    });
-  });
   ["toggleIc1", "toggleIc5", "toggleIc22"].forEach((id) => document.getElementById(id).addEventListener("change", renderIcChart));
   ["toggleLong", "toggleShort", "toggleLongShort"].forEach((id) => document.getElementById(id).addEventListener("change", renderLongShortChart));
   window.addEventListener("resize", () => {
@@ -854,6 +929,7 @@ function bindEvents() {
   });
   bindNavigation();
   bindRangeHandlers();
+  bindMetricFilterInputs();
 }
 
 bindEvents();
