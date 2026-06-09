@@ -214,12 +214,23 @@ function setRangeInputs(chartKey) {
 
 function mergeIC(ic1, ic5, ic22) {
   const out = {};
+  const readValue = (value) => (value === null || value === undefined || value === "" ? NaN : Number(value));
   [ic1, ic5, ic22].forEach((arr, idx) => {
     const key = idx === 0 ? "ic_1" : idx === 1 ? "ic_5" : "ic_22";
+    const cumulativeKey = idx === 0 ? "cum_ic_1" : idx === 1 ? "cum_ic_5" : "cum_ic_22";
     (arr || []).forEach((row) => {
       const d = row.date;
-      out[d] = out[d] || { trade_date: d, ic_1: NaN, ic_5: NaN, ic_22: NaN };
-      out[d][key] = Number(row.value);
+      out[d] = out[d] || {
+        trade_date: d,
+        ic_1: NaN,
+        ic_5: NaN,
+        ic_22: NaN,
+        cum_ic_1: NaN,
+        cum_ic_5: NaN,
+        cum_ic_22: NaN,
+      };
+      out[d][key] = readValue(row.value);
+      out[d][cumulativeKey] = readValue(row.cumulative_value);
     });
   });
   return Object.values(out).sort((a, b) => String(a.trade_date).localeCompare(String(b.trade_date)));
@@ -372,6 +383,148 @@ function drawLineChart(canvasId, seriesList, options = {}) {
     ctx.setLineDash([]);
     ctx.fillText(series.name || "", legendX + 28, 18);
     legendX += 24 + ctx.measureText(series.name || "").width + 18;
+  });
+}
+
+function drawIcComboChart(canvasId, seriesList, options = {}) {
+  const canvas = document.getElementById(canvasId);
+  const { ctx, width, height } = setupCanvas(canvas);
+  const padding = { left: 56, right: 60, top: 30, bottom: 34 };
+  const barPoints = seriesList.flatMap((s) => s.barPoints || []).filter((p) => Number.isFinite(p.value));
+  const linePoints = seriesList.flatMap((s) => s.linePoints || []).filter((p) => Number.isFinite(p.value));
+  if (!barPoints.length && !linePoints.length) {
+    ctx.clearRect(0, 0, width, height);
+    ctx.fillStyle = "#6b7280";
+    ctx.font = "14px Segoe UI, Arial";
+    ctx.textAlign = "center";
+    ctx.fillText(options.emptyText || "暂无可展示数据", width / 2, height / 2);
+    return;
+  }
+
+  const plotW = width - padding.left - padding.right;
+  const plotH = height - padding.top - padding.bottom;
+  const barValues = barPoints.map((p) => p.value);
+  let leftMin = barValues.length ? Math.min(...barValues, 0) : -1;
+  let leftMax = barValues.length ? Math.max(...barValues, 0) : 1;
+  if (leftMin === leftMax) {
+    leftMin -= 1;
+    leftMax += 1;
+  }
+  const leftSpan = leftMax - leftMin;
+  leftMin -= leftSpan * 0.08;
+  leftMax += leftSpan * 0.08;
+
+  const lineValues = linePoints.map((p) => p.value);
+  let rightMin = lineValues.length ? Math.min(...lineValues) : -1;
+  let rightMax = lineValues.length ? Math.max(...lineValues) : 1;
+  if (rightMin === rightMax) {
+    rightMin -= 1;
+    rightMax += 1;
+  }
+  const rightSpan = rightMax - rightMin;
+  rightMin -= rightSpan * 0.08;
+  rightMax += rightSpan * 0.08;
+
+  const longestSeries = seriesList.reduce((best, item) => {
+    const currentLength = Math.max((item.barPoints || []).length, (item.linePoints || []).length);
+    const bestLength = Math.max((best.barPoints || []).length, (best.linePoints || []).length);
+    return currentLength > bestLength ? item : best;
+  }, { barPoints: [], linePoints: [] });
+  const refPoints = longestSeries.barPoints?.length ? longestSeries.barPoints : (longestSeries.linePoints || []);
+  const xFor = (i, n) => padding.left + (n <= 1 ? plotW / 2 : (i / (n - 1)) * plotW);
+  const yLeft = (v) => padding.top + (1 - (v - leftMin) / (leftMax - leftMin)) * plotH;
+  const yRight = (v) => padding.top + (1 - (v - rightMin) / (rightMax - rightMin)) * plotH;
+  const zeroY = yLeft(0);
+
+  ctx.clearRect(0, 0, width, height);
+  ctx.strokeStyle = "#e5eaf2";
+  ctx.lineWidth = 1;
+  ctx.fillStyle = "#6b7280";
+  ctx.font = "12px Segoe UI, Arial";
+  for (let i = 0; i <= 4; i += 1) {
+    const y = padding.top + (i / 4) * plotH;
+    const leftValue = leftMax - (i / 4) * (leftMax - leftMin);
+    const rightValue = rightMax - (i / 4) * (rightMax - rightMin);
+    ctx.beginPath();
+    ctx.moveTo(padding.left, y);
+    ctx.lineTo(width - padding.right, y);
+    ctx.stroke();
+    ctx.textAlign = "right";
+    ctx.fillText(leftValue.toFixed(2), padding.left - 8, y + 4);
+    ctx.textAlign = "left";
+    ctx.fillText(rightValue.toFixed(2), width - padding.right + 8, y + 4);
+  }
+
+  if (leftMin < 0 && leftMax > 0) {
+    ctx.strokeStyle = "#cbd5e1";
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.moveTo(padding.left, zeroY);
+    ctx.lineTo(width - padding.right, zeroY);
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  const groupCount = Math.max(1, seriesList.length);
+  const step = refPoints.length > 1 ? plotW / (refPoints.length - 1) : plotW;
+  const barWidth = Math.max(6, Math.min(22, step / Math.max(2, groupCount + 1)));
+
+  seriesList.forEach((series, seriesIdx) => {
+    const bars = (series.barPoints || []).filter((p) => Number.isFinite(p.value));
+    ctx.fillStyle = series.color;
+    bars.forEach((point, idx) => {
+      const baseX = xFor(idx, refPoints.length);
+      const offset = (seriesIdx - (groupCount - 1) / 2) * (barWidth + 2);
+      const x = baseX + offset - barWidth / 2;
+      const y = yLeft(point.value);
+      const top = Math.min(y, zeroY);
+      const barHeight = Math.max(1, Math.abs(y - zeroY));
+      ctx.globalAlpha = 0.82;
+      ctx.fillRect(x, top, barWidth, barHeight);
+      ctx.globalAlpha = 1;
+    });
+  });
+
+  seriesList.forEach((series) => {
+    const points = (series.linePoints || []).filter((p) => Number.isFinite(p.value));
+    if (!points.length) return;
+    ctx.strokeStyle = series.color;
+    ctx.lineWidth = 2.2;
+    ctx.beginPath();
+    points.forEach((point, idx) => {
+      const x = xFor(idx, refPoints.length);
+      const y = yRight(point.value);
+      if (idx === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+  });
+
+  const first = refPoints[0]?.date;
+  const last = refPoints[refPoints.length - 1]?.date;
+  ctx.fillStyle = "#6b7280";
+  ctx.textAlign = "left";
+  ctx.fillText(first || "", padding.left, height - 10);
+  ctx.textAlign = "right";
+  ctx.fillText(last || "", width - padding.right, height - 10);
+
+  let legendX = padding.left;
+  seriesList.forEach((series) => {
+    ctx.fillStyle = series.color;
+    ctx.globalAlpha = 0.82;
+    ctx.fillRect(legendX, 9, 12, 10);
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = series.color;
+    ctx.lineWidth = 2.2;
+    ctx.beginPath();
+    ctx.moveTo(legendX + 18, 14);
+    ctx.lineTo(legendX + 34, 14);
+    ctx.stroke();
+    const label = `${series.name} / Cum`;
+    ctx.fillStyle = "#6b7280";
+    ctx.textAlign = "left";
+    ctx.fillText(label, legendX + 40, 18);
+    legendX += 36 + ctx.measureText(label).width + 18;
   });
 }
 
@@ -641,10 +794,31 @@ function renderIcChart() {
     ic_22: document.getElementById("toggleIc22").checked,
   };
   const series = [];
-  if (visible.ic_1) series.push({ name: "IC_1", color: "#2563eb", points: points.map((p) => ({ date: p.trade_date, value: numericOrNaN(p.ic_1) })) });
-  if (visible.ic_5) series.push({ name: "IC_5", color: "#2f9e65", points: points.map((p) => ({ date: p.trade_date, value: numericOrNaN(p.ic_5) })) });
-  if (visible.ic_22) series.push({ name: "IC_22", color: "#e79b28", points: points.map((p) => ({ date: p.trade_date, value: numericOrNaN(p.ic_22) })) });
-  drawLineChart("icChart", series, { zeroLine: true });
+  if (visible.ic_1) {
+    series.push({
+      name: "IC_1",
+      color: "#2563eb",
+      barPoints: points.map((p) => ({ date: p.trade_date, value: numericOrNaN(p.ic_1) })),
+      linePoints: points.map((p) => ({ date: p.trade_date, value: numericOrNaN(p.cum_ic_1) })),
+    });
+  }
+  if (visible.ic_5) {
+    series.push({
+      name: "IC_5",
+      color: "#2f9e65",
+      barPoints: points.map((p) => ({ date: p.trade_date, value: numericOrNaN(p.ic_5) })),
+      linePoints: points.map((p) => ({ date: p.trade_date, value: numericOrNaN(p.cum_ic_5) })),
+    });
+  }
+  if (visible.ic_22) {
+    series.push({
+      name: "IC_22",
+      color: "#e79b28",
+      barPoints: points.map((p) => ({ date: p.trade_date, value: numericOrNaN(p.ic_22) })),
+      linePoints: points.map((p) => ({ date: p.trade_date, value: numericOrNaN(p.cum_ic_22) })),
+    });
+  }
+  drawIcComboChart("icChart", series, { emptyText: "暂无 IC 数据" });
   setRangeLabel("ic");
   setRangeBackground("ic");
 }
@@ -723,7 +897,12 @@ async function fetchEvalSeries(factor, horizon) {
   if (STATIC_MODE) {
     const payload = await getJson(dataPath(`ic/${factorKey(factor)}.json`));
     const seriesKey = horizon === 1 ? "ic_1" : horizon === 5 ? "ic_5" : "ic_22";
-    return (payload.series || []).map((row) => ({ date: row.trade_date, value: row[seriesKey] }));
+    const cumulativeKey = horizon === 1 ? "cum_ic_1" : horizon === 5 ? "cum_ic_5" : "cum_ic_22";
+    return (payload.series || []).map((row) => ({
+      date: row.trade_date,
+      value: row[seriesKey],
+      cumulative_value: row[cumulativeKey],
+    }));
   }
   const q = new URLSearchParams({
     factor,
@@ -734,7 +913,11 @@ async function fetchEvalSeries(factor, horizon) {
     transform_type: "industry_size_neutral",
   });
   const payload = await getJson(`/api/eval-series?${q.toString()}`);
-  return (payload.series || []).map((row) => ({ date: row.date, value: row.value }));
+  return (payload.series || []).map((row) => ({
+    date: row.date,
+    value: row.value,
+    cumulative_value: row.cumulative_value,
+  }));
 }
 
 async function fetchBacktestNav(factor) {
