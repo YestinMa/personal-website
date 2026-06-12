@@ -171,6 +171,12 @@ function updatePageHeader() {
   setText("pageSubtitle", meta.subtitle);
 }
 
+function updateToolbarVisibility() {
+  const actions = document.querySelector(".top-actions");
+  if (!actions) return;
+  actions.classList.toggle("is-hidden", state.currentView === "status");
+}
+
 function switchView(nextView) {
   state.currentView = nextView;
   document.querySelectorAll(".view-section").forEach((section) => {
@@ -182,6 +188,7 @@ function switchView(nextView) {
     link.classList.toggle("active", link.dataset.view === nextView);
   });
   updatePageHeader();
+  updateToolbarVisibility();
   window.requestAnimationFrame(() => {
     renderIcChart();
     renderGroupChart();
@@ -585,6 +592,23 @@ function drawIcComboChart(canvasId, seriesList, options = {}) {
   });
 }
 
+function samplePointsByDensity(points, maxPoints) {
+  const safePoints = Array.isArray(points) ? points : [];
+  if (safePoints.length <= maxPoints || maxPoints <= 0) return safePoints;
+  const step = Math.ceil(safePoints.length / maxPoints);
+  const sampled = safePoints.filter((_, idx) => idx % step === 0);
+  const last = safePoints[safePoints.length - 1];
+  if (sampled[sampled.length - 1] !== last) sampled.push(last);
+  return sampled;
+}
+
+function getIcSamplingLimit(totalPoints) {
+  const chartBox = document.querySelector(".ic-panel .chart-box");
+  const width = Math.max(320, Math.floor(chartBox?.getBoundingClientRect().width || 640));
+  const maxPoints = Math.max(28, Math.floor(width / 8));
+  return Math.min(totalPoints, maxPoints);
+}
+
 function computeStaticAnalysis(rawSeries, startIdx, endIdx) {
   const max = Math.max(0, rawSeries.length - 1);
   const safeStart = Math.max(0, Math.min(max, startIdx ?? 0));
@@ -826,6 +850,10 @@ function renderJobs() {
   const dataBox = document.getElementById("statusDataLayer");
   const factorBox = document.getElementById("statusFactorLayer");
   const backtestBox = document.getElementById("statusBacktestLayer");
+  schedulerBox.className = "job-items scheduler-items";
+  dataBox.className = "job-items";
+  factorBox.className = "job-items";
+  backtestBox.className = "job-items";
   schedulerBox.innerHTML = (scheduler.stages || []).length
     ? (scheduler.stages || []).map((stage) => createJobRow(stage.stage_name, stage.status, stage.trade_date || "--")).join("")
     : "暂无调度记录";
@@ -889,14 +917,15 @@ function renderIcChart() {
   };
   const config = seriesMap[selected];
   if (config) {
+    const sampledPoints = samplePointsByDensity(points, getIcSamplingLimit(points.length));
     series.push({
       name: config.label,
       color: "#2563eb",
       barColor: "#2563eb",
       lineColor: "#e55353",
       legendLabel: `${config.label} Bar / Cumulative IC`,
-      barPoints: points.map((p) => ({ date: p.trade_date, value: numericOrNaN(p[config.barKey]) })),
-      linePoints: points.map((p) => ({ date: p.trade_date, value: numericOrNaN(p[config.lineKey]) })),
+      barPoints: sampledPoints.map((p) => ({ date: p.trade_date, value: numericOrNaN(p[config.barKey]) })),
+      linePoints: sampledPoints.map((p) => ({ date: p.trade_date, value: numericOrNaN(p[config.lineKey]) })),
     });
   }
   drawIcComboChart("icChart", series, { emptyText: "暂无 IC 数据" });

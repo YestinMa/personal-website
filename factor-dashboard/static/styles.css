@@ -157,6 +157,10 @@ h1 span {
   gap: 14px;
 }
 
+.top-actions.is-hidden {
+  display: none;
+}
+
 .toolbar-select {
   height: 38px;
   padding: 0 12px;
@@ -427,7 +431,7 @@ h1 span {
 
 .status-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px;
   align-items: start;
 }
@@ -586,7 +590,7 @@ tbody tr:last-child td {
 
 .status-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: 1fr;
   gap: 12px;
   margin-bottom: 16px;
 }
@@ -613,7 +617,7 @@ tbody tr:last-child td {
 
 .job-item-row {
   display: grid;
-  grid-template-columns: minmax(110px, 1.3fr) minmax(74px, auto) minmax(0, 2fr);
+  grid-template-columns: minmax(0, 1.2fr) auto minmax(0, 1.6fr);
   gap: 10px;
   align-items: start;
   padding: 10px 4px;
@@ -629,12 +633,28 @@ tbody tr:last-child td {
 .job-item-row strong {
   white-space: normal;
   line-height: 1.35;
+  overflow-wrap: anywhere;
 }
 
 .job-detail {
   white-space: normal;
   line-height: 1.45;
   overflow-wrap: anywhere;
+}
+
+.scheduler-items .job-item-row {
+  grid-template-columns: minmax(0, 1fr) auto auto;
+}
+
+.scheduler-items .job-item-row strong {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.scheduler-items .job-detail {
+  white-space: nowrap;
+  color: #64748b;
 }
 
 .chart-box {
@@ -689,7 +709,7 @@ canvas {
 
 .report-summary-chips {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(116px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
   margin: -2px 0 12px;
 }
@@ -763,6 +783,10 @@ canvas {
   .ic-panel {
     height: auto;
     min-height: 540px;
+  }
+
+  .status-grid {
+    grid-template-columns: 1fr;
   }
 }
 
