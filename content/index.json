@@ -1,0 +1,21 @@
+{
+  "generatedAt": "2026-06-12T10:33:33.509Z",
+  "blog": [],
+  "notes": [
+    {
+      "title": "Hello from Notion",
+      "slug": "hello-from-notion",
+      "date": "2026-06-12",
+      "lastEditedTime": "2026-06-12T10:09:00.000Z",
+      "category": "study",
+      "tags": [
+        "notes",
+        "coding"
+      ],
+      "status": "Published",
+      "notionPageId": "37ddb726-82a8-811d-b15c-d58f5ac4429c",
+      "href": "content/notes/hello-from-notion.md",
+      "kind": "notes"
+    }
+  ]
+}
