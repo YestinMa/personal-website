@@ -65,12 +65,21 @@
 
       <section class="content">
         <section id="overviewView" class="view-section is-active">
-          <section class="metric-filter-bar">
+          <section id="metricFilterBar" class="metric-filter-bar is-collapsed">
+            <button
+              id="metricFilterToggleBtn"
+              class="metric-filter-side-toggle"
+              type="button"
+              aria-expanded="false"
+              aria-controls="metricFilterBody"
+              title="展开指标筛选"
+            >筛选</button>
             <div class="metric-filter-head">
               <strong>指标筛选</strong>
               <button id="clearMetricFiltersBtn" class="text-button" type="button">清空筛选</button>
             </div>
-            <div class="metric-filter-grid">
+            <div id="metricFilterBody" class="metric-filter-body" hidden>
+              <div class="metric-filter-grid">
               <label class="metric-filter-item">
                 <span>年化收益率</span>
                 <div class="metric-filter-inputs">
@@ -113,6 +122,7 @@
                   <input id="filterRollingIcirMax" type="number" step="0.01" placeholder="最大值" />
                 </div>
               </label>
+              </div>
             </div>
           </section>
 
@@ -202,9 +212,9 @@
                 <span class="muted" id="icChartTitle">--</span>
               </div>
               <div class="series-toggles" data-chart="ic">
-                <label><input type="checkbox" id="toggleIc1" data-series="ic_1" /> IC_1</label>
-                <label><input type="checkbox" id="toggleIc5" data-series="ic_5" /> IC_5</label>
-                <label><input type="checkbox" id="toggleIc22" data-series="ic_22" checked /> IC_22</label>
+                <label><input type="radio" id="toggleIc1" name="icHorizon" data-series="ic_1" value="ic_1" /> IC_1</label>
+                <label><input type="radio" id="toggleIc5" name="icHorizon" data-series="ic_5" value="ic_5" /> IC_5</label>
+                <label><input type="radio" id="toggleIc22" name="icHorizon" data-series="ic_22" value="ic_22" checked /> IC_22</label>
               </div>
               <div class="chart-box">
                 <canvas id="icChart"></canvas>
@@ -293,6 +303,7 @@
               <div class="panel-head">
                 <h2>数据层报告</h2>
               </div>
+              <div id="statusDataLayerSummary" class="report-summary-chips"></div>
               <div id="statusDataLayer" class="job-items"></div>
             </article>
 
@@ -300,6 +311,7 @@
               <div class="panel-head">
                 <h2>因子层报告</h2>
               </div>
+              <div id="statusFactorLayerSummary" class="report-summary-chips"></div>
               <div id="statusFactorLayer" class="job-items"></div>
             </article>
 
@@ -307,6 +319,7 @@
               <div class="panel-head">
                 <h2>回测层报告</h2>
               </div>
+              <div id="statusBacktestLayerSummary" class="report-summary-chips"></div>
               <div id="statusBacktestLayer" class="job-items"></div>
             </article>
           </section>

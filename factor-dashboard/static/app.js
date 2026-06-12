@@ -19,6 +19,7 @@ const state = {
     statusFilter: "all",
     sortBy: "lifecycle_status",
     sortDir: "desc",
+    collapsed: true,
     metricFilters: {
       rolling_annual_return: { min: "", max: "" },
       rolling_vol: { min: "", max: "" },
@@ -28,6 +29,7 @@ const state = {
       rolling_icir: { min: "", max: "" },
     },
   },
+  selectedIcSeries: "ic_22",
 };
 
 const STATIC_MODE = Boolean(window.FACTOR_DASHBOARD_STATIC);
@@ -97,6 +99,59 @@ function getDisplayFactorValueDate(item) {
 
 function getSelectedFactorMeta() {
   return state.factors.find((item) => item.factor_name === state.selectedFactor) || null;
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function renderReportSummaryChips(targetId, items) {
+  const node = document.getElementById(targetId);
+  if (!node) return;
+  node.innerHTML = (items || [])
+    .map((item) => `
+      <div class="report-summary-chip">
+        <span>${escapeHtml(item.label)}</span>
+        <strong class="${item.tone || "num"}">${escapeHtml(item.value)}</strong>
+      </div>
+    `)
+    .join("");
+}
+
+function createJobRow(title, status, detail) {
+  return `
+    <div class="job-item-row">
+      <strong>${escapeHtml(title)}</strong>
+      <span class="badge ${escapeHtml(status || "skipped")}">${escapeHtml(status || "--")}</span>
+      <span class="job-detail">${escapeHtml(detail || "--")}</span>
+    </div>
+  `;
+}
+
+function getDataLayerItems(dataLayer) {
+  return [
+    ...(dataLayer.daily_update || []).map((item) => ({ ...item, source_label: "daily_update", item_name: item.table_name })),
+    ...(dataLayer.financial_events || []).map((item) => ({ ...item, source_label: "financial_events", item_name: item.table_name || item.name })),
+    ...(dataLayer.backfill || []).map((item) => ({ ...item, source_label: "backfill", item_name: item.table_name || item.name })),
+  ];
+}
+
+function setMetricFilterCollapsed(collapsed) {
+  state.factorTable.collapsed = collapsed;
+  const bar = document.getElementById("metricFilterBar");
+  const body = document.getElementById("metricFilterBody");
+  const button = document.getElementById("metricFilterToggleBtn");
+  if (!bar || !body || !button) return;
+  bar.classList.toggle("is-collapsed", collapsed);
+  body.hidden = collapsed;
+  button.setAttribute("aria-expanded", collapsed ? "false" : "true");
+  button.textContent = collapsed ? "筛选" : "收起";
+  button.title = collapsed ? "展开指标筛选" : "收起指标筛选";
 }
 
 function showToast(message) {
@@ -471,7 +526,7 @@ function drawIcComboChart(canvasId, seriesList, options = {}) {
 
   seriesList.forEach((series, seriesIdx) => {
     const bars = (series.barPoints || []).filter((p) => Number.isFinite(p.value));
-    ctx.fillStyle = series.color;
+    ctx.fillStyle = series.barColor || series.color;
     bars.forEach((point, idx) => {
       const baseX = xFor(idx, refPoints.length);
       const offset = (seriesIdx - (groupCount - 1) / 2) * (barWidth + 2);
@@ -488,7 +543,7 @@ function drawIcComboChart(canvasId, seriesList, options = {}) {
   seriesList.forEach((series) => {
     const points = (series.linePoints || []).filter((p) => Number.isFinite(p.value));
     if (!points.length) return;
-    ctx.strokeStyle = series.color;
+    ctx.strokeStyle = series.lineColor || series.color;
     ctx.lineWidth = 2.2;
     ctx.beginPath();
     points.forEach((point, idx) => {
@@ -510,17 +565,19 @@ function drawIcComboChart(canvasId, seriesList, options = {}) {
 
   let legendX = padding.left;
   seriesList.forEach((series) => {
-    ctx.fillStyle = series.color;
+    const barColor = series.barColor || series.color;
+    const lineColor = series.lineColor || series.color;
+    ctx.fillStyle = barColor;
     ctx.globalAlpha = 0.82;
     ctx.fillRect(legendX, 9, 12, 10);
     ctx.globalAlpha = 1;
-    ctx.strokeStyle = series.color;
+    ctx.strokeStyle = lineColor;
     ctx.lineWidth = 2.2;
     ctx.beginPath();
     ctx.moveTo(legendX + 18, 14);
     ctx.lineTo(legendX + 34, 14);
     ctx.stroke();
-    const label = `${series.name} / Cum`;
+    const label = series.legendLabel || `${series.name} / Cum`;
     ctx.fillStyle = "#6b7280";
     ctx.textAlign = "left";
     ctx.fillText(label, legendX + 40, 18);
@@ -748,6 +805,12 @@ function bindMetricFilterInputs() {
     });
     renderFactors();
   });
+
+  document.getElementById("metricFilterToggleBtn").addEventListener("click", () => {
+    setMetricFilterCollapsed(!state.factorTable.collapsed);
+  });
+
+  setMetricFilterCollapsed(true);
 }
 
 function renderJobs() {
@@ -756,66 +819,84 @@ function renderJobs() {
   const dataLayer = payload.data_layer || { summary: {} };
   const factorLayer = payload.factor_layer || { summary: {}, rolling_metrics: {} };
   const backtestLayer = payload.backtest_layer || { summary: {} };
+  const dataItems = getDataLayerItems(dataLayer);
+  const factorItems = factorLayer.factor_value_update || [];
+  const backtestRuns = backtestLayer.runs || [];
   const schedulerBox = document.getElementById("statusScheduler");
   const dataBox = document.getElementById("statusDataLayer");
   const factorBox = document.getElementById("statusFactorLayer");
   const backtestBox = document.getElementById("statusBacktestLayer");
-  const row = (left, badge, right) => `<div class="job-item-row"><strong>${left}</strong><span class="${badge}">${right}</span></div>`;
   schedulerBox.innerHTML = (scheduler.stages || []).length
-    ? (scheduler.stages || []).map((stage) => `<div class="job-item-row"><strong>${stage.stage_name}</strong><span class="badge ${stage.status}">${stage.status}</span><span>${stage.trade_date || "--"}</span></div>`).join("")
+    ? (scheduler.stages || []).map((stage) => createJobRow(stage.stage_name, stage.status, stage.trade_date || "--")).join("")
     : "暂无调度记录";
-  dataBox.innerHTML = `
-    ${row("rows_written", "num", dataLayer.summary?.rows_written || 0)}
-    ${row("field_values_written", "num", dataLayer.summary?.field_values_written || 0)}
-    ${row("financial_raw_new_rows", "num", dataLayer.summary?.financial_raw_new_rows || 0)}
-    ${(dataLayer.daily_update || []).slice(0, 6).map((item) => `<div class="job-item-row"><strong>${item.table_name}</strong><span class="badge ${item.status}">${item.status}</span><span>${item.rows_written || 0} rows / ${item.field_values_written || 0} fields</span></div>`).join("") || "暂无数据层报告"}
-  `;
+  renderReportSummaryChips("statusDataLayerSummary", [
+    { label: "success", value: dataLayer.summary?.success_table_count || 0, tone: "num" },
+    { label: "failed", value: dataLayer.summary?.failed_table_count || 0, tone: "num" },
+    { label: "rows_written", value: dataLayer.summary?.rows_written || 0, tone: cssNum(dataLayer.summary?.rows_written) },
+    { label: "field_values_written", value: dataLayer.summary?.field_values_written || 0, tone: cssNum(dataLayer.summary?.field_values_written) },
+    { label: "financial_raw_new_rows", value: dataLayer.summary?.financial_raw_new_rows || 0, tone: cssNum(dataLayer.summary?.financial_raw_new_rows) },
+  ]);
+  dataBox.innerHTML = dataItems.length
+    ? dataItems.slice(0, 8).map((item) => createJobRow(
+      `${item.item_name || "--"} · ${item.source_label || "data"}`,
+      item.status,
+      `${item.rows_written || 0} rows / ${item.field_values_written || 0} fields`,
+    )).join("")
+    : "暂无数据层报告";
+  renderReportSummaryChips("statusFactorLayerSummary", [
+    { label: "success", value: factorLayer.summary?.success_factor_count || 0, tone: "num" },
+    { label: "failed", value: factorLayer.summary?.failed_factor_count || 0, tone: "num" },
+    { label: "skipped", value: factorLayer.summary?.skipped_factor_count || 0, tone: "num" },
+    { label: "rows_written", value: factorLayer.summary?.rows_written || 0, tone: cssNum(factorLayer.summary?.rows_written) },
+    { label: "field_values_written", value: factorLayer.summary?.field_values_written || 0, tone: cssNum(factorLayer.summary?.field_values_written) },
+  ]);
   factorBox.innerHTML = `
-    ${row("success", "num", factorLayer.summary?.success_factor_count || 0)}
-    ${row("failed", "num", factorLayer.summary?.failed_factor_count || 0)}
-    ${row("skipped", "num", factorLayer.summary?.skipped_factor_count || 0)}
-    ${(factorLayer.factor_value_update || []).slice(0, 8).map((item) => `<div class="job-item-row"><strong>${item.factor_name}</strong><span class="badge ${item.status}">${item.status}</span><span>${item.phase} / ${item.rows_written || 0} rows</span></div>`).join("") || "暂无因子层报告"}
-    ${factorLayer.rolling_metrics ? `<div class="job-item-row"><strong>rolling_metrics</strong><span class="badge ${factorLayer.rolling_metrics.status || "skipped"}">${factorLayer.rolling_metrics.status || "skipped"}</span><span>${factorLayer.rolling_metrics.rows_written || 0} rows</span></div>` : ""}
+    ${factorItems.slice(0, 8).map((item) => createJobRow(
+      item.factor_name,
+      item.status,
+      `${item.phase || "--"} / ${item.rows_written || 0} rows / ${item.field_values_written || 0} fields`,
+    )).join("") || "暂无因子层报告"}
+    ${factorLayer.rolling_metrics ? createJobRow(
+      "rolling_metrics",
+      factorLayer.rolling_metrics.status || "skipped",
+      `${factorLayer.rolling_metrics.rows_written || 0} rows`,
+    ) : ""}
   `;
-  backtestBox.innerHTML = `
-    ${row("success", "num", backtestLayer.summary?.success_count || 0)}
-    ${row("failed", "num", backtestLayer.summary?.failed_count || 0)}
-    ${row("running", "num", backtestLayer.summary?.running_count || 0)}
-    ${(backtestLayer.runs || []).slice(0, 8).map((item) => `<div class="job-item-row"><strong>${item.factor_name}</strong><span class="badge ${item.status}">${item.status}</span><span>${item.start_date || "--"} ~ ${item.end_date || "--"}</span></div>`).join("") || "暂无回测层报告"}
-  `;
+  renderReportSummaryChips("statusBacktestLayerSummary", [
+    { label: "success", value: backtestLayer.summary?.success_count || 0, tone: "num" },
+    { label: "failed", value: backtestLayer.summary?.failed_count || 0, tone: "num" },
+    { label: "running", value: backtestLayer.summary?.running_count || 0, tone: "num" },
+  ]);
+  backtestBox.innerHTML = backtestRuns.length
+    ? backtestRuns.slice(0, 8).map((item) => createJobRow(
+      item.factor_name,
+      item.status,
+      `${item.start_date || "--"} ~ ${item.end_date || "--"}`,
+    )).join("")
+    : "暂无回测层报告";
 }
 
 function renderIcChart() {
   const range = normalizeRange("ic");
   const points = (state.chartData.ic || []).slice(range.start, range.end + 1);
-  const visible = {
-    ic_1: document.getElementById("toggleIc1").checked,
-    ic_5: document.getElementById("toggleIc5").checked,
-    ic_22: document.getElementById("toggleIc22").checked,
-  };
+  const selected = document.querySelector('input[name="icHorizon"]:checked')?.value || state.selectedIcSeries || "ic_22";
+  state.selectedIcSeries = selected;
   const series = [];
-  if (visible.ic_1) {
+  const seriesMap = {
+    ic_1: { label: "IC_1", barKey: "ic_1", lineKey: "cum_ic_1" },
+    ic_5: { label: "IC_5", barKey: "ic_5", lineKey: "cum_ic_5" },
+    ic_22: { label: "IC_22", barKey: "ic_22", lineKey: "cum_ic_22" },
+  };
+  const config = seriesMap[selected];
+  if (config) {
     series.push({
-      name: "IC_1",
+      name: config.label,
       color: "#2563eb",
-      barPoints: points.map((p) => ({ date: p.trade_date, value: numericOrNaN(p.ic_1) })),
-      linePoints: points.map((p) => ({ date: p.trade_date, value: numericOrNaN(p.cum_ic_1) })),
-    });
-  }
-  if (visible.ic_5) {
-    series.push({
-      name: "IC_5",
-      color: "#2f9e65",
-      barPoints: points.map((p) => ({ date: p.trade_date, value: numericOrNaN(p.ic_5) })),
-      linePoints: points.map((p) => ({ date: p.trade_date, value: numericOrNaN(p.cum_ic_5) })),
-    });
-  }
-  if (visible.ic_22) {
-    series.push({
-      name: "IC_22",
-      color: "#e79b28",
-      barPoints: points.map((p) => ({ date: p.trade_date, value: numericOrNaN(p.ic_22) })),
-      linePoints: points.map((p) => ({ date: p.trade_date, value: numericOrNaN(p.cum_ic_22) })),
+      barColor: "#2563eb",
+      lineColor: "#e55353",
+      legendLabel: `${config.label} Bar / Cumulative IC`,
+      barPoints: points.map((p) => ({ date: p.trade_date, value: numericOrNaN(p[config.barKey]) })),
+      linePoints: points.map((p) => ({ date: p.trade_date, value: numericOrNaN(p[config.lineKey]) })),
     });
   }
   drawIcComboChart("icChart", series, { emptyText: "暂无 IC 数据" });

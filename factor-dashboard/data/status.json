@@ -4,6 +4,16 @@
     "stages": [
       {
         "run_id": "20260611-161017-master-daily",
+        "stage_name": "Multifactor_Factor_Dashboard_Publish",
+        "stage_order": 6,
+        "status": "success",
+        "trade_date": "2026-06-11",
+        "started_at": "2026-06-11 17:19:51",
+        "ended_at": "2026-06-11 17:28:37",
+        "error_message": null
+      },
+      {
+        "run_id": "20260611-161017-master-daily",
         "stage_name": "Multifactor_Factor_Eval_Auto_Update",
         "stage_order": 5,
         "status": "success",
@@ -54,6 +64,16 @@
       }
     ],
     "recent_stages": [
+      {
+        "run_id": "20260611-161017-master-daily",
+        "stage_name": "Multifactor_Factor_Dashboard_Publish",
+        "stage_order": 6,
+        "status": "success",
+        "trade_date": "2026-06-11",
+        "started_at": "2026-06-11 17:19:51",
+        "ended_at": "2026-06-11 17:28:37",
+        "error_message": null
+      },
       {
         "run_id": "20260611-161017-master-daily",
         "stage_name": "Multifactor_Factor_Eval_Auto_Update",
@@ -283,43 +303,19 @@
         "started_at": "2026-06-08 17:10:39",
         "ended_at": "2026-06-08 17:11:24",
         "error_message": null
-      },
-      {
-        "run_id": "20260607-161018-master-daily",
-        "stage_name": "Multifactor_Factor_Dashboard_Publish",
-        "stage_order": 6,
-        "status": "success",
-        "trade_date": "2026-06-05",
-        "started_at": "2026-06-07 16:47:46",
-        "ended_at": "2026-06-07 16:52:51",
-        "error_message": null
       }
     ]
   },
   "data_layer": {
-    "layer": "data_layer",
-    "job_date": "2026-06-11",
-    "latest_run_id": "20260611-161249-backfill",
-    "status": "success",
-    "summary": {
-      "table_count": 0,
-      "success_table_count": 0,
-      "failed_table_count": 0,
-      "rows_written": 0,
-      "field_values_written": 0,
-      "financial_raw_new_rows": 0,
-      "quota_usage": 0.03997467994689941,
-      "event_summary": {}
-    },
+    "summary": {},
     "daily_update": [],
     "backfill": [],
-    "financial_events": [],
-    "generated_at": "2026-06-11 16:13:43"
+    "financial_events": []
   },
   "factor_layer": {
     "layer": "factor_layer",
     "job_date": "2026-06-11",
-    "latest_run_id": "20260611-171951-factor-daily",
+    "latest_run_id": "20260612-092342-factor-daily",
     "status": "skipped",
     "summary": {
       "factor_count": 8,
@@ -334,8 +330,8 @@
         "active",
         "candidate"
       ],
-      "started_at": "2026-06-11 17:19:51",
-      "ended_at": "2026-06-11 17:19:51"
+      "started_at": "2026-06-12 09:23:42",
+      "ended_at": "2026-06-12 09:23:42"
     },
     "factor_value_update": [
       {
@@ -349,7 +345,7 @@
         "end_date": "2026-06-11",
         "rows_written": 0,
         "field_values_written": 0,
-        "duration_ms": 6,
+        "duration_ms": 3,
         "retry_count": 0,
         "error_type": "NoNewDate",
         "error_message": "already updated to 2026-06-11"
@@ -365,7 +361,7 @@
         "end_date": "2026-06-11",
         "rows_written": 0,
         "field_values_written": 0,
-        "duration_ms": 2,
+        "duration_ms": 1,
         "retry_count": 0,
         "error_type": "NoNewDate",
         "error_message": "already updated to 2026-06-11"
@@ -381,7 +377,7 @@
         "end_date": "2026-06-11",
         "rows_written": 0,
         "field_values_written": 0,
-        "duration_ms": 3,
+        "duration_ms": 1,
         "retry_count": 0,
         "error_type": "NoNewDate",
         "error_message": "already updated to 2026-06-11"
@@ -397,7 +393,7 @@
         "end_date": "2026-06-11",
         "rows_written": 0,
         "field_values_written": 0,
-        "duration_ms": 2,
+        "duration_ms": 1,
         "retry_count": 0,
         "error_type": "NoNewDate",
         "error_message": "already updated to 2026-06-11"
@@ -413,7 +409,7 @@
         "end_date": "2026-06-11",
         "rows_written": 0,
         "field_values_written": 0,
-        "duration_ms": 4,
+        "duration_ms": 2,
         "retry_count": 0,
         "error_type": "NoNewDate",
         "error_message": "already updated to 2026-06-11"
@@ -429,7 +425,7 @@
         "end_date": "2026-06-11",
         "rows_written": 0,
         "field_values_written": 0,
-        "duration_ms": 3,
+        "duration_ms": 0,
         "retry_count": 0,
         "error_type": "NoNewDate",
         "error_message": "already updated to 2026-06-11"
@@ -445,7 +441,7 @@
         "end_date": "2026-06-11",
         "rows_written": 0,
         "field_values_written": 0,
-        "duration_ms": 3,
+        "duration_ms": 0,
         "retry_count": 0,
         "error_type": "NoNewDate",
         "error_message": "already updated to 2026-06-11"
@@ -461,7 +457,7 @@
         "end_date": "2026-06-11",
         "rows_written": 0,
         "field_values_written": 0,
-        "duration_ms": 6,
+        "duration_ms": 22,
         "retry_count": 0,
         "error_type": "NoNewDate",
         "error_message": "already updated to 2026-06-11"
@@ -475,21 +471,153 @@
       "run_id": null,
       "duration_ms": null
     },
-    "generated_at": "2026-06-11 17:19:51"
+    "generated_at": "2026-06-12 09:23:42"
   },
   "backtest_layer": {
     "layer": "backtest_layer",
     "job_date": "2026-06-11",
-    "latest_run_id": "bt-20260611-003421-4e730e54",
+    "latest_run_id": "bt-20260611-175706-5b294bb5",
     "status": "success",
     "summary": {
-      "run_count": 6,
+      "run_count": 8,
       "pending_count": 0,
       "running_count": 0,
-      "success_count": 6,
+      "success_count": 8,
       "failed_count": 0
     },
     "runs": [
+      {
+        "run_id": "bt-20260611-175706-5b294bb5",
+        "factor_name": "Alpha045",
+        "version_id": "ver_d726a8da0b2d",
+        "start_date": "2023-05-31",
+        "end_date": "2026-05-29",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\alpha\\alpha045_persistent_consensus_mom\\alpha045_persistent_consensus_mom_20230531_20260529.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260611-175706-5b294bb5",
+          "factor_name": "Alpha045",
+          "version_id": "ver_d726a8da0b2d",
+          "start_date": "2023-05-31",
+          "end_date": "2026-05-29",
+          "universe": "ALL",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "all_factor_values",
+          "universe_size": 5127,
+          "mean_ic": {
+            "1": 0.005699778353002982,
+            "5": 0.0071401814974875865,
+            "22": 0.014819246893718847
+          },
+          "evaluation_metrics": {
+            "icir_1": 0.08456558496896192,
+            "icir_5": 0.10082886530520217,
+            "icir_22": 0.19258551171725066,
+            "ls_annual_return": 0.13097784597438444,
+            "ls_annual_vol": 0.11258110849042434,
+            "ls_sharpe": 1.1497406748639187,
+            "ls_win_rate": 0.543424317617866,
+            "ls_max_drawdown": -0.1609843947347248,
+            "mean_turnover": 0.20446715666980078,
+            "coverage_ratio": 0.9842581154719507
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha045\\20260611-ALL-23052605",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha045\\20260611-ALL-23052605\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha045\\20260611-ALL-23052605\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha045\\20260611-ALL-23052605\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha045\\20260611-ALL-23052605\\backtest_plots.png"
+        },
+        "created_at": "2026-06-11 17:57:06",
+        "started_at": "2026-06-11 17:57:07",
+        "ended_at": "2026-06-11 17:58:49",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260611-175629-4d612e59",
+        "factor_name": "Alpha045",
+        "version_id": "ver_d726a8da0b2d",
+        "start_date": "2023-05-31",
+        "end_date": "2026-05-29",
+        "universe": "index:000905.XSHG",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\alpha\\alpha045_persistent_consensus_mom\\alpha045_persistent_consensus_mom_20230531_20260529.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260611-175629-4d612e59",
+          "factor_name": "Alpha045",
+          "version_id": "ver_d726a8da0b2d",
+          "start_date": "2023-05-31",
+          "end_date": "2026-05-29",
+          "universe": "index:000905.XSHG",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "index_constituents",
+          "universe_size": 498,
+          "mean_ic": {
+            "1": 0.009909513577692442,
+            "5": 0.020853756610231665,
+            "22": 0.030112230299412755
+          },
+          "evaluation_metrics": {
+            "icir_1": 0.08375049684806594,
+            "icir_5": 0.1724183323807219,
+            "icir_22": 0.25023916149580067,
+            "ls_annual_return": 0.12628674698943754,
+            "ls_annual_vol": 0.17517253591892834,
+            "ls_sharpe": 0.766781391994003,
+            "ls_win_rate": 0.5632754342431762,
+            "ls_max_drawdown": -0.18294947791009386,
+            "mean_turnover": 0.19869367548999797,
+            "coverage_ratio": 0.9931627745550101
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha045\\20260611-index_000905.XSHG-23052605",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha045\\20260611-index_000905.XSHG-23052605\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha045\\20260611-index_000905.XSHG-23052605\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha045\\20260611-index_000905.XSHG-23052605\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha045\\20260611-index_000905.XSHG-23052605\\backtest_plots.png"
+        },
+        "created_at": "2026-06-11 17:56:29",
+        "started_at": "2026-06-11 17:56:29",
+        "ended_at": "2026-06-11 17:57:06",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
       {
         "run_id": "bt-20260611-003421-4e730e54",
         "factor_name": "Alpha044",
@@ -887,6 +1015,6 @@
         "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
       }
     ],
-    "generated_at": "2026-06-11 00:35:17"
+    "generated_at": "2026-06-11 17:58:49"
   }
 }
