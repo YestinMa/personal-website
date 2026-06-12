@@ -441,6 +441,335 @@ function toFrontmatter(meta) {
   return `---\n${lines.join("\n")}\n---\n\n`;
 }
 
+function getHtmlOutputPath(meta) {
+  return path.join(REPO_ROOT, meta.kind, `${meta.slug}.html`);
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function parseInlineMarkdown(text) {
+  let html = escapeHtml(text);
+  html = html.replace(/`([^`]+)`/g, "<code>$1</code>");
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+  html = html.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+  html = html.replace(/\*([^*]+)\*/g, "<em>$1</em>");
+  html = html.replace(/~~([^~]+)~~/g, "<del>$1</del>");
+  html = html.replace(/\\([\\`*_{}\[\]()#+\-.!|>])/g, "$1");
+  return html;
+}
+
+function markdownToHtml(markdown) {
+  const lines = markdown.replace(/\r\n/g, "\n").split("\n");
+  const html = [];
+  let paragraph = [];
+  let inCodeBlock = false;
+  let codeLanguage = "";
+  let codeLines = [];
+  let listType = null;
+  let quoteLines = [];
+
+  function flushParagraph() {
+    if (!paragraph.length) return;
+    html.push(`<p>${parseInlineMarkdown(paragraph.join(" "))}</p>`);
+    paragraph = [];
+  }
+
+  function flushList() {
+    if (!listType) return;
+    html.push(`</${listType}>`);
+    listType = null;
+  }
+
+  function flushQuote() {
+    if (!quoteLines.length) return;
+    html.push(`<blockquote>${quoteLines.map((line) => `<p>${parseInlineMarkdown(line)}</p>`).join("")}</blockquote>`);
+    quoteLines = [];
+  }
+
+  function flushCodeBlock() {
+    if (!inCodeBlock) return;
+    const languageClass = codeLanguage ? ` class="language-${escapeHtml(codeLanguage)}"` : "";
+    html.push(`<pre><code${languageClass}>${escapeHtml(codeLines.join("\n"))}</code></pre>`);
+    inCodeBlock = false;
+    codeLanguage = "";
+    codeLines = [];
+  }
+
+  for (const rawLine of lines) {
+    const line = rawLine.trimEnd();
+
+    if (inCodeBlock) {
+      if (line.startsWith("```")) {
+        flushCodeBlock();
+      } else {
+        codeLines.push(rawLine);
+      }
+      continue;
+    }
+
+    if (!line.trim()) {
+      flushParagraph();
+      flushList();
+      flushQuote();
+      continue;
+    }
+
+    if (line.startsWith("```")) {
+      flushParagraph();
+      flushList();
+      flushQuote();
+      inCodeBlock = true;
+      codeLanguage = line.slice(3).trim();
+      continue;
+    }
+
+    const headingMatch = line.match(/^(#{1,3})\s+(.*)$/);
+    if (headingMatch) {
+      flushParagraph();
+      flushList();
+      flushQuote();
+      const level = headingMatch[1].length;
+      html.push(`<h${level}>${parseInlineMarkdown(headingMatch[2])}</h${level}>`);
+      continue;
+    }
+
+    if (line === "---") {
+      flushParagraph();
+      flushList();
+      flushQuote();
+      html.push("<hr>");
+      continue;
+    }
+
+    const imageMatch = line.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+    if (imageMatch) {
+      flushParagraph();
+      flushList();
+      flushQuote();
+      html.push(
+        `<figure><img src="${escapeHtml(imageMatch[2])}" alt="${escapeHtml(imageMatch[1])}">${imageMatch[1] ? `<figcaption>${escapeHtml(imageMatch[1])}</figcaption>` : ""}</figure>`,
+      );
+      continue;
+    }
+
+    const quoteMatch = line.match(/^>\s?(.*)$/);
+    if (quoteMatch) {
+      flushParagraph();
+      flushList();
+      quoteLines.push(quoteMatch[1]);
+      continue;
+    }
+
+    const unorderedMatch = rawLine.match(/^\s*-\s+(.*)$/);
+    if (unorderedMatch) {
+      flushParagraph();
+      flushQuote();
+      if (listType !== "ul") {
+        flushList();
+        listType = "ul";
+        html.push("<ul>");
+      }
+      html.push(`<li>${parseInlineMarkdown(unorderedMatch[1])}</li>`);
+      continue;
+    }
+
+    const orderedMatch = rawLine.match(/^\s*1\.\s+(.*)$/);
+    if (orderedMatch) {
+      flushParagraph();
+      flushQuote();
+      if (listType !== "ol") {
+        flushList();
+        listType = "ol";
+        html.push("<ol>");
+      }
+      html.push(`<li>${parseInlineMarkdown(orderedMatch[1])}</li>`);
+      continue;
+    }
+
+    flushList();
+    flushQuote();
+    paragraph.push(line);
+  }
+
+  flushParagraph();
+  flushList();
+  flushQuote();
+  flushCodeBlock();
+
+  return html.join("\n");
+}
+
+function buildArticleHtml(meta, markdownBody) {
+  const articleHtml = markdownToHtml(markdownBody);
+  const title = escapeHtml(meta.title);
+  const category = escapeHtml(meta.category || meta.kind);
+  const date = escapeHtml(meta.date || "");
+  const backHref = meta.kind === "blog" ? "../notes-blogs.html" : "../notes-blogs.html";
+  const tags = (meta.tags || []).map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("");
+
+  return `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="${escapeHtml(meta.title)}">
+  <title>${title} - 个人网站</title>
+  <link rel="stylesheet" href="../css/style.css?v=1.0.2">
+  <style>
+    .article-shell {
+      padding: 4rem 0;
+    }
+    .article-card {
+      max-width: 860px;
+      margin: 0 auto;
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+    }
+    .article-back {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      color: var(--secondary-color);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .article-title {
+      margin-bottom: 0.75rem;
+    }
+    .article-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+    .article-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .tag {
+      background: var(--bg-light);
+      border: 1px solid var(--border-color);
+      border-radius: 999px;
+      padding: 0.3rem 0.75rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .article-content {
+      line-height: 1.8;
+      color: var(--text-color);
+    }
+    .article-content h1,
+    .article-content h2,
+    .article-content h3 {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+    .article-content p,
+    .article-content ul,
+    .article-content ol,
+    .article-content blockquote,
+    .article-content pre,
+    .article-content figure {
+      margin-bottom: 1rem;
+    }
+    .article-content ul,
+    .article-content ol {
+      padding-left: 1.5rem;
+    }
+    .article-content blockquote {
+      border-left: 4px solid var(--border-color);
+      padding-left: 1rem;
+      color: var(--text-muted);
+    }
+    .article-content pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 1rem;
+      border-radius: 12px;
+      overflow-x: auto;
+    }
+    .article-content code {
+      font-family: "Consolas", "Monaco", monospace;
+    }
+    .article-content img {
+      max-width: 100%;
+      border-radius: 12px;
+    }
+    .article-content a {
+      color: var(--secondary-color);
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-brand">
+        <a href="../index.html">我的网站</a>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="../index.html">About me</a></li>
+        <li><a href="../strategy-dashboard.html">Strategy Dashboard</a></li>
+        <li><a href="../factor-dashboard/index.html">因子看板</a></li>
+        <li><a href="../notes-blogs.html" class="active">Notes &amp; Blogs</a></li>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="article-shell">
+      <div class="container">
+        <article class="article-card">
+          <a class="article-back" href="${backHref}">← Back to Notes &amp; Blogs</a>
+          <h1 class="article-title">${title}</h1>
+          <div class="article-meta">
+            <span>${escapeHtml(meta.kind)}</span>
+            <span>${date}</span>
+            <span>${category}</span>
+          </div>
+          <div class="article-tags">${tags}</div>
+          <div class="article-content">
+            ${articleHtml}
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Yestin Ma. 保留所有权利。</p>
+      <div class="social-links">
+        <a href="#" aria-label="GitHub">GitHub</a>
+        <a href="#" aria-label="LinkedIn">LinkedIn</a>
+        <a href="#" aria-label="Twitter">Twitter</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js?v=1.0.2"></script>
+</body>
+</html>
+`;
+}
+
 async function indexExistingContent(rootDir) {
   const state = new Map();
 
@@ -460,6 +789,7 @@ async function indexExistingContent(rootDir) {
       if (notionPageIdMatch) {
         state.set(notionPageIdMatch[1], {
           path: fullPath,
+          htmlPath: path.join(REPO_ROOT, kind, `${entry.name.replace(/\.md$/, "")}.html`),
           lastEditedTime: lastEditedTimeMatch ? lastEditedTimeMatch[1] : "",
         });
       }
@@ -484,6 +814,9 @@ async function syncPage(token, page, ancestors, defaultStatus, isContainer, exis
   if (!isPublishedStatus(meta.status)) {
     if (existing) {
       await fs.rm(existing.path, { force: true });
+      if (existing.htmlPath) {
+        await fs.rm(existing.htmlPath, { force: true });
+      }
       return { status: "removed", reason: "unpublished", meta };
     }
     return { status: "skipped", reason: "unpublished", meta };
@@ -491,22 +824,34 @@ async function syncPage(token, page, ancestors, defaultStatus, isContainer, exis
 
   const targetDir = path.join(contentRoot, meta.kind);
   const targetPath = path.join(targetDir, `${meta.slug}.md`);
+  const htmlTargetPath = getHtmlOutputPath(meta);
 
-  if (existing && existing.lastEditedTime === meta.lastEditedTime && existing.path === targetPath) {
+  const htmlAlreadyExists = await fs
+    .access(htmlTargetPath)
+    .then(() => true)
+    .catch(() => false);
+
+  if (existing && existing.lastEditedTime === meta.lastEditedTime && existing.path === targetPath && htmlAlreadyExists) {
     return { status: "skipped", reason: "unchanged", meta };
   }
 
   const blocks = await listBlockChildren(token, page.id);
   const markdownBody = await renderBlocks(token, blocks);
   const fileContent = `${toFrontmatter(meta)}${markdownBody}`;
+  const htmlContent = buildArticleHtml(meta, markdownBody);
 
   await fs.mkdir(targetDir, { recursive: true });
+  await fs.mkdir(path.dirname(htmlTargetPath), { recursive: true });
 
   if (existing && existing.path !== targetPath) {
     await fs.rm(existing.path, { force: true });
   }
+  if (existing && existing.htmlPath && existing.htmlPath !== htmlTargetPath) {
+    await fs.rm(existing.htmlPath, { force: true });
+  }
 
   await fs.writeFile(targetPath, fileContent, "utf8");
+  await fs.writeFile(htmlTargetPath, htmlContent, "utf8");
   return { status: existing ? "updated" : "created", reason: "synced", meta, path: targetPath };
 }
 
@@ -563,7 +908,7 @@ async function collectContentEntries(contentRoot, kind) {
       tags: Array.isArray(meta.tags) ? meta.tags : [],
       status: meta.status || "",
       notionPageId: meta.notionPageId || "",
-      href: toHref(fullPath),
+      href: `${kind}/${meta.slug || entry.name.replace(/\.md$/, "")}.html`,
       kind,
     });
   }

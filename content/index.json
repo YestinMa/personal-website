@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-12T10:33:33.509Z",
+  "generatedAt": "2026-06-12T11:11:05.391Z",
   "blog": [],
   "notes": [
     {
@@ -14,7 +14,7 @@
       ],
       "status": "Published",
       "notionPageId": "37ddb726-82a8-811d-b15c-d58f5ac4429c",
-      "href": "content/notes/hello-from-notion.md",
+      "href": "notes/hello-from-notion.html",
       "kind": "notes"
     }
   ]
