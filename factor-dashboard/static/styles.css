@@ -440,7 +440,7 @@ h1 span {
   display: grid;
   grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.8fr);
   gap: 18px;
-  align-items: start;
+  align-items: stretch;
 }
 
 .portfolio-detail-grid {
@@ -629,11 +629,17 @@ tbody tr:last-child td {
 }
 
 .portfolio-run-list {
+  flex: 1 1 auto;
   min-height: 220px;
-  max-height: 760px;
+  height: 100%;
   overflow: auto;
   display: grid;
   gap: 12px;
+}
+
+.portfolio-list-panel {
+  height: 100%;
+  min-height: 100%;
 }
 
 .portfolio-run-card {

@@ -125,7 +125,7 @@ function escapeHtml(value) {
 function stringifyValue(value) {
   if (value === null || value === undefined || value === "") return "--";
   if (typeof value === "number") return Number.isFinite(value) ? String(value) : "--";
-  if (typeof value === "boolean") return value ? "true" : "false";
+  if (typeof value === "boolean") return value ? "是" : "否";
   if (Array.isArray(value) || typeof value === "object") {
     try {
       return JSON.stringify(value, null, 2);
@@ -145,10 +145,16 @@ function renderKvGrid(targetId, items, emptyText) {
   }
   node.innerHTML = items.map((item) => `
     <div class="kv-card">
-      <span>${escapeHtml(item.label)}</span>
+      <span>${escapeHtml(toTitleLabel(item.label))}</span>
       <strong>${escapeHtml(stringifyValue(item.value))}</strong>
     </div>
   `).join("");
+}
+
+function toTitleLabel(key) {
+  return String(key || "")
+    .replaceAll("_", " ")
+    .replace(/\b([a-z])/g, (m) => m.toUpperCase());
 }
 
 function renderReportSummaryChips(targetId, items) {
@@ -357,7 +363,9 @@ function setupCanvas(canvas) {
 function drawLineChart(canvasId, seriesList, options = {}) {
   const canvas = document.getElementById(canvasId);
   const { ctx, width, height } = setupCanvas(canvas);
-  const padding = { left: 52, right: 20, top: 30, bottom: 34 };
+  const legendItems = (seriesList || []).filter((item) => item?.name);
+  const hasLegend = legendItems.length > 0;
+  const padding = { left: 52, right: 20, top: hasLegend ? 46 : 30, bottom: 34 };
   const allPoints = seriesList.flatMap((s) => s.points || []).filter((p) => Number.isFinite(p.value));
   if (!allPoints.length) {
     ctx.clearRect(0, 0, width, height);
@@ -475,17 +483,18 @@ function drawLineChart(canvasId, seriesList, options = {}) {
   ctx.textAlign = "right";
   ctx.fillText(last || "", width - padding.right, height - 10);
 
-  let legendX = padding.left;
-  seriesList.forEach((series) => {
+  let legendX = padding.left + 18;
+  const legendY = 24;
+  legendItems.forEach((series) => {
     ctx.strokeStyle = series.color;
     ctx.lineWidth = series.lineWidth || 2;
     ctx.setLineDash(series.dash ? [6, 5] : []);
     ctx.beginPath();
-    ctx.moveTo(legendX, 14);
-    ctx.lineTo(legendX + 22, 14);
+    ctx.moveTo(legendX, legendY);
+    ctx.lineTo(legendX + 22, legendY);
     ctx.stroke();
     ctx.setLineDash([]);
-    ctx.fillText(series.name || "", legendX + 28, 18);
+    ctx.fillText(series.name || "", legendX + 28, legendY + 4);
     legendX += 24 + ctx.measureText(series.name || "").width + 18;
   });
 }
@@ -1037,6 +1046,25 @@ function pickPortfolioParamItems(payload) {
   return Object.entries(payload || {}).map(([key, value]) => ({ label: key, value }));
 }
 
+function buildOptimizerParamItems(summary) {
+  if (!summary) return [];
+  const items = [
+    { label: "optimizer_name", value: summary.optimizer_name },
+    { label: "start_date", value: summary.start_date },
+    { label: "end_date", value: summary.end_date },
+    { label: "n_factors", value: summary.n_factors },
+    { label: "n_rebalance_dates", value: summary.n_rebalance_dates },
+  ];
+  const constraints = summary.constraints || {};
+  Object.entries(constraints).forEach(([key, value]) => {
+    if (key === "extras" && value && typeof value === "object" && !Object.keys(value).length) {
+      return;
+    }
+    items.push({ label: `constraint_${key}`, value });
+  });
+  return items;
+}
+
 function renderPortfolioList() {
   const node = document.getElementById("portfolioRunList");
   if (!node) return;
@@ -1121,16 +1149,7 @@ function renderPortfolioDetail() {
   }
 
   const qlibItems = pickPortfolioParamItems(detail.qlib_run_summary?.run);
-  const optimizerItems = detail.optimizer_run_summary
-    ? [
-        { label: "optimizer_name", value: detail.optimizer_run_summary.optimizer_name },
-        { label: "start_date", value: detail.optimizer_run_summary.start_date },
-        { label: "end_date", value: detail.optimizer_run_summary.end_date },
-        { label: "constraints", value: detail.optimizer_run_summary.constraints },
-        { label: "n_factors", value: detail.optimizer_run_summary.n_factors },
-        { label: "n_rebalance_dates", value: detail.optimizer_run_summary.n_rebalance_dates },
-      ]
-    : [];
+  const optimizerItems = buildOptimizerParamItems(detail.optimizer_run_summary);
   renderKvGrid("portfolioQlibParams", qlibItems, "暂无 QLib 回测参数");
   renderKvGrid("portfolioOptimizerParams", optimizerItems, "未找到关联 optimizer_run 的 run_summary");
   renderPortfolioMetrics(detail.metrics || {});
