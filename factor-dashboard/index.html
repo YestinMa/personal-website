@@ -18,7 +18,7 @@
       <nav>
         <a class="active" href="#overview" data-view="overview"><span class="nav-icon">▦</span>因子总览</a>
         <a href="#status" data-view="status"><span class="nav-icon">◷</span>任务与数据状态</a>
-        <a href="#portfolio" data-view="building" title="敬请期待"><span class="nav-icon">◫</span>组合回测</a>
+        <a href="#portfolio" data-view="portfolio"><span class="nav-icon">◫</span>组合回测</a>
         <a href="#paper" data-view="building" title="敬请期待"><span class="nav-icon">◎</span>模拟盘监控</a>
       </nav>
       <div class="sidebar-footer">
@@ -322,6 +322,55 @@
               <div id="statusBacktestLayerSummary" class="report-summary-chips"></div>
               <div id="statusBacktestLayer" class="job-items"></div>
             </article>
+          </section>
+        </section>
+
+        <section id="portfolioView" class="view-section" hidden>
+          <section class="portfolio-grid">
+            <article class="panel portfolio-list-panel">
+              <div class="panel-head">
+                <h2>组合回测列表</h2>
+                <span id="portfolioRunCount" class="muted"></span>
+              </div>
+              <div id="portfolioRunList" class="portfolio-run-list"></div>
+            </article>
+
+            <section class="portfolio-detail-grid">
+              <article class="panel">
+                <div class="panel-head">
+                  <h2>参数</h2>
+                  <span id="portfolioSelectedHint" class="muted"></span>
+                </div>
+                <div class="param-section">
+                  <div>
+                    <h3>QLib 回测参数</h3>
+                    <div id="portfolioQlibParams" class="kv-grid"></div>
+                  </div>
+                  <div>
+                    <h3>Optimizer 参数</h3>
+                    <div id="portfolioOptimizerParams" class="kv-grid"></div>
+                  </div>
+                </div>
+                <div id="portfolioMissingNotes" class="panel-note"></div>
+              </article>
+
+              <article class="panel">
+                <div class="panel-head">
+                  <h2>回测曲线</h2>
+                  <span class="muted">组合净值 vs 基准净值</span>
+                </div>
+                <div class="chart-box portfolio-chart-box">
+                  <canvas id="portfolioChart"></canvas>
+                </div>
+              </article>
+
+              <article class="panel">
+                <div class="panel-head">
+                  <h2>回测指标</h2>
+                </div>
+                <div id="portfolioMetrics" class="ls-metrics portfolio-metrics"></div>
+              </article>
+            </section>
           </section>
         </section>
       </section>

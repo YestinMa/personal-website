@@ -1,59 +1,199 @@
 {
   "scheduler": {
-    "latest_run_id": "20260612-171137-master-daily",
+    "latest_run_id": "20260614-161031-master-daily",
     "stages": [
       {
-        "run_id": "20260612-171137-master-daily",
+        "run_id": "20260614-161031-master-daily",
+        "stage_name": "Multifactor_Factor_Dashboard_Publish",
+        "stage_order": 6,
+        "status": "failed",
+        "trade_date": "2026-06-12",
+        "started_at": "2026-06-14 17:13:55",
+        "ended_at": "2026-06-14 17:13:55",
+        "error_message": null
+      },
+      {
+        "run_id": "20260614-161031-master-daily",
         "stage_name": "Multifactor_Factor_Eval_Auto_Update",
         "stage_order": 5,
         "status": "success",
         "trade_date": "2026-06-12",
-        "started_at": "2026-06-12 17:25:27",
-        "ended_at": "2026-06-12 17:34:51",
+        "started_at": "2026-06-14 16:14:59",
+        "ended_at": "2026-06-14 17:13:55",
         "error_message": null
       },
       {
-        "run_id": "20260612-171137-master-daily",
+        "run_id": "20260614-161031-master-daily",
         "stage_name": "Multifactor_Factor_Daily",
         "stage_order": 4,
-        "status": "success",
+        "status": "skipped",
         "trade_date": "2026-06-12",
-        "started_at": "2026-06-12 17:15:25",
-        "ended_at": "2026-06-12 17:25:27",
+        "started_at": "2026-06-14 16:14:24",
+        "ended_at": "2026-06-14 16:14:59",
         "error_message": null
       },
       {
-        "run_id": "20260612-171137-master-daily",
+        "run_id": "20260614-161031-master-daily",
         "stage_name": "Multifactor_ETL_Backfill",
         "stage_order": 3,
         "status": "success",
         "trade_date": "2026-06-12",
-        "started_at": "2026-06-12 17:14:20",
-        "ended_at": "2026-06-12 17:15:25",
+        "started_at": "2026-06-14 16:12:40",
+        "ended_at": "2026-06-14 16:14:24",
         "error_message": null
       },
       {
-        "run_id": "20260612-171137-master-daily",
+        "run_id": "20260614-161031-master-daily",
         "stage_name": "Multifactor_Financial_Event_Daily",
         "stage_order": 2,
         "status": "success",
         "trade_date": "2026-06-12",
-        "started_at": "2026-06-12 17:12:45",
-        "ended_at": "2026-06-12 17:14:20",
+        "started_at": "2026-06-14 16:10:38",
+        "ended_at": "2026-06-14 16:12:40",
         "error_message": null
       },
       {
-        "run_id": "20260612-171137-master-daily",
+        "run_id": "20260614-161031-master-daily",
         "stage_name": "Multifactor_ETL_Daily",
         "stage_order": 1,
-        "status": "success",
+        "status": "partial_success",
         "trade_date": "2026-06-12",
-        "started_at": "2026-06-12 17:11:37",
-        "ended_at": "2026-06-12 17:12:45",
+        "started_at": "2026-06-14 16:10:31",
+        "ended_at": "2026-06-14 16:10:38",
         "error_message": null
       }
     ],
     "recent_stages": [
+      {
+        "run_id": "20260614-161031-master-daily",
+        "stage_name": "Multifactor_Factor_Dashboard_Publish",
+        "stage_order": 6,
+        "status": "failed",
+        "trade_date": "2026-06-12",
+        "started_at": "2026-06-14 17:13:55",
+        "ended_at": "2026-06-14 17:13:55",
+        "error_message": null
+      },
+      {
+        "run_id": "20260614-161031-master-daily",
+        "stage_name": "Multifactor_Factor_Eval_Auto_Update",
+        "stage_order": 5,
+        "status": "success",
+        "trade_date": "2026-06-12",
+        "started_at": "2026-06-14 16:14:59",
+        "ended_at": "2026-06-14 17:13:55",
+        "error_message": null
+      },
+      {
+        "run_id": "20260614-161031-master-daily",
+        "stage_name": "Multifactor_Factor_Daily",
+        "stage_order": 4,
+        "status": "skipped",
+        "trade_date": "2026-06-12",
+        "started_at": "2026-06-14 16:14:24",
+        "ended_at": "2026-06-14 16:14:59",
+        "error_message": null
+      },
+      {
+        "run_id": "20260614-161031-master-daily",
+        "stage_name": "Multifactor_ETL_Backfill",
+        "stage_order": 3,
+        "status": "success",
+        "trade_date": "2026-06-12",
+        "started_at": "2026-06-14 16:12:40",
+        "ended_at": "2026-06-14 16:14:24",
+        "error_message": null
+      },
+      {
+        "run_id": "20260614-161031-master-daily",
+        "stage_name": "Multifactor_Financial_Event_Daily",
+        "stage_order": 2,
+        "status": "success",
+        "trade_date": "2026-06-12",
+        "started_at": "2026-06-14 16:10:38",
+        "ended_at": "2026-06-14 16:12:40",
+        "error_message": null
+      },
+      {
+        "run_id": "20260614-161031-master-daily",
+        "stage_name": "Multifactor_ETL_Daily",
+        "stage_order": 1,
+        "status": "partial_success",
+        "trade_date": "2026-06-12",
+        "started_at": "2026-06-14 16:10:31",
+        "ended_at": "2026-06-14 16:10:38",
+        "error_message": null
+      },
+      {
+        "run_id": "20260613-161018-master-daily",
+        "stage_name": "Multifactor_Factor_Dashboard_Publish",
+        "stage_order": 6,
+        "status": "failed",
+        "trade_date": "2026-06-12",
+        "started_at": "2026-06-13 16:48:22",
+        "ended_at": "2026-06-13 16:48:22",
+        "error_message": null
+      },
+      {
+        "run_id": "20260613-161018-master-daily",
+        "stage_name": "Multifactor_Factor_Eval_Auto_Update",
+        "stage_order": 5,
+        "status": "success",
+        "trade_date": "2026-06-12",
+        "started_at": "2026-06-13 16:11:56",
+        "ended_at": "2026-06-13 16:48:22",
+        "error_message": null
+      },
+      {
+        "run_id": "20260613-161018-master-daily",
+        "stage_name": "Multifactor_Factor_Daily",
+        "stage_order": 4,
+        "status": "skipped",
+        "trade_date": "2026-06-12",
+        "started_at": "2026-06-13 16:11:44",
+        "ended_at": "2026-06-13 16:11:56",
+        "error_message": null
+      },
+      {
+        "run_id": "20260613-161018-master-daily",
+        "stage_name": "Multifactor_ETL_Backfill",
+        "stage_order": 3,
+        "status": "success",
+        "trade_date": "2026-06-12",
+        "started_at": "2026-06-13 16:10:56",
+        "ended_at": "2026-06-13 16:11:44",
+        "error_message": null
+      },
+      {
+        "run_id": "20260613-161018-master-daily",
+        "stage_name": "Multifactor_Financial_Event_Daily",
+        "stage_order": 2,
+        "status": "success",
+        "trade_date": "2026-06-12",
+        "started_at": "2026-06-13 16:10:23",
+        "ended_at": "2026-06-13 16:10:56",
+        "error_message": null
+      },
+      {
+        "run_id": "20260613-161018-master-daily",
+        "stage_name": "Multifactor_ETL_Daily",
+        "stage_order": 1,
+        "status": "partial_success",
+        "trade_date": "2026-06-12",
+        "started_at": "2026-06-13 16:10:18",
+        "ended_at": "2026-06-13 16:10:23",
+        "error_message": null
+      },
+      {
+        "run_id": "20260612-171137-master-daily",
+        "stage_name": "Multifactor_Factor_Dashboard_Publish",
+        "stage_order": 6,
+        "status": "failed",
+        "trade_date": "2026-06-12",
+        "started_at": "2026-06-12 17:34:51",
+        "ended_at": "2026-06-12 17:44:51",
+        "error_message": null
+      },
       {
         "run_id": "20260612-171137-master-daily",
         "stage_name": "Multifactor_Factor_Eval_Auto_Update",
@@ -163,212 +303,82 @@
         "started_at": "2026-06-11 16:10:17",
         "ended_at": "2026-06-11 16:11:43",
         "error_message": null
-      },
-      {
-        "run_id": "20260610-175146-master-daily",
-        "stage_name": "Multifactor_Factor_Dashboard_Publish",
-        "stage_order": 6,
-        "status": "success",
-        "trade_date": "2026-06-10",
-        "started_at": "2026-06-10 18:44:23",
-        "ended_at": "2026-06-10 18:49:20",
-        "error_message": null
-      },
-      {
-        "run_id": "20260610-175146-master-daily",
-        "stage_name": "Multifactor_Factor_Eval_Auto_Update",
-        "stage_order": 5,
-        "status": "success",
-        "trade_date": "2026-06-10",
-        "started_at": "2026-06-10 18:21:34",
-        "ended_at": "2026-06-10 18:44:23",
-        "error_message": null
-      },
-      {
-        "run_id": "20260610-175146-master-daily",
-        "stage_name": "Multifactor_Factor_Daily",
-        "stage_order": 4,
-        "status": "success",
-        "trade_date": "2026-06-10",
-        "started_at": "2026-06-10 17:53:04",
-        "ended_at": "2026-06-10 18:21:34",
-        "error_message": null
-      },
-      {
-        "run_id": "20260610-175146-master-daily",
-        "stage_name": "Multifactor_ETL_Backfill",
-        "stage_order": 3,
-        "status": "success",
-        "trade_date": "2026-06-10",
-        "started_at": "2026-06-10 17:52:44",
-        "ended_at": "2026-06-10 17:53:04",
-        "error_message": null
-      },
-      {
-        "run_id": "20260610-175146-master-daily",
-        "stage_name": "Multifactor_Financial_Event_Daily",
-        "stage_order": 2,
-        "status": "success",
-        "trade_date": "2026-06-10",
-        "started_at": "2026-06-10 17:52:25",
-        "ended_at": "2026-06-10 17:52:44",
-        "error_message": null
-      },
-      {
-        "run_id": "20260610-175146-master-daily",
-        "stage_name": "Multifactor_ETL_Daily",
-        "stage_order": 1,
-        "status": "success",
-        "trade_date": "2026-06-10",
-        "started_at": "2026-06-10 17:51:46",
-        "ended_at": "2026-06-10 17:52:25",
-        "error_message": null
-      },
-      {
-        "run_id": "20260609-161019-master-daily",
-        "stage_name": "Multifactor_Factor_Dashboard_Publish",
-        "stage_order": 6,
-        "status": "failed",
-        "trade_date": "2026-06-09",
-        "started_at": "2026-06-09 20:57:43",
-        "ended_at": "2026-06-09 21:13:51",
-        "error_message": null
-      },
-      {
-        "run_id": "20260609-161019-master-daily",
-        "stage_name": "Multifactor_Factor_Eval_Auto_Update",
-        "stage_order": 5,
-        "status": "success",
-        "trade_date": "2026-06-09",
-        "started_at": "2026-06-09 16:54:38",
-        "ended_at": "2026-06-09 20:57:43",
-        "error_message": null
-      },
-      {
-        "run_id": "20260609-161019-master-daily",
-        "stage_name": "Multifactor_Factor_Daily",
-        "stage_order": 4,
-        "status": "success",
-        "trade_date": "2026-06-09",
-        "started_at": "2026-06-09 16:12:44",
-        "ended_at": "2026-06-09 16:54:38",
-        "error_message": null
-      },
-      {
-        "run_id": "20260609-161019-master-daily",
-        "stage_name": "Multifactor_ETL_Backfill",
-        "stage_order": 3,
-        "status": "success",
-        "trade_date": "2026-06-09",
-        "started_at": "2026-06-09 16:12:11",
-        "ended_at": "2026-06-09 16:12:44",
-        "error_message": null
-      },
-      {
-        "run_id": "20260609-161019-master-daily",
-        "stage_name": "Multifactor_Financial_Event_Daily",
-        "stage_order": 2,
-        "status": "success",
-        "trade_date": "2026-06-09",
-        "started_at": "2026-06-09 16:11:39",
-        "ended_at": "2026-06-09 16:12:11",
-        "error_message": null
-      },
-      {
-        "run_id": "20260609-161019-master-daily",
-        "stage_name": "Multifactor_ETL_Daily",
-        "stage_order": 1,
-        "status": "success",
-        "trade_date": "2026-06-09",
-        "started_at": "2026-06-09 16:10:19",
-        "ended_at": "2026-06-09 16:11:39",
-        "error_message": null
-      },
-      {
-        "run_id": "20260608-171039-master-daily",
-        "stage_name": "Multifactor_Factor_Dashboard_Publish",
-        "stage_order": 6,
-        "status": "success",
-        "trade_date": "2026-06-08",
-        "started_at": "2026-06-08 17:41:42",
-        "ended_at": "2026-06-08 17:44:18",
-        "error_message": null
       }
     ]
   },
   "data_layer": {
     "layer": "data_layer",
-    "job_date": "2026-06-12",
-    "latest_run_id": "20260612-171457-backfill",
+    "job_date": "2026-06-14",
+    "latest_run_id": "20260614-161244-backfill",
     "status": "success",
     "summary": {
       "table_count": 4,
-      "success_table_count": 4,
-      "failed_table_count": 0,
-      "rows_written": 12217,
-      "field_values_written": 173845,
+      "success_table_count": 0,
+      "failed_table_count": 4,
+      "rows_written": 0,
+      "field_values_written": 0,
       "financial_raw_new_rows": 0,
-      "quota_usage": 0.05308343410491943,
+      "quota_usage": 0.00015073776245117188,
       "event_summary": {}
     },
     "daily_update": [
       {
         "table_name": "instruments",
         "phase": "daily_update",
-        "status": "success",
-        "target_date": "2026-06-12",
-        "rows_written": 5207,
-        "field_values_written": 88519,
+        "status": "failed",
+        "target_date": "2026-06-14",
+        "rows_written": 0,
+        "field_values_written": 0,
         "new_rows_inserted": 0,
-        "duration_ms": 2585,
-        "error_type": null,
-        "error_message": null
+        "duration_ms": null,
+        "error_type": "TaskError",
+        "error_message": "No objects to concatenate"
       },
       {
         "table_name": "daily",
         "phase": "daily_update",
-        "status": "success",
-        "target_date": "2026-06-12",
-        "rows_written": 5207,
-        "field_values_written": 78105,
+        "status": "failed",
+        "target_date": "2026-06-14",
+        "rows_written": 0,
+        "field_values_written": 0,
         "new_rows_inserted": 0,
-        "duration_ms": 62134,
-        "error_type": null,
-        "error_message": null
+        "duration_ms": null,
+        "error_type": "TaskError",
+        "error_message": "daily_ohlcv returned no valid rows for target date."
       },
       {
         "table_name": "index_daily",
         "phase": "daily_update",
-        "status": "success",
-        "target_date": "2026-06-12",
-        "rows_written": 3,
-        "field_values_written": 21,
+        "status": "failed",
+        "target_date": "2026-06-14",
+        "rows_written": 0,
+        "field_values_written": 0,
         "new_rows_inserted": 0,
-        "duration_ms": 326,
-        "error_type": null,
-        "error_message": null
+        "duration_ms": null,
+        "error_type": "TaskError",
+        "error_message": "index_daily returned no valid rows for target date."
       },
       {
         "table_name": "index_constituents",
         "phase": "daily_update",
-        "status": "success",
-        "target_date": "2026-06-12",
-        "rows_written": 1800,
-        "field_values_written": 7200,
+        "status": "failed",
+        "target_date": "2026-06-14",
+        "rows_written": 0,
+        "field_values_written": 0,
         "new_rows_inserted": 0,
-        "duration_ms": 148,
-        "error_type": null,
-        "error_message": null
+        "duration_ms": null,
+        "error_type": "TaskError",
+        "error_message": "index_constituents returned no valid rows for target date."
       }
     ],
     "backfill": [],
     "financial_events": [],
-    "generated_at": "2026-06-12 17:15:25"
+    "generated_at": "2026-06-14 16:14:24"
   },
   "factor_layer": {
     "layer": "factor_layer",
     "job_date": "2026-06-12",
-    "latest_run_id": "20260612-173451-factor-daily",
+    "latest_run_id": "20260614-161424-factor-daily",
     "status": "skipped",
     "summary": {
       "factor_count": 8,
@@ -383,12 +393,12 @@
         "active",
         "candidate"
       ],
-      "started_at": "2026-06-12 17:34:51",
-      "ended_at": "2026-06-12 17:35:00"
+      "started_at": "2026-06-14 16:14:24",
+      "ended_at": "2026-06-14 16:14:59"
     },
     "factor_value_update": [
       {
-        "factor_name": "Alpha014",
+        "factor_name": "AlphaMOM0003",
         "factor_family": "动量",
         "version_id": "ver_f86589330822",
         "lifecycle_status": "candidate",
@@ -398,13 +408,13 @@
         "end_date": "2026-06-12",
         "rows_written": 0,
         "field_values_written": 0,
-        "duration_ms": 0,
+        "duration_ms": 15,
         "retry_count": 0,
         "error_type": "NoNewDate",
         "error_message": "already updated to 2026-06-12"
       },
       {
-        "factor_name": "Alpha015",
+        "factor_name": "AlphaCHIP0007",
         "factor_family": "筹码结构",
         "version_id": "ver_33acbc88943b",
         "lifecycle_status": "candidate",
@@ -420,25 +430,9 @@
         "error_message": "already updated to 2026-06-12"
       },
       {
-        "factor_name": "Alpha016",
+        "factor_name": "AlphaMOM0004",
         "factor_family": "动量",
         "version_id": "ver_8a20de9f3d5d",
-        "lifecycle_status": "candidate",
-        "phase": "update",
-        "status": "skipped",
-        "start_date": "2026-06-12",
-        "end_date": "2026-06-12",
-        "rows_written": 0,
-        "field_values_written": 0,
-        "duration_ms": 0,
-        "retry_count": 0,
-        "error_type": "NoNewDate",
-        "error_message": "already updated to 2026-06-12"
-      },
-      {
-        "factor_name": "Alpha017",
-        "factor_family": "动量",
-        "version_id": "ver_931312aa6c1c",
         "lifecycle_status": "candidate",
         "phase": "update",
         "status": "skipped",
@@ -452,7 +446,23 @@
         "error_message": "already updated to 2026-06-12"
       },
       {
-        "factor_name": "Alpha018",
+        "factor_name": "AlphaMOM0005",
+        "factor_family": "动量",
+        "version_id": "ver_931312aa6c1c",
+        "lifecycle_status": "candidate",
+        "phase": "update",
+        "status": "skipped",
+        "start_date": "2026-06-12",
+        "end_date": "2026-06-12",
+        "rows_written": 0,
+        "field_values_written": 0,
+        "duration_ms": 2,
+        "retry_count": 0,
+        "error_type": "NoNewDate",
+        "error_message": "already updated to 2026-06-12"
+      },
+      {
+        "factor_name": "AlphaCHIP0008",
         "factor_family": "筹码结构",
         "version_id": "ver_ca4cb8ed3d3c",
         "lifecycle_status": "candidate",
@@ -468,7 +478,7 @@
         "error_message": "already updated to 2026-06-12"
       },
       {
-        "factor_name": "Alpha019",
+        "factor_name": "AlphaCHIP0009",
         "factor_family": "筹码结构",
         "version_id": "ver_6d89fa6a44bc",
         "lifecycle_status": "candidate",
@@ -478,13 +488,13 @@
         "end_date": "2026-06-12",
         "rows_written": 0,
         "field_values_written": 0,
-        "duration_ms": 2,
+        "duration_ms": 1,
         "retry_count": 0,
         "error_type": "NoNewDate",
         "error_message": "already updated to 2026-06-12"
       },
       {
-        "factor_name": "Alpha024",
+        "factor_name": "AlphaMOM0010",
         "factor_family": "动量",
         "version_id": "ver_836adaac7553",
         "lifecycle_status": "candidate",
@@ -494,7 +504,7 @@
         "end_date": "2026-06-12",
         "rows_written": 0,
         "field_values_written": 0,
-        "duration_ms": 0,
+        "duration_ms": 1,
         "retry_count": 0,
         "error_type": "NoNewDate",
         "error_message": "already updated to 2026-06-12"
@@ -510,7 +520,7 @@
         "end_date": "2026-06-12",
         "rows_written": 0,
         "field_values_written": 0,
-        "duration_ms": 8855,
+        "duration_ms": 34231,
         "retry_count": 0,
         "error_type": "MissingDependencyData",
         "error_message": "no rows on 2026-06-12 in dependency table financial_daily"
@@ -524,27 +534,82 @@
       "run_id": null,
       "duration_ms": null
     },
-    "generated_at": "2026-06-12 17:35:00"
+    "generated_at": "2026-06-14 16:14:59"
   },
   "backtest_layer": {
     "layer": "backtest_layer",
-    "job_date": "2026-06-11",
-    "latest_run_id": "bt-20260611-175706-5b294bb5",
+    "job_date": "2026-06-15",
+    "latest_run_id": "bt-20260615-105617-b9243249",
     "status": "success",
     "summary": {
-      "run_count": 8,
-      "pending_count": 0,
-      "running_count": 0,
-      "success_count": 8,
-      "failed_count": 0
+      "run_count": 12,
+      "pending_count": 2,
+      "running_count": 2,
+      "success_count": 4,
+      "failed_count": 4
     },
     "runs": [
       {
-        "run_id": "bt-20260611-175706-5b294bb5",
-        "factor_name": "Alpha045",
-        "version_id": "ver_d726a8da0b2d",
-        "start_date": "2023-05-31",
-        "end_date": "2026-05-29",
+        "run_id": "bt-20260615-105617-b9243249",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260615-105617-b9243249",
+          "factor_name": "AlphaTest",
+          "version_id": "ver_a",
+          "start_date": "2026-01-02",
+          "end_date": "2026-01-05",
+          "universe": "ALL",
+          "source_mode": "db",
+          "resolved_universe_mode": "all_factor_values",
+          "universe_size": 3,
+          "mean_ic": {
+            "1": 0.1
+          },
+          "evaluation_metrics": {
+            "coverage_ratio": 1.0
+          }
+        },
+        "artifacts": {
+          "output_dir": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp1ld4qhiv\\backtest_results\\single_factors\\AlphaTest\\20260615-ALL-26012601",
+          "backtest_summary_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp1ld4qhiv\\backtest_results\\single_factors\\AlphaTest\\20260615-ALL-26012601\\backtest_summary.csv",
+          "mean_ic_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp1ld4qhiv\\backtest_results\\single_factors\\AlphaTest\\20260615-ALL-26012601\\mean_IC.csv",
+          "long_short_with_cost_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp1ld4qhiv\\backtest_results\\single_factors\\AlphaTest\\20260615-ALL-26012601\\long_short_returns_with_cost.csv",
+          "plot_png": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp1ld4qhiv\\backtest_results\\single_factors\\AlphaTest\\20260615-ALL-26012601\\backtest_plots.png"
+        },
+        "created_at": "2026-06-15 10:56:17",
+        "started_at": "2026-06-15 10:56:17",
+        "ended_at": "2026-06-15 10:56:17",
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp1ld4qhiv\\factor.db"
+      },
+      {
+        "run_id": "bt-20260615-105617-fb05400c",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
         "universe": "ALL",
         "periods": [
           1,
@@ -562,56 +627,46 @@
         ],
         "cost": 0.001,
         "source_mode": "parquet",
-        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\alpha\\alpha045_persistent_consensus_mom\\alpha045_persistent_consensus_mom_20230531_20260529.parquet",
+        "factor_parquet_path": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpx7mzq1p0\\AlphaTest.parquet",
         "status": "success",
         "error_message": null,
         "summary": {
-          "run_id": "bt-20260611-175706-5b294bb5",
-          "factor_name": "Alpha045",
-          "version_id": "ver_d726a8da0b2d",
-          "start_date": "2023-05-31",
-          "end_date": "2026-05-29",
+          "run_id": "bt-20260615-105617-fb05400c",
+          "factor_name": "AlphaTest",
+          "version_id": "ver_a",
+          "start_date": "2026-01-02",
+          "end_date": "2026-01-05",
           "universe": "ALL",
           "source_mode": "parquet",
           "resolved_universe_mode": "all_factor_values",
-          "universe_size": 5127,
+          "universe_size": 3,
           "mean_ic": {
-            "1": 0.005699778353002982,
-            "5": 0.0071401814974875865,
-            "22": 0.014819246893718847
+            "22": 0.02
           },
           "evaluation_metrics": {
-            "icir_1": 0.08456558496896192,
-            "icir_5": 0.10082886530520217,
-            "icir_22": 0.19258551171725066,
-            "ls_annual_return": 0.13097784597438444,
-            "ls_annual_vol": 0.11258110849042434,
-            "ls_sharpe": 1.1497406748639187,
-            "ls_win_rate": 0.543424317617866,
-            "ls_max_drawdown": -0.1609843947347248,
-            "mean_turnover": 0.20446715666980078,
-            "coverage_ratio": 0.9842581154719507
+            "coverage_ratio": 0.95,
+            "mean_turnover": 0.11
           }
         },
         "artifacts": {
-          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha045\\20260611-ALL-23052605",
-          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha045\\20260611-ALL-23052605\\backtest_summary.csv",
-          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha045\\20260611-ALL-23052605\\mean_IC.csv",
-          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha045\\20260611-ALL-23052605\\long_short_returns_with_cost.csv",
-          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha045\\20260611-ALL-23052605\\backtest_plots.png"
+          "output_dir": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpx7mzq1p0\\backtest_results\\single_factors\\AlphaTest\\20260615-ALL-26012601",
+          "backtest_summary_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpx7mzq1p0\\backtest_results\\single_factors\\AlphaTest\\20260615-ALL-26012601\\backtest_summary.csv",
+          "mean_ic_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpx7mzq1p0\\backtest_results\\single_factors\\AlphaTest\\20260615-ALL-26012601\\mean_IC.csv",
+          "long_short_with_cost_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpx7mzq1p0\\backtest_results\\single_factors\\AlphaTest\\20260615-ALL-26012601\\long_short_returns_with_cost.csv",
+          "plot_png": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpx7mzq1p0\\backtest_results\\single_factors\\AlphaTest\\20260615-ALL-26012601\\backtest_plots.png"
         },
-        "created_at": "2026-06-11 17:57:06",
-        "started_at": "2026-06-11 17:57:07",
-        "ended_at": "2026-06-11 17:58:49",
-        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+        "created_at": "2026-06-15 10:56:17",
+        "started_at": "2026-06-15 10:56:17",
+        "ended_at": "2026-06-15 10:56:17",
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpx7mzq1p0\\factor.db"
       },
       {
-        "run_id": "bt-20260611-175629-4d612e59",
-        "factor_name": "Alpha045",
-        "version_id": "ver_d726a8da0b2d",
-        "start_date": "2023-05-31",
-        "end_date": "2026-05-29",
-        "universe": "index:000905.XSHG",
+        "run_id": "bt-20260615-105617-16ffde96",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
         "periods": [
           1,
           5,
@@ -627,56 +682,309 @@
           10
         ],
         "cost": 0.001,
-        "source_mode": "parquet",
-        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\alpha\\alpha045_persistent_consensus_mom\\alpha045_persistent_consensus_mom_20230531_20260529.parquet",
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "failed",
+        "error_message": "Recovered stale running run after possible interruption",
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-06-15 10:56:17",
+        "started_at": "2000-01-01 00:00:00",
+        "ended_at": "2026-06-15 10:56:17",
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpyrnzzw2b\\factor.db"
+      },
+      {
+        "run_id": "bt-20260615-105617-ba06cfbf",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "running",
+        "error_message": null,
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-06-15 10:56:17",
+        "started_at": "2026-06-15 10:56:17",
+        "ended_at": null,
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpyrnzzw2b\\factor.db"
+      },
+      {
+        "run_id": "bt-20260615-105617-3322f5d0",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "pending",
+        "error_message": null,
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-06-15 10:56:17",
+        "started_at": null,
+        "ended_at": null,
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpz4wg0vbz\\factor.db"
+      },
+      {
+        "run_id": "bt-20260615-105616-7364fa08",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "failed",
+        "error_message": "Recovered stale running run after possible interruption",
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-06-15 10:56:16",
+        "started_at": "2000-01-01 00:00:00",
+        "ended_at": "2026-06-15 10:56:16",
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpdp71761a\\factor.db"
+      },
+      {
+        "run_id": "bt-20260615-103209-463a74a1",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "failed",
+        "error_message": "Recovered stale running run after possible interruption",
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-06-15 10:32:09",
+        "started_at": "2000-01-01 00:00:00",
+        "ended_at": "2026-06-15 10:32:09",
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp7fnmtsmm\\factor.db"
+      },
+      {
+        "run_id": "bt-20260615-103209-81a343bf",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "running",
+        "error_message": null,
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-06-15 10:32:09",
+        "started_at": "2026-06-15 10:32:09",
+        "ended_at": null,
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp7fnmtsmm\\factor.db"
+      },
+      {
+        "run_id": "bt-20260615-103209-c6e4c9ce",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "pending",
+        "error_message": null,
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-06-15 10:32:09",
+        "started_at": null,
+        "ended_at": null,
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpxi4kpl02\\factor.db"
+      },
+      {
+        "run_id": "bt-20260615-103208-061d1f52",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "failed",
+        "error_message": "Recovered stale running run after possible interruption",
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-06-15 10:32:08",
+        "started_at": "2000-01-01 00:00:00",
+        "ended_at": "2026-06-15 10:32:08",
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpiqv7y4hd\\factor.db"
+      },
+      {
+        "run_id": "bt-20260615-103208-6908b529",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
         "status": "success",
         "error_message": null,
         "summary": {
-          "run_id": "bt-20260611-175629-4d612e59",
-          "factor_name": "Alpha045",
-          "version_id": "ver_d726a8da0b2d",
-          "start_date": "2023-05-31",
-          "end_date": "2026-05-29",
-          "universe": "index:000905.XSHG",
-          "source_mode": "parquet",
-          "resolved_universe_mode": "index_constituents",
-          "universe_size": 498,
+          "run_id": "bt-20260615-103208-6908b529",
+          "factor_name": "AlphaTest",
+          "version_id": "ver_a",
+          "start_date": "2026-01-02",
+          "end_date": "2026-01-05",
+          "universe": "ALL",
+          "source_mode": "db",
+          "resolved_universe_mode": "all_factor_values",
+          "universe_size": 3,
           "mean_ic": {
-            "1": 0.009909513577692442,
-            "5": 0.020853756610231665,
-            "22": 0.030112230299412755
+            "1": 0.1
           },
           "evaluation_metrics": {
-            "icir_1": 0.08375049684806594,
-            "icir_5": 0.1724183323807219,
-            "icir_22": 0.25023916149580067,
-            "ls_annual_return": 0.12628674698943754,
-            "ls_annual_vol": 0.17517253591892834,
-            "ls_sharpe": 0.766781391994003,
-            "ls_win_rate": 0.5632754342431762,
-            "ls_max_drawdown": -0.18294947791009386,
-            "mean_turnover": 0.19869367548999797,
-            "coverage_ratio": 0.9931627745550101
+            "coverage_ratio": 1.0
           }
         },
         "artifacts": {
-          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha045\\20260611-index_000905.XSHG-23052605",
-          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha045\\20260611-index_000905.XSHG-23052605\\backtest_summary.csv",
-          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha045\\20260611-index_000905.XSHG-23052605\\mean_IC.csv",
-          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha045\\20260611-index_000905.XSHG-23052605\\long_short_returns_with_cost.csv",
-          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha045\\20260611-index_000905.XSHG-23052605\\backtest_plots.png"
+          "output_dir": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpm9cmntav\\backtest_results\\single_factors\\AlphaTest\\20260615-ALL-26012601",
+          "backtest_summary_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpm9cmntav\\backtest_results\\single_factors\\AlphaTest\\20260615-ALL-26012601\\backtest_summary.csv",
+          "mean_ic_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpm9cmntav\\backtest_results\\single_factors\\AlphaTest\\20260615-ALL-26012601\\mean_IC.csv",
+          "long_short_with_cost_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpm9cmntav\\backtest_results\\single_factors\\AlphaTest\\20260615-ALL-26012601\\long_short_returns_with_cost.csv",
+          "plot_png": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpm9cmntav\\backtest_results\\single_factors\\AlphaTest\\20260615-ALL-26012601\\backtest_plots.png"
         },
-        "created_at": "2026-06-11 17:56:29",
-        "started_at": "2026-06-11 17:56:29",
-        "ended_at": "2026-06-11 17:57:06",
-        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+        "created_at": "2026-06-15 10:32:08",
+        "started_at": "2026-06-15 10:32:08",
+        "ended_at": "2026-06-15 10:32:08",
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpm9cmntav\\factor.db"
       },
       {
-        "run_id": "bt-20260611-003421-4e730e54",
-        "factor_name": "Alpha044",
-        "version_id": "ver_8392a8c637fe",
-        "start_date": "2023-05-31",
-        "end_date": "2026-05-29",
+        "run_id": "bt-20260615-103208-d3731828",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
         "universe": "ALL",
         "periods": [
           1,
@@ -694,380 +1002,40 @@
         ],
         "cost": 0.001,
         "source_mode": "parquet",
-        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\alpha\\alpha044_balanced_regime_mom\\alpha044_balanced_regime_mom_20230531_20260529.parquet",
+        "factor_parquet_path": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpo3d9n798\\AlphaTest.parquet",
         "status": "success",
         "error_message": null,
         "summary": {
-          "run_id": "bt-20260611-003421-4e730e54",
-          "factor_name": "Alpha044",
-          "version_id": "ver_8392a8c637fe",
-          "start_date": "2023-05-31",
-          "end_date": "2026-05-29",
+          "run_id": "bt-20260615-103208-d3731828",
+          "factor_name": "AlphaTest",
+          "version_id": "ver_a",
+          "start_date": "2026-01-02",
+          "end_date": "2026-01-05",
           "universe": "ALL",
           "source_mode": "parquet",
           "resolved_universe_mode": "all_factor_values",
-          "universe_size": 5127,
+          "universe_size": 3,
           "mean_ic": {
-            "1": 0.004905996208801419,
-            "5": 0.004137344064942849,
-            "22": 0.009738262200941929
+            "22": 0.02
           },
           "evaluation_metrics": {
-            "icir_1": 0.07245838716669184,
-            "icir_5": 0.05718868619688929,
-            "icir_22": 0.12356680898513336,
-            "ls_annual_return": 0.10343682160673584,
-            "ls_annual_vol": 0.1126283493947008,
-            "ls_sharpe": 0.9303383358545143,
-            "ls_win_rate": 0.5210280373831776,
-            "ls_max_drawdown": -0.20492224384020385,
-            "mean_turnover": 0.20184169167707056,
-            "coverage_ratio": 0.983276860759953
+            "coverage_ratio": 0.95,
+            "mean_turnover": 0.11
           }
         },
         "artifacts": {
-          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha044\\20260611-ALL-23052605",
-          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha044\\20260611-ALL-23052605\\backtest_summary.csv",
-          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha044\\20260611-ALL-23052605\\mean_IC.csv",
-          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha044\\20260611-ALL-23052605\\long_short_returns_with_cost.csv",
-          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha044\\20260611-ALL-23052605\\backtest_plots.png"
+          "output_dir": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpo3d9n798\\backtest_results\\single_factors\\AlphaTest\\20260615-ALL-26012601",
+          "backtest_summary_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpo3d9n798\\backtest_results\\single_factors\\AlphaTest\\20260615-ALL-26012601\\backtest_summary.csv",
+          "mean_ic_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpo3d9n798\\backtest_results\\single_factors\\AlphaTest\\20260615-ALL-26012601\\mean_IC.csv",
+          "long_short_with_cost_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpo3d9n798\\backtest_results\\single_factors\\AlphaTest\\20260615-ALL-26012601\\long_short_returns_with_cost.csv",
+          "plot_png": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpo3d9n798\\backtest_results\\single_factors\\AlphaTest\\20260615-ALL-26012601\\backtest_plots.png"
         },
-        "created_at": "2026-06-11 00:34:21",
-        "started_at": "2026-06-11 00:34:21",
-        "ended_at": "2026-06-11 00:35:17",
-        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
-      },
-      {
-        "run_id": "bt-20260611-003404-85d9c57a",
-        "factor_name": "Alpha044",
-        "version_id": "ver_8392a8c637fe",
-        "start_date": "2023-05-31",
-        "end_date": "2026-05-29",
-        "universe": "index:000905.XSHG",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "parquet",
-        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\alpha\\alpha044_balanced_regime_mom\\alpha044_balanced_regime_mom_20230531_20260529.parquet",
-        "status": "success",
-        "error_message": null,
-        "summary": {
-          "run_id": "bt-20260611-003404-85d9c57a",
-          "factor_name": "Alpha044",
-          "version_id": "ver_8392a8c637fe",
-          "start_date": "2023-05-31",
-          "end_date": "2026-05-29",
-          "universe": "index:000905.XSHG",
-          "source_mode": "parquet",
-          "resolved_universe_mode": "index_constituents",
-          "universe_size": 498,
-          "mean_ic": {
-            "1": 0.009414962697045495,
-            "5": 0.01661032870761864,
-            "22": 0.01910474913747125
-          },
-          "evaluation_metrics": {
-            "icir_1": 0.07851005284191677,
-            "icir_5": 0.13399478579326876,
-            "icir_22": 0.1498940101879262,
-            "ls_annual_return": 0.11032128515160067,
-            "ls_annual_vol": 0.17598110058775046,
-            "ls_sharpe": 0.6828932239553617,
-            "ls_win_rate": 0.5467289719626168,
-            "ls_max_drawdown": -0.18630154630545137,
-            "mean_turnover": 0.20200275914561627,
-            "coverage_ratio": 0.9925656112823387
-          }
-        },
-        "artifacts": {
-          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha044\\20260611-index_000905.XSHG-23052605",
-          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha044\\20260611-index_000905.XSHG-23052605\\backtest_summary.csv",
-          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha044\\20260611-index_000905.XSHG-23052605\\mean_IC.csv",
-          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha044\\20260611-index_000905.XSHG-23052605\\long_short_returns_with_cost.csv",
-          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha044\\20260611-index_000905.XSHG-23052605\\backtest_plots.png"
-        },
-        "created_at": "2026-06-11 00:34:04",
-        "started_at": "2026-06-11 00:34:04",
-        "ended_at": "2026-06-11 00:34:21",
-        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
-      },
-      {
-        "run_id": "bt-20260611-002621-ccb77055",
-        "factor_name": "Alpha043",
-        "version_id": "ver_fb89b356c3d6",
-        "start_date": "2023-05-31",
-        "end_date": "2026-05-29",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "parquet",
-        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\alpha\\alpha043_low_vol_crowding_mom\\alpha043_low_vol_crowding_mom_20230531_20260529.parquet",
-        "status": "success",
-        "error_message": null,
-        "summary": {
-          "run_id": "bt-20260611-002621-ccb77055",
-          "factor_name": "Alpha043",
-          "version_id": "ver_fb89b356c3d6",
-          "start_date": "2023-05-31",
-          "end_date": "2026-05-29",
-          "universe": "ALL",
-          "source_mode": "parquet",
-          "resolved_universe_mode": "all_factor_values",
-          "universe_size": 5127,
-          "mean_ic": {
-            "1": 0.004906049625440002,
-            "5": 0.0041492748878772315,
-            "22": 0.009796431451157942
-          },
-          "evaluation_metrics": {
-            "icir_1": 0.07257755300668532,
-            "icir_5": 0.05745444434829786,
-            "icir_22": 0.12456472239365692,
-            "ls_annual_return": 0.1059313196017786,
-            "ls_annual_vol": 0.1120199639212538,
-            "ls_sharpe": 0.9549445439366959,
-            "ls_win_rate": 0.5280373831775701,
-            "ls_max_drawdown": -0.2023027923538091,
-            "mean_turnover": 0.20148273869230662,
-            "coverage_ratio": 0.983276860759953
-          }
-        },
-        "artifacts": {
-          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha043\\20260611-ALL-23052605",
-          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha043\\20260611-ALL-23052605\\backtest_summary.csv",
-          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha043\\20260611-ALL-23052605\\mean_IC.csv",
-          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha043\\20260611-ALL-23052605\\long_short_returns_with_cost.csv",
-          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha043\\20260611-ALL-23052605\\backtest_plots.png"
-        },
-        "created_at": "2026-06-11 00:26:21",
-        "started_at": "2026-06-11 00:26:21",
-        "ended_at": "2026-06-11 00:27:17",
-        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
-      },
-      {
-        "run_id": "bt-20260611-002605-05d77bb0",
-        "factor_name": "Alpha043",
-        "version_id": "ver_fb89b356c3d6",
-        "start_date": "2023-05-31",
-        "end_date": "2026-05-29",
-        "universe": "index:000905.XSHG",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "parquet",
-        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\alpha\\alpha043_low_vol_crowding_mom\\alpha043_low_vol_crowding_mom_20230531_20260529.parquet",
-        "status": "success",
-        "error_message": null,
-        "summary": {
-          "run_id": "bt-20260611-002605-05d77bb0",
-          "factor_name": "Alpha043",
-          "version_id": "ver_fb89b356c3d6",
-          "start_date": "2023-05-31",
-          "end_date": "2026-05-29",
-          "universe": "index:000905.XSHG",
-          "source_mode": "parquet",
-          "resolved_universe_mode": "index_constituents",
-          "universe_size": 498,
-          "mean_ic": {
-            "1": 0.009411183813534226,
-            "5": 0.016631516603743072,
-            "22": 0.019207368318680473
-          },
-          "evaluation_metrics": {
-            "icir_1": 0.07850361348340835,
-            "icir_5": 0.13421010970036457,
-            "icir_22": 0.15091305678034547,
-            "ls_annual_return": 0.1022706193204892,
-            "ls_annual_vol": 0.1754646284000683,
-            "ls_sharpe": 0.642906461467993,
-            "ls_win_rate": 0.5490654205607477,
-            "ls_max_drawdown": -0.18926462015196488,
-            "mean_turnover": 0.20130250701679278,
-            "coverage_ratio": 0.9925656112823387
-          }
-        },
-        "artifacts": {
-          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha043\\20260611-index_000905.XSHG-23052605",
-          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha043\\20260611-index_000905.XSHG-23052605\\backtest_summary.csv",
-          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha043\\20260611-index_000905.XSHG-23052605\\mean_IC.csv",
-          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha043\\20260611-index_000905.XSHG-23052605\\long_short_returns_with_cost.csv",
-          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha043\\20260611-index_000905.XSHG-23052605\\backtest_plots.png"
-        },
-        "created_at": "2026-06-11 00:26:05",
-        "started_at": "2026-06-11 00:26:05",
-        "ended_at": "2026-06-11 00:26:21",
-        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
-      },
-      {
-        "run_id": "bt-20260611-001829-2338a8d7",
-        "factor_name": "Alpha042",
-        "version_id": "ver_90409cbb6c90",
-        "start_date": "2023-05-31",
-        "end_date": "2026-05-29",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "parquet",
-        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\alpha\\alpha042_consensus_crowding_mom\\alpha042_consensus_crowding_mom_20230531_20260529.parquet",
-        "status": "success",
-        "error_message": null,
-        "summary": {
-          "run_id": "bt-20260611-001829-2338a8d7",
-          "factor_name": "Alpha042",
-          "version_id": "ver_90409cbb6c90",
-          "start_date": "2023-05-31",
-          "end_date": "2026-05-29",
-          "universe": "ALL",
-          "source_mode": "parquet",
-          "resolved_universe_mode": "all_factor_values",
-          "universe_size": 5127,
-          "mean_ic": {
-            "1": 0.004906823070477505,
-            "5": 0.004148801647401808,
-            "22": 0.009782726860478586
-          },
-          "evaluation_metrics": {
-            "icir_1": 0.07254727995844043,
-            "icir_5": 0.05741215392136337,
-            "icir_22": 0.12433823951801959,
-            "ls_annual_return": 0.10601509597734626,
-            "ls_annual_vol": 0.11223489762024354,
-            "ls_sharpe": 0.9540047070979554,
-            "ls_win_rate": 0.5233644859813084,
-            "ls_max_drawdown": -0.20269592534520897,
-            "mean_turnover": 0.20165492592124967,
-            "coverage_ratio": 0.983276860759953
-          }
-        },
-        "artifacts": {
-          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha042\\20260611-ALL-23052605",
-          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha042\\20260611-ALL-23052605\\backtest_summary.csv",
-          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha042\\20260611-ALL-23052605\\mean_IC.csv",
-          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha042\\20260611-ALL-23052605\\long_short_returns_with_cost.csv",
-          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha042\\20260611-ALL-23052605\\backtest_plots.png"
-        },
-        "created_at": "2026-06-11 00:18:29",
-        "started_at": "2026-06-11 00:18:29",
-        "ended_at": "2026-06-11 00:19:24",
-        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
-      },
-      {
-        "run_id": "bt-20260611-001812-1f11d927",
-        "factor_name": "Alpha042",
-        "version_id": "ver_90409cbb6c90",
-        "start_date": "2023-05-31",
-        "end_date": "2026-05-29",
-        "universe": "index:000905.XSHG",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "parquet",
-        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\alpha\\alpha042_consensus_crowding_mom\\alpha042_consensus_crowding_mom_20230531_20260529.parquet",
-        "status": "success",
-        "error_message": null,
-        "summary": {
-          "run_id": "bt-20260611-001812-1f11d927",
-          "factor_name": "Alpha042",
-          "version_id": "ver_90409cbb6c90",
-          "start_date": "2023-05-31",
-          "end_date": "2026-05-29",
-          "universe": "index:000905.XSHG",
-          "source_mode": "parquet",
-          "resolved_universe_mode": "index_constituents",
-          "universe_size": 498,
-          "mean_ic": {
-            "1": 0.009394916704448125,
-            "5": 0.01660527894517231,
-            "22": 0.0191210583186857
-          },
-          "evaluation_metrics": {
-            "icir_1": 0.07838737165481909,
-            "icir_5": 0.1339900344887711,
-            "icir_22": 0.15021471303323192,
-            "ls_annual_return": 0.10771633015747373,
-            "ls_annual_vol": 0.17508524317066052,
-            "ls_sharpe": 0.6720794588215757,
-            "ls_win_rate": 0.5490654205607477,
-            "ls_max_drawdown": -0.19035983059649464,
-            "mean_turnover": 0.20074496931639788,
-            "coverage_ratio": 0.9925656112823387
-          }
-        },
-        "artifacts": {
-          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha042\\20260611-index_000905.XSHG-23052605",
-          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha042\\20260611-index_000905.XSHG-23052605\\backtest_summary.csv",
-          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha042\\20260611-index_000905.XSHG-23052605\\mean_IC.csv",
-          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha042\\20260611-index_000905.XSHG-23052605\\long_short_returns_with_cost.csv",
-          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\Alpha042\\20260611-index_000905.XSHG-23052605\\backtest_plots.png"
-        },
-        "created_at": "2026-06-11 00:18:12",
-        "started_at": "2026-06-11 00:18:12",
-        "ended_at": "2026-06-11 00:18:29",
-        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+        "created_at": "2026-06-15 10:32:08",
+        "started_at": "2026-06-15 10:32:08",
+        "ended_at": "2026-06-15 10:32:08",
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpo3d9n798\\factor.db"
       }
     ],
-    "generated_at": "2026-06-11 17:58:49"
+    "generated_at": "2026-06-15 10:56:17"
   }
 }

@@ -1,0 +1,28 @@
+[
+  {
+    "run_id": "qlib-20260605-150507",
+    "timestamp": "2026-06-05 15:04:31",
+    "status": "completed",
+    "start_date": "2026-05-13",
+    "end_date": "2026-05-15",
+    "benchmark": "000300.XSHG",
+    "weights_path": "backtest_results\\optimizer_runs\\opt-20260519-095357\\target_weights.pkl",
+    "optimizer_run_id": "opt-20260519-095357",
+    "portfolio_rows": 3,
+    "optimizer_summary_missing": null,
+    "has_optimizer_run_summary": true
+  },
+  {
+    "run_id": "qlib-20260519-170946",
+    "timestamp": "2026-05-19 16:53:17",
+    "status": "completed",
+    "start_date": "2024-05-01",
+    "end_date": "2026-05-14",
+    "benchmark": "000001.XSHE",
+    "weights_path": "backtest_results/optimizer_runs/opt-20260519-095357/target_weights.pkl",
+    "optimizer_run_id": "opt-20260519-095357",
+    "portfolio_rows": 491,
+    "optimizer_summary_missing": null,
+    "has_optimizer_run_summary": true
+  }
+]

@@ -3,6 +3,9 @@ const state = {
   factors: [],
   jobs: [],
   status: null,
+  portfolioBacktests: [],
+  selectedPortfolioRunId: null,
+  portfolioDetail: null,
   selectedFactor: null,
   currentView: "overview",
   chartData: {
@@ -42,6 +45,10 @@ const VIEW_META = {
     title: "任务与数据状态 <span>Task & Data Status</span>",
     subtitle: "聚焦日更任务、最近运行结果与数据新鲜度",
   },
+  portfolio: {
+    title: "组合回测 <span>Portfolio Backtests</span>",
+    subtitle: "查看历史组合回测、参数配置与组合净值表现",
+  },
 };
 
 let lsAnalysisToken = 0;
@@ -51,6 +58,7 @@ let toastTimer = null;
 const fmt = (value, digits = 3) => (value === null || value === undefined || Number.isNaN(Number(value)) ? "--" : Number(value).toFixed(digits));
 const pct = (value, digits = 1) => (value === null || value === undefined || Number.isNaN(Number(value)) ? "--" : `${(Number(value) * 100).toFixed(digits)}%`);
 const numericOrNaN = (value) => (value === null || value === undefined || value === "" ? NaN : Number(value));
+const displayText = (value) => (value === null || value === undefined || value === "" ? "--" : String(value));
 const cssNum = (value) => {
   const n = Number(value);
   if (Number.isNaN(n) || n === 0) return "num";
@@ -101,6 +109,10 @@ function getSelectedFactorMeta() {
   return state.factors.find((item) => item.factor_name === state.selectedFactor) || null;
 }
 
+function getSelectedPortfolioMeta() {
+  return state.portfolioBacktests.find((item) => item.run_id === state.selectedPortfolioRunId) || null;
+}
+
 function escapeHtml(value) {
   return String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -108,6 +120,35 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
+}
+
+function stringifyValue(value) {
+  if (value === null || value === undefined || value === "") return "--";
+  if (typeof value === "number") return Number.isFinite(value) ? String(value) : "--";
+  if (typeof value === "boolean") return value ? "true" : "false";
+  if (Array.isArray(value) || typeof value === "object") {
+    try {
+      return JSON.stringify(value, null, 2);
+    } catch {
+      return String(value);
+    }
+  }
+  return String(value);
+}
+
+function renderKvGrid(targetId, items, emptyText) {
+  const node = document.getElementById(targetId);
+  if (!node) return;
+  if (!(items || []).length) {
+    node.innerHTML = `<div class="empty-state">${escapeHtml(emptyText)}</div>`;
+    return;
+  }
+  node.innerHTML = items.map((item) => `
+    <div class="kv-card">
+      <span>${escapeHtml(item.label)}</span>
+      <strong>${escapeHtml(stringifyValue(item.value))}</strong>
+    </div>
+  `).join("");
 }
 
 function renderReportSummaryChips(targetId, items) {
@@ -174,7 +215,7 @@ function updatePageHeader() {
 function updateToolbarVisibility() {
   const actions = document.querySelector(".top-actions");
   if (!actions) return;
-  actions.classList.toggle("is-hidden", state.currentView === "status");
+  actions.classList.toggle("is-hidden", state.currentView !== "overview");
 }
 
 function switchView(nextView) {
@@ -193,6 +234,7 @@ function switchView(nextView) {
     renderIcChart();
     renderGroupChart();
     renderLongShortChart();
+    renderPortfolioChart();
   });
 }
 
@@ -991,6 +1033,112 @@ function renderLongShortChart() {
   setRangeBackground("ls");
 }
 
+function pickPortfolioParamItems(payload) {
+  return Object.entries(payload || {}).map(([key, value]) => ({ label: key, value }));
+}
+
+function renderPortfolioList() {
+  const node = document.getElementById("portfolioRunList");
+  if (!node) return;
+  const runs = state.portfolioBacktests || [];
+  setText("portfolioRunCount", runs.length ? `共 ${runs.length} 条` : "");
+  if (!runs.length) {
+    node.innerHTML = '<div class="empty-state">暂无组合回测结果</div>';
+    return;
+  }
+  node.innerHTML = runs.map((item) => `
+    <article class="portfolio-run-card ${state.selectedPortfolioRunId === item.run_id ? "selected" : ""}" data-run-id="${escapeHtml(item.run_id)}">
+      <div class="panel-head">
+        <h3>${escapeHtml(item.run_id)}</h3>
+        <span class="badge ${escapeHtml(item.status || "skipped")}">${escapeHtml(item.status || "--")}</span>
+      </div>
+      <p>${escapeHtml(displayText(item.start_date))} ~ ${escapeHtml(displayText(item.end_date))}</p>
+      <div class="portfolio-run-meta">
+        <span>回测时间: ${escapeHtml(displayText(item.timestamp))}</span>
+        <span>基准: ${escapeHtml(displayText(item.benchmark))}</span>
+        <span>Optimizer: ${escapeHtml(displayText(item.optimizer_run_id))}</span>
+        <span>样本点: ${escapeHtml(displayText(item.portfolio_rows))}</span>
+      </div>
+    </article>
+  `).join("");
+  node.querySelectorAll(".portfolio-run-card").forEach((card) => {
+    card.addEventListener("click", () => selectPortfolioRun(card.dataset.runId));
+  });
+}
+
+function renderPortfolioMetrics(metrics) {
+  const node = document.getElementById("portfolioMetrics");
+  if (!node) return;
+  const items = [
+    { label: "年化收益", value: pct(metrics?.annual_return) },
+    { label: "年化波动", value: pct(metrics?.annual_volatility) },
+    { label: "最大回撤", value: pct(metrics?.max_drawdown) },
+    { label: "基准年化收益", value: pct(metrics?.benchmark_annual_return) },
+    { label: "超额年化收益", value: pct(metrics?.excess_annual_return) },
+    { label: "回测天数", value: displayText(metrics?.days) },
+    { label: "平均换手", value: pct(metrics?.avg_turnover) },
+    { label: "累计成本", value: metrics?.total_cost === null || metrics?.total_cost === undefined ? "--" : fmt(metrics.total_cost, 2) },
+  ];
+  node.innerHTML = items.map((item) => `
+    <div class="metric-chip">
+      <span>${escapeHtml(item.label)}</span>
+      <strong>${escapeHtml(item.value)}</strong>
+    </div>
+  `).join("");
+}
+
+function renderPortfolioChart() {
+  const detail = state.portfolioDetail || {};
+  const seriesRows = detail.series || [];
+  drawLineChart("portfolioChart", [
+    {
+      name: "Portfolio",
+      color: "#2563eb",
+      lineWidth: 2.6,
+      points: seriesRows.map((item) => ({ date: item.date, value: numericOrNaN(item.portfolio_nav) })),
+    },
+    {
+      name: "Benchmark",
+      color: "#e79b28",
+      lineWidth: 2,
+      dash: true,
+      points: seriesRows.map((item) => ({ date: item.date, value: numericOrNaN(item.benchmark_nav) })),
+    },
+  ], { emptyText: "暂无组合回测曲线数据" });
+}
+
+function renderPortfolioDetail() {
+  const detail = state.portfolioDetail;
+  const selected = getSelectedPortfolioMeta();
+  setText("portfolioSelectedHint", selected?.run_id || "--");
+  if (!detail || !selected) {
+    renderKvGrid("portfolioQlibParams", [], "暂无参数");
+    renderKvGrid("portfolioOptimizerParams", [], "暂无参数");
+    renderPortfolioMetrics({});
+    drawLineChart("portfolioChart", [], { emptyText: "暂无组合回测曲线数据" });
+    setText("portfolioMissingNotes", "暂无组合回测详情");
+    return;
+  }
+
+  const qlibItems = pickPortfolioParamItems(detail.qlib_run_summary?.run);
+  const optimizerItems = detail.optimizer_run_summary
+    ? [
+        { label: "optimizer_name", value: detail.optimizer_run_summary.optimizer_name },
+        { label: "start_date", value: detail.optimizer_run_summary.start_date },
+        { label: "end_date", value: detail.optimizer_run_summary.end_date },
+        { label: "constraints", value: detail.optimizer_run_summary.constraints },
+        { label: "n_factors", value: detail.optimizer_run_summary.n_factors },
+        { label: "n_rebalance_dates", value: detail.optimizer_run_summary.n_rebalance_dates },
+      ]
+    : [];
+  renderKvGrid("portfolioQlibParams", qlibItems, "暂无 QLib 回测参数");
+  renderKvGrid("portfolioOptimizerParams", optimizerItems, "未找到关联 optimizer_run 的 run_summary");
+  renderPortfolioMetrics(detail.metrics || {});
+  renderPortfolioChart();
+  const missing = detail.missing || [];
+  setText("portfolioMissingNotes", missing.length ? missing.join(" | ") : "");
+}
+
 async function fetchSummary() {
   return STATIC_MODE ? getJson(dataPath("summary.json")) : getJson("/api/summary");
 }
@@ -1001,6 +1149,17 @@ async function fetchFactors() {
 
 async function fetchJobs() {
   return STATIC_MODE ? getJson(dataPath("status.json")) : getJson("/api/status");
+}
+
+async function fetchPortfolioBacktests() {
+  return STATIC_MODE ? getJson(dataPath("portfolio-backtests.json")) : getJson("/api/portfolio-backtests");
+}
+
+async function fetchPortfolioBacktestDetail(runId) {
+  if (!runId) return null;
+  if (STATIC_MODE) return getJson(dataPath(`portfolio-details/${encodeURIComponent(runId)}.json`));
+  const q = new URLSearchParams({ run_id: runId });
+  return getJson(`/api/portfolio-backtest-detail?${q.toString()}`);
 }
 
 async function fetchEvalSeries(factor, horizon) {
@@ -1108,11 +1267,33 @@ async function loadFactorDependentPanels() {
   await updateLongShortAnalysis();
 }
 
+async function loadPortfolioPanels() {
+  renderPortfolioList();
+  if (!state.selectedPortfolioRunId && state.portfolioBacktests.length) {
+    state.selectedPortfolioRunId = state.portfolioBacktests[0].run_id;
+  }
+  if (!state.selectedPortfolioRunId) {
+    state.portfolioDetail = null;
+    renderPortfolioDetail();
+    return;
+  }
+  state.portfolioDetail = await fetchPortfolioBacktestDetail(state.selectedPortfolioRunId);
+  renderPortfolioList();
+  renderPortfolioDetail();
+}
+
 async function selectFactor(factorName) {
   state.selectedFactor = factorName;
   setText("selectedFactorHint", factorName ? `当前: ${factorName}` : "");
   renderFactors();
   await loadFactorDependentPanels();
+}
+
+async function selectPortfolioRun(runId) {
+  state.selectedPortfolioRunId = runId;
+  renderPortfolioList();
+  state.portfolioDetail = await fetchPortfolioBacktestDetail(runId);
+  renderPortfolioDetail();
 }
 
 async function showLatestJobItems() {
@@ -1133,16 +1314,23 @@ async function showLatestJobItems() {
 }
 
 async function loadDashboard() {
-  const [summary, factors, statusPayload] = await Promise.all([fetchSummary(), fetchFactors(), fetchJobs()]);
+  const [summary, factors, statusPayload, portfolioBacktests] = await Promise.all([
+    fetchSummary(),
+    fetchFactors(),
+    fetchJobs(),
+    fetchPortfolioBacktests(),
+  ]);
   state.summary = summary;
   state.factors = factors;
   state.status = statusPayload;
+  state.portfolioBacktests = portfolioBacktests || [];
   state.jobs = statusPayload?.scheduler?.recent_stages || [];
   if (!state.selectedFactor) chooseDefaultFactor();
+  if (!state.selectedPortfolioRunId) state.selectedPortfolioRunId = state.portfolioBacktests[0]?.run_id || null;
   renderSummary();
   renderFactors();
   renderJobs();
-  await loadFactorDependentPanels();
+  await Promise.all([loadFactorDependentPanels(), loadPortfolioPanels()]);
 }
 
 function bindNavigation() {

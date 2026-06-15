@@ -1,5 +1,5 @@
 {
-  "latest_trade_date": "2026-06-12",
+  "latest_trade_date": "2026-06-15",
   "market_latest_trade_date": "2026-06-12",
   "latest_factor_date": "2026-06-12",
   "status_counts": {
@@ -8,7 +8,7 @@
     "draft": 33
   },
   "latest_job": {
-    "run_id": "20260612-173451-factor-daily",
+    "run_id": "20260614-161424-factor-daily",
     "job_date": "2026-06-12",
     "status": "skipped",
     "factor_count": 8,
@@ -23,7 +23,7 @@
       "active",
       "candidate"
     ],
-    "started_at": "2026-06-12 17:34:51",
-    "ended_at": "2026-06-12 17:35:00"
+    "started_at": "2026-06-14 16:14:24",
+    "ended_at": "2026-06-14 16:14:59"
   }
 }
