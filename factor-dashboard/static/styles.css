@@ -433,7 +433,7 @@ h1 span {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px;
-  align-items: start;
+  align-items: stretch;
 }
 
 .portfolio-grid {
@@ -454,6 +454,10 @@ h1 span {
   padding: 16px;
   display: flex;
   flex-direction: column;
+}
+
+.status-grid > .panel {
+  height: 100%;
 }
 
 .panel-head {
@@ -764,6 +768,11 @@ tbody tr:last-child td {
   white-space: normal;
   line-height: 1.45;
   overflow-wrap: anywhere;
+}
+
+.status-grid .job-detail {
+  text-align: right;
+  justify-self: end;
 }
 
 .scheduler-items .job-item-row {
