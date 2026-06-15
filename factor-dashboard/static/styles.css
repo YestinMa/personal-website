@@ -629,12 +629,12 @@ tbody tr:last-child td {
 }
 
 .portfolio-run-list {
-  flex: 1 1 auto;
   min-height: 220px;
-  height: 100%;
   overflow: auto;
   display: grid;
   gap: 12px;
+  align-content: start;
+  grid-auto-rows: max-content;
 }
 
 .portfolio-list-panel {
@@ -719,6 +719,13 @@ tbody tr:last-child td {
   line-height: 1.45;
   overflow-wrap: anywhere;
   white-space: pre-wrap;
+}
+
+.kv-card.compact-list strong {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.75;
+  font-weight: 600;
 }
 
 .empty-state {

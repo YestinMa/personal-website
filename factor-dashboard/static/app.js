@@ -144,7 +144,7 @@ function renderKvGrid(targetId, items, emptyText) {
     return;
   }
   node.innerHTML = items.map((item) => `
-    <div class="kv-card">
+    <div class="kv-card ${item.compactList ? "compact-list" : ""}">
       <span>${escapeHtml(toTitleLabel(item.label))}</span>
       <strong>${escapeHtml(stringifyValue(item.value))}</strong>
     </div>
@@ -365,7 +365,7 @@ function drawLineChart(canvasId, seriesList, options = {}) {
   const { ctx, width, height } = setupCanvas(canvas);
   const legendItems = (seriesList || []).filter((item) => item?.name);
   const hasLegend = legendItems.length > 0;
-  const padding = { left: 52, right: 20, top: hasLegend ? 46 : 30, bottom: 34 };
+  const padding = { left: 52, right: 20, top: hasLegend ? 64 : 30, bottom: 34 };
   const allPoints = seriesList.flatMap((s) => s.points || []).filter((p) => Number.isFinite(p.value));
   if (!allPoints.length) {
     ctx.clearRect(0, 0, width, height);
@@ -483,8 +483,8 @@ function drawLineChart(canvasId, seriesList, options = {}) {
   ctx.textAlign = "right";
   ctx.fillText(last || "", width - padding.right, height - 10);
 
-  let legendX = padding.left + 18;
-  const legendY = 24;
+  let legendX = padding.left + 12;
+  const legendY = 34;
   legendItems.forEach((series) => {
     ctx.strokeStyle = series.color;
     ctx.lineWidth = series.lineWidth || 2;
@@ -494,7 +494,7 @@ function drawLineChart(canvasId, seriesList, options = {}) {
     ctx.lineTo(legendX + 22, legendY);
     ctx.stroke();
     ctx.setLineDash([]);
-    ctx.fillText(series.name || "", legendX + 28, legendY + 4);
+    ctx.fillText(series.name || "", legendX + 28, legendY + 5);
     legendX += 24 + ctx.measureText(series.name || "").width + 18;
   });
 }
@@ -1056,12 +1056,16 @@ function buildOptimizerParamItems(summary) {
     { label: "n_rebalance_dates", value: summary.n_rebalance_dates },
   ];
   const constraints = summary.constraints || {};
-  Object.entries(constraints).forEach(([key, value]) => {
-    if (key === "extras" && value && typeof value === "object" && !Object.keys(value).length) {
-      return;
-    }
-    items.push({ label: `constraint_${key}`, value });
-  });
+  const lines = Object.entries(constraints)
+    .filter(([key, value]) => !(key === "extras" && value && typeof value === "object" && !Object.keys(value).length))
+    .map(([key, value]) => `${key}: ${stringifyValue(value)}`);
+  if (lines.length) {
+    items.push({
+      label: "constraints",
+      value: lines.join("\n"),
+      compactList: true,
+    });
+  }
   return items;
 }
 
