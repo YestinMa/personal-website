@@ -88,6 +88,12 @@
     .article-content code {
       font-family: "Consolas", "Monaco", monospace;
     }
+    .article-content pre.mermaid {
+      background: #fff;
+      color: inherit;
+      padding: 0;
+      overflow: visible;
+    }
     .article-content img {
       max-width: 100%;
       border-radius: 12px;
@@ -130,7 +136,7 @@
           </div>
           <div class="article-tags"></div>
           <div class="article-content">
-            <pre><code class="language-mermaid">flowchart TD
+            <pre class="mermaid">flowchart TD
     U\[&quot;用户 / Agent&lt;br/\&gt;提出单因子想法&quot;\] \-\-\&gt; R\[&quot;单因子研究&lt;br/\&gt;factor\_research\_job / orchestrator&quot;\]
     R \-\-\&gt; F\[&quot;创建因子文件&lt;br/\&gt;src/factors/\*\.py&quot;\]
     R \-\-\&gt; B\[&quot;单因子研究回测&lt;br/\&gt;HistoricalBacktestService&quot;\]
@@ -169,7 +175,7 @@
 
     Support \-\-\&gt; DASH
     Q \-\-\&gt; DASH\[&quot;结果展示 / 看板&quot;\]
-    B \-\-\&gt; DASH</code></pre>
+    B \-\-\&gt; DASH</pre>
           </div>
         </article>
       </div>
@@ -188,5 +194,9 @@
   </footer>
 
   <script src="../js/main.js?v=1.0.2"></script>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: true, securityLevel: "loose", theme: "default" });
+  </script>
 </body>
 </html>

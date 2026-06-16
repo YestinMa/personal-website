@@ -495,8 +495,13 @@ function markdownToHtml(markdown) {
 
   function flushCodeBlock() {
     if (!inCodeBlock) return;
-    const languageClass = codeLanguage ? ` class="language-${escapeHtml(codeLanguage)}"` : "";
-    html.push(`<pre><code${languageClass}>${escapeHtml(codeLines.join("\n"))}</code></pre>`);
+    const code = codeLines.join("\n");
+    if (codeLanguage === "mermaid") {
+      html.push(`<pre class="mermaid">${escapeHtml(code)}</pre>`);
+    } else {
+      const languageClass = codeLanguage ? ` class="language-${escapeHtml(codeLanguage)}"` : "";
+      html.push(`<pre><code${languageClass}>${escapeHtml(code)}</code></pre>`);
+    }
     inCodeBlock = false;
     codeLanguage = "";
     codeLines = [];
@@ -608,6 +613,7 @@ function markdownToHtml(markdown) {
 
 function buildArticleHtml(meta, markdownBody) {
   const articleHtml = markdownToHtml(markdownBody);
+  const hasMermaid = articleHtml.includes('class="mermaid"');
   const title = escapeHtml(meta.title);
   const category = escapeHtml(meta.category || meta.kind);
   const date = escapeHtml(meta.date || "");
@@ -704,6 +710,12 @@ function buildArticleHtml(meta, markdownBody) {
     .article-content code {
       font-family: "Consolas", "Monaco", monospace;
     }
+    .article-content pre.mermaid {
+      background: #fff;
+      color: inherit;
+      padding: 0;
+      overflow: visible;
+    }
     .article-content img {
       max-width: 100%;
       border-radius: 12px;
@@ -765,6 +777,14 @@ function buildArticleHtml(meta, markdownBody) {
   </footer>
 
   <script src="../js/main.js?v=1.0.2"></script>
+  ${
+    hasMermaid
+      ? `<script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: true, securityLevel: "loose", theme: "default" });
+  </script>`
+      : ""
+  }
 </body>
 </html>
 `;
