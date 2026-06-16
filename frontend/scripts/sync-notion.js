@@ -227,6 +227,10 @@ function richTextToMarkdown(richText = []) {
     .join("");
 }
 
+function richTextToPlainText(richText = []) {
+  return richText.map((item) => item.plain_text || "").join("");
+}
+
 function getPropertyValue(property) {
   switch (property?.type) {
     case "title":
@@ -390,7 +394,7 @@ async function renderBlocks(token, blocks, depth = 0) {
         break;
       case "code": {
         const language = block.code.language || "";
-        const content = richTextToMarkdown(block.code.rich_text);
+        const content = richTextToPlainText(block.code.rich_text);
         lines.push(`\`\`\`${language}`, content, "```", "");
         break;
       }
