@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Structure of ABMFS">
+  <title>Structure of ABMFS - 个人网站</title>
+  <link rel="stylesheet" href="../css/style.css?v=1.0.2">
+  <style>
+    .article-shell {
+      padding: 4rem 0;
+    }
+    .article-card {
+      max-width: 860px;
+      margin: 0 auto;
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+    }
+    .article-back {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      color: var(--secondary-color);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .article-title {
+      margin-bottom: 0.75rem;
+    }
+    .article-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+    .article-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .tag {
+      background: var(--bg-light);
+      border: 1px solid var(--border-color);
+      border-radius: 999px;
+      padding: 0.3rem 0.75rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .article-content {
+      line-height: 1.8;
+      color: var(--text-color);
+    }
+    .article-content h1,
+    .article-content h2,
+    .article-content h3 {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+    .article-content p,
+    .article-content ul,
+    .article-content ol,
+    .article-content blockquote,
+    .article-content pre,
+    .article-content figure {
+      margin-bottom: 1rem;
+    }
+    .article-content ul,
+    .article-content ol {
+      padding-left: 1.5rem;
+    }
+    .article-content blockquote {
+      border-left: 4px solid var(--border-color);
+      padding-left: 1rem;
+      color: var(--text-muted);
+    }
+    .article-content pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 1rem;
+      border-radius: 12px;
+      overflow-x: auto;
+    }
+    .article-content code {
+      font-family: "Consolas", "Monaco", monospace;
+    }
+    .article-content img {
+      max-width: 100%;
+      border-radius: 12px;
+    }
+    .article-content a {
+      color: var(--secondary-color);
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-brand">
+        <a href="../index.html">我的网站</a>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="../index.html">About me</a></li>
+        <li><a href="../strategy-dashboard.html">Strategy Dashboard</a></li>
+        <li><a href="../factor-dashboard/index.html">因子看板</a></li>
+        <li><a href="../notes-blogs.html" class="active">Notes &amp; Blogs</a></li>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="article-shell">
+      <div class="container">
+        <article class="article-card">
+          <a class="article-back" href="../notes-blogs.html">← Back to Notes &amp; Blogs</a>
+          <h1 class="article-title">Structure of ABMFS</h1>
+          <div class="article-meta">
+            <span>notes</span>
+            <span>2026-06-16T08:26:00.000Z</span>
+            <span>quant</span>
+          </div>
+          <div class="article-tags"></div>
+          <div class="article-content">
+            <pre><code class="language-mermaid">flowchart TD
+    U\[&quot;用户 / Agent&lt;br/\&gt;提出单因子想法&quot;\] \-\-\&gt; R\[&quot;单因子研究&lt;br/\&gt;factor\_research\_job / orchestrator&quot;\]
+    R \-\-\&gt; F\[&quot;创建因子文件&lt;br/\&gt;src/factors/\*\.py&quot;\]
+    R \-\-\&gt; B\[&quot;单因子研究回测&lt;br/\&gt;HistoricalBacktestService&quot;\]
+    R \-\-\&gt; M\[&quot;研究证据沉淀&lt;br/\&gt;memory / parquet / reports&quot;\]
+
+    F \-\-\&gt; G\[&quot;因子注册与版本治理&lt;br/\&gt;FactorRegistryService&quot;\]
+    B \-\-\&gt; G
+
+    G \-\-\&gt; D\[&quot;draft&lt;br/\&gt;研究中，仅保留定义与证据&quot;\]
+    D \-\-\&gt; C\[&quot;candidate&lt;br/\&gt;持续跟踪回测与评价指标&quot;\]
+    C \-\-\&gt; A\[&quot;active&lt;br/\&gt;进入实盘或模拟盘&quot;\]
+
+    subgraph Support\[&quot;底层数据支撑&quot;\]
+        ETL\[&quot;ETL / database\.main&quot;\]
+        MARKET\[&quot;market\.db&quot;\]
+        FACTORDB\[&quot;factor\.db&quot;\]
+        MARKET \-\-\&gt; QT\[&quot;QLib数据转换层&quot;\]
+    end
+    RICEQUANT\[&quot;数据源 RiceQuant&quot;\] \-\-\&gt; Support
+
+    ETL \-\-\&gt; MARKET
+    MARKET \-\-\&gt; V\[&quot;因子日更FactorManager&lt;br/\&gt;factor\_daily\_job&quot;\]
+
+    C \-\-\&gt; V
+    A \-\-\&gt; V
+    V \-\-\&gt; FACTORDB
+    V \-\-\&gt; E\[&quot;因子评价FactorEvalService &lt;br/\&gt; factor\_eval\_timeseries &lt;br/\&gt;factor\_rolling\_metrics&quot;\]
+
+    E \-\-\&gt; FACTORDB
+    MARKET \-\-\&gt; P\[&quot;组合管理侧&lt;br/\&gt;因子融合 / 风险模型 / 组合优化&quot;\]
+    FACTORDB \-\-\&gt; P
+
+    P \-\-\&gt; Q\[&quot;QLib 组合回测&quot;\]
+    
+    QT \-\-\&gt; Q
+
+    Support \-\-\&gt; DASH
+    Q \-\-\&gt; DASH\[&quot;结果展示 / 看板&quot;\]
+    B \-\-\&gt; DASH</code></pre>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Yestin Ma. 保留所有权利。</p>
+      <div class="social-links">
+        <a href="#" aria-label="GitHub">GitHub</a>
+        <a href="#" aria-label="LinkedIn">LinkedIn</a>
+        <a href="#" aria-label="Twitter">Twitter</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js?v=1.0.2"></script>
+</body>
+</html>

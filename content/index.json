@@ -1,7 +1,19 @@
 {
-  "generatedAt": "2026-06-12T11:11:05.391Z",
+  "generatedAt": "2026-06-16T10:01:24.821Z",
   "blog": [],
   "notes": [
+    {
+      "title": "Structure of ABMFS",
+      "slug": "structure-of-abmfs",
+      "date": "2026-06-16T08:26:00.000Z",
+      "lastEditedTime": "2026-06-16T08:31:00.000Z",
+      "category": "quant",
+      "tags": [],
+      "status": "Published",
+      "notionPageId": "381db726-82a8-8032-b891-c1762b4695a3",
+      "href": "notes/structure-of-abmfs.html",
+      "kind": "notes"
+    },
     {
       "title": "Hello from Notion",
       "slug": "hello-from-notion",
