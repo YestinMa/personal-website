@@ -1,0 +1,96 @@
+{
+  "summary": {
+    "run_id": "qlib-20260618-164630",
+    "timestamp": "2026-06-18 16:46:15",
+    "status": "completed",
+    "start_date": "2024-06-18",
+    "end_date": "2024-06-18",
+    "benchmark": "000300.XSHG",
+    "weights_path": "backtest_results\\optimizer_runs\\opt-20260618-164615\\target_weights.parquet",
+    "optimizer_run_id": "opt-20260618-164615",
+    "portfolio_rows": 1,
+    "optimizer_summary_missing": null,
+    "has_optimizer_run_summary": true
+  },
+  "qlib_run_summary": {
+    "status": "completed",
+    "timestamp": "2026-06-18 16:46:15",
+    "weights_path": "backtest_results\\optimizer_runs\\opt-20260618-164615\\target_weights.parquet",
+    "n_weight_rows": 0,
+    "n_weight_days": 0,
+    "run": {
+      "start_date": "2024-06-18",
+      "end_date": "2024-06-18",
+      "benchmark": "000300.XSHG",
+      "account": 100000000
+    },
+    "pre_sync": null,
+    "output_dir": "backtest_results\\qlib_runs\\qlib-20260618-164630",
+    "artifacts": {
+      "portfolio_day": "backtest_results\\qlib_runs\\qlib-20260618-164630\\portfolio_day.csv",
+      "indicator_day": "backtest_results\\qlib_runs\\qlib-20260618-164630\\indicator_day.csv",
+      "positions_day": "backtest_results\\qlib_runs\\qlib-20260618-164630\\positions_day.pkl",
+      "portfolio_day_plot": "backtest_results\\qlib_runs\\qlib-20260618-164630\\portfolio_day_plot.png"
+    },
+    "portfolio_rows": 1,
+    "indicator_rows": 1
+  },
+  "optimizer_run_summary": {
+    "status": "completed",
+    "timestamp": "2026-06-18 16:46:05",
+    "start_date": "2024-06-18",
+    "end_date": "2024-06-18",
+    "optimizer_name": "risk_parity",
+    "fusion_name": "ridge",
+    "calibrator_name": "linear",
+    "risk_model_name": "ledoit_wolf",
+    "n_panel_rows": 5034,
+    "n_factors": 7,
+    "n_rebalance_dates": 1,
+    "output_dir": "backtest_results\\optimizer_runs\\opt-20260618-164615",
+    "artifacts": {
+      "target_weights": "backtest_results\\optimizer_runs\\opt-20260618-164615\\target_weights.parquet",
+      "status": "backtest_results\\optimizer_runs\\opt-20260618-164615\\status.parquet"
+    },
+    "constraints": {
+      "long_only": true
+    },
+    "horizon": 22,
+    "factor_names": [
+      "AlphaCHIP0007",
+      "AlphaCHIP0008",
+      "AlphaCHIP0009",
+      "AlphaMOM0003",
+      "AlphaMOM0004",
+      "AlphaMOM0005",
+      "AlphaMOM0010"
+    ],
+    "candidate_mode": true,
+    "target_weight_rows": 0,
+    "status_rows": 1,
+    "optimization_results": {}
+  },
+  "series": [
+    {
+      "date": "2024-06-18",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0026558638
+    }
+  ],
+  "metrics": {
+    "annual_return": null,
+    "annual_volatility": null,
+    "max_drawdown": 0.0,
+    "max_drawdown_range": {
+      "peak_date": "2024-06-18",
+      "trough_date": "2024-06-18",
+      "recovery_date": "2024-06-18"
+    },
+    "benchmark_annual_return": null,
+    "excess_annual_return": null,
+    "days": 1,
+    "avg_turnover": 0.0,
+    "total_cost": 0.0
+  },
+  "missing": []
+}
