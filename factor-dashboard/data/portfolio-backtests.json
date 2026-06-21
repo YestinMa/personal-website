@@ -1,5 +1,18 @@
 [
   {
+    "run_id": "qlib-20260621-154118",
+    "timestamp": "2026-06-21 15:14:18",
+    "status": "completed",
+    "start_date": "2024-06-18",
+    "end_date": "2026-06-11",
+    "benchmark": "000300.XSHG",
+    "weights_path": "backtest_results\\optimizer_runs\\opt-20260621-151417\\target_weights.parquet",
+    "optimizer_run_id": "opt-20260621-151417",
+    "portfolio_rows": 481,
+    "optimizer_summary_missing": null,
+    "has_optimizer_run_summary": true
+  },
+  {
     "run_id": "qlib-20260618-164848",
     "timestamp": "2026-06-18 16:48:35",
     "status": "completed",

@@ -673,5 +673,20 @@
     "rolling_vol": null,
     "rolling_sharpe": null,
     "rolling_win_rate": null
+  },
+  {
+    "factor_name": "AlphaVOL0001",
+    "factor_family": "波动率",
+    "lifecycle_status": "draft",
+    "version_id": "ver_35ba74dfc73c",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null
   }
 ]
