@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const FRONTEND_DIR = path.resolve(SCRIPT_DIR, "..");
 const REPO_ROOT = path.resolve(FRONTEND_DIR, "..");
+const CONTENT_RENDER_VERSION = "2";
 
 const NOTION_API_BASE = "https://api.notion.com/v1";
 const NOTION_VERSION = "2022-06-28";
@@ -206,6 +207,11 @@ function escapeInlineMarkdown(text) {
 function richTextToMarkdown(richText = []) {
   return richText
     .map((item) => {
+      // Notion 的行内公式需要转成 LaTeX 定界符，浏览器端才能正确渲染。
+      if (item.type === "equation") {
+        return `\\(${item.equation?.expression || ""}\\)`;
+      }
+
       if (item.type !== "text") {
         return item.plain_text || "";
       }
@@ -398,6 +404,10 @@ async function renderBlocks(token, blocks, depth = 0) {
         lines.push(`\`\`\`${language}`, content, "```", "");
         break;
       }
+      case "equation":
+        // 独立公式块使用 display math，避免和普通段落混在一起。
+        lines.push(`$$${block.equation?.expression || ""}$$`, "");
+        break;
       case "image": {
         const url = getImageSource(block.image);
         const caption = richTextToMarkdown(block.image.caption || []) || "Notion image";
@@ -429,6 +439,7 @@ function toFrontmatter(meta) {
     slug: meta.slug,
     date: meta.date,
     lastEditedTime: meta.lastEditedTime,
+    renderVersion: CONTENT_RENDER_VERSION,
     category: meta.category || meta.kind,
     tags: meta.tags,
     status: meta.status,
@@ -467,6 +478,10 @@ function parseInlineMarkdown(text) {
   html = html.replace(/~~([^~]+)~~/g, "<del>$1</del>");
   html = html.replace(/\\([\\`*_{}\[\]()#+\-.!|>])/g, "$1");
   return html;
+}
+
+function isDisplayMathLine(line) {
+  return /^\$\$[\s\S]*\$\$$/.test(line.trim());
 }
 
 function markdownToHtml(markdown) {
@@ -557,6 +572,15 @@ function markdownToHtml(markdown) {
       continue;
     }
 
+    if (isDisplayMathLine(line)) {
+      flushParagraph();
+      flushList();
+      flushQuote();
+      // display 公式单独包裹，便于 KaTeX 识别与滚动显示。
+      html.push(`<div class="math-block">${escapeHtml(line.trim())}</div>`);
+      continue;
+    }
+
     const imageMatch = line.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
     if (imageMatch) {
       flushParagraph();
@@ -618,6 +642,7 @@ function markdownToHtml(markdown) {
 function buildArticleHtml(meta, markdownBody) {
   const articleHtml = markdownToHtml(markdownBody);
   const hasMermaid = articleHtml.includes('class="mermaid"');
+  const hasMath = articleHtml.includes("\\(") || articleHtml.includes("\\[") || articleHtml.includes("$$");
   const title = escapeHtml(meta.title);
   const category = escapeHtml(meta.category || meta.kind);
   const date = escapeHtml(meta.date || "");
@@ -632,6 +657,7 @@ function buildArticleHtml(meta, markdownBody) {
   <meta name="description" content="${escapeHtml(meta.title)}">
   <title>${title} - 个人网站</title>
   <link rel="stylesheet" href="../css/style.css?v=1.0.2">
+  ${hasMath ? '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">' : ""}
   <style>
     .article-shell {
       padding: 4rem 0;
@@ -720,6 +746,15 @@ function buildArticleHtml(meta, markdownBody) {
       padding: 0;
       overflow: visible;
     }
+    .article-content .math-block {
+      overflow-x: auto;
+      margin-bottom: 1rem;
+    }
+    .article-content .katex-display {
+      margin: 1.25rem 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
     .article-content img {
       max-width: 100%;
       border-radius: 12px;
@@ -782,6 +817,26 @@ function buildArticleHtml(meta, markdownBody) {
 
   <script src="../js/main.js?v=1.0.2"></script>
   ${
+    hasMath
+      ? `<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (typeof renderMathInElement !== "function") return;
+      renderMathInElement(document.querySelector(".article-content"), {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "\\\\[", right: "\\\\]", display: true },
+          { left: "\\\\(", right: "\\\\)", display: false },
+          { left: "$", right: "$", display: false }
+        ],
+        throwOnError: false
+      });
+    });
+  </script>`
+      : ""
+  }
+  ${
     hasMermaid
       ? `<script type="module">
     import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
@@ -809,12 +864,14 @@ async function indexExistingContent(rootDir) {
       const content = await fs.readFile(fullPath, "utf8");
       const notionPageIdMatch = content.match(/^notionPageId:\s*"([^"]+)"/m);
       const lastEditedTimeMatch = content.match(/^lastEditedTime:\s*"([^"]+)"/m);
+      const renderVersionMatch = content.match(/^renderVersion:\s*"([^"]+)"/m);
 
       if (notionPageIdMatch) {
         state.set(notionPageIdMatch[1], {
           path: fullPath,
           htmlPath: path.join(REPO_ROOT, kind, `${entry.name.replace(/\.md$/, "")}.html`),
           lastEditedTime: lastEditedTimeMatch ? lastEditedTimeMatch[1] : "",
+          renderVersion: renderVersionMatch ? renderVersionMatch[1] : "",
         });
       }
     }
@@ -855,7 +912,13 @@ async function syncPage(token, page, ancestors, defaultStatus, isContainer, exis
     .then(() => true)
     .catch(() => false);
 
-  if (existing && existing.lastEditedTime === meta.lastEditedTime && existing.path === targetPath && htmlAlreadyExists) {
+  if (
+    existing &&
+    existing.lastEditedTime === meta.lastEditedTime &&
+    existing.path === targetPath &&
+    htmlAlreadyExists &&
+    existing.renderVersion === CONTENT_RENDER_VERSION
+  ) {
     return { status: "skipped", reason: "unchanged", meta };
   }
 
