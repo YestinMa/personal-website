@@ -1,7 +1,21 @@
 {
-  "generatedAt": "2026-06-16T11:09:48.069Z",
+  "generatedAt": "2026-06-25T03:48:43.999Z",
   "blog": [],
   "notes": [
+    {
+      "title": "《最优化方法》cheatsheet I",
+      "slug": "最优化方法-cheatsheet-i",
+      "date": "2026-06-25",
+      "lastEditedTime": "2026-06-25T03:46:00.000Z",
+      "category": "study",
+      "tags": [
+        "study"
+      ],
+      "status": "Published",
+      "notionPageId": "38adb726-82a8-8016-b405-eeb42f6570f1",
+      "href": "notes/最优化方法-cheatsheet-i.html",
+      "kind": "notes"
+    },
     {
       "title": "Structure of ABMFS",
       "slug": "structure-of-abmfs",

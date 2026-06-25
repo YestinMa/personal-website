@@ -87,6 +87,37 @@ npm install
 npm run sync
 ```
 
+### 一键同步并发布到 GitHub Pages
+
+仓库根目录新增了一个手动发布脚本：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\publish-website.ps1
+```
+
+也可以直接双击这个入口文件：
+
+```bat
+.\scripts\publish-website.bat
+```
+
+这个脚本会按顺序执行：
+
+- 检查 `.env` 和当前 Git 分支
+- 在 `frontend/` 下执行 `npm run sync`
+- 仅暂存 `content/`、`notes/`、`blog/` 这些同步产物
+- 自动提交并推送到 `origin/main`
+
+可选参数示例：
+
+```powershell
+# 只同步并提交，不推送
+powershell -ExecutionPolicy Bypass -File .\scripts\publish-website.ps1 -NoPush
+
+# 自定义提交信息
+powershell -ExecutionPolicy Bypass -File .\scripts\publish-website.ps1 -CommitMessage "chore: sync notion content"
+```
+
 The script supports:
 
 - direct database sync via `NOTION_DATABASE_ID`
