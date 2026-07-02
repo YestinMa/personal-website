@@ -3,6 +3,7 @@ title: "Hello from Notion"
 slug: "hello-from-notion"
 date: "2026-06-12"
 lastEditedTime: "2026-06-12T10:09:00.000Z"
+renderVersion: "3"
 category: "study"
 tags: ["notes","coding"]
 status: "Published"

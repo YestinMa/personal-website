@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const FRONTEND_DIR = path.resolve(SCRIPT_DIR, "..");
 const REPO_ROOT = path.resolve(FRONTEND_DIR, "..");
-const CONTENT_RENDER_VERSION = "2";
+const CONTENT_RENDER_VERSION = "3";
 
 const NOTION_API_BASE = "https://api.notion.com/v1";
 const NOTION_VERSION = "2022-06-28";
@@ -469,14 +469,34 @@ function escapeHtml(value) {
     .replace(/'/g, "&#39;");
 }
 
+function containsMath(markdown) {
+  return /\\\(|\\\[|\$\$[\s\S]*?\$\$/.test(markdown);
+}
+
 function parseInlineMarkdown(text) {
-  let html = escapeHtml(text);
+  // 先把公式片段占位，避免后续的转义和强调解析破坏 KaTeX 所需分隔符。
+  const protectedSegments = [];
+  const placeholderPrefix = "__INLINE_TOKEN_";
+  const withPlaceholders = text.replace(/(\\\([\s\S]*?\\\)|\\\[[\s\S]*?\\\]|\$\$[\s\S]*?\$\$|`[^`]+`)/g, (segment) => {
+    const placeholder = `${placeholderPrefix}${protectedSegments.length}__`;
+    protectedSegments.push(segment);
+    return placeholder;
+  });
+
+  let html = escapeHtml(withPlaceholders);
   html = html.replace(/`([^`]+)`/g, "<code>$1</code>");
   html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
   html = html.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
   html = html.replace(/\*([^*]+)\*/g, "<em>$1</em>");
   html = html.replace(/~~([^~]+)~~/g, "<del>$1</del>");
   html = html.replace(/\\([\\`*_{}\[\]()#+\-.!|>])/g, "$1");
+  html = html.replace(/__INLINE_TOKEN_(\d+)__/g, (_, index) => {
+    const segment = protectedSegments[Number(index)] || "";
+    if (segment.startsWith("`") && segment.endsWith("`")) {
+      return `<code>${escapeHtml(segment.slice(1, -1))}</code>`;
+    }
+    return segment;
+  });
   return html;
 }
 
@@ -642,7 +662,7 @@ function markdownToHtml(markdown) {
 function buildArticleHtml(meta, markdownBody) {
   const articleHtml = markdownToHtml(markdownBody);
   const hasMermaid = articleHtml.includes('class="mermaid"');
-  const hasMath = articleHtml.includes("\\(") || articleHtml.includes("\\[") || articleHtml.includes("$$");
+  const hasMath = containsMath(markdownBody);
   const title = escapeHtml(meta.title);
   const category = escapeHtml(meta.category || meta.kind);
   const date = escapeHtml(meta.date || "");

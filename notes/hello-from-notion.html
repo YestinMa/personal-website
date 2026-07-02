@@ -6,6 +6,7 @@
   <meta name="description" content="Hello from Notion">
   <title>Hello from Notion - 个人网站</title>
   <link rel="stylesheet" href="../css/style.css?v=1.0.2">
+  
   <style>
     .article-shell {
       padding: 4rem 0;
@@ -88,6 +89,21 @@
     .article-content code {
       font-family: "Consolas", "Monaco", monospace;
     }
+    .article-content pre.mermaid {
+      background: #fff;
+      color: inherit;
+      padding: 0;
+      overflow: visible;
+    }
+    .article-content .math-block {
+      overflow-x: auto;
+      margin-bottom: 1rem;
+    }
+    .article-content .katex-display {
+      margin: 1.25rem 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
     .article-content img {
       max-width: 100%;
       border-radius: 12px;
@@ -157,5 +173,7 @@
   </footer>
 
   <script src="../js/main.js?v=1.0.2"></script>
+  
+  
 </body>
 </html>

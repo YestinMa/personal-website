@@ -3,6 +3,7 @@ title: "Structure of ABMFS"
 slug: "structure-of-abmfs"
 date: "2026-06-16T08:26:00.000Z"
 lastEditedTime: "2026-06-16T10:02:00.000Z"
+renderVersion: "3"
 category: "quant"
 tags: ["quant","finance","coding","study"]
 status: "Published"

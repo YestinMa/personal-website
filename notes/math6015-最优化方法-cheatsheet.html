@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MATH6015《最优化方法》cheatsheet">
+  <title>MATH6015《最优化方法》cheatsheet - 个人网站</title>
+  <link rel="stylesheet" href="../css/style.css?v=1.0.2">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <style>
+    .article-shell {
+      padding: 4rem 0;
+    }
+    .article-card {
+      max-width: 860px;
+      margin: 0 auto;
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+    }
+    .article-back {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      color: var(--secondary-color);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .article-title {
+      margin-bottom: 0.75rem;
+    }
+    .article-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+    .article-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .tag {
+      background: var(--bg-light);
+      border: 1px solid var(--border-color);
+      border-radius: 999px;
+      padding: 0.3rem 0.75rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .article-content {
+      line-height: 1.8;
+      color: var(--text-color);
+    }
+    .article-content h1,
+    .article-content h2,
+    .article-content h3 {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+    .article-content p,
+    .article-content ul,
+    .article-content ol,
+    .article-content blockquote,
+    .article-content pre,
+    .article-content figure {
+      margin-bottom: 1rem;
+    }
+    .article-content ul,
+    .article-content ol {
+      padding-left: 1.5rem;
+    }
+    .article-content blockquote {
+      border-left: 4px solid var(--border-color);
+      padding-left: 1rem;
+      color: var(--text-muted);
+    }
+    .article-content pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 1rem;
+      border-radius: 12px;
+      overflow-x: auto;
+    }
+    .article-content code {
+      font-family: "Consolas", "Monaco", monospace;
+    }
+    .article-content pre.mermaid {
+      background: #fff;
+      color: inherit;
+      padding: 0;
+      overflow: visible;
+    }
+    .article-content .math-block {
+      overflow-x: auto;
+      margin-bottom: 1rem;
+    }
+    .article-content .katex-display {
+      margin: 1.25rem 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    .article-content img {
+      max-width: 100%;
+      border-radius: 12px;
+    }
+    .article-content a {
+      color: var(--secondary-color);
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-brand">
+        <a href="../index.html">我的网站</a>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="../index.html">About me</a></li>
+        <li><a href="../strategy-dashboard.html">Strategy Dashboard</a></li>
+        <li><a href="../factor-dashboard/index.html">因子看板</a></li>
+        <li><a href="../notes-blogs.html" class="active">Notes &amp; Blogs</a></li>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="article-shell">
+      <div class="container">
+        <article class="article-card">
+          <a class="article-back" href="../notes-blogs.html">← Back to Notes &amp; Blogs</a>
+          <h1 class="article-title">MATH6015《最优化方法》cheatsheet</h1>
+          <div class="article-meta">
+            <span>notes</span>
+            <span>2026-06-25</span>
+            <span>study</span>
+          </div>
+          <div class="article-tags"><span class="tag">study</span></div>
+          <div class="article-content">
+            <h2>一、优化问题的基本概念</h2>
+<h3>一般形式</h3>
+<p>优化问题（optimization problem）的一般形式： \(min\ f(x),\ s.t.\ x\in X\)</p>
+<ul>
+<li>\(x=(x_1,x_2,\dots,x_n)^T\) ：决策向量（decision vector）</li>
+<li>\(f:R^n\to R\) ：目标函数（objective function）</li>
+<li>\(X\subset R^n\) ：约束集合（constraint set）或可行域（feasible region）</li>
+<li>约束集可由 \(c_i(x)\le 0\) 和 \(c_i(x)=0\) 给出</li>
+</ul>
+<h3>基本术语</h3>
+<ul>
+<li>可行点（feasible point）： \(x\in X\)</li>
+<li>可行域（feasible region）： \(X\)</li>
+<li>最优解（optimal solution） \(x^*\) ：对任意 \(x\in X\) ，有 \(f(x^*)\le f(x)\)</li>
+<li>最优值（optimal value）： \(f(x^*)\)</li>
+<li>最大化可改写为最小化： \(max\ f(x)\iff min(-f(x))\)</li>
+<li>若最小值或最大值在 \(X\) 上取不到，则考虑下确界 \(inf\ f(x)\) 和上确界\(sup\ f(x)\)</li>
+</ul>
+<h3>全局最优与局部最优</h3>
+<ul>
+<li>全局极小点（global minimum）：若 \(x\in X\) 且 \(f(x)\le f(y)\) 对所有 \(y\in X\) 成立</li>
+<li>局部极小点（local minimum）：若存在 \(\varepsilon\) -邻域，使得附近可行点都满足 \(f(x)\le f(y)\)</li>
+<li>严格局部极小点（strict local minimum）：若附近所有 \(y\ne x\) 都满足 \(f(x)<f(y)\)</li>
+</ul>
+<figure><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/322db726-82a8-8113-a40f-00034bba0362/bab669ff-939f-4c57-b5b2-aa98d7c49f5c/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466RNQWY6QJ%2F20260702%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260702T072740Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjECcaCXVzLXdlc3QtMiJHMEUCIQCVWd0zGy0UsTe39w5E%2FnGXj%2F8icgFhh2xx%2F06mBaqCvgIgMgFy1%2FP3umkJRvFgq3XTJmEvHzeSpGm7jcIhfaJY0dUqiAQI8P%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDFSiz85ikRBLNhPSKCrcA4aBjChv7mcaTANwygk3J6p4fNp1HjyuSS57iNlK8hOkPtJ30Zg6Nlrs5WEWmVT51vtAs5AYsMK0WR5UWmVYTiLEQE9zgg3x4q1DwJSpGXxO5rnr74j2XOn4UjUzch6xlwjmN3BMpboChCnRazPhEY%2FRYWTCZy5MYQrACdkvG0pCqruGygLeP2zh8HTj86kxZR9xQxiYxDM1LfxUSs2FOG0Da7lz4tsoyxBCbWPhtNQWa7bbtJbLdEvcSwZAwXVYeOJEpfCdGlzR%2FJydQQiE99%2BolpyRBar35PB7QCkaLGlGEAfAB3VeeefGRkLMlYnuBO6diLJ9qqpTmJ%2FvCx2t%2BJfPIKkw0bfC%2BP4aP%2ByoA6R8nurDHrvX0yOMP24aPgKAQtEnsTwRYBvOlUJSfy8V0v4eqPDqcRPCk%2F%2Buw8X2IZdpZqOjtnQE30H9Qv8otBhEioxJCYBVwK2tQ%2BFASYpgHRzmKSU2mjUHx8joprH%2FBd%2FnPh9jl7d2ZWEKrvmMXxrGri6uDSgWJo5%2B3%2B9GByo1aHg2MK5wIWE08YN31nFJH2085VTZCatL%2FNKRSFnjw6a%2F3qNlOW08uLk2VW5%2B%2BdhNee8ByH%2FeseIAugvRpRfYTNEH8IczOWbH6tqb2efgMJCPmNIGOqUBfRSzDIunJJGbywvBXOSWzoUYSoEqiWagpQ90IWdRyIjU2n6qi9Rm6plbr7V%2Bnm73jMf288qTiPm1LPUmxZVzgviPId7ZBDGddQXOIGG9B7h4q6FXDGZUl1iQvpHb0%2BDLexMESI4xDitjpe9X0QFB3n5lEmPsBqqi1VIKqxHK%2BN%2F%2BKwe3S%2Fsg9xRM0BVlUwJzfHCmOqcP6ezxmh6zQUpon5Vnmf%2Fr&amp;X-Amz-Signature=7f50c3e6c5ae7aafc09358f65f36f3bfe463a7b35e21be52d619b62b543c50a0&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<h3>算法收敛</h3>
+<ul>
+<li>迭代算法（iterative algorithm）产生序列 \(x_k\)</li>
+<li>若 \(lim_{k\to\infty}||x_k-x^*||=0\) ，则称算法收敛到最优解</li>
+<li>Q-线性收敛： \(\frac{||x_{k+1}-x^*||}{||x_k-x^*||}\le a,\ a\in(0,1)\)</li>
+<li>Q-超线性收敛： \(lim_{k\to\infty}\frac{||x_{k+1}-x^*||}{||x_k-x^*||}=0\)</li>
+<li>Q-二次收敛： \(\frac{||x_{k+1}-x^*||}{||x_k-x^*||^2}\le a,\ a>0\)</li>
+<li>无约束优化的常见停止准则： \(\frac{f(x_k)-f^*}{max(|f^*|,1)}\le \varepsilon_1,\ ||\nabla f(x_k)||\le \varepsilon_2\)</li>
+</ul>
+<h2>二、向量范数与矩阵范数</h2>
+<h3>向量范数</h3>
+<p>向量范数（vector norm）是<strong>映射</strong>： \(||\cdot||:R^n\to R_+\)，并满足：</p>
+<ul>
+<li>正定性（positive definiteness）： \(||v||\ge 0\) ，且 \(||v||=0 \iff v=0\)</li>
+<li>齐次性（homogeneity）： \(||\alpha v||=|\alpha|\,||v||\)</li>
+<li>三角不等式（triangle inequality）： \(||v+w||\le ||v||+||w||\)</li>
+</ul>
+<h3>常见向量范数</h3>
+<ul>
+<li>\(l_1\) 范数： \(||x||_1=\sum_i |x_i|\)，适合刻画稀疏性（sparsity）或分量累积误差</li>
+<li>\(l_2\) 范数： \(||x||_2=(\sum_i x_i^2)^{1/2}\)，欧氏距离</li>
+<li>\(l_\infty\) 范数： \(||x||_\infty=\max_i |x_i|\)，最大分量偏差</li>
+</ul>
+<h3>Cauchy-Schwarz 不等式</h3>
+<p>对任意 \(a,b\in R^n\) ：\(|a^Tb|\le ||a||_2\,||b||_2\)。当且仅当 \(a,b\) 线性相关时取等号。</p>
+<h3>矩阵范数</h3>
+<p>对 \(A=(A_{ij})\in R^{m\times n}\) ：</p>
+<ul>
+<li>Frobenius 范数： \(||A||_F=(\sum_{i,j} A_{ij}^2)^{1/2}\)</li>
+<li>逐项绝对值和范数： \(\sum_{i,j}|A_{ij}|\)</li>
+<li>列和范数： \(||A||_1=\max_{1\le j\le n}\sum_{i=1}^m |a_{ij}|\)</li>
+<li>行和范数： \(||A||_\infty=\max_{1\le i\le m}\sum_{j=1}^n |a_{ij}|\)</li>
+<li>谱范数： \(||A||_2=\sqrt{\lambda_{\max}(A^TA)}\)</li>
+<li>算子范数：\(||A||_{(m,n)}=\max_{x\in R^n,\ ||x||_{(n)}=1} ||Ax||_{(m)}\)</li>
+</ul>
+<p>设 \(\sigma_1,\dots,\sigma_r\) 是 \(A\) 的非零奇异值，其中 \(r=rank(A)\) 。</p>
+<ul>
+<li>核范数： \(||A||_*=\sum_{i=1}^r \sigma_i\)</li>
+</ul>
+<p>对 \(A,B\in R^{m\times n}\) ，矩阵内积定义为：</p>
+<p>\(\langle A,B\rangle = Tr(AB^T)=\sum_{i=1}^m\sum_{j=1}^n a_{ij}b_{ij}\)，这等价于把矩阵看成向量后的欧氏内积。</p>
+<h3>矩阵形式的 Cauchy-Schwarz 不等式</h3>
+<p>对任意 \(A,B\in R^{m\times n}\) ： \(|\langle A,B\rangle|\le ||A||_F\,||B||_F\)。当且仅当 \(A,B\) 线性相关时取等号。</p>
+<p>此外，Frobenius 范数满足： \(||A||_F=\sqrt{\langle A,A\rangle}\)</p>
+<h2>三、仿射集、凸集与凸锥</h2>
+<p>仿射组合（affine combination）： \(x=\theta_1x_1+\theta_2x_2+\cdots+\theta_kx_k\) ，其中 \(\sum_{i=1}^k\theta_i=1\)</p>
+<p>仿射包（affine hull）： \(aff(S)\) ，表示包含 \(S\) 的最小仿射集合</p>
+<p>仿射集合（affine set）：若 \(x_1,x_2\in C\) ，则对任意 \(\theta\in R\) ，有 \(\theta x_1+(1-\theta)x_2\in C\)</p>
+<ul>
+<li>几何含义：包含两点确定的整条直线。例： \(Ax=b\) 的解集是仿射集合</li>
+</ul>
+<p>凸组合（convex combination）： \(x=\theta_1x_1+\cdots+\theta_kx_k\) ，其中 \(\theta_i\ge 0\) 且 \(\sum_{i=1}^k\theta_i=1\)</p>
+<p>凸包（convex hull）： \(conv(S)\) ，表示包含 \(S\) 的最小凸集</p>
+<p>凸集（convex set）：若 \(x_1,x_2\in C\) ，则对任意 \(\theta\in [0,1]\) ，有 \(\theta x_1+(1-\theta)x_2\in C\)</p>
+<p>几何含义：两点连线段仍在集合中</p>
+<p><strong>仿射集一定是凸集</strong></p>
+<p>锥组合（conic combination）： \(x=\theta_1x_1+\cdots+\theta_kx_k\) ，其中 \(\theta_i\ge 0\)</p>
+<p>锥（cone）：若 \(x\in K\) 且 \(\lambda\ge 0\) ，则 \(\lambda x\in K\)</p>
+<p>凸锥（convex cone）：若 \(x,y\in K\) 且 \(\alpha,\beta\ge 0\) ，则 \(\alpha x+\beta y\in K\)</p>
+<p>锥包（conic hull）： \(cone(S)\)</p>
+<h3>三种组合的比较</h3>
+<p>仿射组合：系数和为 \(1\) ，系数可正可负</p>
+<p>凸组合：系数和为 \(1\) ，系数非负</p>
+<p>锥组合：系数非负，但不要求和为 \(1\)</p>
+<h3>常见例子与性质</h3>
+<p>半空间（halfspace）、超平面（hyperplane）、球（ball）、椭球（ellipsoid）、多面体（polyhedron）都是凸集</p>
+<p>二阶锥（second-order cone）： \(Q^{n+1}=\{(x,t): ||x||_2\le t,\ t\ge 0\}\)</p>
+<p>凸集的交集仍为凸集</p>
+<p>若 \(S,T\) 是凸集，则 \(S+T\) 是凸集</p>
+<h3>仿射变换与分式线性变换</h3>
+<p>仿射变换（affine transformation）： \(f(x)=Ax+b\)。若 \(S\) 是凸集，则 \(f(S)\) 是凸集；若 \(C\) 是凸集，则 \(f^{-1}(C)\) 是凸集</p>
+<p>透视变换（perspective transformation）： \(P(x,t)=x/t\) ，其中 \(t>0\)</p>
+<p>分式线性变换（fractional linear transformation）： \(f(x)=(Ax+b)/(c^Tx+d)\) ，其中 \(c^Tx+d>0\)。透视变换与分式线性变换都保持凸性的像（image）与原像（preimage）</p>
+<h2>四、凸函数与最优性基础</h2>
+<h3>凸函数、凹函数、严格凸函数、强凸函数</h3>
+<p>凸函数（convex function）： \(f(\theta x+(1-\theta)y)\le \theta f(x)+(1-\theta)f(y)\) ，其中 \(\theta\in [0,1]\)</p>
+<p>凹函数（concave function）： \(f\) 凹当且仅当 \(-f\) 凸</p>
+<p>严格凸函数（strictly convex）：当 \(x\ne y\) 且 \(0<\theta<1\) 时， \(f(\theta x+(1-\theta)y)<\theta f(x)+(1-\theta)f(y)\)</p>
+<p>强凸（strongly convex）：若存在 \(m>0\) ，使 \(g(x)=f(x)-\frac{m}{2}||x||_2^2\) 为凸函数，则 \(f\) 是 \(m\)-强凸。强凸函数若有极小点，则极小点唯一</p>
+<p><strong>常见例子：</strong></p>
+<p>仿射函数 \(a^Tx+b\) ：既凸又凹。\(e^x\) ：凸。\(\log x\) ：在 \((0,\infty)\) 上凹。\(|x|\) ：凸，但在 \(0\) 处不可导。\(x\log x\) ：在 \((0,\infty)\) 上凸。范数（norm）是凸函数</p>
+<h3>判别工具</h3>
+<p>直线判别定理： \(f\) 凸当且仅当对任意 \(x,v\) ，函数 \(g(t)=f(x+tv)\) 关于 \(t\) 是凸的</p>
+<p>一阶条件： \(f\) 凸当且仅当 \(f(y)\ge f(x)+\nabla f(x)^T(y-x)\)</p>
+<p>梯度单调性： \(f\) 凸当且仅当 \((\nabla f(x)-\nabla f(y))^T(x-y)\ge 0\)</p>
+<p>二阶条件：若 \(f\) 二次连续可微，则 \(f\) 凸当且仅当 \(\nabla^2 f(x)\succeq 0\)。若 \(\nabla^2 f(x)\succ 0\) ，则 \(f\) 严格凸</p>
+<h3>二次函数</h3>
+<p>二次函数： \(f(x)=\frac12 x^TPx+q^Tx+r\)</p>
+<p>有 \(\nabla f(x)=Px+q\) ， \(\nabla^2 f(x)=P\)</p>
+<p>因而 \(f\) 凸当且仅当 \(P\succeq 0\)</p>
+<h3>无约束最优性条件</h3>
+<p>一阶必要条件：若 \(x^*\) 是局部极小点，则 \(\nabla f(x^*)=0\)</p>
+<p>二阶必要条件： \(\nabla^2 f(x^*)\succeq 0\)</p>
+<p>二阶充分条件：若 \(\nabla f(x^*)=0\) 且 \(\nabla^2 f(x^*)\succ 0\) ，则 \(x^*\) 是严格局部极小点</p>
+<p>凸优化中，局部极小点就是全局极小点</p>
+<p>严格凸函数至多有一个全局极小点</p>
+<p>非凸问题中，一阶条件只给出驻点（stationary point），不保证全局最优</p>
+<h2>五、梯度下降法与线搜索</h2>
+<h3>基本概念</h3>
+<p>基本框架：考虑无约束优化： \(\min_{x \in R^n} f(x)\)，迭代格式： \(x_{k+1} = x_k + \alpha_k d_k\)</p>
+<p>下降方向：若 \(\nabla f(x_k)^T d_k < 0\)，则 \(d_k\) 是下降方向</p>
+<h3>线搜索方法与收敛判别条件</h3>
+<p>精确线搜索（exact line search）： \(\alpha_k^* = \arg\min_{\alpha > 0} \phi(\alpha)\)，\(\phi(\alpha) = f(x_k + \alpha d_k)\)</p>
+<p>非精确线搜索：步长不必每步最优，但不能小到算法停滞，也不能大到破坏下降</p>
+<ul>
+<li>Armijo 条件： \(f(x_k + \alpha_k d_k) \le f(x_k) + c_1 \alpha_k \nabla f(x_k)^T d_k,\ c_1 \in (0,1)\)</li>
+</ul>
+<figure><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/322db726-82a8-8113-a40f-00034bba0362/e10cc645-0893-43f0-8b1f-abeb5f3e77d3/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4664Q64LSSA%2F20260702%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260702T072741Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjECcaCXVzLXdlc3QtMiJIMEYCIQCfBA%2Bp7NbrR9fzehGZMgOWgoawF2RDOBXkioG7EDpc4gIhAN89obeC5i8zn1H%2BIaflTiCxnzLLHsIZUV%2FILPILoIrVKogECPD%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1IgyTupNXyxXPhzhdPvkq3AP3QdvmNV6dWnnQHHHvTmWkSFDMaB50OAtoGJvkM8zT3tj3VEU0MBWx41oVUD5uMq4oiXJxpWQzrmr6kn%2FX51kY1OvofURoioFwRY2TiqSkGswq9Qn4XaWJnxGdKQ%2BlmCP9xADzLJPW%2BR2u5Uu9HYe%2BVw0z4nijQ8Jb16mZfxHsWW5i6OnrGGqI5NaXjHbxePxNYyO3xibuXZrryrlb9Gu%2FTkGBkPTY%2FpEcDDHumXuD419zqfyfLIhPZ%2F8i6xrTeZUtFvJq8woEwP4cy5QEVfulxg6gNKdfTrBqLlfXJbVwjzIXHrIbszqr1MMFqfdJYr8DcbhVLoJOlM%2F06jBba3GJR6ZGyVHOvK87q84ZDQL3IlbYiBpiQV1mGAV4%2BREk3kkbk3xxk7mHQFdyxii07jZvts%2Fd%2BRCb9AEEsnz1Qqarir1h4X01dMbsoeELyeiFXn5SRZJKChddUWLPLeXXlSe3JKS5cJ1Te2N6wx29Pm4TLFb%2Bxz8qZZlDSzZ78n9LOHTCqyStLtqpvZjHVOBicBWfhM8HUDJP1g6tLUANqNb0lxPnu2eB2bMZ5%2B4sIevy65Tclvb8iV4NIcXdUVOYNgGxNn%2BbOyu4ruopufjhhRfCj73aCoYXZyFjt%2FVJRjCQj5jSBjqkAcHyTCZyZAxgNEoHT%2F62F5dk6B%2B%2BFMnaJpWUXGq6i8Ou0z0H%2F0K1Wt1j%2BYR4TD4lqku77In0NFQ41GP9F6PJTU1cflhMZxP0FTsx%2Fg1jLjavGNWP0fqedQoOZdDV4oLAOUUsJwPXDAfoSfjcTHVIi90BFowqFFcZFEit22ocVs5Pml3jg7wdORu%2Bpr9wBO8YgUllUdOds2gAJzQPGAtodgHRe1nV&amp;X-Amz-Signature=059744eb3e473ab7f1b87812c9dbd538a822dec7e2723c948c02055879334756&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<ul>
+<li>Goldstein 条件： \(f(x_k + \alpha_k d_k) \le f(x_k) + c_1 \alpha_k \nabla f(x_k)^T d_k\)；同时要求： \(f(x_k + \alpha_k d_k) \ge f(x_k) + (1-c_1)\alpha_k \nabla f(x_k)^T d_k,\ 0 < c_1 < \frac12\)</li>
+</ul>
+<figure><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/322db726-82a8-8113-a40f-00034bba0362/8950a19e-e197-44cd-a75f-19686543e9e8/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466S5TOVVKH%2F20260702%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260702T072742Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjECcaCXVzLXdlc3QtMiJGMEQCIDNheeLENyX4VwPDI3fC9oJOJtcJZ%2Bm7UvNIsJRU8Me%2FAiB8YGOWf%2BVq7riq9NgXGNl6GbhtGYem%2BXGO1ciSmSaaRyqIBAjw%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMgHsuvwh%2Fk6rxnWHHKtwDR0eFNQ3BayihC6X1eDKg0aFr7adBPT6vTET0f65q1OwEoOp%2BJ9o2g5FTF5h%2BATFXW3skme6%2FoTI2Msm7Ca5AbROJyKQVxM7nu5F5qPhvPaL4pbxAabVbMWcaQzKfrE65Q2FxCu%2FibRAjYp%2BypS1YZ25vow0jsJxk1rCUb1nqZuzeOdslKUfav3UklE13EZIREk%2Fo2dsy%2FVMxpARx3MhlW8VkCNutdbngOT6awdAUK41nNZrIZSRTeK7bYRtXs%2BUw3FVOzaeHSOnhRu27oRCSJU1SCj0I2B83AI8w2T6hrge9Bgj3sRiEhjrKQ2s9QcXWOsb0PUmOw3830G01FxQ4p6ycluI%2FIUoM7RXyNO3gf6Q0aW%2FXCoPuGOJ9jTzu8nYULU4C7VLeJ7V8GX3RDSHIvF3wdpsTJeJ7xctAv8%2BcoGBnHw4JeMr7KzKG1w8WnW2hOXam8gKhLpDELDr8dpBWeFSh4SAl2DymqYJjMYCrMiwJOv8LRWrQh6oPfy7DG4NJ%2B94alMDjbGVxlqA%2BlfWTvJO%2FyhlQ3HIoVZXqL3P9PIyCYGKGyK94W3hTQauyH%2FM1u21Xifopg1P2H4wOUWeFGWGBnOwg4kfiP9WnA55Npz%2BEjwA4%2BMXvZmheta4w0pCY0gY6pgE1D9SfQ5vVr4T3uofhThdQYICR3U8Smul9SxQrcZDUX5FL9T1yDzKo42H96b8BeblMEo4LIi3vpxbs4DmcuMWQdwBJf4FUSYv5jZh%2FqgMgftK5U%2BzRa6JHsFCgE9bxA1UimxwIV6IBZ2T2JcsnLWXblDynQYEdPyLGyajUDXLouzOKvwojmiJvp7ZvuMup1URMfXs8zCiCZQXTYQ%2FImLsdPTiBmJMJ&amp;X-Amz-Signature=ea72300f595a4bffaee5b5c2678f940626a63345dc64ac1f66f33c152f03802a&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<ul>
+<li>Wolfe条件：\(f(x_k + \alpha_k d_k) \le f(x_k) + c_1 \alpha_k \nabla f(x_k)^T d_k\)，同时满足曲率条件： \(\nabla f(x_k + \alpha_k d_k)^T d_k \ge c_2 \nabla f(x_k)^T d_k,\ 0 < c_1 < c_2 < 1\)</li>
+</ul>
+<figure><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/322db726-82a8-8113-a40f-00034bba0362/cf83e921-6d9f-4d85-80e8-6f07d248ad07/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB46653XM2K5D%2F20260702%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260702T072742Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjECcaCXVzLXdlc3QtMiJIMEYCIQCru4vt%2FpgBtudavKTcb2vk4sj3duPo0JJtgeEVfdetHwIhAMD9i931%2Bkny6V91btO8lAhzp7CYhtsufQaJy1or7kpoKogECPD%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1IgyEoK808Vn4IwLhOmsq3ANuZRwgpqf4LBMXhH1%2B1%2Bi0oxFMh0pAw%2FbOys%2FQiHaTmaukOaVUm75iOIRI6mjI0wokkpRRwBhrxvjXZWdNC6jtWSg6V3%2F%2BSZYcffTn1Voium0c4uUO2Mjr7cVl4p6PWk9FbK3w1tqpB0c4%2FTPzTi%2BDHwOmRIxgHffV1F1rSbVebGRkYGaYiDuiS%2F3Wr7FrBW8GY6wi5HkR4aIrkhpWhxP1fDSRkqhEo4VMxmT%2BEhcpihFznKA2vCORZPNtDPSlOQvsUxUVbFPRluxYqhPqVbRideGpwRUwuBi%2FC2kBg%2FDNzRjQ4UcT7DQYUz%2FbWllr8dt5cAVEM70Y1P%2Bg621FUdXv879vv3Ie9%2BLTciLjLJWkzh7wYH87WrgEBflG8%2FCWnVPinkUsstjD5lziZWHokBCq8qUMPzpVqy3ia%2BCrXI8EyThQY2PdTKLCvTy1%2F6AxWf%2FFHTbmw7GR8yYa6ruKVGW8cuKAVvaxEFxcy3gJ19KPL5qLfaL0sp904MnWffUO9%2F9wsrTY0xBhD1R3kRS9QFFpX9GdHNsFCzwURyhas94TbEtaA%2BO%2BJ2NgtRHDGhfRvo6j%2BoDlPIH5XNBfdR5MWWiGcq1nBHl%2BukMWmO7ab7ZT5%2BDLPDkyWsA9VqaNBTD2lJjSBjqkATaHzBu%2FXQgSkRzyAykgKcuSSetsmhP3dY%2FDbU5llfKaeWTBC%2F4D1oJD8hbiBI%2BDYN5ZoL7YChLM8ESdocYxlIgFNrxCH%2BZpz7L%2FRrPUP8Qg3cSu%2BV%2F%2BCN8%2F3ay%2BGCTnO4w3JvZ98Uh%2Bs9p5RmJD6VQ02fuqgoJrIJuxGpnzXX%2Fjc%2Fa4i0Li1aHsqVGgS39WaVHmaNKwV9nKP9NgY2k0A1qqU1t%2F&amp;X-Amz-Signature=cf6d828d4f6d85fa93b84eb34412f986d68675cf4f5edc854d5a3d4cfd365f98&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<ul>
+<li>非单调线搜索：允许阶段性上升，以换取更快整体推进</li>
+<li>Backtracking：通过不断以指数方式缩小试探步长，找到第一个满足线搜索准则的点</li>
+</ul>
+<figure><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/322db726-82a8-8113-a40f-00034bba0362/5aac85f1-9d67-4ade-8f08-e77022764188/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466ZVLD7LNK%2F20260702%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260702T072743Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjECcaCXVzLXdlc3QtMiJGMEQCIEDG5BhK9auLyall%2BPF8gTF894%2BWBXovFFtDdPVaaOOCAiBq2HyZanBZJXH5GvC2EHFo9kcX8SgW4J2zVGQc1Rp3uCqIBAjw%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMRt8SKs6bjtKySV9jKtwD6Y1Gf7rE%2F2aLCXAKLgAHOxTwl1tzMIOYLCROmSih3HQcxsbFeTDqeoRUJmJwSImOKmpV57zhE6veK7idCfxtE1ZVPf8hmeQ5wg1SIroxE6d8VGkhcQEN2qAaYM0vGJahGxASqP69cxBUVDept9iRPPN5TbEplDqityZMB8lu%2FIRdVzxCg%2FqHRn8SEFbJwCs%2BswoK5n8lM06MkH%2B9rFSCOsHFNBYEWpWWQkLrUIAWO1j6yMLMK%2Fi18xTjPXGpzr03PfqH%2Bdy%2FrYE2nXaimyehqNUp95wQlHm4NnuXHwbzKMaKUxSG2HqPnqrgOkcutmanxbRthjMAFFNRAboYv0vg9%2BrB5ymAC6AOm9kllISCckXYC9QsWFmpp88XEsl0ke2jUxzpsFhxcwtqClyX01NuRUTork2kZ2i7d9XF3OwZuKUVP4Bcf8puyfJOyfqW4%2B%2Bciwbj3Vkp0dFvRjD1s%2FBQ%2FTChV2uoGVh%2BjrK2TPbfMboLluqPv5f8P2yJoVMP%2FxzbOy32GMCStN7D2BETigks0wMGqyb4nyeKpzfMF5a2pezfrmQzGGPNj48cWXolwoPX9tSqC%2B1IxsfGMzkkpvtmjasoa%2BBmQYk15M1F%2FEKRheqTNUfn0xjhkh2U2eow54%2BY0gY6pgFqr5Vz%2F8EBlAUophAHdBNaUzrQYaotlwZC6Zk9Ug3me4dbqJUaHXEZ8U7NPjnW7xH5D9FddR0DU8Jdofs4Oa7rwMLiSKUUkNoHXZ2GOwwGmMf6MVsRCwdf7qWFPNi8EkwwCjPxWdWCvih5gu2CcB50JhXCUpgOuPZyNpqz80ep%2B4UhuAudwT8YLyT2roz%2FPIPfFyiwGQAzWtiUCIc%2BocX4gtXJvwRJ&amp;X-Amz-Signature=04cef876bb132696f0843dfa4df1119e7896c3acd5f2e054b3f3089a623402a3&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<ul>
+<li>Zoutendijk 收敛结论：考虑一般的迭代格式，如果满足：</li>
+<li>目标函数有下界，连续可微；</li>
+<li>目标函数梯度L-Lipschitz连续： \(||\nabla f(x) - \nabla f(y)|| \le L ||x - y||, \forall x, y \in \mathbb{R^n}\)；</li>
+<li>迭代过程中满足Wolfe准则；</li>
+</ul>
+<p>  则有： \(\sum_{k=0}^{\infty} \cos^2 \theta_k\, ||\nabla f(x_k)||_2^2 < \infty\)</p>
+<h3>梯度下降法</h3>
+<ul>
+<li>取 \(d_k = -\nabla f(x_k)\)，迭代： \(x_{k+1} = x_k - \alpha_k \nabla f(x_k)\)</li>
+<li>负梯度方向是最速下降方向（steepest descent direction）</li>
+<li>梯度下降的问题：狭长谷地中容易出现 zigzag；条件数大时收敛慢；只利用一阶信息，对曲率适应性弱。</li>
+</ul>
+<h3>BB 方法</h3>
+<p>BB 不是只看当前梯度，而是用前后两步差分去估计局部尺度，仍采用： \(x_{k+1} = x_k - \alpha_k \nabla f(x_k)\)记： \(s_{k-1} = x_k - x_{k-1},\ y_{k-1} = \nabla f(x_k) - \nabla f(x_{k-1})\)，有常见步长：</p>
+<ul>
+<li>\(\alpha_k^{BB1} = \frac{s_{k-1}^T s_{k-1}}{s_{k-1}^T y_{k-1}}\)， \(\alpha_k^{BB2} = \frac{s_{k-1}^T y_{k-1}}{y_{k-1}^T y_{k-1}}\)</li>
+</ul>
+<figure><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/322db726-82a8-8113-a40f-00034bba0362/b9068d59-d437-4d74-a621-2f32560a5fe3/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466SZOOMF3R%2F20260702%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260702T072736Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjECcaCXVzLXdlc3QtMiJIMEYCIQCohZjpzEiZ%2BaY0wk55%2FawWf%2BpC%2BvEVp5At2l2X51rknAIhAJl2I%2FsQZqA%2Fw4MBIKhhXgnSL%2FZOllO4y0VRvNKGOjUJKogECPD%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1Igyv23aW25Te96gftH0q3ANoiXgvcMsnH23oiy05awPoc5CDLY94Di15KPzFQPx0h%2FQ84qTD9xAs3KGB9tqKZJifU%2BmNaEWNKyoHn4K07HF5Jv36w2FIUKgcTj7ljxDKxyl8m7pyhz8G5RZ0hW0o7lKAlYFJix28LZuCv1vfm%2BdJvyo6GnkTnHq1EZcQLh682UotcDgf2ZTHdBNnNcZ4TNRzAI3F4E5Xy%2FT3RzHcI3Dfhv6gFMAlRggI0YGIjKxitLzb3BH8vAAPvb7TaeiFQiiZ%2FalstPM0pW9DHLlx4f6LjIxdmO0iyxTIJ2hIKDqHKyq8wr2ft7i9%2FXhotzSOiJjADztR71FRLU%2Fx4YlO0X3knVrycJhqNDC7R5D0lh%2F8r0SWqupfxmhqqkHexMJ0cf8sfakScJpz4pZFVHY6DHCUBD4GeIE0XWbPUYgimBEAo2KyjHzFuGbcKF95cvjgdNPIyexZU7czkHZgQTZXUbdffPcSq4aPTDiLZlCiOfkya360S6NDR8w9DSPcZlVaPHC0I%2FMX0jdG6FWPXPg0INOF2dX8g1Rt1e9v3RNKz0rTZTqLU%2BsRfPmoLZOrHKr%2F2UQzYg%2FsWZG1Cox4OFl9%2FsM3ISNU0yEMfWet6%2FHylJnv8aOsExaI4ajdRw8DTDCQj5jSBjqkAR8qJombql08p7YEJCKWDYsTkmUSAwfTPvKuKbDbZLFNFqDWuofePDJND4xtGctF52Q%2FPZ7%2Bq9WBCze5rONsbJ%2BGCCNAaT8IdWIy5teBPASNPDjPE6v1L7vtDWD39xhrtXBSIhs8THjJCEK6nbwCS4hgcY%2BcrgNS%2B3qY33l8uUW97v6MbbFrfYXKomaNOIZHBmXFeaG%2BnfYiax%2Buf7ono0%2B7GzDI&amp;X-Amz-Signature=75eb382925167a7711de8c6fb61063d0be970c0b4f840c1bdce6a8485f0caa6e&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<h2>六、牛顿法（Newton Method）</h2>
+<p>牛顿法使用二阶Taylor展开近似原函数： \(f(x_k + d) \approx f(x_k) + \nabla f(x_k)^T d + \frac12 d^T \nabla^2 f(x_k) d\)</p>
+<p>核心逻辑：梯度给斜率，Hessian 给曲率，牛顿法同时利用两者决定一步更新</p>
+<p>牛顿方程： \(\nabla^2 f(x_k)d_k = -\nabla f(x_k)\)，若 Hessian 可逆，则 \(d_k = -[\nabla^2 f(x_k)]^{-1}\nabla f(x_k)\)</p>
+<p>纯牛顿迭代： \(x_{k+1} = x_k + d_k\)（ \(\alpha_k = 1\)），若 \(f\) 是严格凸二次函数，则牛顿法一步到达最优点</p>
+<p>牛顿法在适当条件下局部二次收敛（quadratic convergence）：若 \(\nabla^2 f(x^*) \succ 0\)，且 \(\nabla^2 f(x)\) 在 \(x^*\) 附近 Lipschitz 连续，则在初值足够接近时： \(||x_{k+1} - x^*|| \le C ||x_k - x^*||^2\)。直观上理解：靠近解后，精度会突然提升得非常快。</p>
+<p>牛顿法的缺陷：</p>
+<ul>
+<li>每步需解线性方程组，代价高</li>
+<li>Hessian 可能不正定或奇异</li>
+<li>只具局部收敛性，对初值敏感</li>
+<li>固定取 \(\alpha_k = 1\) 可能发散</li>
+</ul>
+<h3>修正牛顿法（Modified Newton Method）</h3>
+<p>\(B_k = \nabla^2 f(x_k) + \tau_k I\)，再解： \(B_k d_k = -\nabla f(x_k)\)</p>
+<p>（当二阶信息不可靠时，给 Hessian 加一个保守修正）</p>
+<h3>阻尼牛顿法（Damped Newton Method）</h3>
+<p>\(x_{k+1} = x_k + \alpha_k d_k\)，其中 \(\alpha_k\) 由线搜索确定，常配合 Armijo 条件</p>
+<h3>CG 与牛顿子问题</h3>
+<p>牛顿步需要求解： \(\nabla^2 f(x_k)d_k = -\nabla f(x_k)\)，对大规模问题，直接分解代价约为 \(O(n^3)\)，若矩阵对称正定，可用共轭梯度（Conjugate Gradient, CG）近似求解，这样就把求牛顿步转成了高效解一个线性系统。</p>
+<ul>
+<li>解 \(Ax = b\) 等价于最小化： \(\phi(x) = \frac12 x^T A x - b^T x\)，梯度为残差： \(\nabla \phi(x) = Ax - b = r\)</li>
+<li>CG 沿 \(A\)-共轭方向做精确线搜索。</li>
+<li>若 \(A\) 有 \(r\) 个不同特征值，则 CG 至多 \(r\) 步终止</li>
+</ul>
+<figure><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/322db726-82a8-8113-a40f-00034bba0362/e88e4738-a0b5-452d-998e-7c46d822342f/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4664Y7EIYF3%2F20260702%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260702T072744Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjECcaCXVzLXdlc3QtMiJHMEUCIF2QoOrgmQX5nlm936SQFV6398pHj2PdJTDcM7ku07ooAiEAoI3IT3Gw8BudxxiZ86FNX1A95S5SNDK0Rt8cXeLUYKMqiAQI8P%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDOb2wBpbw8XlL4E1GircAyLPytyUroALpa2Sqf%2Fw8VLtdnBAXPJkS38ekYlLPVdhULN9h8b2AXt8434fwIvqWk2iFvsSIz37ShZeNuALV0hSJeKWxMwMJQgFZMPg9BrN45a570l0vXYhtKdQf29Xr9IRGXDfUN8QaWe6LZzodC1h9o3pKryD9X9qxtWuRS4eHgLp59RMEKZAr650OkwniZFaX6%2F1xG7dHz0PKUkZcFC7vHBfV%2FjvQmIS8MqERiQmOQtsY7AJnruXu3cPavNTx34kd7x0wwsXrJfHlhsj2E5uxUwmhqcXuhn5BO01kGDAaZ95fiaXu8sU8lFCOt%2BjDPLsN%2F89tU8czIaY0W%2B7IS0dKKjnP3h1wR9jQwbFwXEKsUHDPJ5prv93Hc69yB5EMAu72Yu9Jfcd52izjT%2FDpYuezkrlC%2FkjnjJk8UQhHPHq57UahYzCSePZgdqjNBoh%2BHQkjC4MHlWFtMzd46dr3ul4ukexyrnMkiIUmpWbTXaY43fXtpwBCKSqDNdJKLKdVw5zwSg4HEQCwRvYTZiosvu6RbO83HkqPYcWitC5naMoKuiBzz2RNT0pw6vsRhHFF84BlDNQfY4IEvdGpvPYbkEAu5aIQTNL%2F187VKKiEBXhb0gDRzfKpOamytD0MOaQmNIGOqUBrGilz5EGX55%2B1dcxmc245PG9Hfc%2BeKdykbqaLM8n86ZmE6ayteT34mDoUzWS%2FEAotEUWGrhHrfBaIfNbs%2BUEYTtid7NBhMdjkYcipXZ4b0JqDJZRnAlcYTOsOHBHz75bQFWP5pGlnHU5ISNQlvsfBEiNM2O35uusyHRfjK%2Bg4tOMprfu7z7Y07a%2F0RoSjZwIMQbwxwe3KEtnOW2AiluM5K1VuqEb&amp;X-Amz-Signature=42087491b703310bd8de3c0be753237ba596ea024e8b6de85283039e38fd924b&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<h3>不精确牛顿法</h3>
+<p>允许残差： \(\nabla^2 f(x_k)d_k = -\nabla f(x_k) + r_k\)</p>
+<p>常用准则： \(||r_k|| \le \eta_k ||\nabla f(x_k)||,\ 0 \le \eta_k < 1\)</p>
+<p>结论： \(\eta_k\) 有界时可得线性收敛； \(\eta_k \to 0\) 时可得超线性收敛</p>
+<h2>七、拟牛顿方法（Quasi-Newton Method）</h2>
+<h3>拟牛顿方法的基本思想</h3>
+<p>拟牛顿方法的基本思想：不直接计算 Hessian，而构造近似矩阵： \(B_k \approx \nabla^2 f(x_k),\ H_k \approx [\nabla^2 f(x_k)]^{-1}\)</p>
+<p>搜索方向可写为： \(d_k = -B_k^{-1}\nabla f(x_k)\)，也可写为： \(d_k = -H_k \nabla f(x_k)\)</p>
+<h3>割线方程</h3>
+<p>定义： \(s_k = x_{k+1} - x_k,\ y_k = \nabla f(x_{k+1}) - \nabla f(x_k)\)，割线方程（secant equation）为： \(B_{k+1}s_k = y_k\)</p>
+<figure><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/322db726-82a8-8113-a40f-00034bba0362/3099ff12-45f3-4a0c-849e-5ed6fb6c2c8f/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466SZOOMF3R%2F20260702%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260702T072736Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjECcaCXVzLXdlc3QtMiJIMEYCIQCohZjpzEiZ%2BaY0wk55%2FawWf%2BpC%2BvEVp5At2l2X51rknAIhAJl2I%2FsQZqA%2Fw4MBIKhhXgnSL%2FZOllO4y0VRvNKGOjUJKogECPD%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1Igyv23aW25Te96gftH0q3ANoiXgvcMsnH23oiy05awPoc5CDLY94Di15KPzFQPx0h%2FQ84qTD9xAs3KGB9tqKZJifU%2BmNaEWNKyoHn4K07HF5Jv36w2FIUKgcTj7ljxDKxyl8m7pyhz8G5RZ0hW0o7lKAlYFJix28LZuCv1vfm%2BdJvyo6GnkTnHq1EZcQLh682UotcDgf2ZTHdBNnNcZ4TNRzAI3F4E5Xy%2FT3RzHcI3Dfhv6gFMAlRggI0YGIjKxitLzb3BH8vAAPvb7TaeiFQiiZ%2FalstPM0pW9DHLlx4f6LjIxdmO0iyxTIJ2hIKDqHKyq8wr2ft7i9%2FXhotzSOiJjADztR71FRLU%2Fx4YlO0X3knVrycJhqNDC7R5D0lh%2F8r0SWqupfxmhqqkHexMJ0cf8sfakScJpz4pZFVHY6DHCUBD4GeIE0XWbPUYgimBEAo2KyjHzFuGbcKF95cvjgdNPIyexZU7czkHZgQTZXUbdffPcSq4aPTDiLZlCiOfkya360S6NDR8w9DSPcZlVaPHC0I%2FMX0jdG6FWPXPg0INOF2dX8g1Rt1e9v3RNKz0rTZTqLU%2BsRfPmoLZOrHKr%2F2UQzYg%2FsWZG1Cox4OFl9%2FsM3ISNU0yEMfWet6%2FHylJnv8aOsExaI4ajdRw8DTDCQj5jSBjqkAR8qJombql08p7YEJCKWDYsTkmUSAwfTPvKuKbDbZLFNFqDWuofePDJND4xtGctF52Q%2FPZ7%2Bq9WBCze5rONsbJ%2BGCCNAaT8IdWIy5teBPASNPDjPE6v1L7vtDWD39xhrtXBSIhs8THjJCEK6nbwCS4hgcY%2BcrgNS%2B3qY33l8uUW97v6MbbFrfYXKomaNOIZHBmXFeaG%2BnfYiax%2Buf7ono0%2B7GzDI&amp;X-Amz-Signature=32ae90d08a4cc282c7a50c5bc03b8b8c42d3806d0cc5b02cdbbcc7c2b66417e1&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<p>曲率条件（保证 \(B_k\)的正定性）： \(s_k^T y_k > 0\)，若 \(B_k \succ 0\)，则 \(d_k = -B_k^{-1}\nabla f(x_k)\) 为下降方向</p>
+<figure><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/322db726-82a8-8113-a40f-00034bba0362/be7a623f-a0bd-4648-9d3b-292c300d3cc2/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466SZOOMF3R%2F20260702%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260702T072736Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjECcaCXVzLXdlc3QtMiJIMEYCIQCohZjpzEiZ%2BaY0wk55%2FawWf%2BpC%2BvEVp5At2l2X51rknAIhAJl2I%2FsQZqA%2Fw4MBIKhhXgnSL%2FZOllO4y0VRvNKGOjUJKogECPD%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1Igyv23aW25Te96gftH0q3ANoiXgvcMsnH23oiy05awPoc5CDLY94Di15KPzFQPx0h%2FQ84qTD9xAs3KGB9tqKZJifU%2BmNaEWNKyoHn4K07HF5Jv36w2FIUKgcTj7ljxDKxyl8m7pyhz8G5RZ0hW0o7lKAlYFJix28LZuCv1vfm%2BdJvyo6GnkTnHq1EZcQLh682UotcDgf2ZTHdBNnNcZ4TNRzAI3F4E5Xy%2FT3RzHcI3Dfhv6gFMAlRggI0YGIjKxitLzb3BH8vAAPvb7TaeiFQiiZ%2FalstPM0pW9DHLlx4f6LjIxdmO0iyxTIJ2hIKDqHKyq8wr2ft7i9%2FXhotzSOiJjADztR71FRLU%2Fx4YlO0X3knVrycJhqNDC7R5D0lh%2F8r0SWqupfxmhqqkHexMJ0cf8sfakScJpz4pZFVHY6DHCUBD4GeIE0XWbPUYgimBEAo2KyjHzFuGbcKF95cvjgdNPIyexZU7czkHZgQTZXUbdffPcSq4aPTDiLZlCiOfkya360S6NDR8w9DSPcZlVaPHC0I%2FMX0jdG6FWPXPg0INOF2dX8g1Rt1e9v3RNKz0rTZTqLU%2BsRfPmoLZOrHKr%2F2UQzYg%2FsWZG1Cox4OFl9%2FsM3ISNU0yEMfWet6%2FHylJnv8aOsExaI4ajdRw8DTDCQj5jSBjqkAR8qJombql08p7YEJCKWDYsTkmUSAwfTPvKuKbDbZLFNFqDWuofePDJND4xtGctF52Q%2FPZ7%2Bq9WBCze5rONsbJ%2BGCCNAaT8IdWIy5teBPASNPDjPE6v1L7vtDWD39xhrtXBSIhs8THjJCEK6nbwCS4hgcY%2BcrgNS%2B3qY33l8uUW97v6MbbFrfYXKomaNOIZHBmXFeaG%2BnfYiax%2Buf7ono0%2B7GzDI&amp;X-Amz-Signature=b23b3bf6098bb3f081a81ccaa71cd3f031e4508bcecfed0c9c28437af3517500&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<h3>SR1 （秩一更新）</h3>
+<p>记： \(r_k = y_k - B_k s_k\)，SR1 更新表示为： \(B_{k+1} = B_k + \frac{r_k r_k^T}{r_k^T s_k}\)</p>
+<p>SR1满足割线方程，保持对称，<strong>但不保证正定</strong>，它是更新思想的起点，而不是最优选择</p>
+<h3>BFGS （秩二更新）</h3>
+<p> \(B_{k+1} = B_k + \frac{y_k y_k^T}{s_k^T y_k} - \frac{B_k s_k s_k^T B_k}{s_k^T B_k s_k}\)（第二项是引入更新信息，第三项是剔除旧的错误信息）</p>
+<p>实际操作中往往不更新 \(B\)： \(H_{k+1} = (I - \rho_k s_k y_k^T)H_k(I - \rho_k y_k s_k^T) + \rho_k s_k s_k^T\)， \(\rho_k = \frac{1}{s_k^T y_k}\)</p>
+<p>BFGS满足割线方程，保持对称性；若 \(H_k \succ 0\) 且 \(s_k^T y_k > 0\)，则 \(H_{k+1} \succ 0\)，因而 \(d_k = -H_k \nabla f(x_k)\) 是下降方向。这正是 BFGS 在实践中最常用的核心原因。</p>
+<p>在 Hessian 有界、初始矩阵正定、Wolfe 线搜索成立时，BFGS 可得全局收敛；若在最优点附近 Hessian 足够光滑，则 BFGS 可呈 Q-超线性收敛</p>
+<p>L-BFGS不显式存储完整 \(H_k\) 或 \(B_k\)，只保留最近 \(m\) 组 \(s_i,y_i\)，存储量小，适合大规模问题</p>
+<h2>八、最小二乘问题</h2>
+<h3>线性最小二乘（LS）</h3>
+<p>\(\min_x \frac12 ||Ax - b||_2^2\)，残差： \(r(x) = Ax - b\)</p>
+<p>几何解释：列空间： \(R(A) = \{Ax : x \in R^n\}\)，最小二乘解满足： \(Ax^* = \Pi_{R(A)}(b)\)。即 \(Ax^*\) 是 \(b\) 在列空间上的投影</p>
+<figure><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/322db726-82a8-8113-a40f-00034bba0362/dd0360db-99ff-4c37-b3ab-e27bb6de0077/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466SZOOMF3R%2F20260702%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260702T072736Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjECcaCXVzLXdlc3QtMiJIMEYCIQCohZjpzEiZ%2BaY0wk55%2FawWf%2BpC%2BvEVp5At2l2X51rknAIhAJl2I%2FsQZqA%2Fw4MBIKhhXgnSL%2FZOllO4y0VRvNKGOjUJKogECPD%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1Igyv23aW25Te96gftH0q3ANoiXgvcMsnH23oiy05awPoc5CDLY94Di15KPzFQPx0h%2FQ84qTD9xAs3KGB9tqKZJifU%2BmNaEWNKyoHn4K07HF5Jv36w2FIUKgcTj7ljxDKxyl8m7pyhz8G5RZ0hW0o7lKAlYFJix28LZuCv1vfm%2BdJvyo6GnkTnHq1EZcQLh682UotcDgf2ZTHdBNnNcZ4TNRzAI3F4E5Xy%2FT3RzHcI3Dfhv6gFMAlRggI0YGIjKxitLzb3BH8vAAPvb7TaeiFQiiZ%2FalstPM0pW9DHLlx4f6LjIxdmO0iyxTIJ2hIKDqHKyq8wr2ft7i9%2FXhotzSOiJjADztR71FRLU%2Fx4YlO0X3knVrycJhqNDC7R5D0lh%2F8r0SWqupfxmhqqkHexMJ0cf8sfakScJpz4pZFVHY6DHCUBD4GeIE0XWbPUYgimBEAo2KyjHzFuGbcKF95cvjgdNPIyexZU7czkHZgQTZXUbdffPcSq4aPTDiLZlCiOfkya360S6NDR8w9DSPcZlVaPHC0I%2FMX0jdG6FWPXPg0INOF2dX8g1Rt1e9v3RNKz0rTZTqLU%2BsRfPmoLZOrHKr%2F2UQzYg%2FsWZG1Cox4OFl9%2FsM3ISNU0yEMfWet6%2FHylJnv8aOsExaI4ajdRw8DTDCQj5jSBjqkAR8qJombql08p7YEJCKWDYsTkmUSAwfTPvKuKbDbZLFNFqDWuofePDJND4xtGctF52Q%2FPZ7%2Bq9WBCze5rONsbJ%2BGCCNAaT8IdWIy5teBPASNPDjPE6v1L7vtDWD39xhrtXBSIhs8THjJCEK6nbwCS4hgcY%2BcrgNS%2B3qY33l8uUW97v6MbbFrfYXKomaNOIZHBmXFeaG%2BnfYiax%2Buf7ono0%2B7GzDI&amp;X-Amz-Signature=cd686715be28b35273a048329fc5892dbc61d87f55b4b9ab08c2f8f044e96d79&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<p>最优残差： \(r^* = Ax^* - b\)</p>
+<p>正交条件： \(A^T(Ax^* - b) = 0\)（最优残差不能再沿列空间方向继续减小）</p>
+<p>正规方程：由正交条件或一阶最优性条件 \(\nabla f(x) = A^T(Ax - b)\) 得到： \(A^T A x = A^T b\)</p>
+<p>（几何投影条件和优化一阶条件殊途同归）</p>
+<p>在数值计算的过程中， \(A^T A\) 会放大病态性： \(\kappa(A^T A) = \kappa(A)^2\)，实际中常用 QR 或 SVD 求解。</p>
+<h3>非线性最小二乘（NLS）</h3>
+<p> \(\min_x \frac12 \sum_{i=1}^m r_i(x)^2 = \frac12 ||r(x)||_2^2\)</p>
+<p>设残差 Jacobian 为： \(J(x) = \nabla r(x)\)，</p>
+<p>梯度： \(\nabla f(x) = J(x)^T r(x)\)，</p>
+<p>Hessian： \(\nabla^2 f(x) = J(x)^T J(x) + \sum_{i=1}^m r_i(x)\nabla^2 r_i(x)\) 第一项来自 Jacobian，第二项来自残差本身的非线性曲率，引入Gauss-Newton近似： \(\nabla^2 f(x) \approx J(x)^T J(x)\)</p>
+<h3>Gauss-Newton法</h3>
+<p>局部线性化： \(r(x_k + d) \approx r(x_k) + J(x_k)d\)</p>
+<figure><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/322db726-82a8-8113-a40f-00034bba0362/04eaeaf6-a18f-44b4-bb37-d158de06c759/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466SZOOMF3R%2F20260702%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260702T072736Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjECcaCXVzLXdlc3QtMiJIMEYCIQCohZjpzEiZ%2BaY0wk55%2FawWf%2BpC%2BvEVp5At2l2X51rknAIhAJl2I%2FsQZqA%2Fw4MBIKhhXgnSL%2FZOllO4y0VRvNKGOjUJKogECPD%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQABoMNjM3NDIzMTgzODA1Igyv23aW25Te96gftH0q3ANoiXgvcMsnH23oiy05awPoc5CDLY94Di15KPzFQPx0h%2FQ84qTD9xAs3KGB9tqKZJifU%2BmNaEWNKyoHn4K07HF5Jv36w2FIUKgcTj7ljxDKxyl8m7pyhz8G5RZ0hW0o7lKAlYFJix28LZuCv1vfm%2BdJvyo6GnkTnHq1EZcQLh682UotcDgf2ZTHdBNnNcZ4TNRzAI3F4E5Xy%2FT3RzHcI3Dfhv6gFMAlRggI0YGIjKxitLzb3BH8vAAPvb7TaeiFQiiZ%2FalstPM0pW9DHLlx4f6LjIxdmO0iyxTIJ2hIKDqHKyq8wr2ft7i9%2FXhotzSOiJjADztR71FRLU%2Fx4YlO0X3knVrycJhqNDC7R5D0lh%2F8r0SWqupfxmhqqkHexMJ0cf8sfakScJpz4pZFVHY6DHCUBD4GeIE0XWbPUYgimBEAo2KyjHzFuGbcKF95cvjgdNPIyexZU7czkHZgQTZXUbdffPcSq4aPTDiLZlCiOfkya360S6NDR8w9DSPcZlVaPHC0I%2FMX0jdG6FWPXPg0INOF2dX8g1Rt1e9v3RNKz0rTZTqLU%2BsRfPmoLZOrHKr%2F2UQzYg%2FsWZG1Cox4OFl9%2FsM3ISNU0yEMfWet6%2FHylJnv8aOsExaI4ajdRw8DTDCQj5jSBjqkAR8qJombql08p7YEJCKWDYsTkmUSAwfTPvKuKbDbZLFNFqDWuofePDJND4xtGctF52Q%2FPZ7%2Bq9WBCze5rONsbJ%2BGCCNAaT8IdWIy5teBPASNPDjPE6v1L7vtDWD39xhrtXBSIhs8THjJCEK6nbwCS4hgcY%2BcrgNS%2B3qY33l8uUW97v6MbbFrfYXKomaNOIZHBmXFeaG%2BnfYiax%2Buf7ono0%2B7GzDI&amp;X-Amz-Signature=32d663487ce43d0fef985ddd82a0f2c9a864583a5a9979d8b69db0e6b41c365a&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<p>子问题： \(\min_d \frac12 ||J(x_k)d + r(x_k)||_2^2\)（这里运用了范数保模长的性质）</p>
+<p>其正规方程正是<strong> Gauss-Newton 方程</strong>： \(J(x_k)^T J(x_k)d_k = -J(x_k)^T r(x_k)\)</p>
+<p>（所以 Gauss-Newton 也可看成每步解一个局部线性最小二乘问题）</p>
+<h2>九、约束优化与罚函数方法</h2>
+<h3>约束优化问题</h3>
+<p>一般形式： \(\min_x f(x)\)，约束： \(c_i(x) = 0,\ i \in E,\ c_j(x) \le 0,\ j \in I\)</p>
+<p>难点：既要降低目标函数，又要满足约束，下降方向未必留在可行域里</p>
+<h3>外点罚函数法</h3>
+<p>外点罚函数法允许迭代过程中暂时违反约束。</p>
+<p> 等式约束下：\(P_E(x,\sigma) = f(x) + \frac{\sigma}{2}\sum_{i \in E} c_i(x)^2\)</p>
+<p>不等式约束下：\(P_I(x,\sigma) = f(x) + \frac{\sigma}{2}\sum_{j \in I}\tilde c_j(x)^2\)， \(\tilde c_j(x) = \max\{c_j(x),0\}\)</p>
+<figure><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/322db726-82a8-8113-a40f-00034bba0362/2bee13b0-1008-413f-8743-358ef176ce9d/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466SJHXCLAK%2F20260702%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260702T072739Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjECcaCXVzLXdlc3QtMiJHMEUCIQDFBHnGJNzpkqmoW3lksDnCzuJpbs%2BTmvTyaxJ8tYLCWAIgQNSp7PLyq4P6AhLymtE2geYOSTna4cY6IvxsZPpctnMqiAQI8P%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDCrs7MYaDT5TyHlMsCrcA3KeWNSm5pMD1zs893DnT4Ths3MFIJ4lnAsmgbhjXKzwEcjMngjSxfzzSvQOFidmN%2BKtIuvbNoanJjNsNfAiSN1270ncXmWLvHH1MEa98F6XY0ktRshC6IXzjI4ZjlPjr6GGQGqbIhvBAnfnsOy9PNcWPEA7rQ7iJH4WmfWwLdURcx0rPdnD0dS9vhoQ51TpYg%2FCoEL4i0o3xeak8YEkKfAwdSnAnznWXCDV9bU4PNXjH%2BQt7u5CM7kQlkrNZaREQUOJzsRRb%2FNX2MGBbZiTG9gzrJuBsoyxmW5NGk3qhasZK0G1m7H%2FHA3RH7LmM1JY3%2BxQPLDjMu9p8eq0%2FnwKEZ5UIz9GsqNkbSlML0ftL8M3sGtunjxfJWzrM%2Ff0f6mlCH6OfY1WF1qTsoaQ25zIcmU56HnsnZ6G2gdoHO5j1FwB0lkSFfs47Nj5V%2FF34iqR0AjyBPS7WeMB0%2BsoNjwhHUMxX%2FtB6lcrYt5KikNkJ9I2Nxdv8zh%2BTECRiQaiKDy%2BCkNxgB9ZhtXwBFPaS265abb1hoxp608NPAiiVexKM61bVq8cfRvPfopIxdkFnv8z3M3xXMsm08as3pHxJAao6i7axedIIw1f4WKl6omsOMvMNaxPS0Qj0P9ArQ2LMJGPmNIGOqUBZQtG15jh9%2FsFt6kjM%2B3jUC%2F66gbLNc3oPxaCuzZG7BiQneONTPez9sUiy92BzT%2Ba9aU4NeDgzYlrK5tFNwNeqv0k28CknToemvOSTEGm3ZzLXv19vlbrOM4x7McoM%2FQb6ABRbHhXG%2BGxU6kcETkwYOHGXykvEqcc9K8DZbKjIFL6ufOizUtMdNoWUvPnxGhOa0VPtLkQAcnvHPpXJ5lFurGOyC8m&amp;X-Amz-Signature=515c769e84bffeb9590ea5c087878581a3627ad78b63737fbce41a16311ff83c&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<p>统一写为：\(P(x,\sigma) = f(x) + \frac{\sigma}{2}\left(\sum_{i \in E} c_i(x)^2 + \sum_{j \in I}\tilde c_j(x)^2\right)\)</p>
+<ul>
+<li>迭代点允许暂时不可行，通过增大 \(\sigma\) 逐步拉回可行域。先允许犯规，再逐步把犯规成本抬高</li>
+<li>罚参数的作用：\(\sigma\) 越大，约束违反通常越小，但是子问题会变得病态</li>
+<li>停止准则： \(||c(x_{k+1})||_2 \le \varepsilon\) ，\(||x_{k+1} - x_k||_2 \le \varepsilon\)</li>
+</ul>
+<h3>罚函数法思想的应用：LASSO和低秩矩阵修复</h3>
+<h3>内点罚函数法</h3>
+<p>内点罚函数要求迭代始终严格可行</p>
+<p> \(P_{\log}(x,\sigma) = f(x) - \sigma \sum_{i \in I}\ln(-c_i(x))\)，定义域要求： \(c_i(x) < 0\)</p>
+<h2>十、KKT 条件</h2>
+<p>无约束问题常以 \(\nabla f(x^*) = 0\) 作为一阶条件。约束优化中，变量不能沿任意方向移动，因此一般不能要求 \(\nabla f(x^*) = 0\)。受约束时，最优点可能仍有非零梯度，只是没有可行下降方向</p>
+<h3>约束形式与 Lagrangian</h3>
+<ul>
+<li>统一记号： \(c_i(x) = 0,\ i \in E,\ c_i(x) \le 0,\ i \in I\)</li>
+<li>Lagrangian： \(L(x,\lambda) = f(x) + \sum_{i \in E}\lambda_i c_i(x) + \sum_{i \in I}\lambda_i c_i(x)\)</li>
+</ul>
+<p>等式罚函数子问题的一阶条件可写成： \(\nabla f(x) + \sum_{i \in E}\sigma c_i(x)\nabla c_i(x) \approx 0\)</p>
+<p>若定义 \(\lambda_i = \sigma c_i(x)\)，则形式上接近： \(\nabla f(x) + \sum_{i \in E}\lambda_i \nabla c_i(x) \approx 0\)（Lagrangian梯度）</p>
+<p>（ KKT是 penalty 观点自然逼近出的条件）</p>
+<h3>切锥、线性化可行锥与LICQ</h3>
+<p>对可行集 \(X\)，切锥（tangent cone） \(T_X(x)\) 表示点 \(x\) 处的一阶可行方向集合</p>
+<p>活跃集（active set）： \(A(x) = E \cup \{i \in I : c_i(x) = 0\}\)</p>
+<p>线性化可行锥（linearized feasible cone）： \(F(x) = \{d : \nabla c_i(x)^T d = 0,\ i \in E;\ \nabla c_i(x)^T d \le 0,\ i \in A(x)\cap I\}\)，它是切锥的可计算一阶近似</p>
+<figure><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/322db726-82a8-8113-a40f-00034bba0362/1f0e6231-e906-41ed-9939-09b8b1698248/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466SJHXCLAK%2F20260702%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260702T072739Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjECcaCXVzLXdlc3QtMiJHMEUCIQDFBHnGJNzpkqmoW3lksDnCzuJpbs%2BTmvTyaxJ8tYLCWAIgQNSp7PLyq4P6AhLymtE2geYOSTna4cY6IvxsZPpctnMqiAQI8P%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDCrs7MYaDT5TyHlMsCrcA3KeWNSm5pMD1zs893DnT4Ths3MFIJ4lnAsmgbhjXKzwEcjMngjSxfzzSvQOFidmN%2BKtIuvbNoanJjNsNfAiSN1270ncXmWLvHH1MEa98F6XY0ktRshC6IXzjI4ZjlPjr6GGQGqbIhvBAnfnsOy9PNcWPEA7rQ7iJH4WmfWwLdURcx0rPdnD0dS9vhoQ51TpYg%2FCoEL4i0o3xeak8YEkKfAwdSnAnznWXCDV9bU4PNXjH%2BQt7u5CM7kQlkrNZaREQUOJzsRRb%2FNX2MGBbZiTG9gzrJuBsoyxmW5NGk3qhasZK0G1m7H%2FHA3RH7LmM1JY3%2BxQPLDjMu9p8eq0%2FnwKEZ5UIz9GsqNkbSlML0ftL8M3sGtunjxfJWzrM%2Ff0f6mlCH6OfY1WF1qTsoaQ25zIcmU56HnsnZ6G2gdoHO5j1FwB0lkSFfs47Nj5V%2FF34iqR0AjyBPS7WeMB0%2BsoNjwhHUMxX%2FtB6lcrYt5KikNkJ9I2Nxdv8zh%2BTECRiQaiKDy%2BCkNxgB9ZhtXwBFPaS265abb1hoxp608NPAiiVexKM61bVq8cfRvPfopIxdkFnv8z3M3xXMsm08as3pHxJAao6i7axedIIw1f4WKl6omsOMvMNaxPS0Qj0P9ArQ2LMJGPmNIGOqUBZQtG15jh9%2FsFt6kjM%2B3jUC%2F66gbLNc3oPxaCuzZG7BiQneONTPez9sUiy92BzT%2Ba9aU4NeDgzYlrK5tFNwNeqv0k28CknToemvOSTEGm3ZzLXv19vlbrOM4x7McoM%2FQb6ABRbHhXG%2BGxU6kcETkwYOHGXykvEqcc9K8DZbKjIFL6ufOizUtMdNoWUvPnxGhOa0VPtLkQAcnvHPpXJ5lFurGOyC8m&amp;X-Amz-Signature=9f8976f8967a451b3cd3c5d795dab2a80bf12ee263e132d294dc9fee00aef6f0&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<p>LICQ（Linear Independence Constraint Qualification）：活跃约束的梯度线性无关（在适当约束资格条件下，可由线性化可行锥推导 KKT 条件）</p>
+<h3>KKT 条件</h3>
+<ul>
+<li>平衡条件（stationarity）： \(\nabla_x L(x^*,\lambda^*) = 0\)（目标函数的下降趋势被约束梯度平衡）</li>
+<li>原始可行性（primal feasibility）： \(c_i(x^*) = 0,\ i \in E,\ c_i(x^*) \le 0,\ i \in I\)</li>
+<li>对偶可行性（dual feasibility）： \(\lambda_i^* \ge 0,\ i \in I\)</li>
+<li>互补松弛（complementary slackness）： \(\lambda_i^* c_i(x^*) = 0,\ i \in I\)</li>
+<li>若 \(c_i(x^*) < 0\)，则该不等式约束不活跃，故 \(\lambda_i^* = 0\)</li>
+<li>若 \(\lambda_i^* > 0\)，则必有 \(c_i(x^*) = 0\)</li>
+<li>即：不活跃约束不起作用，真正起作用的只能是边界上的活跃约束</li>
+</ul>
+<p>对一般非凸问题：KKT 是必要条件，不一定充分；对凸优化问题：在适当条件下，KKT 往往既必要又充分。因此在算法中，KKT 点通常先作为候选最优点来逼近</p>
+<h2>增广拉格朗日方法（Augmented Lagrangian Method）</h2>
+<h3>增广拉格朗日函数</h3>
+<p>对等式约束 \(c(x)=0\) ，增广拉格朗日函数（augmented Lagrangian）： \(L_\sigma(x,\lambda)=f(x)+\lambda^Tc(x)+\frac{\sigma}{2}||c(x)||^2\)（原目标函数、乘子修正、可行性控制）</p>
+<p>基本算法：</p>
+<figure><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/322db726-82a8-8113-a40f-00034bba0362/0b14b791-e504-433e-a395-32a6b49f79f3/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466SJHXCLAK%2F20260702%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260702T072740Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjECcaCXVzLXdlc3QtMiJHMEUCIQDFBHnGJNzpkqmoW3lksDnCzuJpbs%2BTmvTyaxJ8tYLCWAIgQNSp7PLyq4P6AhLymtE2geYOSTna4cY6IvxsZPpctnMqiAQI8P%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDCrs7MYaDT5TyHlMsCrcA3KeWNSm5pMD1zs893DnT4Ths3MFIJ4lnAsmgbhjXKzwEcjMngjSxfzzSvQOFidmN%2BKtIuvbNoanJjNsNfAiSN1270ncXmWLvHH1MEa98F6XY0ktRshC6IXzjI4ZjlPjr6GGQGqbIhvBAnfnsOy9PNcWPEA7rQ7iJH4WmfWwLdURcx0rPdnD0dS9vhoQ51TpYg%2FCoEL4i0o3xeak8YEkKfAwdSnAnznWXCDV9bU4PNXjH%2BQt7u5CM7kQlkrNZaREQUOJzsRRb%2FNX2MGBbZiTG9gzrJuBsoyxmW5NGk3qhasZK0G1m7H%2FHA3RH7LmM1JY3%2BxQPLDjMu9p8eq0%2FnwKEZ5UIz9GsqNkbSlML0ftL8M3sGtunjxfJWzrM%2Ff0f6mlCH6OfY1WF1qTsoaQ25zIcmU56HnsnZ6G2gdoHO5j1FwB0lkSFfs47Nj5V%2FF34iqR0AjyBPS7WeMB0%2BsoNjwhHUMxX%2FtB6lcrYt5KikNkJ9I2Nxdv8zh%2BTECRiQaiKDy%2BCkNxgB9ZhtXwBFPaS265abb1hoxp608NPAiiVexKM61bVq8cfRvPfopIxdkFnv8z3M3xXMsm08as3pHxJAao6i7axedIIw1f4WKl6omsOMvMNaxPS0Qj0P9ArQ2LMJGPmNIGOqUBZQtG15jh9%2FsFt6kjM%2B3jUC%2F66gbLNc3oPxaCuzZG7BiQneONTPez9sUiy92BzT%2Ba9aU4NeDgzYlrK5tFNwNeqv0k28CknToemvOSTEGm3ZzLXv19vlbrOM4x7McoM%2FQb6ABRbHhXG%2BGxU6kcETkwYOHGXykvEqcc9K8DZbKjIFL6ufOizUtMdNoWUvPnxGhOa0VPtLkQAcnvHPpXJ5lFurGOyC8m&amp;X-Amz-Signature=64616b7b2d54c010f7770b4d49329f56f2dc5744d3ec4daafd25309ab2005f38&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<ul>
+<li>二次罚函数法主要依赖大 \(\sigma\)，而ALM 同时使用乘子更新与罚项，因而往往能在较温和的 \(\sigma\) 下取得更好的可行性与最优性。</li>
+<li>若可行性改进足够，可保持 \(\sigma_{k+1}=\sigma_k\)，若可行性停滞，再增大 \(\sigma_{k+1}=\rho\sigma_k\) ，其中 \(\rho>1\)</li>
+<li>罚参数是辅助角色，乘子更新才是核心</li>
+<li>ALM 的目标是逼近 KKT 系统，常见停止准则： \(||c(x^k)||\le \varepsilon_{feas}\) ，且 \(||\nabla_x L(x^k,\lambda^k)||\le \varepsilon_{opt}\)</li>
+</ul>
+<h3>不等式约束的 projected update</h3>
+<ul>
+<li>对 \(c_i(x)\le 0\) ，乘子必须非负</li>
+<li>常用 projected update： \(\mu_i^{k+1}=max\{0,\mu_i^k+\sigma_k c_i(x^{k+1})\}\)</li>
+</ul>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Yestin Ma. 保留所有权利。</p>
+      <div class="social-links">
+        <a href="#" aria-label="GitHub">GitHub</a>
+        <a href="#" aria-label="LinkedIn">LinkedIn</a>
+        <a href="#" aria-label="Twitter">Twitter</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js?v=1.0.2"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (typeof renderMathInElement !== "function") return;
+      renderMathInElement(document.querySelector(".article-content"), {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "\\[", right: "\\]", display: true },
+          { left: "\\(", right: "\\)", display: false },
+          { left: "$", right: "$", display: false }
+        ],
+        throwOnError: false
+      });
+    });
+  </script>
+  
+</body>
+</html>
