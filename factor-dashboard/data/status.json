@@ -1,59 +1,119 @@
 {
   "scheduler": {
-    "latest_run_id": "20260705-161004-master-daily",
+    "latest_run_id": "20260706-161016-master-daily",
     "stages": [
       {
-        "run_id": "20260705-161004-master-daily",
+        "run_id": "20260706-161016-master-daily",
         "stage_name": "Multifactor_Factor_Eval_Auto_Update",
         "stage_order": 5,
         "status": "success",
-        "trade_date": "2026-07-03",
-        "started_at": "2026-07-06 09:36:08",
-        "ended_at": "2026-07-06 10:57:05",
+        "trade_date": "2026-07-06",
+        "started_at": "2026-07-06 17:49:44",
+        "ended_at": "2026-07-06 17:51:15",
         "error_message": null
       },
       {
-        "run_id": "20260705-161004-master-daily",
+        "run_id": "20260706-161016-master-daily",
         "stage_name": "Multifactor_Factor_Daily",
         "stage_order": 4,
         "status": "success",
-        "trade_date": "2026-07-03",
-        "started_at": "2026-07-05 16:11:02",
-        "ended_at": "2026-07-06 09:36:08",
+        "trade_date": "2026-07-06",
+        "started_at": "2026-07-06 16:36:33",
+        "ended_at": "2026-07-06 17:49:44",
         "error_message": null
       },
       {
-        "run_id": "20260705-161004-master-daily",
+        "run_id": "20260706-161016-master-daily",
         "stage_name": "Multifactor_ETL_Backfill",
         "stage_order": 3,
         "status": "success",
-        "trade_date": "2026-07-03",
-        "started_at": "2026-07-05 16:10:40",
-        "ended_at": "2026-07-05 16:11:02",
+        "trade_date": "2026-07-06",
+        "started_at": "2026-07-06 16:35:33",
+        "ended_at": "2026-07-06 16:36:33",
         "error_message": null
       },
       {
-        "run_id": "20260705-161004-master-daily",
+        "run_id": "20260706-161016-master-daily",
         "stage_name": "Multifactor_Financial_Event_Daily",
         "stage_order": 2,
         "status": "success",
-        "trade_date": "2026-07-03",
-        "started_at": "2026-07-05 16:10:07",
-        "ended_at": "2026-07-05 16:10:40",
+        "trade_date": "2026-07-06",
+        "started_at": "2026-07-06 16:12:30",
+        "ended_at": "2026-07-06 16:35:33",
         "error_message": null
       },
       {
-        "run_id": "20260705-161004-master-daily",
+        "run_id": "20260706-161016-master-daily",
         "stage_name": "Multifactor_ETL_Daily",
         "stage_order": 1,
-        "status": "partial_success",
-        "trade_date": "2026-07-03",
-        "started_at": "2026-07-05 16:10:04",
-        "ended_at": "2026-07-05 16:10:07",
+        "status": "success",
+        "trade_date": "2026-07-06",
+        "started_at": "2026-07-06 16:10:16",
+        "ended_at": "2026-07-06 16:12:30",
         "error_message": null
       }
     ],
     "recent_stages": [
+      {
+        "run_id": "20260706-161016-master-daily",
+        "stage_name": "Multifactor_Factor_Eval_Auto_Update",
+        "stage_order": 5,
+        "status": "success",
+        "trade_date": "2026-07-06",
+        "started_at": "2026-07-06 17:49:44",
+        "ended_at": "2026-07-06 17:51:15",
+        "error_message": null
+      },
+      {
+        "run_id": "20260706-161016-master-daily",
+        "stage_name": "Multifactor_Factor_Daily",
+        "stage_order": 4,
+        "status": "success",
+        "trade_date": "2026-07-06",
+        "started_at": "2026-07-06 16:36:33",
+        "ended_at": "2026-07-06 17:49:44",
+        "error_message": null
+      },
+      {
+        "run_id": "20260706-161016-master-daily",
+        "stage_name": "Multifactor_ETL_Backfill",
+        "stage_order": 3,
+        "status": "success",
+        "trade_date": "2026-07-06",
+        "started_at": "2026-07-06 16:35:33",
+        "ended_at": "2026-07-06 16:36:33",
+        "error_message": null
+      },
+      {
+        "run_id": "20260706-161016-master-daily",
+        "stage_name": "Multifactor_Financial_Event_Daily",
+        "stage_order": 2,
+        "status": "success",
+        "trade_date": "2026-07-06",
+        "started_at": "2026-07-06 16:12:30",
+        "ended_at": "2026-07-06 16:35:33",
+        "error_message": null
+      },
+      {
+        "run_id": "20260706-161016-master-daily",
+        "stage_name": "Multifactor_ETL_Daily",
+        "stage_order": 1,
+        "status": "success",
+        "trade_date": "2026-07-06",
+        "started_at": "2026-07-06 16:10:16",
+        "ended_at": "2026-07-06 16:12:30",
+        "error_message": null
+      },
+      {
+        "run_id": "20260705-161004-master-daily",
+        "stage_name": "Multifactor_Factor_Dashboard_Publish",
+        "stage_order": 6,
+        "status": "success",
+        "trade_date": "2026-07-03",
+        "started_at": "2026-07-06 10:57:05",
+        "ended_at": "2026-07-06 11:14:21",
+        "error_message": null
+      },
       {
         "run_id": "20260705-161004-master-daily",
         "stage_name": "Multifactor_Factor_Eval_Auto_Update",
@@ -233,145 +293,98 @@
         "started_at": "2026-07-01 17:26:01",
         "ended_at": "2026-07-01 17:53:10",
         "error_message": null
-      },
-      {
-        "run_id": "20260701-172541-master-daily",
-        "stage_name": "Multifactor_ETL_Daily",
-        "stage_order": 1,
-        "status": "success",
-        "trade_date": "2026-07-01",
-        "started_at": "2026-07-01 17:25:41",
-        "ended_at": "2026-07-01 17:26:01",
-        "error_message": null
-      },
-      {
-        "run_id": "20260630-161006-master-daily",
-        "stage_name": "Multifactor_Factor_Dashboard_Publish",
-        "stage_order": 6,
-        "status": "success",
-        "trade_date": "2026-06-30",
-        "started_at": "2026-06-30 17:16:33",
-        "ended_at": "2026-06-30 19:05:44",
-        "error_message": null
-      },
-      {
-        "run_id": "20260630-161006-master-daily",
-        "stage_name": "Multifactor_Factor_Eval_Auto_Update",
-        "stage_order": 5,
-        "status": "success",
-        "trade_date": "2026-06-30",
-        "started_at": "2026-06-30 16:55:20",
-        "ended_at": "2026-06-30 17:16:33",
-        "error_message": null
-      },
-      {
-        "run_id": "20260630-161006-master-daily",
-        "stage_name": "Multifactor_Factor_Daily",
-        "stage_order": 4,
-        "status": "success",
-        "trade_date": "2026-06-30",
-        "started_at": "2026-06-30 16:12:24",
-        "ended_at": "2026-06-30 16:55:20",
-        "error_message": null
-      },
-      {
-        "run_id": "20260630-161006-master-daily",
-        "stage_name": "Multifactor_ETL_Backfill",
-        "stage_order": 3,
-        "status": "success",
-        "trade_date": "2026-06-30",
-        "started_at": "2026-06-30 16:11:34",
-        "ended_at": "2026-06-30 16:12:24",
-        "error_message": null
-      },
-      {
-        "run_id": "20260630-161006-master-daily",
-        "stage_name": "Multifactor_Financial_Event_Daily",
-        "stage_order": 2,
-        "status": "success",
-        "trade_date": "2026-06-30",
-        "started_at": "2026-06-30 16:10:29",
-        "ended_at": "2026-06-30 16:11:34",
-        "error_message": null
       }
     ]
   },
   "data_layer": {
     "layer": "data_layer",
-    "job_date": "2026-07-05",
-    "latest_run_id": "20260705-161041-backfill",
+    "job_date": "2026-07-06",
+    "latest_run_id": "20260706-163538-backfill",
     "status": "success",
     "summary": {
-      "table_count": 2,
-      "success_table_count": 2,
+      "table_count": 4,
+      "success_table_count": 4,
       "failed_table_count": 0,
-      "rows_written": 7,
-      "field_values_written": 943,
-      "financial_raw_new_rows": 7,
-      "quota_usage": 0.031351451873779294,
-      "event_summary": {
-        "pipeline_started_at": "2026-07-05 16:10:08",
-        "detected": 143813,
-        "processed": 2,
-        "success": 2,
-        "failed": 0,
-        "max_done_announcement_date": "2026-07-04"
-      }
+      "rows_written": 12209,
+      "field_values_written": 173717,
+      "financial_raw_new_rows": 0,
+      "quota_usage": 0.00015073776245117188,
+      "event_summary": {}
     },
-    "daily_update": [],
-    "backfill": [],
-    "financial_events": [
+    "daily_update": [
       {
-        "table_name": "financial_raw",
-        "phase": "financial_event_incremental",
+        "table_name": "instruments",
+        "phase": "daily_update",
         "status": "success",
-        "target_date": "2026-07-04",
-        "rows_written": 3,
-        "field_values_written": 423,
-        "new_rows_inserted": 3,
-        "duration_ms": null,
+        "target_date": "2026-07-06",
+        "rows_written": 5203,
+        "field_values_written": 88451,
+        "new_rows_inserted": 0,
+        "duration_ms": 14082,
         "error_type": null,
-        "error_message": null,
-        "event_id": "13e8b2794db595649c616104547640cfa11e4b8f",
-        "source": "incremental"
+        "error_message": null
       },
       {
-        "table_name": "financial_raw",
-        "phase": "financial_event_incremental",
+        "table_name": "daily",
+        "phase": "daily_update",
         "status": "success",
-        "target_date": "2026-07-04",
-        "rows_written": 4,
-        "field_values_written": 520,
-        "new_rows_inserted": 4,
-        "duration_ms": null,
+        "target_date": "2026-07-06",
+        "rows_written": 5203,
+        "field_values_written": 78045,
+        "new_rows_inserted": 0,
+        "duration_ms": 109448,
         "error_type": null,
-        "error_message": null,
-        "event_id": "ab7071ac231daf1127efb6fb9a309700e3665ef5",
-        "source": "incremental"
+        "error_message": null
+      },
+      {
+        "table_name": "index_daily",
+        "phase": "daily_update",
+        "status": "success",
+        "target_date": "2026-07-06",
+        "rows_written": 3,
+        "field_values_written": 21,
+        "new_rows_inserted": 0,
+        "duration_ms": 615,
+        "error_type": null,
+        "error_message": null
+      },
+      {
+        "table_name": "index_constituents",
+        "phase": "daily_update",
+        "status": "success",
+        "target_date": "2026-07-06",
+        "rows_written": 1800,
+        "field_values_written": 7200,
+        "new_rows_inserted": 0,
+        "duration_ms": 443,
+        "error_type": null,
+        "error_message": null
       }
     ],
-    "generated_at": "2026-07-05 16:11:02"
+    "backfill": [],
+    "financial_events": [],
+    "generated_at": "2026-07-06 16:36:33"
   },
   "factor_layer": {
     "layer": "factor_layer",
-    "job_date": "2026-07-03",
-    "latest_run_id": "20260706-105705-factor-daily",
-    "status": "success",
+    "job_date": "2026-07-06",
+    "latest_run_id": "20260706-175115-factor-daily",
+    "status": "skipped",
     "summary": {
       "factor_count": 24,
-      "success_factor_count": 7,
+      "success_factor_count": 0,
       "failed_factor_count": 0,
-      "skipped_factor_count": 17,
-      "rows_written": 873092,
-      "field_values_written": 873092,
+      "skipped_factor_count": 24,
+      "rows_written": 0,
+      "field_values_written": 0,
       "mode": "daily",
       "with_etl": false,
       "factor_scope": [
         "active",
         "candidate"
       ],
-      "started_at": "2026-07-06 10:57:05",
-      "ended_at": "2026-07-06 11:06:54"
+      "started_at": "2026-07-06 17:51:15",
+      "ended_at": "2026-07-06 18:04:51"
     },
     "factor_value_update": [
       {
@@ -381,14 +394,14 @@
         "lifecycle_status": "candidate",
         "phase": "update",
         "status": "skipped",
-        "start_date": "2026-07-03",
-        "end_date": "2026-07-03",
+        "start_date": "2026-07-06",
+        "end_date": "2026-07-06",
         "rows_written": 0,
         "field_values_written": 0,
-        "duration_ms": 2,
+        "duration_ms": 3,
         "retry_count": 0,
         "error_type": "NoNewDate",
-        "error_message": "already updated to 2026-07-03"
+        "error_message": "already updated to 2026-07-06"
       },
       {
         "factor_name": "AlphaCHIP0008",
@@ -397,14 +410,14 @@
         "lifecycle_status": "candidate",
         "phase": "update",
         "status": "skipped",
-        "start_date": "2026-07-03",
-        "end_date": "2026-07-03",
+        "start_date": "2026-07-06",
+        "end_date": "2026-07-06",
         "rows_written": 0,
         "field_values_written": 0,
-        "duration_ms": 2,
+        "duration_ms": 3,
         "retry_count": 0,
         "error_type": "NoNewDate",
-        "error_message": "already updated to 2026-07-03"
+        "error_message": "already updated to 2026-07-06"
       },
       {
         "factor_name": "AlphaCHIP0009",
@@ -413,14 +426,14 @@
         "lifecycle_status": "candidate",
         "phase": "update",
         "status": "skipped",
-        "start_date": "2026-07-03",
-        "end_date": "2026-07-03",
+        "start_date": "2026-07-06",
+        "end_date": "2026-07-06",
         "rows_written": 0,
         "field_values_written": 0,
-        "duration_ms": 2,
+        "duration_ms": 3,
         "retry_count": 0,
         "error_type": "NoNewDate",
-        "error_message": "already updated to 2026-07-03"
+        "error_message": "already updated to 2026-07-06"
       },
       {
         "factor_name": "AlphaFinTest",
@@ -429,14 +442,14 @@
         "lifecycle_status": "active",
         "phase": "update",
         "status": "skipped",
-        "start_date": "2026-07-03",
-        "end_date": "2026-07-03",
+        "start_date": "2026-07-06",
+        "end_date": "2026-07-06",
         "rows_written": 0,
         "field_values_written": 0,
         "duration_ms": 3,
         "retry_count": 0,
         "error_type": "NoNewDate",
-        "error_message": "already updated to 2026-07-03"
+        "error_message": "already updated to 2026-07-06"
       },
       {
         "factor_name": "AlphaLIQ0003",
@@ -445,14 +458,14 @@
         "lifecycle_status": "candidate",
         "phase": "update",
         "status": "skipped",
-        "start_date": "2026-07-03",
-        "end_date": "2026-07-03",
+        "start_date": "2026-07-06",
+        "end_date": "2026-07-06",
         "rows_written": 0,
         "field_values_written": 0,
-        "duration_ms": 2,
+        "duration_ms": 3,
         "retry_count": 0,
         "error_type": "NoNewDate",
-        "error_message": "already updated to 2026-07-03"
+        "error_message": "already updated to 2026-07-06"
       },
       {
         "factor_name": "AlphaLIQ0008",
@@ -461,14 +474,14 @@
         "lifecycle_status": "candidate",
         "phase": "update",
         "status": "skipped",
-        "start_date": "2026-07-03",
-        "end_date": "2026-07-03",
+        "start_date": "2026-07-06",
+        "end_date": "2026-07-06",
         "rows_written": 0,
         "field_values_written": 0,
-        "duration_ms": 2,
+        "duration_ms": 1,
         "retry_count": 0,
         "error_type": "NoNewDate",
-        "error_message": "already updated to 2026-07-03"
+        "error_message": "already updated to 2026-07-06"
       },
       {
         "factor_name": "AlphaLIQ0010",
@@ -477,14 +490,14 @@
         "lifecycle_status": "candidate",
         "phase": "update",
         "status": "skipped",
-        "start_date": "2026-07-03",
-        "end_date": "2026-07-03",
+        "start_date": "2026-07-06",
+        "end_date": "2026-07-06",
         "rows_written": 0,
         "field_values_written": 0,
-        "duration_ms": 1,
+        "duration_ms": 2,
         "retry_count": 0,
         "error_type": "NoNewDate",
-        "error_message": "already updated to 2026-07-03"
+        "error_message": "already updated to 2026-07-06"
       },
       {
         "factor_name": "AlphaLIQ0013",
@@ -493,14 +506,14 @@
         "lifecycle_status": "candidate",
         "phase": "update",
         "status": "skipped",
-        "start_date": "2026-07-03",
-        "end_date": "2026-07-03",
+        "start_date": "2026-07-06",
+        "end_date": "2026-07-06",
         "rows_written": 0,
         "field_values_written": 0,
-        "duration_ms": 2,
+        "duration_ms": 4,
         "retry_count": 0,
         "error_type": "NoNewDate",
-        "error_message": "already updated to 2026-07-03"
+        "error_message": "already updated to 2026-07-06"
       },
       {
         "factor_name": "AlphaLIQ0014",
@@ -509,14 +522,14 @@
         "lifecycle_status": "candidate",
         "phase": "update",
         "status": "skipped",
-        "start_date": "2026-07-03",
-        "end_date": "2026-07-03",
+        "start_date": "2026-07-06",
+        "end_date": "2026-07-06",
         "rows_written": 0,
         "field_values_written": 0,
         "duration_ms": 2,
         "retry_count": 0,
         "error_type": "NoNewDate",
-        "error_message": "already updated to 2026-07-03"
+        "error_message": "already updated to 2026-07-06"
       },
       {
         "factor_name": "AlphaLIQ0016",
@@ -525,14 +538,14 @@
         "lifecycle_status": "candidate",
         "phase": "update",
         "status": "skipped",
-        "start_date": "2026-07-03",
-        "end_date": "2026-07-03",
+        "start_date": "2026-07-06",
+        "end_date": "2026-07-06",
         "rows_written": 0,
         "field_values_written": 0,
-        "duration_ms": 2,
+        "duration_ms": 3,
         "retry_count": 0,
         "error_type": "NoNewDate",
-        "error_message": "already updated to 2026-07-03"
+        "error_message": "already updated to 2026-07-06"
       },
       {
         "factor_name": "AlphaLIQ0019",
@@ -540,15 +553,15 @@
         "version_id": "ver_1b86b6266cbf",
         "lifecycle_status": "candidate",
         "phase": "update",
-        "status": "success",
-        "start_date": "2026-05-29",
-        "end_date": "2026-07-03",
-        "rows_written": 124235,
-        "field_values_written": 124235,
-        "duration_ms": 104179,
+        "status": "skipped",
+        "start_date": "2026-07-06",
+        "end_date": "2026-07-06",
+        "rows_written": 0,
+        "field_values_written": 0,
+        "duration_ms": 3,
         "retry_count": 0,
-        "error_type": null,
-        "error_message": null
+        "error_type": "NoNewDate",
+        "error_message": "already updated to 2026-07-06"
       },
       {
         "factor_name": "AlphaLIQ0020",
@@ -556,15 +569,15 @@
         "version_id": "ver_3d667cfcd158",
         "lifecycle_status": "candidate",
         "phase": "update",
-        "status": "success",
-        "start_date": "2026-05-29",
-        "end_date": "2026-07-03",
-        "rows_written": 124235,
-        "field_values_written": 124235,
-        "duration_ms": 47324,
+        "status": "skipped",
+        "start_date": "2026-07-06",
+        "end_date": "2026-07-06",
+        "rows_written": 0,
+        "field_values_written": 0,
+        "duration_ms": 3,
         "retry_count": 0,
-        "error_type": null,
-        "error_message": null
+        "error_type": "NoNewDate",
+        "error_message": "already updated to 2026-07-06"
       },
       {
         "factor_name": "AlphaMOM0003",
@@ -573,14 +586,14 @@
         "lifecycle_status": "candidate",
         "phase": "update",
         "status": "skipped",
-        "start_date": "2026-07-03",
-        "end_date": "2026-07-03",
+        "start_date": "2026-07-06",
+        "end_date": "2026-07-06",
         "rows_written": 0,
         "field_values_written": 0,
-        "duration_ms": 6,
+        "duration_ms": 4,
         "retry_count": 0,
         "error_type": "NoNewDate",
-        "error_message": "already updated to 2026-07-03"
+        "error_message": "already updated to 2026-07-06"
       },
       {
         "factor_name": "AlphaMOM0004",
@@ -589,14 +602,14 @@
         "lifecycle_status": "candidate",
         "phase": "update",
         "status": "skipped",
-        "start_date": "2026-07-03",
-        "end_date": "2026-07-03",
+        "start_date": "2026-07-06",
+        "end_date": "2026-07-06",
         "rows_written": 0,
         "field_values_written": 0,
-        "duration_ms": 3,
+        "duration_ms": 2,
         "retry_count": 0,
         "error_type": "NoNewDate",
-        "error_message": "already updated to 2026-07-03"
+        "error_message": "already updated to 2026-07-06"
       },
       {
         "factor_name": "AlphaMOM0005",
@@ -605,14 +618,14 @@
         "lifecycle_status": "candidate",
         "phase": "update",
         "status": "skipped",
-        "start_date": "2026-07-03",
-        "end_date": "2026-07-03",
+        "start_date": "2026-07-06",
+        "end_date": "2026-07-06",
         "rows_written": 0,
         "field_values_written": 0,
-        "duration_ms": 3,
+        "duration_ms": 1,
         "retry_count": 0,
         "error_type": "NoNewDate",
-        "error_message": "already updated to 2026-07-03"
+        "error_message": "already updated to 2026-07-06"
       },
       {
         "factor_name": "AlphaMOM0010",
@@ -621,14 +634,14 @@
         "lifecycle_status": "candidate",
         "phase": "update",
         "status": "skipped",
-        "start_date": "2026-07-03",
-        "end_date": "2026-07-03",
+        "start_date": "2026-07-06",
+        "end_date": "2026-07-06",
         "rows_written": 0,
         "field_values_written": 0,
-        "duration_ms": 1,
+        "duration_ms": 2,
         "retry_count": 0,
         "error_type": "NoNewDate",
-        "error_message": "already updated to 2026-07-03"
+        "error_message": "already updated to 2026-07-06"
       },
       {
         "factor_name": "AlphaREV0002",
@@ -638,10 +651,10 @@
         "phase": "update",
         "status": "skipped",
         "start_date": "2026-05-15",
-        "end_date": "2026-07-03",
+        "end_date": "2026-07-06",
         "rows_written": 0,
         "field_values_written": 0,
-        "duration_ms": 14794,
+        "duration_ms": 164963,
         "retry_count": 0,
         "error_type": "NoPersistableRows",
         "error_message": "lookback calculation produced no new non-null rows"
@@ -654,10 +667,10 @@
         "phase": "update",
         "status": "skipped",
         "start_date": "2026-05-15",
-        "end_date": "2026-07-03",
+        "end_date": "2026-07-06",
         "rows_written": 0,
         "field_values_written": 0,
-        "duration_ms": 240201,
+        "duration_ms": 465873,
         "retry_count": 0,
         "error_type": "NoPersistableRows",
         "error_message": "lookback calculation produced no new non-null rows"
@@ -668,15 +681,15 @@
         "version_id": "ver_03e556145629",
         "lifecycle_status": "candidate",
         "phase": "update",
-        "status": "success",
-        "start_date": "2026-05-29",
-        "end_date": "2026-07-03",
-        "rows_written": 124911,
-        "field_values_written": 124911,
-        "duration_ms": 31917,
+        "status": "skipped",
+        "start_date": "2026-07-06",
+        "end_date": "2026-07-06",
+        "rows_written": 0,
+        "field_values_written": 0,
+        "duration_ms": 6,
         "retry_count": 0,
-        "error_type": null,
-        "error_message": null
+        "error_type": "NoNewDate",
+        "error_message": "already updated to 2026-07-06"
       },
       {
         "factor_name": "AlphaREV0006",
@@ -684,15 +697,15 @@
         "version_id": "ver_04024cbebb50",
         "lifecycle_status": "candidate",
         "phase": "update",
-        "status": "success",
-        "start_date": "2026-05-29",
-        "end_date": "2026-07-03",
-        "rows_written": 124934,
-        "field_values_written": 124934,
-        "duration_ms": 37462,
+        "status": "skipped",
+        "start_date": "2026-07-06",
+        "end_date": "2026-07-06",
+        "rows_written": 0,
+        "field_values_written": 0,
+        "duration_ms": 3,
         "retry_count": 0,
-        "error_type": null,
-        "error_message": null
+        "error_type": "NoNewDate",
+        "error_message": "already updated to 2026-07-06"
       },
       {
         "factor_name": "AlphaREV0007",
@@ -700,15 +713,15 @@
         "version_id": "ver_811778cd7d9f",
         "lifecycle_status": "candidate",
         "phase": "update",
-        "status": "success",
-        "start_date": "2026-05-29",
-        "end_date": "2026-07-03",
-        "rows_written": 124955,
-        "field_values_written": 124955,
-        "duration_ms": 31365,
+        "status": "skipped",
+        "start_date": "2026-07-06",
+        "end_date": "2026-07-06",
+        "rows_written": 0,
+        "field_values_written": 0,
+        "duration_ms": 3,
         "retry_count": 0,
-        "error_type": null,
-        "error_message": null
+        "error_type": "NoNewDate",
+        "error_message": "already updated to 2026-07-06"
       },
       {
         "factor_name": "AlphaREV0008",
@@ -716,15 +729,15 @@
         "version_id": "ver_6c56eae434b3",
         "lifecycle_status": "candidate",
         "phase": "update",
-        "status": "success",
-        "start_date": "2026-05-29",
-        "end_date": "2026-07-03",
-        "rows_written": 124911,
-        "field_values_written": 124911,
-        "duration_ms": 32863,
+        "status": "skipped",
+        "start_date": "2026-07-06",
+        "end_date": "2026-07-06",
+        "rows_written": 0,
+        "field_values_written": 0,
+        "duration_ms": 3,
         "retry_count": 0,
-        "error_type": null,
-        "error_message": null
+        "error_type": "NoNewDate",
+        "error_message": "already updated to 2026-07-06"
       },
       {
         "factor_name": "AlphaREV0009",
@@ -734,10 +747,10 @@
         "phase": "update",
         "status": "skipped",
         "start_date": "2026-05-15",
-        "end_date": "2026-07-03",
+        "end_date": "2026-07-06",
         "rows_written": 0,
         "field_values_written": 0,
-        "duration_ms": 15852,
+        "duration_ms": 184637,
         "retry_count": 0,
         "error_type": "NoPersistableRows",
         "error_message": "lookback calculation produced no new non-null rows"
@@ -748,15 +761,15 @@
         "version_id": "ver_7948b20fd984",
         "lifecycle_status": "candidate",
         "phase": "update",
-        "status": "success",
-        "start_date": "2026-05-29",
-        "end_date": "2026-07-03",
-        "rows_written": 124911,
-        "field_values_written": 124911,
-        "duration_ms": 33027,
+        "status": "skipped",
+        "start_date": "2026-07-06",
+        "end_date": "2026-07-06",
+        "rows_written": 0,
+        "field_values_written": 0,
+        "duration_ms": 5,
         "retry_count": 0,
-        "error_type": null,
-        "error_message": null
+        "error_type": "NoNewDate",
+        "error_message": "already updated to 2026-07-06"
       }
     ],
     "rolling_metrics": {
@@ -767,7 +780,7 @@
       "run_id": null,
       "duration_ms": null
     },
-    "generated_at": "2026-07-06 11:06:54"
+    "generated_at": "2026-07-06 18:04:51"
   },
   "backtest_layer": {
     "layer": "backtest_layer",
