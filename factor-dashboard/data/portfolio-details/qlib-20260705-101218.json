@@ -1,0 +1,3886 @@
+{
+  "summary": {
+    "run_id": "qlib-20260705-101218",
+    "timestamp": "2026-07-05 10:11:13",
+    "status": "completed",
+    "start_date": "2023-05-31",
+    "end_date": "2026-05-18",
+    "benchmark": "000300.XSHG",
+    "weights_path": "backtest_results\\optimizer_runs\\opt-20260705-101113\\target_weights.parquet",
+    "optimizer_run_id": "opt-20260705-101113",
+    "portfolio_rows": 716,
+    "optimizer_summary_missing": null,
+    "has_optimizer_run_summary": true
+  },
+  "qlib_run_summary": {
+    "status": "completed",
+    "timestamp": "2026-07-05 10:11:13",
+    "weights_path": "backtest_results\\optimizer_runs\\opt-20260705-101113\\target_weights.parquet",
+    "n_weight_rows": 101988,
+    "n_weight_days": 22,
+    "run": {
+      "start_date": "2023-05-31",
+      "end_date": "2026-05-18",
+      "benchmark": "000300.XSHG",
+      "account": 100000000
+    },
+    "pre_sync": null,
+    "output_dir": "backtest_results\\qlib_runs\\qlib-20260705-101218",
+    "artifacts": {
+      "portfolio_day": "backtest_results\\qlib_runs\\qlib-20260705-101218\\portfolio_day.csv",
+      "indicator_day": "backtest_results\\qlib_runs\\qlib-20260705-101218\\indicator_day.csv",
+      "positions_day": "backtest_results\\qlib_runs\\qlib-20260705-101218\\positions_day.pkl",
+      "portfolio_day_plot": "backtest_results\\qlib_runs\\qlib-20260705-101218\\portfolio_day_plot.png"
+    },
+    "portfolio_rows": 716,
+    "indicator_rows": 716
+  },
+  "optimizer_run_summary": {
+    "status": "completed",
+    "timestamp": "2026-07-05 09:28:41",
+    "start_date": "2023-05-31",
+    "end_date": "2026-05-19",
+    "optimizer_name": "mean_variance",
+    "fusion_name": "ridge",
+    "calibrator_name": "linear",
+    "risk_model_name": "ledoit_wolf",
+    "n_panel_rows": 3739155,
+    "n_factors": 23,
+    "n_rebalance_dates": 37,
+    "output_dir": "backtest_results\\optimizer_runs\\opt-20260705-101113",
+    "artifacts": {
+      "target_weights": "backtest_results\\optimizer_runs\\opt-20260705-101113\\target_weights.parquet",
+      "status": "backtest_results\\optimizer_runs\\opt-20260705-101113\\status.parquet"
+    },
+    "constraints": {
+      "long_only": true
+    },
+    "horizon": 22,
+    "factor_names": [
+      "AlphaCHIP0007",
+      "AlphaCHIP0008",
+      "AlphaCHIP0009",
+      "AlphaLIQ0003",
+      "AlphaLIQ0008",
+      "AlphaLIQ0010",
+      "AlphaLIQ0013",
+      "AlphaLIQ0014",
+      "AlphaLIQ0016",
+      "AlphaLIQ0019",
+      "AlphaLIQ0020",
+      "AlphaMOM0003",
+      "AlphaMOM0004",
+      "AlphaMOM0005",
+      "AlphaMOM0010",
+      "AlphaREV0002",
+      "AlphaREV0003",
+      "AlphaREV0004",
+      "AlphaREV0006",
+      "AlphaREV0007",
+      "AlphaREV0008",
+      "AlphaREV0009",
+      "AlphaREV0010"
+    ],
+    "candidate_mode": true,
+    "target_weight_rows": 101988,
+    "status_rows": 37,
+    "optimization_results": {
+      "2024-07-31": {
+        "solver_status": "projected_gradient_optimal",
+        "objective_value": 0.02180559330517868,
+        "diagnostics": {
+          "optimizer": "benchmark_relative_mean_variance",
+          "solver_backend": "projected_gradient",
+          "iterations": 300
+        }
+      },
+      "2024-08-30": {
+        "solver_status": "projected_gradient_optimal",
+        "objective_value": 0.031016790793169966,
+        "diagnostics": {
+          "optimizer": "benchmark_relative_mean_variance",
+          "solver_backend": "projected_gradient",
+          "iterations": 300
+        }
+      },
+      "2024-09-30": {
+        "solver_status": "projected_gradient_optimal",
+        "objective_value": 0.06624678634184994,
+        "diagnostics": {
+          "optimizer": "benchmark_relative_mean_variance",
+          "solver_backend": "projected_gradient",
+          "iterations": 300
+        }
+      },
+      "2024-10-31": {
+        "solver_status": "projected_gradient_optimal",
+        "objective_value": 0.029919774703180142,
+        "diagnostics": {
+          "optimizer": "benchmark_relative_mean_variance",
+          "solver_backend": "projected_gradient",
+          "iterations": 300
+        }
+      },
+      "2024-11-29": {
+        "solver_status": "projected_gradient_optimal",
+        "objective_value": 0.013389896107866974,
+        "diagnostics": {
+          "optimizer": "benchmark_relative_mean_variance",
+          "solver_backend": "projected_gradient",
+          "iterations": 300
+        }
+      },
+      "2024-12-31": {
+        "solver_status": "projected_gradient_optimal",
+        "objective_value": 0.00463324076827988,
+        "diagnostics": {
+          "optimizer": "benchmark_relative_mean_variance",
+          "solver_backend": "projected_gradient",
+          "iterations": 300
+        }
+      },
+      "2025-01-27": {
+        "solver_status": "projected_gradient_optimal",
+        "objective_value": 0.005163569052777602,
+        "diagnostics": {
+          "optimizer": "benchmark_relative_mean_variance",
+          "solver_backend": "projected_gradient",
+          "iterations": 300
+        }
+      },
+      "2025-02-28": {
+        "solver_status": "projected_gradient_optimal",
+        "objective_value": 0.00497798009758782,
+        "diagnostics": {
+          "optimizer": "benchmark_relative_mean_variance",
+          "solver_backend": "projected_gradient",
+          "iterations": 300
+        }
+      },
+      "2025-03-31": {
+        "solver_status": "projected_gradient_optimal",
+        "objective_value": 0.004125977780934402,
+        "diagnostics": {
+          "optimizer": "benchmark_relative_mean_variance",
+          "solver_backend": "projected_gradient",
+          "iterations": 300
+        }
+      },
+      "2025-04-30": {
+        "solver_status": "projected_gradient_optimal",
+        "objective_value": 0.004503296505481293,
+        "diagnostics": {
+          "optimizer": "benchmark_relative_mean_variance",
+          "solver_backend": "projected_gradient",
+          "iterations": 300
+        }
+      },
+      "2025-05-30": {
+        "solver_status": "projected_gradient_optimal",
+        "objective_value": 0.004281429323000544,
+        "diagnostics": {
+          "optimizer": "benchmark_relative_mean_variance",
+          "solver_backend": "projected_gradient",
+          "iterations": 300
+        }
+      },
+      "2025-06-30": {
+        "solver_status": "projected_gradient_optimal",
+        "objective_value": 0.004909257058711612,
+        "diagnostics": {
+          "optimizer": "benchmark_relative_mean_variance",
+          "solver_backend": "projected_gradient",
+          "iterations": 300
+        }
+      },
+      "2025-07-31": {
+        "solver_status": "projected_gradient_optimal",
+        "objective_value": 0.0047279268407000655,
+        "diagnostics": {
+          "optimizer": "benchmark_relative_mean_variance",
+          "solver_backend": "projected_gradient",
+          "iterations": 300
+        }
+      },
+      "2025-08-29": {
+        "solver_status": "projected_gradient_optimal",
+        "objective_value": 0.004139077008127117,
+        "diagnostics": {
+          "optimizer": "benchmark_relative_mean_variance",
+          "solver_backend": "projected_gradient",
+          "iterations": 300
+        }
+      },
+      "2025-09-30": {
+        "solver_status": "projected_gradient_optimal",
+        "objective_value": 0.003785745501813328,
+        "diagnostics": {
+          "optimizer": "benchmark_relative_mean_variance",
+          "solver_backend": "projected_gradient",
+          "iterations": 300
+        }
+      },
+      "2025-10-31": {
+        "solver_status": "projected_gradient_optimal",
+        "objective_value": 0.004004241325688808,
+        "diagnostics": {
+          "optimizer": "benchmark_relative_mean_variance",
+          "solver_backend": "projected_gradient",
+          "iterations": 300
+        }
+      },
+      "2025-11-28": {
+        "solver_status": "projected_gradient_optimal",
+        "objective_value": 0.003809007440172048,
+        "diagnostics": {
+          "optimizer": "benchmark_relative_mean_variance",
+          "solver_backend": "projected_gradient",
+          "iterations": 300
+        }
+      },
+      "2025-12-31": {
+        "solver_status": "projected_gradient_optimal",
+        "objective_value": 0.0035348808537754416,
+        "diagnostics": {
+          "optimizer": "benchmark_relative_mean_variance",
+          "solver_backend": "projected_gradient",
+          "iterations": 300
+        }
+      },
+      "2026-01-30": {
+        "solver_status": "projected_gradient_optimal",
+        "objective_value": 0.003613266396759835,
+        "diagnostics": {
+          "optimizer": "benchmark_relative_mean_variance",
+          "solver_backend": "projected_gradient",
+          "iterations": 300
+        }
+      },
+      "2026-02-27": {
+        "solver_status": "projected_gradient_optimal",
+        "objective_value": 0.0028939529964977207,
+        "diagnostics": {
+          "optimizer": "benchmark_relative_mean_variance",
+          "solver_backend": "projected_gradient",
+          "iterations": 300
+        }
+      },
+      "2026-03-31": {
+        "solver_status": "projected_gradient_optimal",
+        "objective_value": 0.002813904544770569,
+        "diagnostics": {
+          "optimizer": "benchmark_relative_mean_variance",
+          "solver_backend": "projected_gradient",
+          "iterations": 300
+        }
+      },
+      "2026-04-30": {
+        "solver_status": "projected_gradient_optimal",
+        "objective_value": 0.0029019253489913333,
+        "diagnostics": {
+          "optimizer": "benchmark_relative_mean_variance",
+          "solver_backend": "projected_gradient",
+          "iterations": 300
+        }
+      }
+    }
+  },
+  "series": [
+    {
+      "date": "2023-05-31",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.989783168
+    },
+    {
+      "date": "2023-06-01",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9919523209672181
+    },
+    {
+      "date": "2023-06-02",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0062747525153528
+    },
+    {
+      "date": "2023-06-05",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0016928035978039
+    },
+    {
+      "date": "2023-06-06",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9922897775210564
+    },
+    {
+      "date": "2023-06-07",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9873855857381937
+    },
+    {
+      "date": "2023-06-08",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9954228728097639
+    },
+    {
+      "date": "2023-06-09",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9997264475260502
+    },
+    {
+      "date": "2023-06-12",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0017405334171148
+    },
+    {
+      "date": "2023-06-13",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0070757167473643
+    },
+    {
+      "date": "2023-06-14",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0068456956182805
+    },
+    {
+      "date": "2023-06-15",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0228641605755413
+    },
+    {
+      "date": "2023-06-16",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0327269881115009
+    },
+    {
+      "date": "2023-06-19",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.024273349364929
+    },
+    {
+      "date": "2023-06-20",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0225353367388927
+    },
+    {
+      "date": "2023-06-21",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0068476026702506
+    },
+    {
+      "date": "2023-06-26",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9926893247705204
+    },
+    {
+      "date": "2023-06-27",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.002001325403987
+    },
+    {
+      "date": "2023-06-28",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0007936477755233
+    },
+    {
+      "date": "2023-06-29",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9958545259610533
+    },
+    {
+      "date": "2023-06-30",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0012243667608132
+    },
+    {
+      "date": "2023-07-03",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0143650210664366
+    },
+    {
+      "date": "2023-07-04",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0159626389754974
+    },
+    {
+      "date": "2023-07-05",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.008091436935193
+    },
+    {
+      "date": "2023-07-06",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0013034162476342
+    },
+    {
+      "date": "2023-07-07",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9968591710867557
+    },
+    {
+      "date": "2023-07-10",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0017131002916286
+    },
+    {
+      "date": "2023-07-11",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0082687826268073
+    },
+    {
+      "date": "2023-07-12",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0014811903824774
+    },
+    {
+      "date": "2023-07-13",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0158088069230764
+    },
+    {
+      "date": "2023-07-14",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0159859672194338
+    },
+    {
+      "date": "2023-07-17",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.007666519391503
+    },
+    {
+      "date": "2023-07-18",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.004478329231672
+    },
+    {
+      "date": "2023-07-19",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0034170457444134
+    },
+    {
+      "date": "2023-07-20",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9963369370764749
+    },
+    {
+      "date": "2023-07-21",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9958718828922674
+    },
+    {
+      "date": "2023-07-24",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9915232725782807
+    },
+    {
+      "date": "2023-07-25",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0201583457075487
+    },
+    {
+      "date": "2023-07-26",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0180470944478974
+    },
+    {
+      "date": "2023-07-27",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.016830999831251
+    },
+    {
+      "date": "2023-07-28",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0403843016523202
+    },
+    {
+      "date": "2023-07-31",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0460888853561172
+    },
+    {
+      "date": "2023-08-01",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0417558125883062
+    },
+    {
+      "date": "2023-08-02",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0344322588082522
+    },
+    {
+      "date": "2023-08-03",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0435753707277355
+    },
+    {
+      "date": "2023-08-04",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0476390233750936
+    },
+    {
+      "date": "2023-08-07",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0397109265402051
+    },
+    {
+      "date": "2023-08-08",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0369955790151484
+    },
+    {
+      "date": "2023-08-09",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0338252331993663
+    },
+    {
+      "date": "2023-08-10",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0359491785511883
+    },
+    {
+      "date": "2023-08-11",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0121168496622204
+    },
+    {
+      "date": "2023-08-14",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0047302473153457
+    },
+    {
+      "date": "2023-08-15",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0022886111474045
+    },
+    {
+      "date": "2023-08-16",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.994940043034513
+    },
+    {
+      "date": "2023-08-17",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9982667068524705
+    },
+    {
+      "date": "2023-08-18",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9859946758127195
+    },
+    {
+      "date": "2023-08-21",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9718069257949224
+    },
+    {
+      "date": "2023-08-22",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9792779898816971
+    },
+    {
+      "date": "2023-08-23",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9632287076882708
+    },
+    {
+      "date": "2023-08-24",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9702108058279684
+    },
+    {
+      "date": "2023-08-25",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9664904882514083
+    },
+    {
+      "date": "2023-08-28",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9778168946641993
+    },
+    {
+      "date": "2023-08-29",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9875849128936577
+    },
+    {
+      "date": "2023-08-30",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.98716879870139
+    },
+    {
+      "date": "2023-08-31",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.981112648723789
+    },
+    {
+      "date": "2023-09-01",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9879456708513692
+    },
+    {
+      "date": "2023-09-04",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 1.0029180635649384
+    },
+    {
+      "date": "2023-09-05",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9954568606485554
+    },
+    {
+      "date": "2023-09-06",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9932969897265772
+    },
+    {
+      "date": "2023-09-07",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9793425814758322
+    },
+    {
+      "date": "2023-09-08",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9745267201539519
+    },
+    {
+      "date": "2023-09-11",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9817039817848855
+    },
+    {
+      "date": "2023-09-12",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9798975924646823
+    },
+    {
+      "date": "2023-09-13",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9736561043726532
+    },
+    {
+      "date": "2023-09-14",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9728370064772349
+    },
+    {
+      "date": "2023-09-15",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9663928343332528
+    },
+    {
+      "date": "2023-09-18",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9713265181154827
+    },
+    {
+      "date": "2023-09-19",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9694481541703736
+    },
+    {
+      "date": "2023-09-20",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9655884977958706
+    },
+    {
+      "date": "2023-09-21",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9569258813583799
+    },
+    {
+      "date": "2023-09-22",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9742505966945043
+    },
+    {
+      "date": "2023-09-25",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.967911226001861
+    },
+    {
+      "date": "2023-09-26",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9622540055696396
+    },
+    {
+      "date": "2023-09-27",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9642349259143063
+    },
+    {
+      "date": "2023-09-28",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.961374385699528
+    },
+    {
+      "date": "2023-10-09",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9601263398548563
+    },
+    {
+      "date": "2023-10-10",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9529342696340832
+    },
+    {
+      "date": "2023-10-11",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9556500717912143
+    },
+    {
+      "date": "2023-10-12",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9647267224507287
+    },
+    {
+      "date": "2023-10-13",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9545718353194022
+    },
+    {
+      "date": "2023-10-16",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9449794135845934
+    },
+    {
+      "date": "2023-10-17",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9483158908607987
+    },
+    {
+      "date": "2023-10-18",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9408049208025167
+    },
+    {
+      "date": "2023-10-19",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9207326737682846
+    },
+    {
+      "date": "2023-10-20",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9147511440812084
+    },
+    {
+      "date": "2023-10-23",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9052807538438211
+    },
+    {
+      "date": "2023-10-24",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9086385105906705
+    },
+    {
+      "date": "2023-10-25",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9131535362584341
+    },
+    {
+      "date": "2023-10-26",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.915677698092198
+    },
+    {
+      "date": "2023-10-27",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9282475963904478
+    },
+    {
+      "date": "2023-10-30",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9338203299071303
+    },
+    {
+      "date": "2023-10-31",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9308847086314878
+    },
+    {
+      "date": "2023-11-01",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9304993649407809
+    },
+    {
+      "date": "2023-11-02",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9261119258848769
+    },
+    {
+      "date": "2023-11-03",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9339152995928985
+    },
+    {
+      "date": "2023-11-06",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9465456219368921
+    },
+    {
+      "date": "2023-11-07",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9431975215869806
+    },
+    {
+      "date": "2023-11-08",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9409339778850693
+    },
+    {
+      "date": "2023-11-09",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9413910627698383
+    },
+    {
+      "date": "2023-11-10",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9345284287701319
+    },
+    {
+      "date": "2023-11-13",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9326848518302021
+    },
+    {
+      "date": "2023-11-14",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9333738634096627
+    },
+    {
+      "date": "2023-11-15",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9399368263811576
+    },
+    {
+      "date": "2023-11-16",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9308478431162167
+    },
+    {
+      "date": "2023-11-17",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9297285874808385
+    },
+    {
+      "date": "2023-11-20",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.931879509640414
+    },
+    {
+      "date": "2023-11-21",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.933115704654602
+    },
+    {
+      "date": "2023-11-22",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9235655322885538
+    },
+    {
+      "date": "2023-11-23",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9280223929140092
+    },
+    {
+      "date": "2023-11-24",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9218959862695751
+    },
+    {
+      "date": "2023-11-27",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.91510387029747
+    },
+    {
+      "date": "2023-11-28",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.91681863841691
+    },
+    {
+      "date": "2023-11-29",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9089453135021599
+    },
+    {
+      "date": "2023-11-30",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.911002644684475
+    },
+    {
+      "date": "2023-12-01",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9075314636059694
+    },
+    {
+      "date": "2023-12-04",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9016052409484093
+    },
+    {
+      "date": "2023-12-05",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8844387411747238
+    },
+    {
+      "date": "2023-12-06",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8858303554747295
+    },
+    {
+      "date": "2023-12-07",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8836635653502367
+    },
+    {
+      "date": "2023-12-08",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8857949279371806
+    },
+    {
+      "date": "2023-12-11",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8910044564751539
+    },
+    {
+      "date": "2023-12-12",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.892919106281225
+    },
+    {
+      "date": "2023-12-13",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.878015047918591
+    },
+    {
+      "date": "2023-12-14",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8734183107651092
+    },
+    {
+      "date": "2023-12-15",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8707052149600528
+    },
+    {
+      "date": "2023-12-18",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8675299350184834
+    },
+    {
+      "date": "2023-12-19",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8687481946402928
+    },
+    {
+      "date": "2023-12-20",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8592272469696786
+    },
+    {
+      "date": "2023-12-21",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8679218370791718
+    },
+    {
+      "date": "2023-12-22",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8695786116852973
+    },
+    {
+      "date": "2023-12-25",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.872242306627769
+    },
+    {
+      "date": "2023-12-26",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8663376812607104
+    },
+    {
+      "date": "2023-12-27",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8693516735191671
+    },
+    {
+      "date": "2023-12-28",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8897237867906381
+    },
+    {
+      "date": "2023-12-29",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8940413071489173
+    },
+    {
+      "date": "2024-01-02",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8823788467414106
+    },
+    {
+      "date": "2024-01-03",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8802799302374333
+    },
+    {
+      "date": "2024-01-04",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8721384033806129
+    },
+    {
+      "date": "2024-01-05",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8674636312129849
+    },
+    {
+      "date": "2024-01-08",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8562448654670792
+    },
+    {
+      "date": "2024-01-09",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8579237513545213
+    },
+    {
+      "date": "2024-01-10",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8539186587202666
+    },
+    {
+      "date": "2024-01-11",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.858750360195425
+    },
+    {
+      "date": "2024-01-12",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8557525272660099
+    },
+    {
+      "date": "2024-01-15",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.854906374998471
+    },
+    {
+      "date": "2024-01-16",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.860106474679981
+    },
+    {
+      "date": "2024-01-17",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8413991304721777
+    },
+    {
+      "date": "2024-01-18",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8532932125268664
+    },
+    {
+      "date": "2024-01-19",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8520028374440629
+    },
+    {
+      "date": "2024-01-22",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8387464596920522
+    },
+    {
+      "date": "2024-01-23",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8421419968252803
+    },
+    {
+      "date": "2024-01-24",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.853913461025472
+    },
+    {
+      "date": "2024-01-25",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8710615445027279
+    },
+    {
+      "date": "2024-01-26",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8686909605265715
+    },
+    {
+      "date": "2024-01-29",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8609101225225547
+    },
+    {
+      "date": "2024-01-30",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8455569527160304
+    },
+    {
+      "date": "2024-01-31",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8378214434242209
+    },
+    {
+      "date": "2024-02-01",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8384361808329331
+    },
+    {
+      "date": "2024-02-02",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8285128564189242
+    },
+    {
+      "date": "2024-02-05",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8339311826932105
+    },
+    {
+      "date": "2024-02-06",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8629247933550667
+    },
+    {
+      "date": "2024-02-07",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8712468672443139
+    },
+    {
+      "date": "2024-02-08",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8767967686849484
+    },
+    {
+      "date": "2024-02-19",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8869271768419091
+    },
+    {
+      "date": "2024-02-20",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8887632832837448
+    },
+    {
+      "date": "2024-02-21",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9007539371337328
+    },
+    {
+      "date": "2024-02-22",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9085198529577687
+    },
+    {
+      "date": "2024-02-23",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9093190282218057
+    },
+    {
+      "date": "2024-02-26",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8998386444414566
+    },
+    {
+      "date": "2024-02-27",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9106337800998049
+    },
+    {
+      "date": "2024-02-28",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.899031259878437
+    },
+    {
+      "date": "2024-02-29",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9161826716847381
+    },
+    {
+      "date": "2024-03-01",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9218425403930287
+    },
+    {
+      "date": "2024-03-04",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9226411269625316
+    },
+    {
+      "date": "2024-03-05",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9290630708815127
+    },
+    {
+      "date": "2024-03-06",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.925293594432782
+    },
+    {
+      "date": "2024-03-07",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9197360031464229
+    },
+    {
+      "date": "2024-03-08",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9236941556482693
+    },
+    {
+      "date": "2024-03-11",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.935251277445923
+    },
+    {
+      "date": "2024-03-12",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.937395911502747
+    },
+    {
+      "date": "2024-03-13",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9308470752484106
+    },
+    {
+      "date": "2024-03-14",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9282053722061269
+    },
+    {
+      "date": "2024-03-15",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9302299481455146
+    },
+    {
+      "date": "2024-03-18",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9389681310702058
+    },
+    {
+      "date": "2024-03-19",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9322199826992871
+    },
+    {
+      "date": "2024-03-20",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9342403131512925
+    },
+    {
+      "date": "2024-03-21",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9331214889069099
+    },
+    {
+      "date": "2024-03-22",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9237180905388235
+    },
+    {
+      "date": "2024-03-25",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9187050696903151
+    },
+    {
+      "date": "2024-03-26",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9233909145169031
+    },
+    {
+      "date": "2024-03-27",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.912718035446533
+    },
+    {
+      "date": "2024-03-28",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9174547289882143
+    },
+    {
+      "date": "2024-03-29",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9217591696893029
+    },
+    {
+      "date": "2024-04-01",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.936914460194861
+    },
+    {
+      "date": "2024-04-02",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9330135575331544
+    },
+    {
+      "date": "2024-04-03",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9296593233177892
+    },
+    {
+      "date": "2024-04-08",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9214786815155804
+    },
+    {
+      "date": "2024-04-09",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9207176488959922
+    },
+    {
+      "date": "2024-04-10",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.913218865845994
+    },
+    {
+      "date": "2024-04-11",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9130979721791531
+    },
+    {
+      "date": "2024-04-12",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.905696297293147
+    },
+    {
+      "date": "2024-04-15",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.924779645233477
+    },
+    {
+      "date": "2024-04-16",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.914888042161181
+    },
+    {
+      "date": "2024-04-17",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9290339697078099
+    },
+    {
+      "date": "2024-04-18",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9301801160362331
+    },
+    {
+      "date": "2024-04-19",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9228477164022256
+    },
+    {
+      "date": "2024-04-22",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9200446652083595
+    },
+    {
+      "date": "2024-04-23",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.913613922580495
+    },
+    {
+      "date": "2024-04-24",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.917625886910258
+    },
+    {
+      "date": "2024-04-25",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9198822647323582
+    },
+    {
+      "date": "2024-04-26",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.933949697188765
+    },
+    {
+      "date": "2024-04-29",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9442796253997285
+    },
+    {
+      "date": "2024-04-30",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9391937964322173
+    },
+    {
+      "date": "2024-05-06",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9531296474334613
+    },
+    {
+      "date": "2024-05-07",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9534242690528406
+    },
+    {
+      "date": "2024-05-08",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9459239844705437
+    },
+    {
+      "date": "2024-05-09",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9548712713363741
+    },
+    {
+      "date": "2024-05-10",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9553183937241496
+    },
+    {
+      "date": "2024-05-13",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9549049990631225
+    },
+    {
+      "date": "2024-05-14",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9529128550551861
+    },
+    {
+      "date": "2024-05-15",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9448379353666098
+    },
+    {
+      "date": "2024-05-16",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9485648637200703
+    },
+    {
+      "date": "2024-05-17",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9583649725180902
+    },
+    {
+      "date": "2024-05-20",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9617505386215263
+    },
+    {
+      "date": "2024-05-21",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.957893783354828
+    },
+    {
+      "date": "2024-05-22",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9600537983942231
+    },
+    {
+      "date": "2024-05-23",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9489381582287216
+    },
+    {
+      "date": "2024-05-24",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9384329478374321
+    },
+    {
+      "date": "2024-05-27",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.947352896586868
+    },
+    {
+      "date": "2024-05-28",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9404385573461915
+    },
+    {
+      "date": "2024-05-29",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9415719794440927
+    },
+    {
+      "date": "2024-05-30",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9365663963701159
+    },
+    {
+      "date": "2024-05-31",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9328175552270453
+    },
+    {
+      "date": "2024-06-03",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9351167371653051
+    },
+    {
+      "date": "2024-06-04",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9421320568017414
+    },
+    {
+      "date": "2024-06-05",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9366919978793569
+    },
+    {
+      "date": "2024-06-06",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9360279974918165
+    },
+    {
+      "date": "2024-06-07",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9313036192299483
+    },
+    {
+      "date": "2024-06-11",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9231641848507974
+    },
+    {
+      "date": "2024-06-12",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9234887215582862
+    },
+    {
+      "date": "2024-06-13",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9188005507197767
+    },
+    {
+      "date": "2024-06-14",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9228140424222232
+    },
+    {
+      "date": "2024-06-17",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.921423981237641
+    },
+    {
+      "date": "2024-06-18",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.923871157833862
+    },
+    {
+      "date": "2024-06-19",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9194829227348278
+    },
+    {
+      "date": "2024-06-20",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.912846914257812
+    },
+    {
+      "date": "2024-06-21",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.910850451235936
+    },
+    {
+      "date": "2024-06-24",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9059492842792445
+    },
+    {
+      "date": "2024-06-25",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9010224349199687
+    },
+    {
+      "date": "2024-06-26",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9068494407129293
+    },
+    {
+      "date": "2024-06-27",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9000362388777239
+    },
+    {
+      "date": "2024-06-28",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9020007677771195
+    },
+    {
+      "date": "2024-07-01",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9063067886523761
+    },
+    {
+      "date": "2024-07-02",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9046399446432821
+    },
+    {
+      "date": "2024-07-03",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9024585809169241
+    },
+    {
+      "date": "2024-07-04",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.897872222334145
+    },
+    {
+      "date": "2024-07-05",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8940282311248269
+    },
+    {
+      "date": "2024-07-08",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8863935188021395
+    },
+    {
+      "date": "2024-07-09",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8963082974393258
+    },
+    {
+      "date": "2024-07-10",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8934823742437766
+    },
+    {
+      "date": "2024-07-11",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.903697456371515
+    },
+    {
+      "date": "2024-07-12",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9048002794957594
+    },
+    {
+      "date": "2024-07-15",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9058021966037347
+    },
+    {
+      "date": "2024-07-16",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.911544142851566
+    },
+    {
+      "date": "2024-07-17",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9124042225794285
+    },
+    {
+      "date": "2024-07-18",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9174455757981003
+    },
+    {
+      "date": "2024-07-19",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9221579163724744
+    },
+    {
+      "date": "2024-07-22",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.9158805956268803
+    },
+    {
+      "date": "2024-07-23",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8963257023000983
+    },
+    {
+      "date": "2024-07-24",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8906682967678912
+    },
+    {
+      "date": "2024-07-25",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8857449186285905
+    },
+    {
+      "date": "2024-07-26",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8883562407966192
+    },
+    {
+      "date": "2024-07-29",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8835223679306907
+    },
+    {
+      "date": "2024-07-30",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8779566225730575
+    },
+    {
+      "date": "2024-07-31",
+      "portfolio_nav": 1.0,
+      "benchmark_nav": 0.8969006069267873
+    },
+    {
+      "date": "2024-08-01",
+      "portfolio_nav": 0.9985053678979574,
+      "benchmark_nav": 0.8909549546825432
+    },
+    {
+      "date": "2024-08-02",
+      "portfolio_nav": 0.9852444782577557,
+      "benchmark_nav": 0.881867671204673
+    },
+    {
+      "date": "2024-08-05",
+      "portfolio_nav": 0.9662965849953088,
+      "benchmark_nav": 0.8711657607895626
+    },
+    {
+      "date": "2024-08-06",
+      "portfolio_nav": 0.9773701710124951,
+      "benchmark_nav": 0.8710767604394891
+    },
+    {
+      "date": "2024-08-07",
+      "portfolio_nav": 0.9786229566384496,
+      "benchmark_nav": 0.870688501030925
+    },
+    {
+      "date": "2024-08-08",
+      "portfolio_nav": 0.975639149743693,
+      "benchmark_nav": 0.8710657927960643
+    },
+    {
+      "date": "2024-08-09",
+      "portfolio_nav": 0.9682451990937265,
+      "benchmark_nav": 0.868118890112456
+    },
+    {
+      "date": "2024-08-12",
+      "portfolio_nav": 0.9570672153813461,
+      "benchmark_nav": 0.8666172298627564
+    },
+    {
+      "date": "2024-08-13",
+      "portfolio_nav": 0.9646873878956854,
+      "benchmark_nav": 0.8688387828526664
+    },
+    {
+      "date": "2024-08-14",
+      "portfolio_nav": 0.9598417592871007,
+      "benchmark_nav": 0.862285108107426
+    },
+    {
+      "date": "2024-08-15",
+      "portfolio_nav": 0.9657889956314295,
+      "benchmark_nav": 0.8708093732698052
+    },
+    {
+      "date": "2024-08-16",
+      "portfolio_nav": 0.9605788682010747,
+      "benchmark_nav": 0.8717685643954438
+    },
+    {
+      "date": "2024-08-19",
+      "portfolio_nav": 0.957212282670033,
+      "benchmark_nav": 0.8747217417798403
+    },
+    {
+      "date": "2024-08-20",
+      "portfolio_nav": 0.9419927372607352,
+      "benchmark_nav": 0.8683991861140423
+    },
+    {
+      "date": "2024-08-21",
+      "portfolio_nav": 0.9398412726178512,
+      "benchmark_nav": 0.8655151358509681
+    },
+    {
+      "date": "2024-08-22",
+      "portfolio_nav": 0.927097263836538,
+      "benchmark_nav": 0.86330048359094
+    },
+    {
+      "date": "2024-08-23",
+      "portfolio_nav": 0.9243873236182035,
+      "benchmark_nav": 0.866962658284943
+    },
+    {
+      "date": "2024-08-26",
+      "portfolio_nav": 0.9332142775117148,
+      "benchmark_nav": 0.86618949691156
+    },
+    {
+      "date": "2024-08-27",
+      "portfolio_nav": 0.9283162072990748,
+      "benchmark_nav": 0.8612675058899741
+    },
+    {
+      "date": "2024-08-28",
+      "portfolio_nav": 0.9398562609946698,
+      "benchmark_nav": 0.8563588525573914
+    },
+    {
+      "date": "2024-08-29",
+      "portfolio_nav": 0.9509533077888332,
+      "benchmark_nav": 0.8540620722527952
+    },
+    {
+      "date": "2024-08-30",
+      "portfolio_nav": 0.967814653710824,
+      "benchmark_nav": 0.8654622823950056
+    },
+    {
+      "date": "2024-09-02",
+      "portfolio_nav": 0.95252438731769,
+      "benchmark_nav": 0.8507606010396676
+    },
+    {
+      "date": "2024-09-03",
+      "portfolio_nav": 0.9660725180854473,
+      "benchmark_nav": 0.8529538788843599
+    },
+    {
+      "date": "2024-09-04",
+      "portfolio_nav": 0.956745455081396,
+      "benchmark_nav": 0.8474132832547038
+    },
+    {
+      "date": "2024-09-05",
+      "portfolio_nav": 0.9682621804821845,
+      "benchmark_nav": 0.8488706920754356
+    },
+    {
+      "date": "2024-09-06",
+      "portfolio_nav": 0.9518030763086036,
+      "benchmark_nav": 0.8419885374536067
+    },
+    {
+      "date": "2024-09-09",
+      "portfolio_nav": 0.9496716120240083,
+      "benchmark_nav": 0.8319842241509351
+    },
+    {
+      "date": "2024-09-10",
+      "portfolio_nav": 0.9469436832059623,
+      "benchmark_nav": 0.8327146866649119
+    },
+    {
+      "date": "2024-09-11",
+      "portfolio_nav": 0.9466040843579512,
+      "benchmark_nav": 0.8302066480391957
+    },
+    {
+      "date": "2024-09-12",
+      "portfolio_nav": 0.9437237139924586,
+      "benchmark_nav": 0.8266484886121507
+    },
+    {
+      "date": "2024-09-13",
+      "portfolio_nav": 0.9300865213734528,
+      "benchmark_nav": 0.8232018074982279
+    },
+    {
+      "date": "2024-09-18",
+      "portfolio_nav": 0.92201528189853,
+      "benchmark_nav": 0.8262669031138361
+    },
+    {
+      "date": "2024-09-19",
+      "portfolio_nav": 0.9418769915072197,
+      "benchmark_nav": 0.8327877131026519
+    },
+    {
+      "date": "2024-09-20",
+      "portfolio_nav": 0.9423648858223812,
+      "benchmark_nav": 0.8340942849883728
+    },
+    {
+      "date": "2024-09-23",
+      "portfolio_nav": 0.9445087146887187,
+      "benchmark_nav": 0.8371466420142432
+    },
+    {
+      "date": "2024-09-24",
+      "portfolio_nav": 0.9759159766178324,
+      "benchmark_nav": 0.8734035015886256
+    },
+    {
+      "date": "2024-09-25",
+      "portfolio_nav": 0.9839378330970924,
+      "benchmark_nav": 0.8863339967500682
+    },
+    {
+      "date": "2024-09-26",
+      "portfolio_nav": 1.0135325324688238,
+      "benchmark_nav": 0.923800554388273
+    },
+    {
+      "date": "2024-09-27",
+      "portfolio_nav": 1.0626792325472907,
+      "benchmark_nav": 0.965065390260996
+    },
+    {
+      "date": "2024-09-30",
+      "portfolio_nav": 1.1858155750599086,
+      "benchmark_nav": 1.0469282490203151
+    },
+    {
+      "date": "2024-10-08",
+      "portfolio_nav": 1.2850820327412993,
+      "benchmark_nav": 1.1090066698684393
+    },
+    {
+      "date": "2024-10-09",
+      "portfolio_nav": 1.1579148204304908,
+      "benchmark_nav": 1.0308067391427378
+    },
+    {
+      "date": "2024-10-10",
+      "portfolio_nav": 1.143391015672794,
+      "benchmark_nav": 1.0416995909283313
+    },
+    {
+      "date": "2024-10-11",
+      "portfolio_nav": 1.1063719364104008,
+      "benchmark_nav": 1.0128752392724503
+    },
+    {
+      "date": "2024-10-14",
+      "portfolio_nav": 1.1391662788547727,
+      "benchmark_nav": 1.032202995489514
+    },
+    {
+      "date": "2024-10-15",
+      "portfolio_nav": 1.1287543483945952,
+      "benchmark_nav": 1.0047527294070733
+    },
+    {
+      "date": "2024-10-16",
+      "portfolio_nav": 1.1297870493568352,
+      "benchmark_nav": 0.9983933499663425
+    },
+    {
+      "date": "2024-10-17",
+      "portfolio_nav": 1.1281562854103697,
+      "benchmark_nav": 0.9870931486515904
+    },
+    {
+      "date": "2024-10-18",
+      "portfolio_nav": 1.1589610199719005,
+      "benchmark_nav": 1.0227943139101583
+    },
+    {
+      "date": "2024-10-21",
+      "portfolio_nav": 1.191065338987512,
+      "benchmark_nav": 1.0253904966505434
+    },
+    {
+      "date": "2024-10-22",
+      "portfolio_nav": 1.2127431119599221,
+      "benchmark_nav": 1.0312735966953983
+    },
+    {
+      "date": "2024-10-23",
+      "portfolio_nav": 1.2161791093757064,
+      "benchmark_nav": 1.0352951247093403
+    },
+    {
+      "date": "2024-10-24",
+      "portfolio_nav": 1.2282357972977695,
+      "benchmark_nav": 1.0237322664970991
+    },
+    {
+      "date": "2024-10-25",
+      "portfolio_nav": 1.2677806259438646,
+      "benchmark_nav": 1.0309206943700044
+    },
+    {
+      "date": "2024-10-28",
+      "portfolio_nav": 1.3141873501677737,
+      "benchmark_nav": 1.0329364235008218
+    },
+    {
+      "date": "2024-10-29",
+      "portfolio_nav": 1.3026960250913078,
+      "benchmark_nav": 1.0226418547621756
+    },
+    {
+      "date": "2024-10-30",
+      "portfolio_nav": 1.304759142191671,
+      "benchmark_nav": 1.013469770763037
+    },
+    {
+      "date": "2024-10-31",
+      "portfolio_nav": 1.338403135268408,
+      "benchmark_nav": 1.0138842870645104
+    },
+    {
+      "date": "2024-11-01",
+      "portfolio_nav": 1.2789074022793303,
+      "benchmark_nav": 1.0136186875033486
+    },
+    {
+      "date": "2024-11-04",
+      "portfolio_nav": 1.310747254592054,
+      "benchmark_nav": 1.0278826327458832
+    },
+    {
+      "date": "2024-11-05",
+      "portfolio_nav": 1.3623061542803103,
+      "benchmark_nav": 1.0538901725695164
+    },
+    {
+      "date": "2024-11-06",
+      "portfolio_nav": 1.3802110029994898,
+      "benchmark_nav": 1.0486033894288909
+    },
+    {
+      "date": "2024-11-07",
+      "portfolio_nav": 1.4230260079778405,
+      "benchmark_nav": 1.0802395911544351
+    },
+    {
+      "date": "2024-11-08",
+      "portfolio_nav": 1.4258327959876194,
+      "benchmark_nav": 1.0693873054576128
+    },
+    {
+      "date": "2024-11-11",
+      "portfolio_nav": 1.4777522425303211,
+      "benchmark_nav": 1.0764446481661358
+    },
+    {
+      "date": "2024-11-12",
+      "portfolio_nav": 1.4761624016430057,
+      "benchmark_nav": 1.0646178326265276
+    },
+    {
+      "date": "2024-11-13",
+      "portfolio_nav": 1.473550914270855,
+      "benchmark_nav": 1.0711704436014715
+    },
+    {
+      "date": "2024-11-14",
+      "portfolio_nav": 1.4330410665159068,
+      "benchmark_nav": 1.0525994084433794
+    },
+    {
+      "date": "2024-11-15",
+      "portfolio_nav": 1.4018102291654184,
+      "benchmark_nav": 1.0341541542893378
+    },
+    {
+      "date": "2024-11-18",
+      "portfolio_nav": 1.3637313896444703,
+      "benchmark_nav": 1.029346635335356
+    },
+    {
+      "date": "2024-11-19",
+      "portfolio_nav": 1.3909716641837564,
+      "benchmark_nav": 1.0362544642889218
+    },
+    {
+      "date": "2024-11-20",
+      "portfolio_nav": 1.4217046502889192,
+      "benchmark_nav": 1.03856869698037
+    },
+    {
+      "date": "2024-11-21",
+      "portfolio_nav": 1.4242791534658894,
+      "benchmark_nav": 1.0394872213643704
+    },
+    {
+      "date": "2024-11-22",
+      "portfolio_nav": 1.3836774425747138,
+      "benchmark_nav": 1.0072811900269056
+    },
+    {
+      "date": "2024-11-25",
+      "portfolio_nav": 1.4025910448099497,
+      "benchmark_nav": 1.0026930373009886
+    },
+    {
+      "date": "2024-11-26",
+      "portfolio_nav": 1.3878229282754087,
+      "benchmark_nav": 1.0006329919221908
+    },
+    {
+      "date": "2024-11-27",
+      "portfolio_nav": 1.4059800768687087,
+      "benchmark_nav": 1.0180546487141389
+    },
+    {
+      "date": "2024-11-28",
+      "portfolio_nav": 1.4115501385362799,
+      "benchmark_nav": 1.0090665496370363
+    },
+    {
+      "date": "2024-11-29",
+      "portfolio_nav": 1.4275636617848453,
+      "benchmark_nav": 1.0205400601143604
+    },
+    {
+      "date": "2024-12-02",
+      "portfolio_nav": 1.4548469133933435,
+      "benchmark_nav": 1.0286304292008992
+    },
+    {
+      "date": "2024-12-03",
+      "portfolio_nav": 1.4593514775678464,
+      "benchmark_nav": 1.029740161070523
+    },
+    {
+      "date": "2024-12-04",
+      "portfolio_nav": 1.4363570675292334,
+      "benchmark_nav": 1.0241810964541018
+    },
+    {
+      "date": "2024-12-05",
+      "portfolio_nav": 1.4574780143522101,
+      "benchmark_nav": 1.0218441353909293
+    },
+    {
+      "date": "2024-12-06",
+      "portfolio_nav": 1.4719698089844364,
+      "benchmark_nav": 1.0352770981133281
+    },
+    {
+      "date": "2024-12-09",
+      "portfolio_nav": 1.4826154464411356,
+      "benchmark_nav": 1.033565275196176
+    },
+    {
+      "date": "2024-12-10",
+      "portfolio_nav": 1.4883416035955537,
+      "benchmark_nav": 1.041139029651932
+    },
+    {
+      "date": "2024-12-11",
+      "portfolio_nav": 1.5159119291528322,
+      "benchmark_nav": 1.039365572689895
+    },
+    {
+      "date": "2024-12-12",
+      "portfolio_nav": 1.531924485516786,
+      "benchmark_nav": 1.0497034622963568
+    },
+    {
+      "date": "2024-12-13",
+      "portfolio_nav": 1.4986517259701586,
+      "benchmark_nav": 1.024864971686557
+    },
+    {
+      "date": "2024-12-16",
+      "portfolio_nav": 1.483118502281661,
+      "benchmark_nav": 1.0193046149513252
+    },
+    {
+      "date": "2024-12-17",
+      "portfolio_nav": 1.4284398151478717,
+      "benchmark_nav": 1.0219603501325556
+    },
+    {
+      "date": "2024-12-18",
+      "portfolio_nav": 1.4376625574200768,
+      "benchmark_nav": 1.0271343498994732
+    },
+    {
+      "date": "2024-12-19",
+      "portfolio_nav": 1.439515583547315,
+      "benchmark_nav": 1.0280655361888484
+    },
+    {
+      "date": "2024-12-20",
+      "portfolio_nav": 1.461570746206102,
+      "benchmark_nav": 1.0234484619957926
+    },
+    {
+      "date": "2024-12-23",
+      "portfolio_nav": 1.400036004644262,
+      "benchmark_nav": 1.0249669307817486
+    },
+    {
+      "date": "2024-12-24",
+      "portfolio_nav": 1.4040626731232748,
+      "benchmark_nav": 1.0380257587307347
+    },
+    {
+      "date": "2024-12-25",
+      "portfolio_nav": 1.3736646274989415,
+      "benchmark_nav": 1.038531493568664
+    },
+    {
+      "date": "2024-12-26",
+      "portfolio_nav": 1.3896779533724215,
+      "benchmark_nav": 1.0390137046986936
+    },
+    {
+      "date": "2024-12-27",
+      "portfolio_nav": 1.404657784875166,
+      "benchmark_nav": 1.0373332330250977
+    },
+    {
+      "date": "2024-12-30",
+      "portfolio_nav": 1.3907114742454172,
+      "benchmark_nav": 1.0420298308136118
+    },
+    {
+      "date": "2024-12-31",
+      "portfolio_nav": 1.370983817257793,
+      "benchmark_nav": 1.0253158921956558
+    },
+    {
+      "date": "2025-01-02",
+      "portfolio_nav": 1.3442287997790807,
+      "benchmark_nav": 0.9954766928354057
+    },
+    {
+      "date": "2025-01-03",
+      "portfolio_nav": 1.3006169436286896,
+      "benchmark_nav": 0.9836910342233453
+    },
+    {
+      "date": "2025-01-06",
+      "portfolio_nav": 1.2933574846537208,
+      "benchmark_nav": 0.9820767627086294
+    },
+    {
+      "date": "2025-01-07",
+      "portfolio_nav": 1.3242517891917618,
+      "benchmark_nav": 0.9891474839246385
+    },
+    {
+      "date": "2025-01-08",
+      "portfolio_nav": 1.326188144724035,
+      "benchmark_nav": 0.987352101516028
+    },
+    {
+      "date": "2025-01-09",
+      "portfolio_nav": 1.334752986329743,
+      "benchmark_nav": 0.9849188575690633
+    },
+    {
+      "date": "2025-01-10",
+      "portfolio_nav": 1.295402782518153,
+      "benchmark_nav": 0.9725688142460138
+    },
+    {
+      "date": "2025-01-13",
+      "portfolio_nav": 1.2972482491473925,
+      "benchmark_nav": 0.9699715434544963
+    },
+    {
+      "date": "2025-01-14",
+      "portfolio_nav": 1.3574600872317995,
+      "benchmark_nav": 0.9955142415654497
+    },
+    {
+      "date": "2025-01-15",
+      "portfolio_nav": 1.3511585775108301,
+      "benchmark_nav": 0.9891267623623486
+    },
+    {
+      "date": "2025-01-16",
+      "portfolio_nav": 1.3582897742350846,
+      "benchmark_nav": 0.9902622655432026
+    },
+    {
+      "date": "2025-01-17",
+      "portfolio_nav": 1.3611786158940011,
+      "benchmark_nav": 0.9933785087951786
+    },
+    {
+      "date": "2025-01-20",
+      "portfolio_nav": 1.3690513699386466,
+      "benchmark_nav": 0.9978950455431778
+    },
+    {
+      "date": "2025-01-21",
+      "portfolio_nav": 1.367184955913309,
+      "benchmark_nav": 0.9986605426077756
+    },
+    {
+      "date": "2025-01-22",
+      "portfolio_nav": 1.3589512315635113,
+      "benchmark_nav": 0.9893848516648429
+    },
+    {
+      "date": "2025-01-23",
+      "portfolio_nav": 1.3578667546411618,
+      "benchmark_nav": 0.9911377334286118
+    },
+    {
+      "date": "2025-01-24",
+      "portfolio_nav": 1.3701056279424306,
+      "benchmark_nav": 0.9987255078780852
+    },
+    {
+      "date": "2025-01-27",
+      "portfolio_nav": 1.356396841734335,
+      "benchmark_nav": 0.9946127904929282
+    },
+    {
+      "date": "2025-02-05",
+      "portfolio_nav": 1.369981477772337,
+      "benchmark_nav": 0.9888814948182171
+    },
+    {
+      "date": "2025-02-06",
+      "portfolio_nav": 1.4006609316609209,
+      "benchmark_nav": 1.0013227216814895
+    },
+    {
+      "date": "2025-02-07",
+      "portfolio_nav": 1.4211779754941989,
+      "benchmark_nav": 1.0143177262498522
+    },
+    {
+      "date": "2025-02-10",
+      "portfolio_nav": 1.4519645623978055,
+      "benchmark_nav": 1.0164957879468297
+    },
+    {
+      "date": "2025-02-11",
+      "portfolio_nav": 1.4450688004927223,
+      "benchmark_nav": 1.0118247054873422
+    },
+    {
+      "date": "2025-02-12",
+      "portfolio_nav": 1.4646259912178385,
+      "benchmark_nav": 1.0213944889133073
+    },
+    {
+      "date": "2025-02-13",
+      "portfolio_nav": 1.4551603588350588,
+      "benchmark_nav": 1.0175583882979418
+    },
+    {
+      "date": "2025-02-14",
+      "portfolio_nav": 1.458322820979712,
+      "benchmark_nav": 1.026383502267399
+    },
+    {
+      "date": "2025-02-17",
+      "portfolio_nav": 1.474634026386005,
+      "benchmark_nav": 1.028569609216034
+    },
+    {
+      "date": "2025-02-18",
+      "portfolio_nav": 1.4404882343478664,
+      "benchmark_nav": 1.019549922884529
+    },
+    {
+      "date": "2025-02-19",
+      "portfolio_nav": 1.4722070821601123,
+      "benchmark_nav": 1.0266835811534623
+    },
+    {
+      "date": "2025-02-20",
+      "portfolio_nav": 1.4876576457213637,
+      "benchmark_nav": 1.0237484800620298
+    },
+    {
+      "date": "2025-02-21",
+      "portfolio_nav": 1.4990361633889675,
+      "benchmark_nav": 1.0366591267301126
+    },
+    {
+      "date": "2025-02-24",
+      "portfolio_nav": 1.502790255236443,
+      "benchmark_nav": 1.0343850804809414
+    },
+    {
+      "date": "2025-02-25",
+      "portfolio_nav": 1.4986105412081787,
+      "benchmark_nav": 1.0229027337373005
+    },
+    {
+      "date": "2025-02-26",
+      "portfolio_nav": 1.5153061500829035,
+      "benchmark_nav": 1.0318378515135627
+    },
+    {
+      "date": "2025-02-27",
+      "portfolio_nav": 1.5099954492405236,
+      "benchmark_nav": 1.0339679231963723
+    },
+    {
+      "date": "2025-02-28",
+      "portfolio_nav": 1.4675988897557724,
+      "benchmark_nav": 1.0136260053340196
+    },
+    {
+      "date": "2025-03-03",
+      "portfolio_nav": 1.4720244516675667,
+      "benchmark_nav": 1.0132157147258027
+    },
+    {
+      "date": "2025-03-04",
+      "portfolio_nav": 1.4936648482210013,
+      "benchmark_nav": 1.0123680475161334
+    },
+    {
+      "date": "2025-03-05",
+      "portfolio_nav": 1.4917827143875955,
+      "benchmark_nav": 1.0168888580217605
+    },
+    {
+      "date": "2025-03-06",
+      "portfolio_nav": 1.5177994452451902,
+      "benchmark_nav": 1.0308726122710687
+    },
+    {
+      "date": "2025-03-07",
+      "portfolio_nav": 1.5112051785258092,
+      "benchmark_nav": 1.0276878055582854
+    },
+    {
+      "date": "2025-03-10",
+      "portfolio_nav": 1.5242249165848236,
+      "benchmark_nav": 1.0237238741322432
+    },
+    {
+      "date": "2025-03-11",
+      "portfolio_nav": 1.5339522170121118,
+      "benchmark_nav": 1.0270107073161154
+    },
+    {
+      "date": "2025-03-12",
+      "portfolio_nav": 1.5447576869197486,
+      "benchmark_nav": 1.0233146917341276
+    },
+    {
+      "date": "2025-03-13",
+      "portfolio_nav": 1.5259563111777699,
+      "benchmark_nav": 1.0192362464706686
+    },
+    {
+      "date": "2025-03-14",
+      "portfolio_nav": 1.5519671683438403,
+      "benchmark_nav": 1.043984347252129
+    },
+    {
+      "date": "2025-03-17",
+      "portfolio_nav": 1.5671700802347142,
+      "benchmark_nav": 1.0414388553405978
+    },
+    {
+      "date": "2025-03-18",
+      "portfolio_nav": 1.576239474111317,
+      "benchmark_nav": 1.0442882033050973
+    },
+    {
+      "date": "2025-03-19",
+      "portfolio_nav": 1.5712260781149172,
+      "benchmark_nav": 1.0449253372598808
+    },
+    {
+      "date": "2025-03-20",
+      "portfolio_nav": 1.5691905244647812,
+      "benchmark_nav": 1.0357594852197873
+    },
+    {
+      "date": "2025-03-21",
+      "portfolio_nav": 1.5451257730982604,
+      "benchmark_nav": 1.020048209095449
+    },
+    {
+      "date": "2025-03-24",
+      "portfolio_nav": 1.5090552751647321,
+      "benchmark_nav": 1.0252994713384276
+    },
+    {
+      "date": "2025-03-25",
+      "portfolio_nav": 1.5079378372904193,
+      "benchmark_nav": 1.0246341383425033
+    },
+    {
+      "date": "2025-03-26",
+      "portfolio_nav": 1.5256202749840253,
+      "benchmark_nav": 1.021262789145505
+    },
+    {
+      "date": "2025-03-27",
+      "portfolio_nav": 1.5192008252972522,
+      "benchmark_nav": 1.0246644386134338
+    },
+    {
+      "date": "2025-03-28",
+      "portfolio_nav": 1.496506840514426,
+      "benchmark_nav": 1.020170802125764
+    },
+    {
+      "date": "2025-03-31",
+      "portfolio_nav": 1.4798624882493479,
+      "benchmark_nav": 1.0129111857982924
+    },
+    {
+      "date": "2025-04-01",
+      "portfolio_nav": 1.4993522327076805,
+      "benchmark_nav": 1.013009837260193
+    },
+    {
+      "date": "2025-04-02",
+      "portfolio_nav": 1.5055034697182972,
+      "benchmark_nav": 1.0121503870516384
+    },
+    {
+      "date": "2025-04-03",
+      "portfolio_nav": 1.4945969127965353,
+      "benchmark_nav": 1.0061879646890317
+    },
+    {
+      "date": "2025-04-07",
+      "portfolio_nav": 1.3057645369446056,
+      "benchmark_nav": 0.9352968568076787
+    },
+    {
+      "date": "2025-04-08",
+      "portfolio_nav": 1.311919274576072,
+      "benchmark_nav": 0.9512744675417443
+    },
+    {
+      "date": "2025-04-09",
+      "portfolio_nav": 1.3406401385941065,
+      "benchmark_nav": 0.9606641629622362
+    },
+    {
+      "date": "2025-04-10",
+      "portfolio_nav": 1.3817492776928133,
+      "benchmark_nav": 0.973255074190855
+    },
+    {
+      "date": "2025-04-11",
+      "portfolio_nav": 1.4007130366412879,
+      "benchmark_nav": 0.9772682421452487
+    },
+    {
+      "date": "2025-04-14",
+      "portfolio_nav": 1.4295095911693116,
+      "benchmark_nav": 0.9795157495758716
+    },
+    {
+      "date": "2025-04-15",
+      "portfolio_nav": 1.4303242871028867,
+      "benchmark_nav": 0.9800610532420769
+    },
+    {
+      "date": "2025-04-16",
+      "portfolio_nav": 1.4090931447510195,
+      "benchmark_nav": 0.9830798851252525
+    },
+    {
+      "date": "2025-04-17",
+      "portfolio_nav": 1.4203316683296454,
+      "benchmark_nav": 0.9829240194217169
+    },
+    {
+      "date": "2025-04-18",
+      "portfolio_nav": 1.4112388151077333,
+      "benchmark_nav": 0.9830024086099336
+    },
+    {
+      "date": "2025-04-21",
+      "portfolio_nav": 1.4331678742592413,
+      "benchmark_nav": 0.9862224807159423
+    },
+    {
+      "date": "2025-04-22",
+      "portfolio_nav": 1.4373228523376262,
+      "benchmark_nav": 0.985980528072223
+    },
+    {
+      "date": "2025-04-23",
+      "portfolio_nav": 1.4403941175649952,
+      "benchmark_nav": 0.9867440551639227
+    },
+    {
+      "date": "2025-04-24",
+      "portfolio_nav": 1.4223392317555557,
+      "benchmark_nav": 0.9860861558402382
+    },
+    {
+      "date": "2025-04-25",
+      "portfolio_nav": 1.4213654544247225,
+      "benchmark_nav": 0.9867731217340883
+    },
+    {
+      "date": "2025-04-28",
+      "portfolio_nav": 1.3967104600629083,
+      "benchmark_nav": 0.985372647730805
+    },
+    {
+      "date": "2025-04-29",
+      "portfolio_nav": 1.411354872821134,
+      "benchmark_nav": 0.9836679286129891
+    },
+    {
+      "date": "2025-04-30",
+      "portfolio_nav": 1.432031687654858,
+      "benchmark_nav": 0.982493780669143
+    },
+    {
+      "date": "2025-05-06",
+      "portfolio_nav": 1.4760678376813472,
+      "benchmark_nav": 0.9923880452019859
+    },
+    {
+      "date": "2025-05-07",
+      "portfolio_nav": 1.4907957753857348,
+      "benchmark_nav": 0.9984031039497283
+    },
+    {
+      "date": "2025-05-08",
+      "portfolio_nav": 1.5133444231692987,
+      "benchmark_nav": 1.003945220210733
+    },
+    {
+      "date": "2025-05-09",
+      "portfolio_nav": 1.5018433113829717,
+      "benchmark_nav": 1.002189041827364
+    },
+    {
+      "date": "2025-05-12",
+      "portfolio_nav": 1.523625538519825,
+      "benchmark_nav": 1.01377215937221
+    },
+    {
+      "date": "2025-05-13",
+      "portfolio_nav": 1.5209071561309266,
+      "benchmark_nav": 1.0152440043804174
+    },
+    {
+      "date": "2025-05-14",
+      "portfolio_nav": 1.528220081949005,
+      "benchmark_nav": 1.0274783332216801
+    },
+    {
+      "date": "2025-05-15",
+      "portfolio_nav": 1.5251753307357672,
+      "benchmark_nav": 1.0180948832336199
+    },
+    {
+      "date": "2025-05-16",
+      "portfolio_nav": 1.5287130371810522,
+      "benchmark_nav": 1.013375005841326
+    },
+    {
+      "date": "2025-05-19",
+      "portfolio_nav": 1.5543381065271438,
+      "benchmark_nav": 1.010263766624742
+    },
+    {
+      "date": "2025-05-20",
+      "portfolio_nav": 1.5745290143042898,
+      "benchmark_nav": 1.0157422558924658
+    },
+    {
+      "date": "2025-05-21",
+      "portfolio_nav": 1.5688545753248921,
+      "benchmark_nav": 1.0204872495230206
+    },
+    {
+      "date": "2025-05-22",
+      "portfolio_nav": 1.5456752831396108,
+      "benchmark_nav": 1.0198317300885775
+    },
+    {
+      "date": "2025-05-23",
+      "portfolio_nav": 1.5276638715635562,
+      "benchmark_nav": 1.0116001154462348
+    },
+    {
+      "date": "2025-05-26",
+      "portfolio_nav": 1.5463148942075369,
+      "benchmark_nav": 1.0058239334134431
+    },
+    {
+      "date": "2025-05-27",
+      "portfolio_nav": 1.5536592180938136,
+      "benchmark_nav": 1.000427613881456
+    },
+    {
+      "date": "2025-05-28",
+      "portfolio_nav": 1.555452372041855,
+      "benchmark_nav": 0.9996041217553059
+    },
+    {
+      "date": "2025-05-29",
+      "portfolio_nav": 1.5804777780386452,
+      "benchmark_nav": 1.0054573639663724
+    },
+    {
+      "date": "2025-05-30",
+      "portfolio_nav": 1.5586133313628603,
+      "benchmark_nav": 1.0006453502938155
+    },
+    {
+      "date": "2025-06-03",
+      "portfolio_nav": 1.5673129006842477,
+      "benchmark_nav": 1.0037149425785081
+    },
+    {
+      "date": "2025-06-04",
+      "portfolio_nav": 1.5806359783775488,
+      "benchmark_nav": 1.0080743488819905
+    },
+    {
+      "date": "2025-06-05",
+      "portfolio_nav": 1.5847755203969704,
+      "benchmark_nav": 1.0103707123089356
+    },
+    {
+      "date": "2025-06-06",
+      "portfolio_nav": 1.5922622311131698,
+      "benchmark_nav": 1.0094400895507267
+    },
+    {
+      "date": "2025-06-09",
+      "portfolio_nav": 1.6128124562308828,
+      "benchmark_nav": 1.012374569946942
+    },
+    {
+      "date": "2025-06-10",
+      "portfolio_nav": 1.6058786935490579,
+      "benchmark_nav": 1.0072203179176995
+    },
+    {
+      "date": "2025-06-11",
+      "portfolio_nav": 1.6200232349844286,
+      "benchmark_nav": 1.0148185888686139
+    },
+    {
+      "date": "2025-06-12",
+      "portfolio_nav": 1.6246070790788114,
+      "benchmark_nav": 1.0141864298126126
+    },
+    {
+      "date": "2025-06-13",
+      "portfolio_nav": 1.5934490103335495,
+      "benchmark_nav": 1.0068860380037397
+    },
+    {
+      "date": "2025-06-16",
+      "portfolio_nav": 1.610375026884708,
+      "benchmark_nav": 1.0093909476424128
+    },
+    {
+      "date": "2025-06-17",
+      "portfolio_nav": 1.605643513637538,
+      "benchmark_nav": 1.0085006952092597
+    },
+    {
+      "date": "2025-06-18",
+      "portfolio_nav": 1.604535263023812,
+      "benchmark_nav": 1.0096972712999686
+    },
+    {
+      "date": "2025-06-19",
+      "portfolio_nav": 1.5869310710228879,
+      "benchmark_nav": 1.0013905009362591
+    },
+    {
+      "date": "2025-06-20",
+      "portfolio_nav": 1.5752939651590618,
+      "benchmark_nav": 1.0023162544499342
+    },
+    {
+      "date": "2025-06-23",
+      "portfolio_nav": 1.603481345746005,
+      "benchmark_nav": 1.0052496211724125
+    },
+    {
+      "date": "2025-06-24",
+      "portfolio_nav": 1.6312072016007257,
+      "benchmark_nav": 1.0172702795334363
+    },
+    {
+      "date": "2025-06-25",
+      "portfolio_nav": 1.6400022594272923,
+      "benchmark_nav": 1.0318704701463302
+    },
+    {
+      "date": "2025-06-26",
+      "portfolio_nav": 1.63508373919624,
+      "benchmark_nav": 1.0282103508812992
+    },
+    {
+      "date": "2025-06-27",
+      "portfolio_nav": 1.64958016571207,
+      "benchmark_nav": 1.0218885044163613
+    },
+    {
+      "date": "2025-06-30",
+      "portfolio_nav": 1.6730175638758829,
+      "benchmark_nav": 1.0256201737040795
+    },
+    {
+      "date": "2025-07-01",
+      "portfolio_nav": 1.6719146465370267,
+      "benchmark_nav": 1.0273615720432092
+    },
+    {
+      "date": "2025-07-02",
+      "portfolio_nav": 1.6667475262525333,
+      "benchmark_nav": 1.027601982705582
+    },
+    {
+      "date": "2025-07-03",
+      "portfolio_nav": 1.676080620908021,
+      "benchmark_nav": 1.0339554299682343
+    },
+    {
+      "date": "2025-07-04",
+      "portfolio_nav": 1.6601528037692217,
+      "benchmark_nav": 1.0376387216558196
+    },
+    {
+      "date": "2025-07-07",
+      "portfolio_nav": 1.6714018529140133,
+      "benchmark_nav": 1.0332015543520554
+    },
+    {
+      "date": "2025-07-08",
+      "portfolio_nav": 1.690026327680465,
+      "benchmark_nav": 1.041872772787467
+    },
+    {
+      "date": "2025-07-09",
+      "portfolio_nav": 1.6894100344336993,
+      "benchmark_nav": 1.0400352203194798
+    },
+    {
+      "date": "2025-07-10",
+      "portfolio_nav": 1.691734313582049,
+      "benchmark_nav": 1.0448879944964693
+    },
+    {
+      "date": "2025-07-11",
+      "portfolio_nav": 1.6953418823087496,
+      "benchmark_nav": 1.0461340962585994
+    },
+    {
+      "date": "2025-07-14",
+      "portfolio_nav": 1.7061934122725455,
+      "benchmark_nav": 1.0468794813434477
+    },
+    {
+      "date": "2025-07-15",
+      "portfolio_nav": 1.6891209473967088,
+      "benchmark_nav": 1.0472433916215393
+    },
+    {
+      "date": "2025-07-16",
+      "portfolio_nav": 1.704765885433308,
+      "benchmark_nav": 1.0441523874031806
+    },
+    {
+      "date": "2025-07-17",
+      "portfolio_nav": 1.7188468351810422,
+      "benchmark_nav": 1.051263012953777
+    },
+    {
+      "date": "2025-07-18",
+      "portfolio_nav": 1.7212455688203718,
+      "benchmark_nav": 1.057531660659604
+    },
+    {
+      "date": "2025-07-21",
+      "portfolio_nav": 1.7391166895477497,
+      "benchmark_nav": 1.0645822432767913
+    },
+    {
+      "date": "2025-07-22",
+      "portfolio_nav": 1.7393979372335062,
+      "benchmark_nav": 1.0732724015141037
+    },
+    {
+      "date": "2025-07-23",
+      "portfolio_nav": 1.7304587494157042,
+      "benchmark_nav": 1.0734836371281025
+    },
+    {
+      "date": "2025-07-24",
+      "portfolio_nav": 1.7503360425803212,
+      "benchmark_nav": 1.0811099628853182
+    },
+    {
+      "date": "2025-07-25",
+      "portfolio_nav": 1.761746769522676,
+      "benchmark_nav": 1.0754105111652614
+    },
+    {
+      "date": "2025-07-28",
+      "portfolio_nav": 1.7672547303772035,
+      "benchmark_nav": 1.0776671967812625
+    },
+    {
+      "date": "2025-07-29",
+      "portfolio_nav": 1.7710011458996258,
+      "benchmark_nav": 1.0818886533681364
+    },
+    {
+      "date": "2025-07-30",
+      "portfolio_nav": 1.7617269851929231,
+      "benchmark_nav": 1.0816835891959453
+    },
+    {
+      "date": "2025-07-31",
+      "portfolio_nav": 1.7445196283445206,
+      "benchmark_nav": 1.0619724693729555
+    },
+    {
+      "date": "2025-08-01",
+      "portfolio_nav": 1.7558636922848296,
+      "benchmark_nav": 1.0565884261251601
+    },
+    {
+      "date": "2025-08-04",
+      "portfolio_nav": 1.7883841458714727,
+      "benchmark_nav": 1.0606985947248528
+    },
+    {
+      "date": "2025-08-05",
+      "portfolio_nav": 1.8102350172212651,
+      "benchmark_nav": 1.0692316179238077
+    },
+    {
+      "date": "2025-08-06",
+      "portfolio_nav": 1.8219973937373946,
+      "benchmark_nav": 1.0718465078870456
+    },
+    {
+      "date": "2025-08-07",
+      "portfolio_nav": 1.8295025654172612,
+      "benchmark_nav": 1.072154187826058
+    },
+    {
+      "date": "2025-08-08",
+      "portfolio_nav": 1.8394782100715041,
+      "benchmark_nav": 1.0696268582636532
+    },
+    {
+      "date": "2025-08-11",
+      "portfolio_nav": 1.864989663202621,
+      "benchmark_nav": 1.0741983272943953
+    },
+    {
+      "date": "2025-08-12",
+      "portfolio_nav": 1.863879500863571,
+      "benchmark_nav": 1.0797521754153292
+    },
+    {
+      "date": "2025-08-13",
+      "portfolio_nav": 1.8694907399151328,
+      "benchmark_nav": 1.0882864648062922
+    },
+    {
+      "date": "2025-08-14",
+      "portfolio_nav": 1.8282040525339966,
+      "benchmark_nav": 1.087435799923158
+    },
+    {
+      "date": "2025-08-15",
+      "portfolio_nav": 1.8585072043543944,
+      "benchmark_nav": 1.0950028350302465
+    },
+    {
+      "date": "2025-08-18",
+      "portfolio_nav": 1.878620113310052,
+      "benchmark_nav": 1.104659255501318
+    },
+    {
+      "date": "2025-08-19",
+      "portfolio_nav": 1.8865426369274945,
+      "benchmark_nav": 1.1004800798847647
+    },
+    {
+      "date": "2025-08-20",
+      "portfolio_nav": 1.9063781768699959,
+      "benchmark_nav": 1.1129931326522975
+    },
+    {
+      "date": "2025-08-21",
+      "portfolio_nav": 1.9059680286846252,
+      "benchmark_nav": 1.1173381084784935
+    },
+    {
+      "date": "2025-08-22",
+      "portfolio_nav": 1.91083183640868,
+      "benchmark_nav": 1.140770271881387
+    },
+    {
+      "date": "2025-08-25",
+      "portfolio_nav": 1.9245572217077092,
+      "benchmark_nav": 1.164540444998066
+    },
+    {
+      "date": "2025-08-26",
+      "portfolio_nav": 1.9329942753571654,
+      "benchmark_nav": 1.1602068443666242
+    },
+    {
+      "date": "2025-08-27",
+      "portfolio_nav": 1.8834785326302128,
+      "benchmark_nav": 1.1428884019945584
+    },
+    {
+      "date": "2025-08-28",
+      "portfolio_nav": 1.8917484864198992,
+      "benchmark_nav": 1.1631230628612814
+    },
+    {
+      "date": "2025-08-29",
+      "portfolio_nav": 1.883497906818849,
+      "benchmark_nav": 1.1717157949991517
+    },
+    {
+      "date": "2025-09-01",
+      "portfolio_nav": 1.8957931788801048,
+      "benchmark_nav": 1.178738596295123
+    },
+    {
+      "date": "2025-09-02",
+      "portfolio_nav": 1.862613813181488,
+      "benchmark_nav": 1.1700725166182233
+    },
+    {
+      "date": "2025-09-03",
+      "portfolio_nav": 1.8367855161356559,
+      "benchmark_nav": 1.1620930830634586
+    },
+    {
+      "date": "2025-09-04",
+      "portfolio_nav": 1.821713506769508,
+      "benchmark_nav": 1.1374377989617726
+    },
+    {
+      "date": "2025-09-05",
+      "portfolio_nav": 1.8577077784179654,
+      "benchmark_nav": 1.1622221932466759
+    },
+    {
+      "date": "2025-09-08",
+      "portfolio_nav": 1.888724654758569,
+      "benchmark_nav": 1.1641108752062554
+    },
+    {
+      "date": "2025-09-09",
+      "portfolio_nav": 1.8731586019046966,
+      "benchmark_nav": 1.1559511715710262
+    },
+    {
+      "date": "2025-09-10",
+      "portfolio_nav": 1.8781575584372145,
+      "benchmark_nav": 1.1583240896408085
+    },
+    {
+      "date": "2025-09-11",
+      "portfolio_nav": 1.900943139101646,
+      "benchmark_nav": 1.1850767022738093
+    },
+    {
+      "date": "2025-09-12",
+      "portfolio_nav": 1.9074998137605546,
+      "benchmark_nav": 1.1782923897450757
+    },
+    {
+      "date": "2025-09-15",
+      "portfolio_nav": 1.9053146765255622,
+      "benchmark_nav": 1.1811737154930733
+    },
+    {
+      "date": "2025-09-16",
+      "portfolio_nav": 1.9271822865015669,
+      "benchmark_nav": 1.1786413038517043
+    },
+    {
+      "date": "2025-09-17",
+      "portfolio_nav": 1.936102289405401,
+      "benchmark_nav": 1.1858553922289177
+    },
+    {
+      "date": "2025-09-18",
+      "portfolio_nav": 1.909668188737142,
+      "benchmark_nav": 1.1720676413203348
+    },
+    {
+      "date": "2025-09-19",
+      "portfolio_nav": 1.910119035597576,
+      "benchmark_nav": 1.1730605012257784
+    },
+    {
+      "date": "2025-09-22",
+      "portfolio_nav": 1.9134171279567143,
+      "benchmark_nav": 1.1784513218742505
+    },
+    {
+      "date": "2025-09-23",
+      "portfolio_nav": 1.8854955967687288,
+      "benchmark_nav": 1.1777140002828315
+    },
+    {
+      "date": "2025-09-24",
+      "portfolio_nav": 1.9167459833824734,
+      "benchmark_nav": 1.1897764108816642
+    },
+    {
+      "date": "2025-09-25",
+      "portfolio_nav": 1.902916515613644,
+      "benchmark_nav": 1.1969203670643789
+    },
+    {
+      "date": "2025-09-26",
+      "portfolio_nav": 1.8958135097166202,
+      "benchmark_nav": 1.185601671659429
+    },
+    {
+      "date": "2025-09-29",
+      "portfolio_nav": 1.9125234854335451,
+      "benchmark_nav": 1.2038424734903606
+    },
+    {
+      "date": "2025-09-30",
+      "portfolio_nav": 1.9212622757160478,
+      "benchmark_nav": 1.209220767949902
+    },
+    {
+      "date": "2025-10-09",
+      "portfolio_nav": 1.919852186948081,
+      "benchmark_nav": 1.2271449990243928
+    },
+    {
+      "date": "2025-10-10",
+      "portfolio_nav": 1.9182032489556409,
+      "benchmark_nav": 1.2030038270479455
+    },
+    {
+      "date": "2025-10-13",
+      "portfolio_nav": 1.9121188081372953,
+      "benchmark_nav": 1.1970483999102823
+    },
+    {
+      "date": "2025-10-14",
+      "portfolio_nav": 1.893483562779495,
+      "benchmark_nav": 1.1827395141822614
+    },
+    {
+      "date": "2025-10-15",
+      "portfolio_nav": 1.9176899375804106,
+      "benchmark_nav": 1.2002558461741573
+    },
+    {
+      "date": "2025-10-16",
+      "portfolio_nav": 1.900150834024233,
+      "benchmark_nav": 1.2034175213558853
+    },
+    {
+      "date": "2025-10-17",
+      "portfolio_nav": 1.8675062084042517,
+      "benchmark_nav": 1.1762694979293606
+    },
+    {
+      "date": "2025-10-20",
+      "portfolio_nav": 1.8939691229255222,
+      "benchmark_nav": 1.1825194841627154
+    },
+    {
+      "date": "2025-10-21",
+      "portfolio_nav": 1.9257230215153849,
+      "benchmark_nav": 1.2006684609176697
+    },
+    {
+      "date": "2025-10-22",
+      "portfolio_nav": 1.9337961355870688,
+      "benchmark_nav": 1.1966812652438306
+    },
+    {
+      "date": "2025-10-23",
+      "portfolio_nav": 1.9483002133980842,
+      "benchmark_nav": 1.2002706209478347
+    },
+    {
+      "date": "2025-10-24",
+      "portfolio_nav": 1.9584695280924802,
+      "benchmark_nav": 1.2144295821208098
+    },
+    {
+      "date": "2025-10-27",
+      "portfolio_nav": 1.969639563726805,
+      "benchmark_nav": 1.228848222801667
+    },
+    {
+      "date": "2025-10-28",
+      "portfolio_nav": 1.9712580789501781,
+      "benchmark_nav": 1.2225827668701132
+    },
+    {
+      "date": "2025-10-29",
+      "portfolio_nav": 1.9697443933954086,
+      "benchmark_nav": 1.237139454696766
+    },
+    {
+      "date": "2025-10-30",
+      "portfolio_nav": 1.9559620862497213,
+      "benchmark_nav": 1.2272569193662353
+    },
+    {
+      "date": "2025-10-31",
+      "portfolio_nav": 1.9786776342484116,
+      "benchmark_nav": 1.2092142004960378
+    },
+    {
+      "date": "2025-11-03",
+      "portfolio_nav": 1.997430587037444,
+      "benchmark_nav": 1.2125326675831005
+    },
+    {
+      "date": "2025-11-04",
+      "portfolio_nav": 1.9856589136456109,
+      "benchmark_nav": 1.2034899948401816
+    },
+    {
+      "date": "2025-11-05",
+      "portfolio_nav": 2.008593025098722,
+      "benchmark_nav": 1.2057199053469212
+    },
+    {
+      "date": "2025-11-06",
+      "portfolio_nav": 2.0141393361652478,
+      "benchmark_nav": 1.222955649690897
+    },
+    {
+      "date": "2025-11-07",
+      "portfolio_nav": 2.008587733707425,
+      "benchmark_nav": 1.219149060569699
+    },
+    {
+      "date": "2025-11-10",
+      "portfolio_nav": 2.0148671329318812,
+      "benchmark_nav": 1.2233849622827728
+    },
+    {
+      "date": "2025-11-11",
+      "portfolio_nav": 2.0208476838118328,
+      "benchmark_nav": 1.2122104245713963
+    },
+    {
+      "date": "2025-11-12",
+      "portfolio_nav": 2.016669726085351,
+      "benchmark_nav": 1.2105798105059848
+    },
+    {
+      "date": "2025-11-13",
+      "portfolio_nav": 2.0334278671596606,
+      "benchmark_nav": 1.225214960170881
+    },
+    {
+      "date": "2025-11-14",
+      "portfolio_nav": 2.039628753855483,
+      "benchmark_nav": 1.2059500415755673
+    },
+    {
+      "date": "2025-11-17",
+      "portfolio_nav": 2.041457957589026,
+      "benchmark_nav": 1.1981103533072912
+    },
+    {
+      "date": "2025-11-18",
+      "portfolio_nav": 2.024944862037362,
+      "benchmark_nav": 1.1903297703985147
+    },
+    {
+      "date": "2025-11-19",
+      "portfolio_nav": 1.9972085230033358,
+      "benchmark_nav": 1.1955669553495645
+    },
+    {
+      "date": "2025-11-20",
+      "portfolio_nav": 1.9867689891377884,
+      "benchmark_nav": 1.1894843007942435
+    },
+    {
+      "date": "2025-11-21",
+      "portfolio_nav": 1.9140912820332852,
+      "benchmark_nav": 1.1604723029041515
+    },
+    {
+      "date": "2025-11-24",
+      "portfolio_nav": 1.9497032038346827,
+      "benchmark_nav": 1.159023685212389
+    },
+    {
+      "date": "2025-11-25",
+      "portfolio_nav": 1.9795340114746558,
+      "benchmark_nav": 1.170060554319174
+    },
+    {
+      "date": "2025-11-26",
+      "portfolio_nav": 1.9712402183148163,
+      "benchmark_nav": 1.1771533579661038
+    },
+    {
+      "date": "2025-11-27",
+      "portfolio_nav": 1.9801108811900365,
+      "benchmark_nav": 1.1765742258945715
+    },
+    {
+      "date": "2025-11-28",
+      "portfolio_nav": 2.0053609214498387,
+      "benchmark_nav": 1.1795078743027938
+    },
+    {
+      "date": "2025-12-01",
+      "portfolio_nav": 2.009114627587918,
+      "benchmark_nav": 1.1924905193179218
+    },
+    {
+      "date": "2025-12-02",
+      "portfolio_nav": 1.990065004678161,
+      "benchmark_nav": 1.1867185611193407
+    },
+    {
+      "date": "2025-12-03",
+      "portfolio_nav": 1.9700970709674903,
+      "benchmark_nav": 1.1806510744186485
+    },
+    {
+      "date": "2025-12-04",
+      "portfolio_nav": 1.9468475449330205,
+      "benchmark_nav": 1.1846945253606835
+    },
+    {
+      "date": "2025-12-05",
+      "portfolio_nav": 1.974299074027864,
+      "benchmark_nav": 1.1945884365310344
+    },
+    {
+      "date": "2025-12-08",
+      "portfolio_nav": 1.989448417907757,
+      "benchmark_nav": 1.2042862882308243
+    },
+    {
+      "date": "2025-12-09",
+      "portfolio_nav": 1.9765749671282897,
+      "benchmark_nav": 1.1981547503394807
+    },
+    {
+      "date": "2025-12-10",
+      "portfolio_nav": 1.9748955080241857,
+      "benchmark_nav": 1.196488124749949
+    },
+    {
+      "date": "2025-12-11",
+      "portfolio_nav": 1.9460338114593088,
+      "benchmark_nav": 1.1861584646787353
+    },
+    {
+      "date": "2025-12-12",
+      "portfolio_nav": 1.948881426772525,
+      "benchmark_nav": 1.1936538545803297
+    },
+    {
+      "date": "2025-12-15",
+      "portfolio_nav": 1.9392920185415703,
+      "benchmark_nav": 1.186125828266417
+    },
+    {
+      "date": "2025-12-16",
+      "portfolio_nav": 1.9081906226393741,
+      "benchmark_nav": 1.1719235383451458
+    },
+    {
+      "date": "2025-12-17",
+      "portfolio_nav": 1.9174267171746262,
+      "benchmark_nav": 1.193373716605351
+    },
+    {
+      "date": "2025-12-18",
+      "portfolio_nav": 1.92803947477868,
+      "benchmark_nav": 1.1863168479171724
+    },
+    {
+      "date": "2025-12-19",
+      "portfolio_nav": 1.9504375188693497,
+      "benchmark_nav": 1.1903259631159337
+    },
+    {
+      "date": "2025-12-22",
+      "portfolio_nav": 1.959576501833921,
+      "benchmark_nav": 1.2016464367748996
+    },
+    {
+      "date": "2025-12-23",
+      "portfolio_nav": 1.9527063318379738,
+      "benchmark_nav": 1.2040203329305141
+    },
+    {
+      "date": "2025-12-24",
+      "portfolio_nav": 1.9790150684983936,
+      "benchmark_nav": 1.2074923334948306
+    },
+    {
+      "date": "2025-12-25",
+      "portfolio_nav": 1.999898936832012,
+      "benchmark_nav": 1.2097011587694995
+    },
+    {
+      "date": "2025-12-26",
+      "portfolio_nav": 2.001118452782886,
+      "benchmark_nav": 1.2135327550905355
+    },
+    {
+      "date": "2025-12-29",
+      "portfolio_nav": 1.997547235054317,
+      "benchmark_nav": 1.2088768767320135
+    },
+    {
+      "date": "2025-12-30",
+      "portfolio_nav": 1.9865439843180615,
+      "benchmark_nav": 1.2119801275032835
+    },
+    {
+      "date": "2025-12-31",
+      "portfolio_nav": 1.990263881234352,
+      "benchmark_nav": 1.2064189751103327
+    },
+    {
+      "date": "2026-01-05",
+      "portfolio_nav": 2.0155764507394824,
+      "benchmark_nav": 1.229298574647956
+    },
+    {
+      "date": "2026-01-06",
+      "portfolio_nav": 2.0378193455322866,
+      "benchmark_nav": 1.2483066259858246
+    },
+    {
+      "date": "2026-01-07",
+      "portfolio_nav": 2.0434829533031618,
+      "benchmark_nav": 1.244651412168285
+    },
+    {
+      "date": "2026-01-08",
+      "portfolio_nav": 2.071469303299588,
+      "benchmark_nav": 1.2344860117631795
+    },
+    {
+      "date": "2026-01-09",
+      "portfolio_nav": 2.104008895487668,
+      "benchmark_nav": 1.240027845874719
+    },
+    {
+      "date": "2026-01-12",
+      "portfolio_nav": 2.1488363853314105,
+      "benchmark_nav": 1.2481038508682458
+    },
+    {
+      "date": "2026-01-13",
+      "portfolio_nav": 2.1240140487057517,
+      "benchmark_nav": 1.2405777559411217
+    },
+    {
+      "date": "2026-01-14",
+      "portfolio_nav": 2.146643137371985,
+      "benchmark_nav": 1.235600498188438
+    },
+    {
+      "date": "2026-01-15",
+      "portfolio_nav": 2.139275989604416,
+      "benchmark_nav": 1.2380754970500663
+    },
+    {
+      "date": "2026-01-16",
+      "portfolio_nav": 2.1375300480429242,
+      "benchmark_nav": 1.2329796538268136
+    },
+    {
+      "date": "2026-01-19",
+      "portfolio_nav": 2.153382729318471,
+      "benchmark_nav": 1.233652687286885
+    },
+    {
+      "date": "2026-01-20",
+      "portfolio_nav": 2.15049699703161,
+      "benchmark_nav": 1.2295937523293772
+    },
+    {
+      "date": "2026-01-21",
+      "portfolio_nav": 2.1655363266640424,
+      "benchmark_nav": 1.2306857658530834
+    },
+    {
+      "date": "2026-01-22",
+      "portfolio_nav": 2.188049752127505,
+      "benchmark_nav": 1.2308524274731953
+    },
+    {
+      "date": "2026-01-23",
+      "portfolio_nav": 2.2241737879239136,
+      "benchmark_nav": 1.2253251443304503
+    },
+    {
+      "date": "2026-01-26",
+      "portfolio_nav": 2.2072598708291244,
+      "benchmark_nav": 1.2264891772406712
+    },
+    {
+      "date": "2026-01-27",
+      "portfolio_nav": 2.208439928693748,
+      "benchmark_nav": 1.2261577216558044
+    },
+    {
+      "date": "2026-01-28",
+      "portfolio_nav": 2.1908586365069507,
+      "benchmark_nav": 1.229362485583371
+    },
+    {
+      "date": "2026-01-29",
+      "portfolio_nav": 2.1703089653624463,
+      "benchmark_nav": 1.2387112943118757
+    },
+    {
+      "date": "2026-01-30",
+      "portfolio_nav": 2.169534578735116,
+      "benchmark_nav": 1.2263266296816302
+    },
+    {
+      "date": "2026-02-02",
+      "portfolio_nav": 2.11602035737865,
+      "benchmark_nav": 1.2001758090720849
+    },
+    {
+      "date": "2026-02-03",
+      "portfolio_nav": 2.1510441936949967,
+      "benchmark_nav": 1.2142797146981972
+    },
+    {
+      "date": "2026-02-04",
+      "portfolio_nav": 2.160043105724062,
+      "benchmark_nav": 1.2243313922485395
+    },
+    {
+      "date": "2026-02-05",
+      "portfolio_nav": 2.1468983253794,
+      "benchmark_nav": 1.2169665976751307
+    },
+    {
+      "date": "2026-02-06",
+      "portfolio_nav": 2.1558054001973503,
+      "benchmark_nav": 1.2099773084180467
+    },
+    {
+      "date": "2026-02-09",
+      "portfolio_nav": 2.1721454127793023,
+      "benchmark_nav": 1.2296398897913987
+    },
+    {
+      "date": "2026-02-10",
+      "portfolio_nav": 2.193717553428537,
+      "benchmark_nav": 1.2310051777745246
+    },
+    {
+      "date": "2026-02-11",
+      "portfolio_nav": 2.194033368336846,
+      "benchmark_nav": 1.228275165281722
+    },
+    {
+      "date": "2026-02-12",
+      "portfolio_nav": 2.183564863443484,
+      "benchmark_nav": 1.2297759888104591
+    },
+    {
+      "date": "2026-02-13",
+      "portfolio_nav": 2.178221815760042,
+      "benchmark_nav": 1.214357478046142
+    },
+    {
+      "date": "2026-02-24",
+      "portfolio_nav": 2.204483116770878,
+      "benchmark_nav": 1.226640158690071
+    },
+    {
+      "date": "2026-02-25",
+      "portfolio_nav": 2.223259249668661,
+      "benchmark_nav": 1.234025202190912
+    },
+    {
+      "date": "2026-02-26",
+      "portfolio_nav": 2.234904371827522,
+      "benchmark_nav": 1.2316770024120096
+    },
+    {
+      "date": "2026-02-27",
+      "portfolio_nav": 2.25770335685952,
+      "benchmark_nav": 1.227448742095958
+    },
+    {
+      "date": "2026-03-02",
+      "portfolio_nav": 2.215637616714295,
+      "benchmark_nav": 1.232144695486054
+    },
+    {
+      "date": "2026-03-03",
+      "portfolio_nav": 2.141074159561953,
+      "benchmark_nav": 1.213182308364072
+    },
+    {
+      "date": "2026-03-04",
+      "portfolio_nav": 2.128850113994537,
+      "benchmark_nav": 1.1993014306410044
+    },
+    {
+      "date": "2026-03-05",
+      "portfolio_nav": 2.1541375809190972,
+      "benchmark_nav": 1.2110445261201874
+    },
+    {
+      "date": "2026-03-06",
+      "portfolio_nav": 2.1967625744839907,
+      "benchmark_nav": 1.2143659950887662
+    },
+    {
+      "date": "2026-03-09",
+      "portfolio_nav": 2.1767291085518927,
+      "benchmark_nav": 1.2026446224121086
+    },
+    {
+      "date": "2026-03-10",
+      "portfolio_nav": 2.2231927834546115,
+      "benchmark_nav": 1.2180966539178821
+    },
+    {
+      "date": "2026-03-11",
+      "portfolio_nav": 2.21613579231942,
+      "benchmark_nav": 1.2258458474173344
+    },
+    {
+      "date": "2026-03-12",
+      "portfolio_nav": 2.205444557955857,
+      "benchmark_nav": 1.2214328738334448
+    },
+    {
+      "date": "2026-03-13",
+      "portfolio_nav": 2.187563388199144,
+      "benchmark_nav": 1.216633185688335
+    },
+    {
+      "date": "2026-03-16",
+      "portfolio_nav": 2.18849061591699,
+      "benchmark_nav": 1.217263503389056
+    },
+    {
+      "date": "2026-03-17",
+      "portfolio_nav": 2.1486569247585154,
+      "benchmark_nav": 1.2083728853749487
+    },
+    {
+      "date": "2026-03-18",
+      "portfolio_nav": 2.171518348093525,
+      "benchmark_nav": 1.2138170837392255
+    },
+    {
+      "date": "2026-03-19",
+      "portfolio_nav": 2.117262957127618,
+      "benchmark_nav": 1.1942531538391785
+    },
+    {
+      "date": "2026-03-20",
+      "portfolio_nav": 2.0628740028292363,
+      "benchmark_nav": 1.190023386712713
+    },
+    {
+      "date": "2026-03-23",
+      "portfolio_nav": 1.9490406783043452,
+      "benchmark_nav": 1.1511931044878319
+    },
+    {
+      "date": "2026-03-24",
+      "portfolio_nav": 2.02168177089325,
+      "benchmark_nav": 1.1659739128197173
+    },
+    {
+      "date": "2026-03-25",
+      "portfolio_nav": 2.0586798662417656,
+      "benchmark_nav": 1.1823229121956929
+    },
+    {
+      "date": "2026-03-26",
+      "portfolio_nav": 2.0322322209202426,
+      "benchmark_nav": 1.1667066126406525
+    },
+    {
+      "date": "2026-03-27",
+      "portfolio_nav": 2.0630884475230897,
+      "benchmark_nav": 1.1732301272442718
+    },
+    {
+      "date": "2026-03-30",
+      "portfolio_nav": 2.0738985895194624,
+      "benchmark_nav": 1.1704629985229251
+    },
+    {
+      "date": "2026-03-31",
+      "portfolio_nav": 2.0422110394323094,
+      "benchmark_nav": 1.1595449103089992
+    },
+    {
+      "date": "2026-04-01",
+      "portfolio_nav": 2.06815857714806,
+      "benchmark_nav": 1.1793527817407419
+    },
+    {
+      "date": "2026-04-02",
+      "portfolio_nav": 2.032663373517218,
+      "benchmark_nav": 1.1670662172374582
+    },
+    {
+      "date": "2026-04-03",
+      "portfolio_nav": 1.9866194766162408,
+      "benchmark_nav": 1.1571320562310354
+    },
+    {
+      "date": "2026-04-07",
+      "portfolio_nav": 2.000130104013809,
+      "benchmark_nav": 1.1570870185303839
+    },
+    {
+      "date": "2026-04-08",
+      "portfolio_nav": 2.0721745331381594,
+      "benchmark_nav": 1.1974595040382185
+    },
+    {
+      "date": "2026-04-09",
+      "portfolio_nav": 2.039758831924211,
+      "benchmark_nav": 1.1898163319742747
+    },
+    {
+      "date": "2026-04-10",
+      "portfolio_nav": 2.060334002898024,
+      "benchmark_nav": 1.2081452384013989
+    },
+    {
+      "date": "2026-04-13",
+      "portfolio_nav": 2.0651848505039037,
+      "benchmark_nav": 1.2106438784739417
+    },
+    {
+      "date": "2026-04-14",
+      "portfolio_nav": 2.0916896595683245,
+      "benchmark_nav": 1.2250087697820427
+    },
+    {
+      "date": "2026-04-15",
+      "portfolio_nav": 2.093478236065867,
+      "benchmark_nav": 1.220829978951269
+    },
+    {
+      "date": "2026-04-16",
+      "portfolio_nav": 2.1196226742721653,
+      "benchmark_nav": 1.2342131652251354
+    },
+    {
+      "date": "2026-04-17",
+      "portfolio_nav": 2.120115419806365,
+      "benchmark_nav": 1.2321451840461524
+    },
+    {
+      "date": "2026-04-20",
+      "portfolio_nav": 2.1347962557711258,
+      "benchmark_nav": 1.2396419533287837
+    },
+    {
+      "date": "2026-04-21",
+      "portfolio_nav": 2.136479602077468,
+      "benchmark_nav": 1.2423923758142916
+    },
+    {
+      "date": "2026-04-22",
+      "portfolio_nav": 2.138553520601648,
+      "benchmark_nav": 1.250634106797685
+    },
+    {
+      "date": "2026-04-23",
+      "portfolio_nav": 2.114082977209591,
+      "benchmark_nav": 1.2471685746750665
+    },
+    {
+      "date": "2026-04-24",
+      "portfolio_nav": 2.108940214465525,
+      "benchmark_nav": 1.2427496836821452
+    },
+    {
+      "date": "2026-04-27",
+      "portfolio_nav": 2.1276089157459968,
+      "benchmark_nav": 1.2431609406212178
+    },
+    {
+      "date": "2026-04-28",
+      "portfolio_nav": 2.1078025324770935,
+      "benchmark_nav": 1.2398417133413686
+    },
+    {
+      "date": "2026-04-29",
+      "portfolio_nav": 2.129672287872401,
+      "benchmark_nav": 1.2534272534985516
+    },
+    {
+      "date": "2026-04-30",
+      "portfolio_nav": 2.1289722752500744,
+      "benchmark_nav": 1.252635251873859
+    },
+    {
+      "date": "2026-05-06",
+      "portfolio_nav": 2.145496750311752,
+      "benchmark_nav": 1.270819395813724
+    },
+    {
+      "date": "2026-05-07",
+      "portfolio_nav": 2.1665318353999106,
+      "benchmark_nav": 1.2769209470479665
+    },
+    {
+      "date": "2026-05-08",
+      "portfolio_nav": 2.191843479062456,
+      "benchmark_nav": 1.269469280258716
+    },
+    {
+      "date": "2026-05-11",
+      "portfolio_nav": 2.2139101846642477,
+      "benchmark_nav": 1.2902950583651038
+    },
+    {
+      "date": "2026-05-12",
+      "portfolio_nav": 2.1971519052334485,
+      "benchmark_nav": 1.2893074881527764
+    },
+    {
+      "date": "2026-05-13",
+      "portfolio_nav": 2.2204564901437904,
+      "benchmark_nav": 1.3024129609712876
+    },
+    {
+      "date": "2026-05-14",
+      "portfolio_nav": 2.2059541802052163,
+      "benchmark_nav": 1.2805916725973905
+    },
+    {
+      "date": "2026-05-15",
+      "portfolio_nav": 2.1905523124119983,
+      "benchmark_nav": 1.2662592598634803
+    },
+    {
+      "date": "2026-05-18",
+      "portfolio_nav": 2.198683949471869,
+      "benchmark_nav": 1.259466515897202
+    }
+  ],
+  "metrics": {
+    "annual_return": 0.32006234688364654,
+    "annual_volatility": 0.2126549812787727,
+    "max_drawdown": -0.1715950790530767,
+    "max_drawdown_range": {
+      "peak_date": "2025-03-18",
+      "trough_date": "2025-04-07",
+      "recovery_date": "2025-05-29"
+    },
+    "benchmark_annual_return": 0.08470222516546522,
+    "excess_annual_return": 0.23536012171818133,
+    "days": 716,
+    "avg_turnover": 0.042175662345246445,
+    "total_cost": 10065580.440839203
+  },
+  "missing": []
+}
