@@ -19,7 +19,7 @@ const state = {
     ls: { start: 0, end: 0 },
   },
   factorTable: {
-    statusFilter: "all",
+    statusFilter: null,
     sortBy: "lifecycle_status",
     sortDir: "desc",
     collapsed: true,
@@ -781,7 +781,7 @@ function renderFactors() {
       item.factor_name.toLowerCase().includes(query) ||
       (item.factor_family || "").toLowerCase().includes(query)
     )
-    .filter((item) => statusFilter === "all" || item.lifecycle_status === statusFilter)
+    .filter((item) => !statusFilter || statusFilter.has(item.lifecycle_status))
     .filter((item) => passesMetricFilters(item, metricFilters))
     .sort((left, right) => compareFactorRows(left, right, sortBy, sortDir));
   setText("factorCount", `(${filtered.length})`);
@@ -804,6 +804,68 @@ function renderFactors() {
 
   tbody.querySelectorAll("tr").forEach((tr) => {
     tr.addEventListener("click", () => selectFactor(tr.dataset.factor));
+  });
+}
+
+function getAvailableFactorStatuses() {
+  return [...new Set(state.factors.map((item) => item.lifecycle_status).filter(Boolean))]
+    .sort((left, right) => statusRank(right) - statusRank(left) || left.localeCompare(right));
+}
+
+function renderStatusFilterOptions() {
+  const container = document.getElementById("statusFilterOptions");
+  const button = document.getElementById("statusFilterButton");
+  if (!container || !button) return;
+  const statuses = getAvailableFactorStatuses();
+  const selected = state.factorTable.statusFilter;
+  button.classList.toggle("is-filtered", selected instanceof Set);
+  button.setAttribute("aria-label", selected instanceof Set ? `状态筛选已启用，共选择 ${selected.size} 项` : "筛选状态");
+  container.innerHTML = statuses.map((status) => `
+    <label>
+      <input type="checkbox" value="${escapeHtml(status)}" ${!selected || selected.has(status) ? "checked" : ""}>
+      <span>${escapeHtml(status)}</span>
+    </label>
+  `).join("");
+}
+
+function setStatusFilterMenuOpen(open) {
+  const button = document.getElementById("statusFilterButton");
+  const menu = document.getElementById("statusFilterMenu");
+  if (!button || !menu) return;
+  if (open) renderStatusFilterOptions();
+  menu.hidden = !open;
+  button.setAttribute("aria-expanded", String(open));
+}
+
+function bindStatusTableFilter() {
+  const button = document.getElementById("statusFilterButton");
+  const menu = document.getElementById("statusFilterMenu");
+  const options = document.getElementById("statusFilterOptions");
+  if (!button || !menu || !options) return;
+
+  button.addEventListener("click", (event) => {
+    event.stopPropagation();
+    setStatusFilterMenuOpen(menu.hidden);
+  });
+  menu.addEventListener("click", (event) => event.stopPropagation());
+  document.getElementById("statusFilterSelectAll").addEventListener("click", () => {
+    options.querySelectorAll('input[type="checkbox"]').forEach((input) => { input.checked = true; });
+  });
+  document.getElementById("statusFilterClear").addEventListener("click", () => {
+    options.querySelectorAll('input[type="checkbox"]').forEach((input) => { input.checked = false; });
+  });
+  document.getElementById("statusFilterApply").addEventListener("click", () => {
+    const allStatuses = getAvailableFactorStatuses();
+    const checkedStatuses = [...options.querySelectorAll('input[type="checkbox"]:checked')].map((input) => input.value);
+    // 全选等价于不筛选；空集合则明确返回零行，行为与 Excel 表格筛选一致。
+    state.factorTable.statusFilter = checkedStatuses.length === allStatuses.length ? null : new Set(checkedStatuses);
+    renderStatusFilterOptions();
+    setStatusFilterMenuOpen(false);
+    renderFactors();
+  });
+  document.addEventListener("click", () => setStatusFilterMenuOpen(false));
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") setStatusFilterMenuOpen(false);
   });
 }
 
@@ -1411,10 +1473,6 @@ function bindEvents() {
     });
   });
   document.getElementById("searchInput").addEventListener("input", renderFactors);
-  document.getElementById("statusFilter").addEventListener("change", (event) => {
-    state.factorTable.statusFilter = event.target.value;
-    renderFactors();
-  });
   document.getElementById("sortBy").addEventListener("change", (event) => {
     state.factorTable.sortBy = event.target.value;
     renderFactors();
@@ -1434,6 +1492,7 @@ function bindEvents() {
   bindNavigation();
   bindRangeHandlers();
   bindMetricFilterInputs();
+  bindStatusTableFilter();
 }
 
 bindEvents();

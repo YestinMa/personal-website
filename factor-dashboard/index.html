@@ -48,12 +48,6 @@
           <label class="search">
             <input id="searchInput" type="search" placeholder="搜索因子..." />
           </label>
-          <select id="statusFilter" class="toolbar-select" aria-label="状态筛选">
-            <option value="all">全部状态</option>
-            <option value="active">Active</option>
-            <option value="candidate">Candidate</option>
-            <option value="draft">Draft</option>
-          </select>
           <select id="sortBy" class="toolbar-select" aria-label="排序方式">
             <option value="lifecycle_status">按状态排序</option>
             <option value="rolling_ic_mean">按IC均值</option>
@@ -200,7 +194,21 @@
                   <thead>
                     <tr>
                       <th>因子名</th>
-                      <th>状态</th>
+                      <th class="status-filter-cell">
+                        <div class="status-filter-control">
+                          <span>状态</span>
+                          <button id="statusFilterButton" class="table-filter-button" type="button" aria-expanded="false" aria-controls="statusFilterMenu" title="筛选状态">▾</button>
+                          <div id="statusFilterMenu" class="table-filter-menu" hidden>
+                            <div class="table-filter-title">按状态筛选</div>
+                            <div id="statusFilterOptions" class="table-filter-options"></div>
+                            <div class="table-filter-shortcuts">
+                              <button id="statusFilterSelectAll" type="button">全选</button>
+                              <button id="statusFilterClear" type="button">清空</button>
+                            </div>
+                            <button id="statusFilterApply" class="table-filter-apply" type="button">应用</button>
+                          </div>
+                        </div>
+                      </th>
                       <th>当前版本</th>
                       <th>IC均值</th>
                       <th>ICIR</th>
