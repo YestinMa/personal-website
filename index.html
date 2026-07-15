@@ -1,82 +1,49 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="About me - 个人介绍">
-    <meta name="keywords" content="个人网站,关于我">
-    <title>About me - 个人网站</title>
-    <link rel="stylesheet" href="css/style.css?v=1.0.2">
+    <meta name="description" content="Yuyao Ma — Quantitative Research, FinTech, and AI Systems.">
+    <title>Yuyao Ma</title>
+    <link rel="stylesheet" href="css/style.css?v=2.0.0">
 </head>
-<body>
-    <!-- 导航栏 -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-brand">
-                <a href="index.html">我的网站</a>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="index.html" class="active">About me</a></li>
-                <li><a href="strategy-dashboard.html">Strategy Dashboard</a></li>
-                <li><a href="factor-dashboard/index.html">因子看板</a></li>
-                <li><a href="notes-blogs.html">Notes &amp; Blogs</a></li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
+<body class="home-page">
+    <header class="site-header">
+        <a class="site-mark" href="index.html" aria-label="Yuyao Ma home">YM</a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation">
+            <span></span><span></span><span></span>
+            <span class="sr-only">Toggle navigation</span>
+        </button>
+        <nav class="site-nav" id="site-navigation" aria-label="Primary navigation">
+            <a href="work.html">Work</a>
+            <a href="notes-blogs.html">Notes</a>
+            <a class="active" href="index.html" aria-current="page">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
 
-    <!-- 主要内容：About me -->
-    <main class="about-main">
-        <section class="hero">
-            <div class="container hero-grid">
-                <div class="hero-content">
-                    <h1 class="hero-title">About me</h1>
-                    <h2 class="hero-subtitle">你好，我是 <span class="highlight">Yestin Ma</span></h2>
-                    <p class="hero-description">
-                        A curious mind exploring financial engineering
-                    </p>
-                    <div class="education-section">
-                        <div class="education-item">
-                            <img src="images/本科校徽.png" alt="哈尔滨工业大学校徽" class="edu-logo">
-                            <div class="edu-info">
-                                <span class="edu-degree">本科</span>
-                                <span class="edu-school">哈尔滨工业大学</span>
-                                <span class="edu-major">国际经济与贸易 | 2021 - 2025</span>
-                            </div>
-                        </div>
-                        <div class="education-item">
-                            <img src="images/研究生校徽.png" alt="上海交通大学校徽" class="edu-logo">
-                            <div class="edu-info">
-                                <span class="edu-degree">硕士</span>
-                                <span class="edu-school">上海交通大学</span>
-                                <span class="edu-major">金融 | 2025 - 2027</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <img src="images/头像.jpg" alt="Yestin Ma" class="avatar-image">
-                </div>
-            </div>
+    <main class="home-main">
+        <section class="hero-editorial" aria-labelledby="hero-name">
+            <h1 class="display-name reveal reveal-1" id="hero-name">YUYAO MA</h1>
+            <p class="identity-line reveal reveal-2" aria-label="Quantitative Research, FinTech, AI Systems">
+                <span>Quantitative Research</span><i aria-hidden="true">·</i><span>FinTech</span><i aria-hidden="true">·</i><span>AI Systems</span>
+            </p>
+            <p class="hero-intro reveal reveal-3">
+                A curious mind exploring financial engineering. I work at the intersection of quantitative finance and artificial intelligence.
+            </p>
         </section>
     </main>
 
-    <!-- 页脚 -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 Yestin Ma. 保留所有权利.</p>
-            <div class="social-links">
-                <a href="#" aria-label="GitHub">GitHub</a>
-                <a href="#" aria-label="LinkedIn">LinkedIn</a>
-                <a href="#" aria-label="Twitter">Twitter</a>
-            </div>
+    <footer class="site-footer" id="contact">
+        <p>© 2026 YUYAO MA</p>
+        <div class="footer-contact">
+            <a class="text-link" href="mailto:yestyn_ma@163.com">yestyn_ma@163.com</a>
+            <span aria-hidden="true">·</span>
+            <span>Shanghai, China</span>
         </div>
+        <a class="text-link footer-social" href="https://github.com/YestinMa" target="_blank" rel="noreferrer">GitHub</a>
     </footer>
 
-    <script src="js/main.js?v=1.0.2"></script>
+    <script src="js/main.js?v=2.0.0"></script>
 </body>
 </html>

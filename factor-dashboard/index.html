@@ -3,10 +3,20 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>因子看板 Factor Dashboard</title>
-    <link rel="stylesheet" href="static/styles.css" />
+    <meta name="description" content="Factor research and portfolio backtesting by Yuyao Ma." />
+    <title>Factor Dashboard — Yuyao Ma</title>
+    <link rel="stylesheet" href="static/styles.css?v=2.0.0" />
   </head>
   <body>
+    <header class="factor-site-header">
+      <a class="factor-site-mark" href="../index.html" aria-label="Yuyao Ma home">YM</a>
+      <nav class="factor-site-nav" aria-label="Primary navigation">
+        <a class="active" href="../work.html" aria-current="page">Work</a>
+        <a href="../notes-blogs.html">Notes</a>
+        <a href="../index.html">About</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </header>
     <aside class="sidebar">
       <div class="brand">
         <span class="brand-mark">FD</span>
@@ -16,10 +26,10 @@
         </div>
       </div>
       <nav>
-        <a class="active" href="#overview" data-view="overview"><span class="nav-icon">▦</span>因子总览</a>
-        <a href="#status" data-view="status"><span class="nav-icon">◷</span>任务与数据状态</a>
-        <a href="#portfolio" data-view="portfolio"><span class="nav-icon">◫</span>组合回测</a>
-        <a href="#paper" data-view="building" title="敬请期待"><span class="nav-icon">◎</span>模拟盘监控</a>
+        <a class="active" href="#overview" data-view="overview">因子总览</a>
+        <a href="#status" data-view="status">任务与数据状态</a>
+        <a href="#portfolio" data-view="portfolio">组合回测</a>
+        <a href="#paper" data-view="building" title="敬请期待">模拟盘监控</a>
       </nav>
       <div class="sidebar-footer">
         <strong>本地研究系统</strong>
@@ -57,7 +67,7 @@
           </select>
           <button id="sortDirBtn" class="icon-button" title="切换升降序">↓</button>
           <button id="refreshBtn" class="icon-button" title="刷新">↻</button>
-          <div class="user-chip">researcher</div>
+          <div class="user-chip">YUYAO MA</div>
         </div>
       </header>
 
@@ -377,6 +387,6 @@
     </main>
 
     <script>window.FACTOR_DASHBOARD_STATIC = true;</script>
-    <script src="static/app.js"></script>
+    <script src="static/app.js?v=2.0.0"></script>
   </body>
 </html>

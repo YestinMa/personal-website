@@ -1,49 +1,45 @@
-// 移动端导航菜单切换
-document.addEventListener('DOMContentLoaded', function() {
-    const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav-menu');
+document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.querySelector(".nav-toggle");
+  const navigation = document.querySelector(".site-nav");
 
-    if (hamburger && navMenu) {
-        hamburger.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-        });
-
-        // 点击菜单项后关闭移动端菜单
-        const navLinks = document.querySelectorAll('.nav-menu a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                navMenu.classList.remove('active');
-            });
-        });
-    }
-
-    // 平滑滚动
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
+  if (toggle && navigation) {
+    toggle.addEventListener("click", () => {
+      const isOpen = toggle.getAttribute("aria-expanded") === "true";
+      toggle.setAttribute("aria-expanded", String(!isOpen));
+      navigation.classList.toggle("is-open", !isOpen);
     });
 
-    // 滚动时显示/隐藏导航栏（可选）
-    let lastScroll = 0;
-    const navbar = document.querySelector('.navbar');
-    
-    window.addEventListener('scroll', function() {
-        const currentScroll = window.pageYOffset;
-        
-        if (currentScroll <= 0) {
-            navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-        } else {
-            navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.15)';
-        }
-        
-        lastScroll = currentScroll;
+    navigation.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        toggle.setAttribute("aria-expanded", "false");
+        navigation.classList.remove("is-open");
+      });
     });
+  }
+
+  const name = document.querySelector(".display-name");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (!name || reduceMotion.matches) return;
+
+  let frame = 0;
+  let targetX = 0;
+  let targetY = 0;
+
+  // 将指针位置映射到极小位移，并通过动画帧合并高频事件，保持排版稳定。
+  const renderOffset = () => {
+    name.style.transform = `translate3d(${targetX}px, ${targetY}px, 0)`;
+    frame = 0;
+  };
+
+  window.addEventListener("pointermove", (event) => {
+    targetX = ((event.clientX / window.innerWidth) - 0.5) * 8;
+    targetY = ((event.clientY / window.innerHeight) - 0.5) * 8;
+    if (!frame) frame = window.requestAnimationFrame(renderOffset);
+  }, { passive: true });
+
+  document.addEventListener("mouseleave", () => {
+    targetX = 0;
+    targetY = 0;
+    if (!frame) frame = window.requestAnimationFrame(renderOffset);
+  });
 });

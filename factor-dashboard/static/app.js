@@ -251,18 +251,18 @@ function setRangeBackground(chartKey) {
   const list = chartKey === "ls" ? state.chartData.lsRaw : state.chartData[chartKey];
   const length = Array.isArray(list) ? list.length : 0;
   if (!length) {
-    bar.style.background = "linear-gradient(#dbe5f3, #dbe5f3) center / 100% 4px no-repeat";
+    bar.style.background = "linear-gradient(#d8d5cf, #d8d5cf) center / 100% 2px no-repeat";
     return;
   }
   const startPct = (Math.min(range.start, range.end) / Math.max(1, length - 1)) * 100;
   const endPct = (Math.max(range.start, range.end) / Math.max(1, length - 1)) * 100;
   bar.style.background = `linear-gradient(to right,
-    #dbe5f3 0%,
-    #dbe5f3 ${startPct}%,
+    #d8d5cf 0%,
+    #d8d5cf ${startPct}%,
     var(--blue) ${startPct}%,
     var(--blue) ${endPct}%,
-    #dbe5f3 ${endPct}%,
-    #dbe5f3 100%) center / 100% 4px no-repeat`;
+    #d8d5cf ${endPct}%,
+    #d8d5cf 100%) center / 100% 2px no-repeat`;
 }
 
 function normalizeRange(chartKey) {
@@ -369,7 +369,7 @@ function drawLineChart(canvasId, seriesList, options = {}) {
   const allPoints = seriesList.flatMap((s) => s.points || []).filter((p) => Number.isFinite(p.value));
   if (!allPoints.length) {
     ctx.clearRect(0, 0, width, height);
-    ctx.fillStyle = "#6b7280";
+    ctx.fillStyle = "#716f69";
     ctx.font = "14px Segoe UI, Arial";
     ctx.textAlign = "center";
     ctx.fillText(options.emptyText || "暂无可展示数据", width / 2, height / 2);
@@ -397,9 +397,9 @@ function drawLineChart(canvasId, seriesList, options = {}) {
   const yFor = (v) => padding.top + (1 - (v - min) / (max - min)) * plotH;
 
   ctx.clearRect(0, 0, width, height);
-  ctx.strokeStyle = "#e5eaf2";
+  ctx.strokeStyle = "#d8d5cf";
   ctx.lineWidth = 1;
-  ctx.fillStyle = "#6b7280";
+  ctx.fillStyle = "#716f69";
   ctx.font = "12px Segoe UI, Arial";
   ctx.textAlign = "right";
   for (let i = 0; i <= 4; i += 1) {
@@ -428,7 +428,7 @@ function drawLineChart(canvasId, seriesList, options = {}) {
 
   if (options.zeroLine && min < 0 && max > 0) {
     const y = yFor(0);
-    ctx.strokeStyle = "#cbd5e1";
+    ctx.strokeStyle = "#bbb8b1";
     ctx.setLineDash([4, 4]);
     ctx.beginPath();
     ctx.moveTo(padding.left, y);
@@ -477,7 +477,7 @@ function drawLineChart(canvasId, seriesList, options = {}) {
   const longestSeries = seriesList.reduce((best, item) => ((item.points || []).length > (best.points || []).length ? item : best), { points: [] });
   const first = longestSeries.points[0]?.date;
   const last = longestSeries.points[longestSeries.points.length - 1]?.date;
-  ctx.fillStyle = "#6b7280";
+  ctx.fillStyle = "#716f69";
   ctx.textAlign = "left";
   ctx.fillText(first || "", padding.left, height - 10);
   ctx.textAlign = "right";
@@ -507,7 +507,7 @@ function drawIcComboChart(canvasId, seriesList, options = {}) {
   const linePoints = seriesList.flatMap((s) => s.linePoints || []).filter((p) => Number.isFinite(p.value));
   if (!barPoints.length && !linePoints.length) {
     ctx.clearRect(0, 0, width, height);
-    ctx.fillStyle = "#6b7280";
+    ctx.fillStyle = "#716f69";
     ctx.font = "14px Segoe UI, Arial";
     ctx.textAlign = "center";
     ctx.fillText(options.emptyText || "暂无可展示数据", width / 2, height / 2);
@@ -550,9 +550,9 @@ function drawIcComboChart(canvasId, seriesList, options = {}) {
   const zeroY = yLeft(0);
 
   ctx.clearRect(0, 0, width, height);
-  ctx.strokeStyle = "#e5eaf2";
+  ctx.strokeStyle = "#d8d5cf";
   ctx.lineWidth = 1;
-  ctx.fillStyle = "#6b7280";
+  ctx.fillStyle = "#716f69";
   ctx.font = "12px Segoe UI, Arial";
   for (let i = 0; i <= 4; i += 1) {
     const y = padding.top + (i / 4) * plotH;
@@ -569,7 +569,7 @@ function drawIcComboChart(canvasId, seriesList, options = {}) {
   }
 
   if (leftMin < 0 && leftMax > 0) {
-    ctx.strokeStyle = "#cbd5e1";
+    ctx.strokeStyle = "#bbb8b1";
     ctx.setLineDash([4, 4]);
     ctx.beginPath();
     ctx.moveTo(padding.left, zeroY);
@@ -615,7 +615,7 @@ function drawIcComboChart(canvasId, seriesList, options = {}) {
 
   const first = refPoints[0]?.date;
   const last = refPoints[refPoints.length - 1]?.date;
-  ctx.fillStyle = "#6b7280";
+  ctx.fillStyle = "#716f69";
   ctx.textAlign = "left";
   ctx.fillText(first || "", padding.left, height - 10);
   ctx.textAlign = "right";
@@ -636,7 +636,7 @@ function drawIcComboChart(canvasId, seriesList, options = {}) {
     ctx.lineTo(legendX + 34, 14);
     ctx.stroke();
     const label = series.legendLabel || `${series.name} / Cum`;
-    ctx.fillStyle = "#6b7280";
+    ctx.fillStyle = "#716f69";
     ctx.textAlign = "left";
     ctx.fillText(label, legendX + 40, 18);
     legendX += 36 + ctx.measureText(label).width + 18;
@@ -971,8 +971,8 @@ function renderIcChart() {
     const sampledPoints = samplePointsByDensity(points, getIcSamplingLimit(points.length));
     series.push({
       name: config.label,
-      color: "#2563eb",
-      barColor: "#2563eb",
+      color: "#243f63",
+      barColor: "#243f63",
       lineColor: "#e55353",
       legendLabel: `${config.label} Bar / Cumulative IC`,
       barPoints: sampledPoints.map((p) => ({ date: p.trade_date, value: numericOrNaN(p[config.barKey]) })),
@@ -988,7 +988,7 @@ function renderGroupChart() {
   const payload = state.chartData.group;
   const columns = payload.columns || [];
   const seriesRows = payload.series || [];
-  const palette = ["#2563eb", "#2f9e65", "#e79b28", "#ef5552", "#7c3aed", "#0891b2", "#c2410c", "#0f766e", "#4f46e5", "#be123c"];
+  const palette = ["#243f63", "#55705a", "#9a7741", "#985b52", "#67728a", "#577a7e", "#89664b", "#4f6d67", "#5e6681", "#815b68"];
   const series = columns.map((column, idx) => ({
     name: `Q${column}`,
     color: palette[idx % palette.length],
@@ -1012,9 +1012,9 @@ function renderLongShortChart() {
     long_short_value: document.getElementById("toggleLongShort").checked,
   };
   const series = [];
-  if (visible.long_value) series.push({ name: "Long", color: "#2563eb", points: points.map((p) => ({ date: p.date, value: numericOrNaN(p.long_value) })) });
+  if (visible.long_value) series.push({ name: "Long", color: "#243f63", points: points.map((p) => ({ date: p.date, value: numericOrNaN(p.long_value) })) });
   if (visible.short_value) series.push({ name: "Short", color: "#ef5552", points: points.map((p) => ({ date: p.date, value: numericOrNaN(p.short_value) })) });
-  if (visible.long_short_value) series.push({ name: "LongShort", color: "#2f9e65", lineWidth: 2.6, points: points.map((p) => ({ date: p.date, value: numericOrNaN(p.long_short_value) })) });
+  if (visible.long_short_value) series.push({ name: "LongShort", color: "#55705a", lineWidth: 2.6, points: points.map((p) => ({ date: p.date, value: numericOrNaN(p.long_short_value) })) });
 
   const stats = state.chartData.lsStats || {};
   const range = stats.max_drawdown_range;
@@ -1027,7 +1027,7 @@ function renderLongShortChart() {
         items: [
           { date: range.peak_date, color: "#e55353", label: "Peak" },
           { date: range.trough_date, color: "#e55353", label: "Trough" },
-          ...(range.recovery_date ? [{ date: range.recovery_date, color: "#2563eb", label: "Recover" }] : []),
+          ...(range.recovery_date ? [{ date: range.recovery_date, color: "#243f63", label: "Recover" }] : []),
         ],
       }
     : null;
@@ -1125,7 +1125,7 @@ function renderPortfolioChart() {
   drawLineChart("portfolioChart", [
     {
       name: "Portfolio",
-      color: "#2563eb",
+      color: "#243f63",
       lineWidth: 2.6,
       points: seriesRows.map((item) => ({ date: item.date, value: numericOrNaN(item.portfolio_nav) })),
     },

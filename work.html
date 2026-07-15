@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Notes and writing by Yuyao Ma.">
-    <title>Notes — Yuyao Ma</title>
+    <meta name="description" content="Selected work by Yuyao Ma.">
+    <title>Work — Yuyao Ma</title>
     <link rel="stylesheet" href="css/style.css?v=2.0.0">
 </head>
 <body class="index-page">
@@ -14,36 +14,31 @@
             <span></span><span></span><span></span><span class="sr-only">Toggle navigation</span>
         </button>
         <nav class="site-nav" id="site-navigation" aria-label="Primary navigation">
-            <a href="work.html">Work</a>
-            <a class="active" href="notes-blogs.html" aria-current="page">Notes</a>
+            <a class="active" href="work.html" aria-current="page">Work</a>
+            <a href="notes-blogs.html">Notes</a>
             <a href="index.html">About</a>
             <a href="#contact">Contact</a>
         </nav>
     </header>
 
-    <main class="editorial-main">
+    <main class="editorial-main work-main">
         <header class="page-heading">
-            <p class="eyebrow">Archive / 01</p>
-            <h1>Notes &amp; Blogs</h1>
-            <p>Research notes, technical studies, and observations on quantitative finance and intelligent systems.</p>
+            <p class="eyebrow">Selected Work / 01</p>
+            <h1>Research Systems</h1>
+            <p>Tools for systematic research, empirical testing, and disciplined investment decisions.</p>
         </header>
 
-        <section class="content-index" aria-labelledby="notes-heading">
-            <div class="index-section-head">
-                <h2 id="notes-heading">Notes</h2>
-                <span id="notes-count">00</span>
-            </div>
-            <ol class="editorial-list" id="notes-list"></ol>
+        <section class="work-index" aria-label="Selected projects">
+            <a class="work-row" href="factor-dashboard/index.html">
+                <span class="work-number">01</span>
+                <span class="work-copy">
+                    <strong>Factor Dashboard</strong>
+                    <span>A focused research interface for factor evaluation, grouped returns, and portfolio backtesting.</span>
+                </span>
+                <span class="work-meta">Quant Research<br>2026</span>
+                <span class="work-arrow" aria-hidden="true">↗</span>
+            </a>
         </section>
-
-        <section class="content-index" aria-labelledby="blogs-heading">
-            <div class="index-section-head">
-                <h2 id="blogs-heading">Blogs</h2>
-                <span id="blogs-count">00</span>
-            </div>
-            <ol class="editorial-list" id="blog-list"></ol>
-        </section>
-        <p class="sync-status" aria-live="polite"></p>
     </main>
 
     <footer class="site-footer" id="contact">
@@ -53,6 +48,5 @@
     </footer>
 
     <script src="js/main.js?v=2.0.0"></script>
-    <script src="js/notes-blogs.js?v=2.0.0"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 function formatDate(value) {
-  if (!value) return "";
-  return String(value).slice(0, 10);
+  if (!value) return "Undated";
+  return String(value).slice(0, 10).replaceAll("-", ".");
 }
 
 function renderList(listId, items) {
@@ -12,45 +12,39 @@ function renderList(listId, items) {
     return;
   }
 
-  list.innerHTML = items
-    .map(
-      (item) => `
-        <li>
-          <a href="${item.href}">
-            <span class="content-title">${item.title}</span>
-            <span class="content-date">${formatDate(item.date)}</span>
-          </a>
-        </li>
-      `,
-    )
-    .join("");
+  list.innerHTML = items.map((item, index) => `
+    <li>
+      <a href="${item.href}">
+        <span class="item-number">${String(index + 1).padStart(2, "0")}</span>
+        <span class="content-title">${item.title}</span>
+        <span class="content-meta">${item.category || item.kind}<br>${formatDate(item.date)}</span>
+        <span class="row-arrow" aria-hidden="true">↗</span>
+      </a>
+    </li>
+  `).join("");
 }
 
 async function loadContentIndex() {
-  const note = document.querySelector(".notion-note");
+  const status = document.querySelector(".sync-status");
 
   try {
     const response = await fetch("content/index.json", { cache: "no-store" });
-    if (!response.ok) {
-      throw new Error(`Failed to load content index: ${response.status}`);
-    }
+    if (!response.ok) throw new Error(`Content index returned ${response.status}`);
 
     const data = await response.json();
-    renderList("blog-list", data.blog || []);
-    renderList("notes-list", data.notes || []);
+    const notes = Array.isArray(data.notes) ? data.notes : [];
+    const blogs = Array.isArray(data.blog) ? data.blog : [];
+    renderList("notes-list", notes);
+    renderList("blog-list", blogs);
+    document.getElementById("notes-count").textContent = String(notes.length).padStart(2, "0");
+    document.getElementById("blogs-count").textContent = String(blogs.length).padStart(2, "0");
 
-    if (note) {
-      const blogCount = Array.isArray(data.blog) ? data.blog.length : 0;
-      const notesCount = Array.isArray(data.notes) ? data.notes.length : 0;
-      const lastSync = formatDate(data.generatedAt) || "Not synced yet";
-      note.textContent = `Synced from Notion: ${blogCount} blog item(s), ${notesCount} note item(s). Last sync: ${lastSync}.`;
-    }
+    if (status) status.textContent = `Archive updated ${formatDate(data.generatedAt)}.`;
   } catch (error) {
-    renderList("blog-list", []);
     renderList("notes-list", []);
-    if (note) {
-      note.textContent = `Unable to load synced content index. ${error.message}`;
-    }
+    renderList("blog-list", []);
+    if (status) status.textContent = "The content archive is temporarily unavailable.";
+    console.error(error);
   }
 }
 

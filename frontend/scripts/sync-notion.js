@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const FRONTEND_DIR = path.resolve(SCRIPT_DIR, "..");
 const REPO_ROOT = path.resolve(FRONTEND_DIR, "..");
-const CONTENT_RENDER_VERSION = "3";
+const CONTENT_RENDER_VERSION = "5";
 
 const NOTION_API_BASE = "https://api.notion.com/v1";
 const NOTION_VERSION = "2022-06-28";
@@ -361,7 +361,95 @@ function getImageSource(image) {
   return "";
 }
 
-async function renderBlocks(token, blocks, depth = 0) {
+function getExtensionFromUrl(url) {
+  try {
+    const extension = path.extname(new URL(url).pathname).toLowerCase();
+    if (/^\.[a-z0-9]+$/.test(extension)) {
+      return extension;
+    }
+  } catch {
+    return "";
+  }
+  return "";
+}
+
+function getExtensionFromContentType(contentType) {
+  const normalized = String(contentType || "").split(";")[0].trim().toLowerCase();
+  const mapping = {
+    "image/jpeg": ".jpg",
+    "image/jpg": ".jpg",
+    "image/png": ".png",
+    "image/gif": ".gif",
+    "image/webp": ".webp",
+    "image/svg+xml": ".svg",
+  };
+  return mapping[normalized] || "";
+}
+
+async function downloadFile(url, redirectCount = 0) {
+  if (redirectCount > 5) {
+    throw new Error(`Too many redirects while downloading ${url}`);
+  }
+
+  return new Promise((resolve, reject) => {
+    const request = https.get(url, { timeout: 30000 }, (response) => {
+      const statusCode = response.statusCode || 0;
+
+      if (statusCode >= 300 && statusCode < 400 && response.headers.location) {
+        response.resume();
+        const redirectUrl = new URL(response.headers.location, url).toString();
+        downloadFile(redirectUrl, redirectCount + 1).then(resolve, reject);
+        return;
+      }
+
+      if (statusCode < 200 || statusCode >= 300) {
+        response.resume();
+        reject(new Error(`Image download failed: ${statusCode} ${response.statusMessage || ""}`.trim()));
+        return;
+      }
+
+      const chunks = [];
+      response.on("data", (chunk) => chunks.push(chunk));
+      response.on("end", () => {
+        resolve({
+          buffer: Buffer.concat(chunks),
+          contentType: response.headers["content-type"] || "",
+        });
+      });
+    });
+
+    request.on("timeout", () => {
+      request.destroy(new Error("Image download timed out"));
+    });
+    request.on("error", reject);
+  });
+}
+
+async function localizeImage(image, context) {
+  const sourceUrl = getImageSource(image);
+  if (!sourceUrl || image.type !== "file") {
+    return sourceUrl;
+  }
+
+  try {
+    const downloaded = await downloadFile(sourceUrl);
+    const imageIndex = context.nextImageIndex();
+    const extension = getExtensionFromUrl(sourceUrl) || getExtensionFromContentType(downloaded.contentType) || ".img";
+    const fileName = `image-${String(imageIndex).padStart(2, "0")}${extension}`;
+    const targetPath = path.join(context.assetDir, fileName);
+
+    await fs.mkdir(context.assetDir, { recursive: true });
+    await fs.writeFile(targetPath, downloaded.buffer);
+
+    // HTML 文件位于 notes/ 或 blog/，因此本地图片用相对站点根目录的路径引用。
+    return `${context.assetHrefBase}/${fileName}`;
+  } catch (error) {
+    console.warn(`Unable to localize Notion image, falling back to signed URL: ${error.message}`);
+    return sourceUrl;
+  }
+}
+
+async function renderBlocks(token, blocks, context, depth = 0) {
   const lines = [];
 
   for (const block of blocks) {
@@ -384,14 +472,14 @@ async function renderBlocks(token, blocks, depth = 0) {
       case "bulleted_list_item":
         lines.push(`${indent}- ${getBlockText(block, "bulleted_list_item")}`);
         if (children.length) {
-          const nested = await renderBlocks(token, children, depth + 1);
+          const nested = await renderBlocks(token, children, context, depth + 1);
           lines.push(nested.trimEnd());
         }
         break;
       case "numbered_list_item":
         lines.push(`${indent}1. ${getBlockText(block, "numbered_list_item")}`);
         if (children.length) {
-          const nested = await renderBlocks(token, children, depth + 1);
+          const nested = await renderBlocks(token, children, context, depth + 1);
           lines.push(nested.trimEnd());
         }
         break;
@@ -409,7 +497,7 @@ async function renderBlocks(token, blocks, depth = 0) {
         lines.push(`$$${block.equation?.expression || ""}$$`, "");
         break;
       case "image": {
-        const url = getImageSource(block.image);
+        const url = await localizeImage(block.image, context);
         const caption = richTextToMarkdown(block.image.caption || []) || "Notion image";
         lines.push(`![${caption}](${url})`, "");
         break;
@@ -423,7 +511,7 @@ async function renderBlocks(token, blocks, depth = 0) {
       default:
         lines.push(`<!-- Unsupported Notion block: ${block.type} -->`, "");
         if (children.length) {
-          const nested = await renderBlocks(token, children, depth);
+          const nested = await renderBlocks(token, children, context, depth);
           lines.push(nested.trimEnd(), "");
         }
         break;
@@ -458,6 +546,14 @@ function toFrontmatter(meta) {
 
 function getHtmlOutputPath(meta) {
   return path.join(REPO_ROOT, meta.kind, `${meta.slug}.html`);
+}
+
+function getAssetOutputDir(meta) {
+  return path.join(REPO_ROOT, "content", "assets", meta.kind, meta.slug);
+}
+
+function getAssetHrefBase(meta) {
+  return `../content/assets/${meta.kind}/${meta.slug}`;
 }
 
 function escapeHtml(value) {
@@ -507,6 +603,7 @@ function isDisplayMathLine(line) {
 function markdownToHtml(markdown) {
   const lines = markdown.replace(/\r\n/g, "\n").split("\n");
   const html = [];
+  const usedHeadingIds = new Set();
   let paragraph = [];
   let inCodeBlock = false;
   let codeLanguage = "";
@@ -580,7 +677,18 @@ function markdownToHtml(markdown) {
       flushList();
       flushQuote();
       const level = headingMatch[1].length;
-      html.push(`<h${level}>${parseInlineMarkdown(headingMatch[2])}</h${level}>`);
+      const headingText = headingMatch[2].trim();
+      const headingBase = headingText
+        .normalize("NFKC")
+        .toLowerCase()
+        .replace(/[^a-z0-9\u3400-\u9fff]+/g, "-")
+        .replace(/^-+|-+$/g, "") || "section";
+      let headingId = headingBase;
+      let headingSuffix = 2;
+      // 同名标题按出现顺序追加序号，避免目录锚点互相覆盖。
+      while (usedHeadingIds.has(headingId)) headingId = `${headingBase}-${headingSuffix++}`;
+      usedHeadingIds.add(headingId);
+      html.push(`<h${level} id="${escapeHtml(headingId)}">${parseInlineMarkdown(headingText)}</h${level}>`);
       continue;
     }
 
@@ -666,8 +774,7 @@ function buildArticleHtml(meta, markdownBody) {
   const title = escapeHtml(meta.title);
   const category = escapeHtml(meta.category || meta.kind);
   const date = escapeHtml(meta.date || "");
-  const backHref = meta.kind === "blog" ? "../notes-blogs.html" : "../notes-blogs.html";
-  const tags = (meta.tags || []).map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("");
+  const tags = (meta.tags || []).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("");
 
   return `<!DOCTYPE html>
 <html lang="zh-CN">
@@ -675,167 +782,58 @@ function buildArticleHtml(meta, markdownBody) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="${escapeHtml(meta.title)}">
-  <title>${title} - 个人网站</title>
-  <link rel="stylesheet" href="../css/style.css?v=1.0.2">
+  <title>${title} — Yuyao Ma</title>
+  <link rel="stylesheet" href="../css/style.css?v=2.0.0">
   ${hasMath ? '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">' : ""}
-  <style>
-    .article-shell {
-      padding: 4rem 0;
-    }
-    .article-card {
-      max-width: 860px;
-      margin: 0 auto;
-      background: #fff;
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 2.5rem;
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
-    }
-    .article-back {
-      display: inline-block;
-      margin-bottom: 1.5rem;
-      color: var(--secondary-color);
-      text-decoration: none;
-      font-weight: 500;
-    }
-    .article-title {
-      margin-bottom: 0.75rem;
-    }
-    .article-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      color: var(--text-muted);
-      margin-bottom: 2rem;
-      font-size: 0.95rem;
-    }
-    .article-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 2rem;
-    }
-    .tag {
-      background: var(--bg-light);
-      border: 1px solid var(--border-color);
-      border-radius: 999px;
-      padding: 0.3rem 0.75rem;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-    .article-content {
-      line-height: 1.8;
-      color: var(--text-color);
-    }
-    .article-content h1,
-    .article-content h2,
-    .article-content h3 {
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-    }
-    .article-content p,
-    .article-content ul,
-    .article-content ol,
-    .article-content blockquote,
-    .article-content pre,
-    .article-content figure {
-      margin-bottom: 1rem;
-    }
-    .article-content ul,
-    .article-content ol {
-      padding-left: 1.5rem;
-    }
-    .article-content blockquote {
-      border-left: 4px solid var(--border-color);
-      padding-left: 1rem;
-      color: var(--text-muted);
-    }
-    .article-content pre {
-      background: #0f172a;
-      color: #e2e8f0;
-      padding: 1rem;
-      border-radius: 12px;
-      overflow-x: auto;
-    }
-    .article-content code {
-      font-family: "Consolas", "Monaco", monospace;
-    }
-    .article-content pre.mermaid {
-      background: #fff;
-      color: inherit;
-      padding: 0;
-      overflow: visible;
-    }
-    .article-content .math-block {
-      overflow-x: auto;
-      margin-bottom: 1rem;
-    }
-    .article-content .katex-display {
-      margin: 1.25rem 0;
-      overflow-x: auto;
-      overflow-y: hidden;
-    }
-    .article-content img {
-      max-width: 100%;
-      border-radius: 12px;
-    }
-    .article-content a {
-      color: var(--secondary-color);
-    }
-  </style>
 </head>
-<body>
-  <nav class="navbar">
-    <div class="container">
-      <div class="nav-brand">
-        <a href="../index.html">我的网站</a>
-      </div>
-      <ul class="nav-menu">
-        <li><a href="../index.html">About me</a></li>
-        <li><a href="../strategy-dashboard.html">Strategy Dashboard</a></li>
-        <li><a href="../factor-dashboard/index.html">因子看板</a></li>
-        <li><a href="../notes-blogs.html" class="active">Notes &amp; Blogs</a></li>
-      </ul>
-      <div class="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  </nav>
+<body class="article-page">
+  <header class="site-header">
+    <a class="site-mark" href="../index.html" aria-label="Yuyao Ma home">YM</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation">
+      <span></span><span></span><span></span><span class="sr-only">Toggle navigation</span>
+    </button>
+    <nav class="site-nav" id="site-navigation" aria-label="Primary navigation">
+      <a href="../work.html">Work</a>
+      <a class="active" href="../notes-blogs.html" aria-current="page">Notes</a>
+      <a href="../index.html">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-  <main>
-    <section class="article-shell">
-      <div class="container">
-        <article class="article-card">
-          <a class="article-back" href="${backHref}">← Back to Notes &amp; Blogs</a>
-          <h1 class="article-title">${title}</h1>
-          <div class="article-meta">
-            <span>${escapeHtml(meta.kind)}</span>
-            <span>${date}</span>
-            <span>${category}</span>
-          </div>
-          <div class="article-tags">${tags}</div>
-          <div class="article-content">
-            ${articleHtml}
-          </div>
-        </article>
+  <main class="article-layout">
+    <aside class="article-nav article-side-nav" aria-label="All notes">
+      <h2>All Notes</h2>
+      <ol data-note-list></ol>
+    </aside>
+
+    <article class="article-main">
+      <div class="article-mobile-nav">
+        <details><summary>All Notes</summary><ol class="article-nav" data-note-list></ol></details>
+        <details><summary>On This Page</summary><ol class="article-nav" data-toc-list></ol></details>
       </div>
-    </section>
+      <a class="article-back" href="../notes-blogs.html">← Notes &amp; Blogs</a>
+      <h1 class="article-title">${title}</h1>
+      <div class="article-meta">
+        <span>${escapeHtml(meta.kind)}</span><span>${date}</span><span>${category}</span>
+        <span class="article-tags">${tags}</span>
+      </div>
+      <div class="article-content">${articleHtml}</div>
+    </article>
+
+    <aside class="article-nav article-side-nav" aria-label="On this page">
+      <h2>On This Page</h2>
+      <ol data-toc-list></ol>
+    </aside>
   </main>
 
-  <footer class="footer">
-    <div class="container">
-      <p>&copy; 2025 Yestin Ma. 保留所有权利。</p>
-      <div class="social-links">
-        <a href="#" aria-label="GitHub">GitHub</a>
-        <a href="#" aria-label="LinkedIn">LinkedIn</a>
-        <a href="#" aria-label="Twitter">Twitter</a>
-      </div>
-    </div>
+  <footer class="site-footer" id="contact">
+    <p>© 2026 YUYAO MA</p>
+    <div class="footer-contact"><a class="text-link" href="mailto:yestyn_ma@163.com">yestyn_ma@163.com</a><span aria-hidden="true">·</span><span>Shanghai, China</span></div>
+    <a class="text-link footer-social" href="https://github.com/YestinMa" target="_blank" rel="noreferrer">GitHub</a>
   </footer>
 
-  <script src="../js/main.js?v=1.0.2"></script>
+  <script src="../js/main.js?v=2.0.0"></script>
+  <script src="../js/article.js?v=2.0.0"></script>
   ${
     hasMath
       ? `<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
@@ -918,6 +916,7 @@ async function syncPage(token, page, ancestors, defaultStatus, isContainer, exis
       if (existing.htmlPath) {
         await fs.rm(existing.htmlPath, { force: true });
       }
+      await fs.rm(getAssetOutputDir(meta), { recursive: true, force: true });
       return { status: "removed", reason: "unpublished", meta };
     }
     return { status: "skipped", reason: "unpublished", meta };
@@ -943,7 +942,17 @@ async function syncPage(token, page, ancestors, defaultStatus, isContainer, exis
   }
 
   const blocks = await listBlockChildren(token, page.id);
-  const markdownBody = await renderBlocks(token, blocks);
+  const assetDir = getAssetOutputDir(meta);
+  await fs.rm(assetDir, { recursive: true, force: true });
+  let imageIndex = 0;
+  const markdownBody = await renderBlocks(token, blocks, {
+    assetDir,
+    assetHrefBase: getAssetHrefBase(meta),
+    nextImageIndex: () => {
+      imageIndex += 1;
+      return imageIndex;
+    },
+  });
   const fileContent = `${toFrontmatter(meta)}${markdownBody}`;
   const htmlContent = buildArticleHtml(meta, markdownBody);
 
@@ -1037,9 +1046,46 @@ async function writeContentIndex(contentRoot) {
   await fs.writeFile(path.join(contentRoot, "index.json"), `${JSON.stringify(payload, null, 2)}\n`, "utf8");
 }
 
+async function renderExistingContent(contentRoot) {
+  let rendered = 0;
+
+  for (const kind of ["blog", "notes"]) {
+    const dir = path.join(contentRoot, kind);
+    await fs.mkdir(dir, { recursive: true });
+    const entries = await fs.readdir(dir, { withFileTypes: true });
+
+    for (const entry of entries) {
+      if (!entry.isFile() || !entry.name.endsWith(".md")) continue;
+      const markdownPath = path.join(dir, entry.name);
+      const rawContent = (await fs.readFile(markdownPath, "utf8")).replace(/\r\n/g, "\n");
+      const frontmatterMatch = rawContent.match(/^---\n[\s\S]*?\n---\n\n?/);
+      const meta = parseFrontmatter(rawContent);
+      if (!frontmatterMatch || !meta) continue;
+
+      const markdownBody = rawContent.slice(frontmatterMatch[0].length);
+      const nextMeta = { ...meta, kind, slug: meta.slug || entry.name.replace(/\.md$/, "") };
+      const nextContent = rawContent.replace(/^renderVersion:\s*"[^"]*"/m, `renderVersion: "${CONTENT_RENDER_VERSION}"`);
+      const htmlPath = path.join(REPO_ROOT, kind, `${nextMeta.slug}.html`);
+
+      await fs.mkdir(path.dirname(htmlPath), { recursive: true });
+      await fs.writeFile(markdownPath, nextContent, "utf8");
+      await fs.writeFile(htmlPath, buildArticleHtml(nextMeta, markdownBody), "utf8");
+      rendered += 1;
+    }
+  }
+
+  await writeContentIndex(contentRoot);
+  console.log(`Rendered ${rendered} local article(s).`);
+}
+
 async function main() {
   await loadEnvFile(path.join(REPO_ROOT, ".env"));
   await loadEnvFile(path.join(FRONTEND_DIR, ".env"));
+  if (process.argv.includes("--render-existing")) {
+    const contentRoot = path.resolve(REPO_ROOT, process.env.SITE_CONTENT_DIR || "content");
+    await renderExistingContent(contentRoot);
+    return;
+  }
   const config = getConfig();
   const contentRoot = config.contentRoot;
   const existingById = await indexExistingContent(contentRoot);

@@ -1,55 +1,23 @@
-# Personal Website
+# Yuyao Ma — Personal Website
 
-This repository contains a static personal website, a strategy dashboard prototype, and a lightweight Notion content sync script.
+以排版与留白为核心的静态个人网站，包含 About、Work、Factor Dashboard、Notes 与 Notion 内容同步工具。
 
-## Project Structure
+## 页面结构
 
-- `backend/`: FastAPI service with reserved strategy endpoints.
-- `frontend/`: Vue 3 + Vite dashboard app and the Notion sync script runtime.
-- `frontend/scripts/sync-notion.js`: syncs Notion content into local Markdown files.
-- `content/`: generated Markdown content after a sync run.
-- `strategy-dashboard.html`: static entry page pointing to the dashboard app.
+- `index.html`：个人主页
+- `work.html`：研究项目索引
+- `factor-dashboard/`：因子研究与回测看板
+- `notes-blogs.html`：笔记与文章索引
+- `notes/`、`blog/`：同步后生成的静态文章
+- `content/`：Markdown 源内容、索引与本地化图片
 
-## Notion CMS Sync
+## Notion 内容同步
 
-### What it does
+同步脚本位于 `frontend/scripts/sync-notion.js`，仅同步状态为 `Published`、`Public` 或 `Ready` 的页面。生成的文章支持标题目录、公式、Mermaid、代码块和本地化图片。
 
-The sync script pulls content from Notion and writes Markdown files into:
+在仓库根目录配置 `.env`：
 
-- `content/blog/`
-- `content/notes/`
-
-Each generated file includes frontmatter:
-
-- `title`
-- `slug`
-- `date`
-- `lastEditedTime`
-- `category`
-- `tags`
-- `status`
-- `notionPageId`
-
-Only pages with `status` equal to `Published`, `Public`, or `Ready` are synced.
-
-### Create a Notion integration
-
-1. Open [Notion Integrations](https://www.notion.so/my-integrations).
-2. Create a new internal integration.
-3. Copy the integration token and store it as `NOTION_TOKEN`.
-
-### Grant access to your content
-
-1. Open the target Notion page or database.
-2. Click `Share`.
-3. Invite the integration you created.
-4. Copy either the database ID or the root page ID.
-
-### Environment variables
-
-Create a root `.env` file from `.env.example` and fill in the values:
-
-```bash
+```dotenv
 NOTION_TOKEN=
 NOTION_ROOT_PAGE_ID=
 NOTION_DATABASE_ID=
@@ -57,115 +25,39 @@ NOTION_SYNC_MODE=database
 SITE_CONTENT_DIR=content
 ```
 
-Variables:
+安装并同步：
 
-- `NOTION_TOKEN`: required.
-- `NOTION_SYNC_MODE`: `database` or `page`.
-- `NOTION_DATABASE_ID`: required when `NOTION_SYNC_MODE=database`.
-- `NOTION_ROOT_PAGE_ID`: required when `NOTION_SYNC_MODE=page`.
-- `SITE_CONTENT_DIR`: output directory relative to the repo root.
-
-### Content model expectations
-
-Recommended Notion properties:
-
-- `Title` or `Name`
-- `Status`
-- `Slug`
-- `Date`
-- `Category`
-- `Tags`
-- `Type`
-
-`Type` or `Category` should indicate whether the page belongs to `blog` or `notes`.
-
-### Run sync manually
-
-```bash
+```powershell
 cd frontend
 npm install
 npm run sync
 ```
 
-### 一键同步并发布到 GitHub Pages
+仅根据现有 Markdown 重新生成文章 HTML，无需访问 Notion：
 
-仓库根目录新增了一个手动发布脚本：
+```powershell
+cd frontend
+npm run render
+```
+
+也可以从仓库根目录执行同步、提交和发布脚本：
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\publish-website.ps1
 ```
 
-也可以直接双击这个入口文件：
+脚本只暂存 `content/`、`notes/` 和 `blog/` 同步产物，不会把其他工作区改动一并提交。
 
-```bat
-.\scripts\publish-website.bat
-```
+## 本地预览
 
-这个脚本会按顺序执行：
-
-- 检查 `.env` 和当前 Git 分支
-- 在 `frontend/` 下执行 `npm run sync`
-- 仅暂存 `content/`、`notes/`、`blog/` 这些同步产物
-- 自动提交并推送到 `origin/main`
-
-可选参数示例：
+站点需要通过 HTTP 打开，以便文章列表读取 `content/index.json`：
 
 ```powershell
-# 只同步并提交，不推送
-powershell -ExecutionPolicy Bypass -File .\scripts\publish-website.ps1 -NoPush
-
-# 自定义提交信息
-powershell -ExecutionPolicy Bypass -File .\scripts\publish-website.ps1 -CommitMessage "chore: sync notion content"
+python -m http.server 8000
 ```
 
-The script supports:
+访问 `http://127.0.0.1:8000/`。
 
-- direct database sync via `NOTION_DATABASE_ID`
-- root-page traversal via `NOTION_ROOT_PAGE_ID`
-- incremental updates using `last_edited_time`
-- Markdown conversion for headings, paragraphs, lists, quotes, code, images, bookmarks, and dividers
+## 编码
 
-Unsupported block types are preserved as HTML comments in the generated Markdown.
-
-In `page` mode, plain leaf pages without database properties are treated as published by default so that a `Blog` / `Notes` page tree can still sync. Container pages are skipped.
-
-### Deploy with automatic sync
-
-If your deployment platform can run shell commands before build, use:
-
-```bash
-cd frontend
-npm install
-npm run sync
-npm run build
-```
-
-If your site host deploys from the repo root, make sure it runs the same sequence before publishing static assets.
-
-## Run Backend
-
-```bash
-cd backend
-python -m venv .venv
-.venv\Scripts\activate
-pip install -r requirements.txt
-uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
-```
-
-## Run Frontend
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Open `http://127.0.0.1:5173`.
-
-## Reserved API Endpoints
-
-- `GET /health`
-- `GET /api/v1/strategies/{strategy_id}/dashboard`
-- `GET /api/v1/strategies/{strategy_id}/signals`
-
-`/dashboard` currently returns mock data and is ready to be replaced with real strategy/backtest/live data.
+所有文本文件均使用 UTF-8。终端中文显示异常时，应先切换终端编码，不要转换项目文件编码。
