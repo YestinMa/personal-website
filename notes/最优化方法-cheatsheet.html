@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="MATH6015《最优化方法》cheatsheet">
-  <title>MATH6015《最优化方法》cheatsheet — Yuyao Ma</title>
+  <meta name="description" content="《最优化方法》cheatsheet">
+  <title>《最优化方法》cheatsheet — Yuyao Ma</title>
   <link rel="stylesheet" href="../css/style.css?v=2.0.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 </head>
@@ -34,7 +34,7 @@
         <details><summary>On This Page</summary><ol class="article-nav" data-toc-list></ol></details>
       </div>
       <a class="article-back" href="../notes-blogs.html">← Notes &amp; Blogs</a>
-      <h1 class="article-title">MATH6015《最优化方法》cheatsheet</h1>
+      <h1 class="article-title">《最优化方法》cheatsheet</h1>
       <div class="article-meta">
         <span>notes</span><span>2026-06-25</span><span>study</span>
         <span class="article-tags"><span>study</span></span>
@@ -63,7 +63,7 @@
 <li>局部极小点（local minimum）：若存在 \(\varepsilon\) -邻域，使得附近可行点都满足 \(f(x)\le f(y)\)</li>
 <li>严格局部极小点（strict local minimum）：若附近所有 \(y\ne x\) 都满足 \(f(x)<f(y)\)</li>
 </ul>
-<figure><img src="../content/assets/notes/math6015-最优化方法-cheatsheet/image-01.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<figure><img src="../content/assets/notes/最优化方法-cheatsheet/image-01.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <h3 id="算法收敛">算法收敛</h3>
 <ul>
 <li>迭代算法（iterative algorithm）产生序列 \(x_k\)</li>
@@ -171,20 +171,20 @@
 <ul>
 <li>Armijo 条件： \(f(x_k + \alpha_k d_k) \le f(x_k) + c_1 \alpha_k \nabla f(x_k)^T d_k,\ c_1 \in (0,1)\)</li>
 </ul>
-<figure><img src="../content/assets/notes/math6015-最优化方法-cheatsheet/image-02.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<figure><img src="../content/assets/notes/最优化方法-cheatsheet/image-02.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <ul>
 <li>Goldstein 条件： \(f(x_k + \alpha_k d_k) \le f(x_k) + c_1 \alpha_k \nabla f(x_k)^T d_k\)；同时要求： \(f(x_k + \alpha_k d_k) \ge f(x_k) + (1-c_1)\alpha_k \nabla f(x_k)^T d_k,\ 0 < c_1 < \frac12\)</li>
 </ul>
-<figure><img src="../content/assets/notes/math6015-最优化方法-cheatsheet/image-03.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<figure><img src="../content/assets/notes/最优化方法-cheatsheet/image-03.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <ul>
 <li>Wolfe条件：\(f(x_k + \alpha_k d_k) \le f(x_k) + c_1 \alpha_k \nabla f(x_k)^T d_k\)，同时满足曲率条件： \(\nabla f(x_k + \alpha_k d_k)^T d_k \ge c_2 \nabla f(x_k)^T d_k,\ 0 < c_1 < c_2 < 1\)</li>
 </ul>
-<figure><img src="../content/assets/notes/math6015-最优化方法-cheatsheet/image-04.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<figure><img src="../content/assets/notes/最优化方法-cheatsheet/image-04.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <ul>
 <li>非单调线搜索：允许阶段性上升，以换取更快整体推进</li>
 <li>Backtracking：通过不断以指数方式缩小试探步长，找到第一个满足线搜索准则的点</li>
 </ul>
-<figure><img src="../content/assets/notes/math6015-最优化方法-cheatsheet/image-05.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<figure><img src="../content/assets/notes/最优化方法-cheatsheet/image-05.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <ul>
 <li>Zoutendijk 收敛结论：考虑一般的迭代格式，如果满足：</li>
 <li>目标函数有下界，连续可微；</li>
@@ -203,7 +203,7 @@
 <ul>
 <li>\(\alpha_k^{BB1} = \frac{s_{k-1}^T s_{k-1}}{s_{k-1}^T y_{k-1}}\)， \(\alpha_k^{BB2} = \frac{s_{k-1}^T y_{k-1}}{y_{k-1}^T y_{k-1}}\)</li>
 </ul>
-<figure><img src="../content/assets/notes/math6015-最优化方法-cheatsheet/image-06.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<figure><img src="../content/assets/notes/最优化方法-cheatsheet/image-06.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <h2 id="六-牛顿法-newton-method">六、牛顿法（Newton Method）</h2>
 <p>牛顿法使用二阶Taylor展开近似原函数： \(f(x_k + d) \approx f(x_k) + \nabla f(x_k)^T d + \frac12 d^T \nabla^2 f(x_k) d\)</p>
 <p>核心逻辑：梯度给斜率，Hessian 给曲率，牛顿法同时利用两者决定一步更新</p>
@@ -229,7 +229,7 @@
 <li>CG 沿 \(A\)-共轭方向做精确线搜索。</li>
 <li>若 \(A\) 有 \(r\) 个不同特征值，则 CG 至多 \(r\) 步终止</li>
 </ul>
-<figure><img src="../content/assets/notes/math6015-最优化方法-cheatsheet/image-07.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<figure><img src="../content/assets/notes/最优化方法-cheatsheet/image-07.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <h3 id="不精确牛顿法">不精确牛顿法</h3>
 <p>允许残差： \(\nabla^2 f(x_k)d_k = -\nabla f(x_k) + r_k\)</p>
 <p>常用准则： \(||r_k|| \le \eta_k ||\nabla f(x_k)||,\ 0 \le \eta_k < 1\)</p>
@@ -240,9 +240,9 @@
 <p>搜索方向可写为： \(d_k = -B_k^{-1}\nabla f(x_k)\)，也可写为： \(d_k = -H_k \nabla f(x_k)\)</p>
 <h3 id="割线方程">割线方程</h3>
 <p>定义： \(s_k = x_{k+1} - x_k,\ y_k = \nabla f(x_{k+1}) - \nabla f(x_k)\)，割线方程（secant equation）为： \(B_{k+1}s_k = y_k\)</p>
-<figure><img src="../content/assets/notes/math6015-最优化方法-cheatsheet/image-08.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<figure><img src="../content/assets/notes/最优化方法-cheatsheet/image-08.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <p>曲率条件（保证 \(B_k\)的正定性）： \(s_k^T y_k > 0\)，若 \(B_k \succ 0\)，则 \(d_k = -B_k^{-1}\nabla f(x_k)\) 为下降方向</p>
-<figure><img src="../content/assets/notes/math6015-最优化方法-cheatsheet/image-09.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<figure><img src="../content/assets/notes/最优化方法-cheatsheet/image-09.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <h3 id="sr1-秩一更新">SR1 （秩一更新）</h3>
 <p>记： \(r_k = y_k - B_k s_k\)，SR1 更新表示为： \(B_{k+1} = B_k + \frac{r_k r_k^T}{r_k^T s_k}\)</p>
 <p>SR1满足割线方程，保持对称，<strong>但不保证正定</strong>，它是更新思想的起点，而不是最优选择</p>
@@ -256,7 +256,7 @@
 <h3 id="线性最小二乘-ls">线性最小二乘（LS）</h3>
 <p>\(\min_x \frac12 ||Ax - b||_2^2\)，残差： \(r(x) = Ax - b\)</p>
 <p>几何解释：列空间： \(R(A) = \{Ax : x \in R^n\}\)，最小二乘解满足： \(Ax^* = \Pi_{R(A)}(b)\)。即 \(Ax^*\) 是 \(b\) 在列空间上的投影</p>
-<figure><img src="../content/assets/notes/math6015-最优化方法-cheatsheet/image-10.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<figure><img src="../content/assets/notes/最优化方法-cheatsheet/image-10.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <p>最优残差： \(r^* = Ax^* - b\)</p>
 <p>正交条件： \(A^T(Ax^* - b) = 0\)（最优残差不能再沿列空间方向继续减小）</p>
 <p>正规方程：由正交条件或一阶最优性条件 \(\nabla f(x) = A^T(Ax - b)\) 得到： \(A^T A x = A^T b\)</p>
@@ -269,7 +269,7 @@
 <p>Hessian： \(\nabla^2 f(x) = J(x)^T J(x) + \sum_{i=1}^m r_i(x)\nabla^2 r_i(x)\) 第一项来自 Jacobian，第二项来自残差本身的非线性曲率，引入Gauss-Newton近似： \(\nabla^2 f(x) \approx J(x)^T J(x)\)</p>
 <h3 id="gauss-newton法">Gauss-Newton法</h3>
 <p>局部线性化： \(r(x_k + d) \approx r(x_k) + J(x_k)d\)</p>
-<figure><img src="../content/assets/notes/math6015-最优化方法-cheatsheet/image-11.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<figure><img src="../content/assets/notes/最优化方法-cheatsheet/image-11.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <p>子问题： \(\min_d \frac12 ||J(x_k)d + r(x_k)||_2^2\)（这里运用了范数保模长的性质）</p>
 <p>其正规方程正是<strong> Gauss-Newton 方程</strong>： \(J(x_k)^T J(x_k)d_k = -J(x_k)^T r(x_k)\)</p>
 <p>（所以 Gauss-Newton 也可看成每步解一个局部线性最小二乘问题）</p>
@@ -281,7 +281,7 @@
 <p>外点罚函数法允许迭代过程中暂时违反约束。</p>
 <p> 等式约束下：\(P_E(x,\sigma) = f(x) + \frac{\sigma}{2}\sum_{i \in E} c_i(x)^2\)</p>
 <p>不等式约束下：\(P_I(x,\sigma) = f(x) + \frac{\sigma}{2}\sum_{j \in I}\tilde c_j(x)^2\)， \(\tilde c_j(x) = \max\{c_j(x),0\}\)</p>
-<figure><img src="../content/assets/notes/math6015-最优化方法-cheatsheet/image-12.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<figure><img src="../content/assets/notes/最优化方法-cheatsheet/image-12.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <p>统一写为：\(P(x,\sigma) = f(x) + \frac{\sigma}{2}\left(\sum_{i \in E} c_i(x)^2 + \sum_{j \in I}\tilde c_j(x)^2\right)\)</p>
 <ul>
 <li>迭代点允许暂时不可行，通过增大 \(\sigma\) 逐步拉回可行域。先允许犯规，再逐步把犯规成本抬高</li>
@@ -306,7 +306,7 @@
 <p>对可行集 \(X\)，切锥（tangent cone） \(T_X(x)\) 表示点 \(x\) 处的一阶可行方向集合</p>
 <p>活跃集（active set）： \(A(x) = E \cup \{i \in I : c_i(x) = 0\}\)</p>
 <p>线性化可行锥（linearized feasible cone）： \(F(x) = \{d : \nabla c_i(x)^T d = 0,\ i \in E;\ \nabla c_i(x)^T d \le 0,\ i \in A(x)\cap I\}\)，它是切锥的可计算一阶近似</p>
-<figure><img src="../content/assets/notes/math6015-最优化方法-cheatsheet/image-13.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<figure><img src="../content/assets/notes/最优化方法-cheatsheet/image-13.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <p>LICQ（Linear Independence Constraint Qualification）：活跃约束的梯度线性无关（在适当约束资格条件下，可由线性化可行锥推导 KKT 条件）</p>
 <h3 id="kkt-条件">KKT 条件</h3>
 <ul>
@@ -323,7 +323,7 @@
 <h3 id="增广拉格朗日函数">增广拉格朗日函数</h3>
 <p>对等式约束 \(c(x)=0\) ，增广拉格朗日函数（augmented Lagrangian）： \(L_\sigma(x,\lambda)=f(x)+\lambda^Tc(x)+\frac{\sigma}{2}||c(x)||^2\)（原目标函数、乘子修正、可行性控制）</p>
 <p>基本算法：</p>
-<figure><img src="../content/assets/notes/math6015-最优化方法-cheatsheet/image-14.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<figure><img src="../content/assets/notes/最优化方法-cheatsheet/image-14.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <ul>
 <li>二次罚函数法主要依赖大 \(\sigma\)，而ALM 同时使用乘子更新与罚项，因而往往能在较温和的 \(\sigma\) 下取得更好的可行性与最优性。</li>
 <li>若可行性改进足够，可保持 \(\sigma_{k+1}=\sigma_k\)，若可行性停滞，再增大 \(\sigma_{k+1}=\rho\sigma_k\) ，其中 \(\rho>1\)</li>

@@ -1,8 +1,8 @@
 ---
-title: "MATH6015《最优化方法》cheatsheet"
-slug: "math6015-最优化方法-cheatsheet"
+title: "《最优化方法》cheatsheet"
+slug: "最优化方法-cheatsheet"
 date: "2026-06-25"
-lastEditedTime: "2026-07-02T07:18:00.000Z"
+lastEditedTime: "2026-07-15T01:41:00.000Z"
 renderVersion: "5"
 category: "study"
 tags: ["study"]
@@ -33,7 +33,7 @@ notionPageId: "38adb726-82a8-8016-b405-eeb42f6570f1"
 - 全局极小点（global minimum）：若 \(x\in X\) 且 \(f(x)\le f(y)\) 对所有 \(y\in X\) 成立
 - 局部极小点（local minimum）：若存在 \(\varepsilon\) \-邻域，使得附近可行点都满足 \(f(x)\le f(y)\)
 - 严格局部极小点（strict local minimum）：若附近所有 \(y\ne x\) 都满足 \(f(x)<f(y)\)
-![Notion image](../content/assets/notes/math6015-最优化方法-cheatsheet/image-01.png)
+![Notion image](../content/assets/notes/最优化方法-cheatsheet/image-01.png)
 ### 算法收敛
 
 - 迭代算法（iterative algorithm）产生序列 \(x_k\)
@@ -201,15 +201,15 @@ notionPageId: "38adb726-82a8-8016-b405-eeb42f6570f1"
 非精确线搜索：步长不必每步最优，但不能小到算法停滞，也不能大到破坏下降
 
 - Armijo 条件： \(f(x_k + \alpha_k d_k) \le f(x_k) + c_1 \alpha_k \nabla f(x_k)^T d_k,\ c_1 \in (0,1)\)
-![Notion image](../content/assets/notes/math6015-最优化方法-cheatsheet/image-02.png)
+![Notion image](../content/assets/notes/最优化方法-cheatsheet/image-02.png)
 - Goldstein 条件： \(f(x_k + \alpha_k d_k) \le f(x_k) + c_1 \alpha_k \nabla f(x_k)^T d_k\)；同时要求： \(f(x_k + \alpha_k d_k) \ge f(x_k) + (1-c_1)\alpha_k \nabla f(x_k)^T d_k,\ 0 < c_1 < \frac12\)
-![Notion image](../content/assets/notes/math6015-最优化方法-cheatsheet/image-03.png)
+![Notion image](../content/assets/notes/最优化方法-cheatsheet/image-03.png)
 - Wolfe条件：\(f(x_k + \alpha_k d_k) \le f(x_k) + c_1 \alpha_k \nabla f(x_k)^T d_k\)，同时满足曲率条件： \(\nabla f(x_k + \alpha_k d_k)^T d_k \ge c_2 \nabla f(x_k)^T d_k,\ 0 < c_1 < c_2 < 1\)
-![Notion image](../content/assets/notes/math6015-最优化方法-cheatsheet/image-04.png)
+![Notion image](../content/assets/notes/最优化方法-cheatsheet/image-04.png)
 
   - 非单调线搜索：允许阶段性上升，以换取更快整体推进
 - Backtracking：通过不断以指数方式缩小试探步长，找到第一个满足线搜索准则的点
-![Notion image](../content/assets/notes/math6015-最优化方法-cheatsheet/image-05.png)
+![Notion image](../content/assets/notes/最优化方法-cheatsheet/image-05.png)
 - Zoutendijk 收敛结论：考虑一般的迭代格式，如果满足：
 - 目标函数有下界，连续可微；
   - 目标函数梯度L\-Lipschitz连续： \(||\nabla f(x) - \nabla f(y)|| \le L ||x - y||, \forall x, y \in \mathbb{R^n}\)；
@@ -225,7 +225,7 @@ notionPageId: "38adb726-82a8-8016-b405-eeb42f6570f1"
 BB 不是只看当前梯度，而是用前后两步差分去估计局部尺度，仍采用： \(x_{k+1} = x_k - \alpha_k \nabla f(x_k)\)记： \(s_{k-1} = x_k - x_{k-1},\ y_{k-1} = \nabla f(x_k) - \nabla f(x_{k-1})\)，有常见步长： 
 
 - \(\alpha_k^{BB1} = \frac{s_{k-1}^T s_{k-1}}{s_{k-1}^T y_{k-1}}\)， \(\alpha_k^{BB2} = \frac{s_{k-1}^T y_{k-1}}{y_{k-1}^T y_{k-1}}\)
-![Notion image](../content/assets/notes/math6015-最优化方法-cheatsheet/image-06.png)
+![Notion image](../content/assets/notes/最优化方法-cheatsheet/image-06.png)
 
 ## 六、牛顿法（Newton Method）
 
@@ -262,7 +262,7 @@ BB 不是只看当前梯度，而是用前后两步差分去估计局部尺度�
 - 解 \(Ax = b\) 等价于最小化： \(\phi(x) = \frac12 x^T A x - b^T x\)，梯度为残差： \(\nabla \phi(x) = Ax - b = r\)
 - CG 沿 \(A\)\-共轭方向做精确线搜索。
 - 若 \(A\) 有 \(r\) 个不同特征值，则 CG 至多 \(r\) 步终止
-![Notion image](../content/assets/notes/math6015-最优化方法-cheatsheet/image-07.png)
+![Notion image](../content/assets/notes/最优化方法-cheatsheet/image-07.png)
 ### 不精确牛顿法
 
 允许残差： \(\nabla^2 f(x_k)d_k = -\nabla f(x_k) + r_k\)
@@ -283,11 +283,11 @@ BB 不是只看当前梯度，而是用前后两步差分去估计局部尺度�
 
 定义： \(s_k = x_{k+1} - x_k,\ y_k = \nabla f(x_{k+1}) - \nabla f(x_k)\)，割线方程（secant equation）为： \(B_{k+1}s_k = y_k\)
 
-![Notion image](../content/assets/notes/math6015-最优化方法-cheatsheet/image-08.png)
+![Notion image](../content/assets/notes/最优化方法-cheatsheet/image-08.png)
 
 曲率条件（保证 \(B_k\)的正定性）： \(s_k^T y_k > 0\)，若 \(B_k \succ 0\)，则 \(d_k = -B_k^{-1}\nabla f(x_k)\) 为下降方向
 
-![Notion image](../content/assets/notes/math6015-最优化方法-cheatsheet/image-09.png)
+![Notion image](../content/assets/notes/最优化方法-cheatsheet/image-09.png)
 
 ### SR1 （秩一更新）
 
@@ -315,7 +315,7 @@ L\-BFGS不显式存储完整 \(H_k\) 或 \(B_k\)，只保留最近 \(m\) 组 \(s
 
 几何解释：列空间： \(R(A) = \{Ax : x \in R^n\}\)，最小二乘解满足： \(Ax^* = \Pi_{R(A)}(b)\)。即 \(Ax^*\) 是 \(b\) 在列空间上的投影
 
-![Notion image](../content/assets/notes/math6015-最优化方法-cheatsheet/image-10.png)
+![Notion image](../content/assets/notes/最优化方法-cheatsheet/image-10.png)
 
 最优残差： \(r^* = Ax^* - b\)
 
@@ -341,7 +341,7 @@ Hessian： \(\nabla^2 f(x) = J(x)^T J(x) + \sum_{i=1}^m r_i(x)\nabla^2 r_i(x)\) 
 
 局部线性化： \(r(x_k + d) \approx r(x_k) + J(x_k)d\)
 
-![Notion image](../content/assets/notes/math6015-最优化方法-cheatsheet/image-11.png)
+![Notion image](../content/assets/notes/最优化方法-cheatsheet/image-11.png)
 
 子问题： \(\min_d \frac12 ||J(x_k)d + r(x_k)||_2^2\)（这里运用了范数保模长的性质）
 
@@ -365,7 +365,7 @@ Hessian： \(\nabla^2 f(x) = J(x)^T J(x) + \sum_{i=1}^m r_i(x)\nabla^2 r_i(x)\) 
 
 不等式约束下：\(P_I(x,\sigma) = f(x) + \frac{\sigma}{2}\sum_{j \in I}\tilde c_j(x)^2\)， \(\tilde c_j(x) = \max\{c_j(x),0\}\)
 
-![Notion image](../content/assets/notes/math6015-最优化方法-cheatsheet/image-12.png)
+![Notion image](../content/assets/notes/最优化方法-cheatsheet/image-12.png)
 
 统一写为：\(P(x,\sigma) = f(x) + \frac{\sigma}{2}\left(\sum_{i \in E} c_i(x)^2 + \sum_{j \in I}\tilde c_j(x)^2\right)\)
 
@@ -402,7 +402,7 @@ Hessian： \(\nabla^2 f(x) = J(x)^T J(x) + \sum_{i=1}^m r_i(x)\nabla^2 r_i(x)\) 
 
 线性化可行锥（linearized feasible cone）： \(F(x) = \{d : \nabla c_i(x)^T d = 0,\ i \in E;\ \nabla c_i(x)^T d \le 0,\ i \in A(x)\cap I\}\)，它是切锥的可计算一阶近似
 
-![Notion image](../content/assets/notes/math6015-最优化方法-cheatsheet/image-13.png)
+![Notion image](../content/assets/notes/最优化方法-cheatsheet/image-13.png)
 
 LICQ（Linear Independence Constraint Qualification）：活跃约束的梯度线性无关（在适当约束资格条件下，可由线性化可行锥推导 KKT 条件）
 
@@ -425,7 +425,7 @@ LICQ（Linear Independence Constraint Qualification）：活跃约束的梯度�
 
 基本算法：
 
-![Notion image](../content/assets/notes/math6015-最优化方法-cheatsheet/image-14.png)
+![Notion image](../content/assets/notes/最优化方法-cheatsheet/image-14.png)
 
 - 二次罚函数法主要依赖大 \(\sigma\)，而ALM 同时使用乘子更新与罚项，因而往往能在较温和的 \(\sigma\) 下取得更好的可行性与最优性。
 - 若可行性改进足够，可保持 \(\sigma_{k+1}=\sigma_k\)，若可行性停滞，再增大 \(\sigma_{k+1}=\rho\sigma_k\) ，其中 \(\rho>1\)
