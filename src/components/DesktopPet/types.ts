@@ -27,6 +27,9 @@ export interface SpriteDefinition {
   readonly loop: boolean;
   readonly anchorX: number;
   readonly anchorY: number;
+  readonly visualScale: number;
+  readonly offsetX: number;
+  readonly offsetY: number;
 }
 
 export interface WalkingRange {
@@ -56,9 +59,13 @@ export interface PetConfig {
   readonly reactDuration: number;
   readonly clickCooldown: number;
   readonly gazeRadius: number;
+  readonly transitionDuration: number;
+  readonly dragThreshold: number;
+  readonly dragVerticalRange: number;
+  readonly dragReleaseDuration: number;
+  readonly bedEntryRadius: number;
   readonly mobileBreakpoint: number;
   readonly tabletBreakpoint: number;
-  readonly dialogue: readonly string[];
 }
 
 export interface PetStateChange {

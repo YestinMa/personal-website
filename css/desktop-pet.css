@@ -8,6 +8,8 @@
   overflow: hidden;
   pointer-events: none;
   contain: strict;
+  --pet-transition-half: 130ms;
+  --pet-release-duration: 240ms;
 }
 .desktop-pet-root button {
   margin: 0;
@@ -16,6 +18,14 @@
   color: inherit;
   background-color: transparent;
   font: inherit;
+  user-select: none;
+  touch-action: none;
+  -webkit-user-select: none;
+}
+.desktop-pet-root[data-paused=true] *,
+.desktop-pet-root[data-paused=true] *::before,
+.desktop-pet-root[data-paused=true] *::after {
+  animation-play-state: paused !important;
 }
 .pixel-sprite {
   background-repeat: no-repeat;
@@ -39,13 +49,14 @@
   z-index: 2;
   width: 256px;
   height: 160px;
-  cursor: pointer;
+  cursor: grab;
   pointer-events: auto;
 }
 .desktop-pet-bed--front {
   z-index: 3;
-  cursor: pointer;
+  cursor: grab;
   pointer-events: auto;
+  clip-path: inset(70px 0 0 0);
 }
 .desktop-pet-effects {
   z-index: 4;
@@ -57,22 +68,47 @@
   width: 256px;
   height: 160px;
 }
+.desktop-pet-root[data-drag-target=dog] .desktop-pet-actor,
+.desktop-pet-root[data-drag-target=bed] .desktop-pet-bed--front {
+  cursor: grabbing;
+}
 .desktop-pet-actor:focus-visible,
 .desktop-pet-bed--front:focus-visible {
   outline: 3px solid #243f63;
   outline-offset: 4px;
 }
+.desktop-pet-sprite-stage,
 .desktop-pet-sprite {
   position: absolute;
   inset: 0;
   transform-origin: center bottom;
 }
-.desktop-pet-sprite.is-facing-left {
-  transform: scaleX(-1);
+.desktop-pet-sprite {
+  --sprite-facing: 1;
+  --sprite-visual-scale: 1;
+  --sprite-offset-x: 0px;
+  --sprite-offset-y: 0px;
+  transform: translate3d(var(--sprite-offset-x), var(--sprite-offset-y), 0) scale(var(--sprite-visual-scale)) scaleX(var(--sprite-facing));
+}
+.desktop-pet-sprite-stage.is-transitioning-out {
+  animation: desktop-pet-transition-out var(--pet-transition-half) steps(3, end) both;
+}
+.desktop-pet-sprite-stage.is-transitioning-in {
+  animation: desktop-pet-transition-in var(--pet-transition-half) steps(3, end) both;
+}
+.desktop-pet-root[data-drag-target=dog] .desktop-pet-sprite-stage {
+  animation: desktop-pet-drag-wiggle 300ms steps(4, end) infinite alternate;
+}
+.desktop-pet-root[data-drag-target=bed] .desktop-pet-bed {
+  animation: desktop-pet-bed-wiggle 320ms steps(4, end) infinite alternate;
+}
+.desktop-pet-sprite-stage.is-settling,
+.desktop-pet-bed.is-settling {
+  animation: desktop-pet-release var(--pet-release-duration) steps(4, end) both;
 }
 .desktop-pet-gaze {
   position: absolute;
-  top: 49px;
+  top: 31px;
   left: 162px;
   display: none;
   width: 12px;
@@ -82,25 +118,25 @@
   display: block;
 }
 .desktop-pet-root[data-pet-state=sit] .desktop-pet-gaze {
-  top: 39px;
-  left: 163px;
+  top: 22px;
+  left: 160px;
 }
 .desktop-pet-ear {
   position: absolute;
-  top: 37px;
+  top: 14px;
   display: none;
-  width: 10px;
-  height: 13px;
+  width: 9px;
+  height: 12px;
   background: #a94f17;
   clip-path: polygon(50% 0, 100% 100%, 0 100%);
   image-rendering: pixelated;
   transform-origin: bottom center;
 }
 .desktop-pet-ear--left {
-  left: 147px;
+  left: 151px;
 }
 .desktop-pet-ear--right {
-  left: 187px;
+  left: 184px;
 }
 .desktop-pet-root[data-pet-state=idle] .desktop-pet-ear,
 .desktop-pet-root[data-pet-state=sit] .desktop-pet-ear,
@@ -115,47 +151,100 @@
 }
 .desktop-pet-dialogue {
   position: absolute;
-  left: 72px;
-  bottom: 148px;
+  left: 132px;
+  bottom: 145px;
   display: none;
-  width: max-content;
-  max-width: 210px;
-  padding: 9px 12px;
+  width: 50px;
+  height: 46px;
   border: 3px solid #382315;
   background: #fffdf4;
   box-shadow: 4px 4px 0 #c9852c;
-  color: #2b211a;
-  font-family:
-    Inter,
-    "Noto Sans SC",
-    sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.45;
-  letter-spacing: 0;
-  white-space: normal;
 }
 .desktop-pet-dialogue::after {
   content: "";
   position: absolute;
-  right: 22px;
-  bottom: -10px;
-  width: 12px;
-  height: 12px;
+  right: 8px;
+  bottom: -9px;
+  width: 11px;
+  height: 11px;
   border-right: 3px solid #382315;
   border-bottom: 3px solid #382315;
   background: #fffdf4;
   transform: rotate(45deg);
 }
 .desktop-pet-dialogue.is-visible {
-  display: block;
+  display: grid;
+  place-items: center;
   animation: desktop-pet-pop 180ms steps(2, end) both;
+}
+.desktop-pet-dialogue-heart {
+  width: 64px;
+  height: 64px;
+  scale: .52;
 }
 .desktop-pet-heart {
   position: absolute;
   width: 64px;
   height: 64px;
   animation: desktop-pet-heart-float 1.35s steps(7, end) forwards;
+}
+@keyframes desktop-pet-transition-out {
+  from {
+    translate: 0 0;
+    scale: 1 1;
+  }
+  to {
+    translate: 0 5px;
+    scale: 1.04 .82;
+  }
+}
+@keyframes desktop-pet-transition-in {
+  0% {
+    translate: 0 5px;
+    scale: 1.04 .82;
+  }
+  65% {
+    translate: 0 -3px;
+    scale: .98 1.04;
+  }
+  100% {
+    translate: 0 0;
+    scale: 1 1;
+  }
+}
+@keyframes desktop-pet-drag-wiggle {
+  from {
+    translate: 0 -7px;
+    rotate: -1.5deg;
+  }
+  to {
+    translate: 0 -10px;
+    rotate: 1.5deg;
+  }
+}
+@keyframes desktop-pet-bed-wiggle {
+  from {
+    translate: 0 -3px;
+    rotate: -.7deg;
+  }
+  to {
+    translate: 0 -5px;
+    rotate: .7deg;
+  }
+}
+@keyframes desktop-pet-release {
+  0% {
+    translate: 0 -7px;
+    scale: 1 .94;
+  }
+  55% {
+    translate: 0 3px;
+    scale: 1.03 .9;
+  }
+  100% {
+    translate: 0 0;
+    scale: 1 1;
+  }
 }
 @keyframes desktop-pet-heart-float {
   0% {
@@ -173,11 +262,13 @@
 @keyframes desktop-pet-pop {
   from {
     opacity: 0;
-    transform: translateY(5px);
+    translate: 0 5px;
+    scale: .86;
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    translate: 0 0;
+    scale: 1;
   }
 }
 @keyframes desktop-pet-ear-twitch {
@@ -190,10 +281,8 @@
 }
 @media (max-width: 640px) {
   .desktop-pet-dialogue {
-    left: 50px;
+    left: 128px;
     bottom: 142px;
-    max-width: 190px;
-    font-size: 13px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -201,7 +290,11 @@
     animation-name: desktop-pet-heart-reduced;
     animation-duration: 500ms;
   }
-  .desktop-pet-actor.is-hovered .desktop-pet-ear {
+  .desktop-pet-actor.is-hovered .desktop-pet-ear,
+  .desktop-pet-root[data-drag-target=dog] .desktop-pet-sprite-stage,
+  .desktop-pet-root[data-drag-target=bed] .desktop-pet-bed,
+  .desktop-pet-sprite-stage.is-settling,
+  .desktop-pet-bed.is-settling {
     animation: none;
   }
   .desktop-pet-dialogue.is-visible {

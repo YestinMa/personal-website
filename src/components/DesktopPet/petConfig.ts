@@ -25,7 +25,11 @@ export const petConfig: PetConfig = {
   reactDuration: 2_500,
   clickCooldown: 500,
   gazeRadius: 260,
+  transitionDuration: 260,
+  dragThreshold: 5,
+  dragVerticalRange: 92,
+  dragReleaseDuration: 240,
+  bedEntryRadius: 88,
   mobileBreakpoint: 640,
   tabletBreakpoint: 960,
-  dialogue: ["汪！今天也要开心。", "摸摸收到啦！", "要一起散步吗？", "这里是我的 Hotdog 小窝。"],
 };

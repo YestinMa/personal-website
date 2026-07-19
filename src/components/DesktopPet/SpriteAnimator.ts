@@ -58,11 +58,14 @@ export class SpriteAnimator {
   };
 
   private applyDefinition(): void {
-    const { src, frameWidth, frameHeight, frameCount } = this.definition;
+    const { src, frameWidth, frameHeight, frameCount, visualScale, offsetX, offsetY } = this.definition;
     this.element.style.width = `${frameWidth}px`;
     this.element.style.height = `${frameHeight}px`;
     this.element.style.backgroundImage = `url("${src}")`;
     this.element.style.backgroundSize = `${frameWidth * frameCount}px ${frameHeight}px`;
     this.element.style.backgroundPosition = "0 0";
+    this.element.style.setProperty("--sprite-visual-scale", String(visualScale));
+    this.element.style.setProperty("--sprite-offset-x", `${offsetX}px`);
+    this.element.style.setProperty("--sprite-offset-y", `${offsetY}px`);
   }
 }

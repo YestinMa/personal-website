@@ -30,10 +30,12 @@ export class PetMachine {
 
   transition(nextState: PetState): boolean {
     if (!allowedTransitions[this.currentState].includes(nextState)) return false;
-    const previous = this.currentState;
-    this.currentState = nextState;
-    this.listeners.forEach((listener) => listener({ previous, current: nextState }));
+    this.setState(nextState);
     return true;
+  }
+
+  drop(nextState: "walk" | "returnBed" | "enterBed"): void {
+    this.setState(nextState);
   }
 
   react(): boolean {
@@ -45,5 +47,11 @@ export class PetMachine {
   finishReaction(): boolean {
     if (this.currentState !== "react") return false;
     return this.transition(this.reactReturnState);
+  }
+
+  private setState(nextState: PetState): void {
+    const previous = this.currentState;
+    this.currentState = nextState;
+    this.listeners.forEach((listener) => listener({ previous, current: nextState }));
   }
 }
