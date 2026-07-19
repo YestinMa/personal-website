@@ -4,7 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "build": "npm run typecheck && npm run build:pet",
+    "build:pet": "esbuild ../src/components/DesktopPet/DesktopPet.ts --bundle --format=esm --target=es2020 --outfile=../js/desktop-pet.js && esbuild ../src/components/DesktopPet/DesktopPet.css --bundle --outfile=../css/desktop-pet.css",
+    "typecheck": "tsc --project tsconfig.pet.json --noEmit",
     "sync": "node scripts/sync-notion.js",
     "render": "node scripts/sync-notion.js --render-existing"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.6",
+    "typescript": "^5.8.3"
   }
 }

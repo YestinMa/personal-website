@@ -1,0 +1,184 @@
+.desktop-pet-root {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  width: 100vw;
+  height: 100dvh;
+  overflow: hidden;
+  pointer-events: none;
+  contain: strict;
+}
+
+.desktop-pet-root button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background-color: transparent;
+  font: inherit;
+}
+
+.pixel-sprite {
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.desktop-pet-bed,
+.desktop-pet-actor,
+.desktop-pet-effects,
+.desktop-pet-dialogue-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: left top;
+  will-change: transform;
+}
+
+.desktop-pet-bed--back { z-index: 1; }
+.desktop-pet-actor {
+  z-index: 2;
+  width: 256px;
+  height: 160px;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.desktop-pet-bed--front {
+  z-index: 3;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.desktop-pet-effects {
+  z-index: 4;
+  width: 256px;
+  height: 160px;
+}
+.desktop-pet-dialogue-layer {
+  z-index: 5;
+  width: 256px;
+  height: 160px;
+}
+
+.desktop-pet-actor:focus-visible,
+.desktop-pet-bed--front:focus-visible {
+  outline: 3px solid #243f63;
+  outline-offset: 4px;
+}
+
+.desktop-pet-sprite {
+  position: absolute;
+  inset: 0;
+  transform-origin: center bottom;
+}
+
+.desktop-pet-sprite.is-facing-left { transform: scaleX(-1); }
+
+.desktop-pet-gaze {
+  position: absolute;
+  top: 49px;
+  left: 162px;
+  display: none;
+  width: 12px;
+  height: 6px;
+}
+
+.desktop-pet-gaze.is-visible { display: block; }
+.desktop-pet-root[data-pet-state="sit"] .desktop-pet-gaze { top: 39px; left: 163px; }
+
+.desktop-pet-ear {
+  position: absolute;
+  top: 37px;
+  display: none;
+  width: 10px;
+  height: 13px;
+  background: #a94f17;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  image-rendering: pixelated;
+  transform-origin: bottom center;
+}
+.desktop-pet-ear--left { left: 147px; }
+.desktop-pet-ear--right { left: 187px; }
+.desktop-pet-root[data-pet-state="idle"] .desktop-pet-ear,
+.desktop-pet-root[data-pet-state="sit"] .desktop-pet-ear,
+.desktop-pet-root[data-pet-state="react"] .desktop-pet-ear { display: block; }
+.desktop-pet-actor.is-hovered .desktop-pet-ear { animation: desktop-pet-ear-twitch 520ms steps(3, end) infinite alternate; }
+.desktop-pet-actor.is-hovered .desktop-pet-ear--right { animation-delay: 110ms; }
+
+.desktop-pet-dialogue {
+  position: absolute;
+  left: 72px;
+  bottom: 148px;
+  display: none;
+  width: max-content;
+  max-width: 210px;
+  padding: 9px 12px;
+  border: 3px solid #382315;
+  background: #fffdf4;
+  box-shadow: 4px 4px 0 #c9852c;
+  color: #2b211a;
+  font-family: Inter, "Noto Sans SC", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: 0;
+  white-space: normal;
+}
+.desktop-pet-dialogue::after {
+  content: "";
+  position: absolute;
+  right: 22px;
+  bottom: -10px;
+  width: 12px;
+  height: 12px;
+  border-right: 3px solid #382315;
+  border-bottom: 3px solid #382315;
+  background: #fffdf4;
+  transform: rotate(45deg);
+}
+.desktop-pet-dialogue.is-visible { display: block; animation: desktop-pet-pop 180ms steps(2, end) both; }
+
+.desktop-pet-heart {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  animation: desktop-pet-heart-float 1.35s steps(7, end) forwards;
+}
+
+@keyframes desktop-pet-heart-float {
+  0% { opacity: 0; transform: translate3d(0, 8px, 0) scale(.45); }
+  18% { opacity: 1; }
+  100% { opacity: 0; transform: translate3d(0, -72px, 0) scale(.72); }
+}
+
+@keyframes desktop-pet-pop {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes desktop-pet-ear-twitch {
+  from { transform: rotate(-3deg); }
+  to { transform: rotate(7deg); }
+}
+
+@media (max-width: 640px) {
+  .desktop-pet-dialogue {
+    left: 50px;
+    bottom: 142px;
+    max-width: 190px;
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .desktop-pet-heart {
+    animation-name: desktop-pet-heart-reduced;
+    animation-duration: 500ms;
+  }
+  .desktop-pet-actor.is-hovered .desktop-pet-ear { animation: none; }
+  .desktop-pet-dialogue.is-visible { animation: none; }
+}
+
+@keyframes desktop-pet-heart-reduced {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-10px); }
+}

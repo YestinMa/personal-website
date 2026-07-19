@@ -43,3 +43,19 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!frame) frame = window.requestAnimationFrame(renderOffset);
   });
 });
+
+(() => {
+  const currentMainScript = document.currentScript;
+  if (!(currentMainScript instanceof HTMLScriptElement)) return;
+  const siteRoot = new URL("../", currentMainScript.src);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.querySelector('link[data-desktop-pet-style]')) return;
+    const petStyles = document.createElement("link");
+    petStyles.rel = "stylesheet";
+    petStyles.href = new URL("css/desktop-pet.css?v=1.0.0", siteRoot).href;
+    petStyles.dataset.desktopPetStyle = "true";
+    document.head.append(petStyles);
+    void import(new URL("js/desktop-pet.js?v=1.0.0", siteRoot).href);
+  });
+})();

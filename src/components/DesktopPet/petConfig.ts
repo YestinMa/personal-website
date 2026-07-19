@@ -1,0 +1,31 @@
+import type { PetConfig } from "./types";
+
+export const petConfig: PetConfig = {
+  bottom: 18,
+  right: 22,
+  scale: 0.58,
+  tabletScale: 0.5,
+  mobileScale: 0.34,
+  mobileBottom: 8,
+  mobileRight: 8,
+  movementSpeed: 58,
+  walkingRange: {
+    leftInset: 20,
+    rightInset: 20,
+  },
+  idleDuration: { min: 6_000, max: 14_000 },
+  sitDuration: { min: 4_000, max: 9_000 },
+  sleepAfter: { min: 35_000, max: 60_000 },
+  sleepDuration: { min: 14_000, max: 28_000 },
+  walkOpportunity: { min: 30_000, max: 70_000 },
+  walkDuration: { min: 8_000, max: 18_000 },
+  walkProbability: 0.62,
+  wakeUpDuration: 1_300,
+  enterBedDuration: 1_150,
+  reactDuration: 2_500,
+  clickCooldown: 500,
+  gazeRadius: 260,
+  mobileBreakpoint: 640,
+  tabletBreakpoint: 960,
+  dialogue: ["汪！今天也要开心。", "摸摸收到啦！", "要一起散步吗？", "这里是我的 Hotdog 小窝。"],
+};
