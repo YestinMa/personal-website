@@ -532,8 +532,8 @@ export class DesktopPet {
   };
 
   private finishFall(target: FallAnimation["target"], onComplete: () => void): void {
-    if (target !== "bed") this.playReleaseAnimation("dog");
-    if (target !== "dog") this.playReleaseAnimation("bed");
+    // 狗窝依靠重力轨迹直接落地，不再叠加旋转和二次回弹；只有单独放狗时保留落地缓冲。
+    if (target === "dog") this.playDogReleaseAnimation();
     onComplete();
   }
 
@@ -830,15 +830,12 @@ export class DesktopPet {
     this.renderGazeNow();
   }
 
-  private playReleaseAnimation(target: "dog" | "bed"): void {
+  private playDogReleaseAnimation(): void {
     if (this.reducedMotion.matches) return;
-    const elements = target === "dog" ? [this.spriteStage] : [this.bedBack, this.bedFront];
-    elements.forEach((element) => {
-      element.classList.remove("is-settling");
-      void element.offsetWidth;
-      element.classList.add("is-settling");
-      element.addEventListener("animationend", () => element.classList.remove("is-settling"), { once: true });
-    });
+    this.spriteStage.classList.remove("is-settling");
+    void this.spriteStage.offsetWidth;
+    this.spriteStage.classList.add("is-settling");
+    this.spriteStage.addEventListener("animationend", () => this.spriteStage.classList.remove("is-settling"), { once: true });
   }
 
   private walkingEnabled(): boolean {

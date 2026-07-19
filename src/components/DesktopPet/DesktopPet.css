@@ -104,11 +104,7 @@
 .desktop-pet-root[data-drag-target="dog"] .desktop-pet-sprite-stage {
   animation: desktop-pet-drag-lift 360ms steps(4, end) infinite alternate;
 }
-.desktop-pet-root[data-drag-target="bed"] .desktop-pet-bed {
-  animation: desktop-pet-bed-wiggle 320ms steps(4, end) infinite alternate;
-}
-.desktop-pet-sprite-stage.is-settling,
-.desktop-pet-bed.is-settling {
+.desktop-pet-sprite-stage.is-settling {
   animation: desktop-pet-release var(--pet-release-duration) steps(4, end) both;
 }
 .desktop-pet-root[data-pet-state="react"]:not([data-drag-target]) .desktop-pet-sprite-stage {
@@ -117,10 +113,6 @@
 .desktop-pet-root[data-fall-target="dog"] .desktop-pet-sprite-stage,
 .desktop-pet-root[data-fall-target="bedWithDog"] .desktop-pet-sprite-stage {
   animation: desktop-pet-falling-dog 260ms steps(3, end) infinite alternate;
-}
-.desktop-pet-root[data-fall-target="bed"] .desktop-pet-bed,
-.desktop-pet-root[data-fall-target="bedWithDog"] .desktop-pet-bed {
-  animation: desktop-pet-falling-bed 280ms steps(3, end) infinite alternate;
 }
 
 .desktop-pet-gaze {
@@ -193,10 +185,6 @@
   from { translate: 0 -8px; rotate: -1deg; }
   to { translate: 0 -12px; rotate: 1deg; }
 }
-@keyframes desktop-pet-bed-wiggle {
-  from { translate: 0 -3px; rotate: -.7deg; }
-  to { translate: 0 -5px; rotate: .7deg; }
-}
 @keyframes desktop-pet-release {
   0% { translate: 0 -7px; scale: 1 .94; }
   55% { translate: 0 3px; scale: 1.03 .9; }
@@ -209,10 +197,6 @@
 @keyframes desktop-pet-falling-dog {
   from { rotate: -1deg; }
   to { rotate: 1deg; }
-}
-@keyframes desktop-pet-falling-bed {
-  from { rotate: -.6deg; }
-  to { rotate: .6deg; }
 }
 @keyframes desktop-pet-heart-float {
   0% { opacity: 0; transform: translate3d(0, 8px, 0) scale(.45); }
@@ -239,11 +223,8 @@
   }
   .desktop-pet-actor.is-hovered .desktop-pet-sprite,
   .desktop-pet-root[data-drag-target="dog"] .desktop-pet-sprite-stage,
-  .desktop-pet-root[data-drag-target="bed"] .desktop-pet-bed,
   .desktop-pet-root[data-fall-target] .desktop-pet-sprite-stage,
-  .desktop-pet-root[data-fall-target] .desktop-pet-bed,
-  .desktop-pet-sprite-stage.is-settling,
-  .desktop-pet-bed.is-settling { animation: none; }
+  .desktop-pet-sprite-stage.is-settling { animation: none; }
   .desktop-pet-dialogue.is-visible { animation: none; }
 }
 

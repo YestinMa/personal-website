@@ -163,14 +163,15 @@ var petSprite = (fileName, fps, loop = true, offsetY = -18) => ({
   offsetY
 });
 var petSprites = {
-  idle: petSprite("shiba-idle.png", 2.4),
-  sit: petSprite("shiba-sit.png", 2.2),
-  sleep: petSprite("shiba-sleep.png", 1.6),
-  wakeUp: petSprite("shiba-wake.png", 4, false),
-  leaveBed: petSprite("shiba-walk.png", 7),
-  walk: petSprite("shiba-walk.png", 8, true, 0),
-  returnBed: petSprite("shiba-walk.png", 8, true, 0),
-  enterBed: petSprite("shiba-wake.png", 4, false),
+  // 窝内帧统一落在前沿上边界，避免身体和 hot dog 字样互相穿插。
+  idle: petSprite("shiba-idle.png", 2.4, true, -34),
+  sit: petSprite("shiba-sit.png", 2.2, true, -34),
+  sleep: petSprite("shiba-sleep.png", 1.6, true, -34),
+  wakeUp: petSprite("shiba-wake.png", 4, false, -34),
+  leaveBed: petSprite("shiba-walk-v2.png", 7),
+  walk: petSprite("shiba-walk-v2.png", 8, true, 0),
+  returnBed: petSprite("shiba-walk-v2.png", 8, true, 0),
+  enterBed: petSprite("shiba-wake.png", 4, false, -34),
   react: petSprite("shiba-react.png", 5, true, 0)
 };
 var dogLiftSprite = petSprite("shiba-lift.png", 6, true, 0);
@@ -785,8 +786,7 @@ var DesktopPet = class {
     this.fallFrame = window.requestAnimationFrame(this.fall);
   }
   finishFall(target, onComplete) {
-    if (target !== "bed") this.playReleaseAnimation("dog");
-    if (target !== "dog") this.playReleaseAnimation("bed");
+    if (target === "dog") this.playDogReleaseAnimation();
     onComplete();
   }
   finishDogDrop() {
@@ -999,15 +999,12 @@ var DesktopPet = class {
     if (!this.transitionController.active && isMotionState(this.machine.state)) this.startMotion();
     this.renderGazeNow();
   }
-  playReleaseAnimation(target) {
+  playDogReleaseAnimation() {
     if (this.reducedMotion.matches) return;
-    const elements = target === "dog" ? [this.spriteStage] : [this.bedBack, this.bedFront];
-    elements.forEach((element) => {
-      element.classList.remove("is-settling");
-      void element.offsetWidth;
-      element.classList.add("is-settling");
-      element.addEventListener("animationend", () => element.classList.remove("is-settling"), { once: true });
-    });
+    this.spriteStage.classList.remove("is-settling");
+    void this.spriteStage.offsetWidth;
+    this.spriteStage.classList.add("is-settling");
+    this.spriteStage.addEventListener("animationend", () => this.spriteStage.classList.remove("is-settling"), { once: true });
   }
   walkingEnabled() {
     return window.innerWidth > this.config.mobileBreakpoint && !this.reducedMotion.matches;

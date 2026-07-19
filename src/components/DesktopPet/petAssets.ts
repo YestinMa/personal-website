@@ -17,14 +17,15 @@ const petSprite = (fileName: string, fps: number, loop = true, offsetY = -18): S
 });
 
 export const petSprites: Readonly<Record<PetState, SpriteDefinition>> = {
-  idle: petSprite("shiba-idle.png", 2.4),
-  sit: petSprite("shiba-sit.png", 2.2),
-  sleep: petSprite("shiba-sleep.png", 1.6),
-  wakeUp: petSprite("shiba-wake.png", 4, false),
-  leaveBed: petSprite("shiba-walk.png", 7),
-  walk: petSprite("shiba-walk.png", 8, true, 0),
-  returnBed: petSprite("shiba-walk.png", 8, true, 0),
-  enterBed: petSprite("shiba-wake.png", 4, false),
+  // 窝内帧统一落在前沿上边界，避免身体和 hot dog 字样互相穿插。
+  idle: petSprite("shiba-idle.png", 2.4, true, -34),
+  sit: petSprite("shiba-sit.png", 2.2, true, -34),
+  sleep: petSprite("shiba-sleep.png", 1.6, true, -34),
+  wakeUp: petSprite("shiba-wake.png", 4, false, -34),
+  leaveBed: petSprite("shiba-walk-v2.png", 7),
+  walk: petSprite("shiba-walk-v2.png", 8, true, 0),
+  returnBed: petSprite("shiba-walk-v2.png", 8, true, 0),
+  enterBed: petSprite("shiba-wake.png", 4, false, -34),
   react: petSprite("shiba-react.png", 5, true, 0),
 };
 
