@@ -24,13 +24,17 @@ export const petSprites: Readonly<Record<PetState, SpriteDefinition>> = {
   wakeUp: petSprite("shiba-wake.png", 4, false, -34),
   leaveBed: petSprite("shiba-walk-v2.png", 7),
   walk: petSprite("shiba-walk-v2.png", 8, true, 0),
-  floorRest: petSprite("shiba-idle.png", 2.4, true, 0),
+  floorRest: {
+    ...petSprite("shiba-idle.png", 2.4, true, 0),
+    visualScale: 0.95,
+  },
   returnBed: petSprite("shiba-walk-v2.png", 8, true, 0),
   enterBed: petSprite("shiba-wake.png", 4, false, -34),
   react: petSprite("shiba-react.png", 5, true, 0),
 };
 
 export const dogLiftSprite: SpriteDefinition = petSprite("shiba-lift.png", 6, true, 0);
+export const bedReactSprite: SpriteDefinition = petSprite("shiba-react.png", 5, true, -34);
 
 export const bedBackSprite: SpriteDefinition = {
   src: petAsset("bed-back.png"),
@@ -77,4 +81,46 @@ export const heartSprite: SpriteDefinition = {
   visualScale: 1,
   offsetX: 0,
   offsetY: 0,
+};
+
+export interface PetAssetLoadFailure {
+  readonly src: string;
+  readonly error: Error;
+}
+
+const allSpriteDefinitions: readonly SpriteDefinition[] = [
+  ...Object.values(petSprites),
+  dogLiftSprite,
+  bedReactSprite,
+  bedBackSprite,
+  bedFrontSprite,
+  gazeSprite,
+  heartSprite,
+];
+
+export const petAssetSources: readonly string[] = [...new Set(allSpriteDefinitions.map(({ src }) => src))];
+
+const loadAndDecodeImage = (src: string): Promise<void> => new Promise((resolve, reject) => {
+  const image = new Image();
+  image.addEventListener("load", () => {
+    image.decode().then(resolve, () => reject(new Error(`桌宠素材解码失败：${src}`)));
+  }, { once: true });
+  image.addEventListener("error", () => reject(new Error(`桌宠素材加载失败：${src}`)), { once: true });
+  image.src = src;
+});
+
+export const preloadPetAssets = async (): Promise<readonly PetAssetLoadFailure[]> => {
+  // 等待全部唯一素材完成解码；单个失败会被结构化返回，避免阻塞其他可用素材。
+  const results = await Promise.allSettled(petAssetSources.map((src) => loadAndDecodeImage(src)));
+  const failures: PetAssetLoadFailure[] = [];
+  results.forEach((result, index) => {
+    if (result.status === "fulfilled") return;
+    const src = petAssetSources[index];
+    if (!src) return;
+    failures.push({
+      src,
+      error: result.reason instanceof Error ? result.reason : new Error(String(result.reason)),
+    });
+  });
+  return failures;
 };

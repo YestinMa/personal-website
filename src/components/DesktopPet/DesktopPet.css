@@ -11,6 +11,14 @@
   --pet-release-duration: 240ms;
 }
 
+.desktop-pet-root[data-asset-status="loading"] {
+  visibility: hidden;
+}
+
+.desktop-pet-root[data-asset-status="loading"] button {
+  pointer-events: none;
+}
+
 .desktop-pet-root button {
   margin: 0;
   padding: 0;
