@@ -832,7 +832,7 @@ function buildArticleHtml(meta, markdownBody) {
     <a class="text-link footer-social" href="https://github.com/YestinMa" target="_blank" rel="noreferrer">GitHub</a>
   </footer>
 
-  <script src="../js/main.js?v=2.1.0"></script>
+  <script src="../js/main.js?v=2.2.0"></script>
   <script src="../js/article.js?v=2.0.0"></script>
   ${
     hasMath

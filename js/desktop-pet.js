@@ -26,7 +26,11 @@ var SpriteAnimator = class {
     this.definition = definition;
     this.applyDefinition();
   }
+  get currentDefinition() {
+    return this.definition;
+  }
   setDefinition(definition) {
+    if (this.definition === definition) return;
     this.definition = definition;
     this.frame = 0;
     this.lastFrameTime = 0;
@@ -169,6 +173,7 @@ var petSprites = {
   enterBed: petSprite("shiba-wake.png", 4, false),
   react: petSprite("shiba-react.png", 5, true, 0)
 };
+var dogLiftSprite = petSprite("shiba-lift.png", 6, true, 0);
 var bedBackSprite = {
   src: petAsset("bed-back.png"),
   frameWidth: 256,
@@ -184,7 +189,7 @@ var bedBackSprite = {
 };
 var bedFrontSprite = {
   ...bedBackSprite,
-  src: petAsset("bed-front.png")
+  src: petAsset("bed-front-low.png")
 };
 var gazeSprite = {
   src: petAsset("gaze.png"),
@@ -241,8 +246,9 @@ var petConfig = {
   gazeRadius: 260,
   transitionDuration: 260,
   dragThreshold: 5,
-  dragVerticalRange: 92,
+  dragVerticalRange: 1e4,
   dragReleaseDuration: 240,
+  fallDuration: 520,
   bedEntryRadius: 88,
   mobileBreakpoint: 640,
   tabletBreakpoint: 960
@@ -337,6 +343,8 @@ var DesktopPet = class {
     __publicField(this, "timerCallback", null);
     __publicField(this, "motionFrame", 0);
     __publicField(this, "motionTime", 0);
+    __publicField(this, "fallFrame", 0);
+    __publicField(this, "fallAnimation", null);
     __publicField(this, "gazeFrame", 0);
     __publicField(this, "pointerX", -1e4);
     __publicField(this, "pointerY", -1e4);
@@ -347,6 +355,7 @@ var DesktopPet = class {
     __publicField(this, "lastReactionAt", -Infinity);
     __publicField(this, "ignoreClickUntil", -Infinity);
     __publicField(this, "resumedWalkDuration", null);
+    __publicField(this, "reactionDefinition", petSprites.idle);
     __publicField(this, "handleActorClick", () => this.triggerReaction());
     __publicField(this, "handleBedClick", () => {
       if (this.petLocation === "bed") this.triggerReaction();
@@ -362,13 +371,16 @@ var DesktopPet = class {
         if (Math.hypot(deltaX, deltaY) < this.config.dragThreshold) return;
         session.phase = "active";
         this.root.dataset.dragTarget = session.type === "draggingDog" ? "dog" : "bed";
+        if (session.type === "draggingDog") {
+          this.animator.setDefinition(dogLiftSprite);
+        }
       }
       if (session.type === "draggingDog") {
-        const bounds = this.actorBounds();
+        const bounds = this.actorDragBounds();
         this.actorX = clamp(session.startActorX + deltaX, bounds.left, bounds.right);
         this.actorY = clamp(session.startActorY + deltaY, bounds.top, bounds.bottom);
       } else {
-        const bounds = this.bedBounds();
+        const bounds = this.bedDragBounds();
         this.bedX = clamp(session.startBedX + deltaX, bounds.left, bounds.right);
         this.bedY = clamp(session.startBedY + deltaY, bounds.top, bounds.bottom);
         if (this.petLocation === "bed") this.alignActorWithBed();
@@ -388,23 +400,11 @@ var DesktopPet = class {
       this.ignoreClickUntil = performance.now() + this.config.clickCooldown;
       this.dragSession = { type: "none" };
       if (session.type === "draggingBed") {
-        this.playReleaseAnimation("bed");
-        if (this.petLocation === "bed") this.playReleaseAnimation("dog");
-        this.resumeSuspendedBehavior(session.timer);
+        const fallTarget = this.petLocation === "bed" ? "bedWithDog" : "bed";
+        this.startFall(fallTarget, () => this.resumeSuspendedBehavior(session.timer));
         return;
       }
-      this.playReleaseAnimation("dog");
-      this.petLocation = "floor";
-      if (this.isDogAtBedEntrance()) {
-        this.alignActorWithBed();
-        this.petLocation = "bed";
-        this.machine.drop("enterBed");
-      } else if (this.walkingEnabled()) {
-        this.walkingDirection = this.facing === "left" ? -1 : 1;
-        this.machine.drop("walk");
-      } else {
-        this.machine.drop("returnBed");
-      }
+      this.startFall("dog", () => this.finishDogDrop());
     });
     __publicField(this, "handleDragCancel", (event) => {
       const session = this.dragSession;
@@ -417,6 +417,7 @@ var DesktopPet = class {
       this.ignoreClickUntil = performance.now() + this.config.clickCooldown;
       this.dragSession = { type: "none" };
       delete this.root.dataset.dragTarget;
+      if (session.phase === "active" && session.type === "draggingDog") this.restoreCurrentSprite();
       this.renderPositions();
       this.resumeSuspendedBehavior(session.timer);
     });
@@ -444,6 +445,28 @@ var DesktopPet = class {
     __publicField(this, "handleVisibilityChange", () => {
       if (document.hidden) this.pause();
       else this.resume();
+    });
+    __publicField(this, "fall", (time) => {
+      const animation = this.fallAnimation;
+      if (!animation || this.paused) return;
+      const progress = Math.min(1, (animation.elapsed + time - animation.startedAt) / animation.duration);
+      const gravityProgress = progress * progress;
+      if (animation.target !== "bed") {
+        this.actorY = animation.fromActorY + (animation.toActorY - animation.fromActorY) * gravityProgress;
+      }
+      if (animation.target !== "dog") {
+        this.bedY = animation.fromBedY + (animation.toBedY - animation.fromBedY) * gravityProgress;
+        if (animation.target === "bedWithDog") this.alignActorWithBed();
+      }
+      this.renderPositions();
+      if (progress >= 1) {
+        this.fallFrame = 0;
+        this.fallAnimation = null;
+        delete this.root.dataset.fallTarget;
+        this.finishFall(animation.target, animation.onComplete);
+        return;
+      }
+      this.fallFrame = window.requestAnimationFrame(this.fall);
     });
     __publicField(this, "move", (time) => {
       if (this.paused || this.dragSession.type !== "none") return;
@@ -515,6 +538,8 @@ var DesktopPet = class {
   destroy() {
     this.clearStateTimer();
     this.stopMotion();
+    this.pauseFall();
+    this.cancelFall();
     if (this.gazeFrame) window.cancelAnimationFrame(this.gazeFrame);
     this.animator.destroy();
     this.transitionController.destroy();
@@ -547,7 +572,7 @@ var DesktopPet = class {
     this.gaze.className = "desktop-pet-gaze pixel-sprite";
     this.gaze.style.backgroundImage = `url("${gazeSprite.src}")`;
     this.gaze.style.backgroundSize = `${gazeSprite.frameWidth * gazeSprite.frameCount}px ${gazeSprite.frameHeight}px`;
-    this.spriteStage.append(this.sprite, this.gaze, this.createEars());
+    this.spriteStage.append(this.sprite, this.gaze);
     this.actor.append(this.spriteStage);
     this.effectsLayer.className = "desktop-pet-effects";
     this.dialogueLayer.className = "desktop-pet-dialogue-layer";
@@ -556,20 +581,12 @@ var DesktopPet = class {
     this.dialogue.setAttribute("aria-label", "\u67F4\u72AC\u5F88\u5F00\u5FC3");
     this.dialogueHeart.className = "desktop-pet-dialogue-heart pixel-sprite";
     this.dialogueHeart.style.backgroundImage = `url("${heartSprite.src}")`;
-    this.dialogueHeart.style.backgroundSize = `${heartSprite.frameWidth * heartSprite.frameCount}px ${heartSprite.frameHeight}px`;
-    this.dialogueHeart.style.backgroundPosition = `${-2 * heartSprite.frameWidth}px 0`;
+    const dialogueHeartScale = 0.5;
+    this.dialogueHeart.style.backgroundSize = `${heartSprite.frameWidth * heartSprite.frameCount * dialogueHeartScale}px ${heartSprite.frameHeight * dialogueHeartScale}px`;
+    this.dialogueHeart.style.backgroundPosition = `${-2 * heartSprite.frameWidth * dialogueHeartScale}px 0`;
     this.dialogue.append(this.dialogueHeart);
     this.dialogueLayer.append(this.dialogue);
     this.root.append(this.bedBack, this.actor, this.bedFront, this.effectsLayer, this.dialogueLayer);
-  }
-  createEars() {
-    const fragment = document.createDocumentFragment();
-    const leftEar = document.createElement("span");
-    const rightEar = document.createElement("span");
-    leftEar.className = "desktop-pet-ear desktop-pet-ear--left";
-    rightEar.className = "desktop-pet-ear desktop-pet-ear--right";
-    fragment.append(leftEar, rightEar);
-    return fragment;
   }
   addListeners() {
     this.actor.addEventListener("click", this.handleActorClick);
@@ -595,7 +612,7 @@ var DesktopPet = class {
     this.lastReactionAt = now;
   }
   beginDrag(type, event) {
-    if (event.button !== 0 || this.dragSession.type !== "none") return;
+    if (event.button !== 0 || this.dragSession.type !== "none" || this.transitionController.active || this.fallAnimation) return;
     event.preventDefault();
     const captureElement = type === "draggingDog" ? this.actor : this.bedFront;
     captureElement.setPointerCapture(event.pointerId);
@@ -624,6 +641,7 @@ var DesktopPet = class {
     if (previous === "walk" && current === "react") {
       this.resumedWalkDuration = this.currentTimerRemaining();
     }
+    if (current === "react") this.reactionDefinition = this.animator.currentDefinition;
     this.clearStateTimer();
     this.stopMotion();
     this.transitionController.cancel();
@@ -647,8 +665,8 @@ var DesktopPet = class {
     if (current === "react") this.showReaction();
     this.renderGazeNow();
     this.renderPositions();
-    const transitionDuration = previous === current || this.reducedMotion.matches ? 0 : this.config.transitionDuration;
-    const animation = current === "react" && this.petLocation === "bed" ? { ...petSprites.react, offsetY: -18 } : petSprites[current];
+    const transitionDuration = previous === current || current === "react" || previous === "react" || this.reducedMotion.matches ? 0 : this.config.transitionDuration;
+    const animation = current === "react" ? this.reactionDefinition : petSprites[current];
     this.transitionController.run(animation, transitionDuration, () => this.beginStateBehavior(previous, current));
   }
   beginStateBehavior(previous, current) {
@@ -736,6 +754,73 @@ var DesktopPet = class {
     this.motionFrame = 0;
     this.motionTime = 0;
   }
+  startFall(target, onComplete) {
+    this.cancelFall();
+    const actorGroundY = this.actorBounds().bottom;
+    const bedGroundY = this.bedBounds().bottom;
+    const toActorY = target === "bedWithDog" ? bedGroundY - (petSprites.idle.frameHeight - bedFrontSprite.frameHeight) * this.scale : actorGroundY;
+    const toBedY = bedGroundY;
+    const actorDistance = target === "bed" ? 0 : Math.max(0, toActorY - this.actorY);
+    const bedDistance = target === "dog" ? 0 : Math.max(0, toBedY - this.bedY);
+    if (this.reducedMotion.matches || Math.max(actorDistance, bedDistance) < 1) {
+      if (target !== "bed") this.actorY = toActorY;
+      if (target !== "dog") this.bedY = toBedY;
+      if (target === "bedWithDog") this.alignActorWithBed();
+      this.renderPositions();
+      this.finishFall(target, onComplete);
+      return;
+    }
+    this.fallAnimation = {
+      target,
+      fromActorY: this.actorY,
+      fromBedY: this.bedY,
+      toActorY,
+      toBedY,
+      duration: this.config.fallDuration,
+      onComplete,
+      elapsed: 0,
+      startedAt: performance.now()
+    };
+    this.root.dataset.fallTarget = target;
+    this.fallFrame = window.requestAnimationFrame(this.fall);
+  }
+  finishFall(target, onComplete) {
+    if (target !== "bed") this.playReleaseAnimation("dog");
+    if (target !== "dog") this.playReleaseAnimation("bed");
+    onComplete();
+  }
+  finishDogDrop() {
+    this.petLocation = "floor";
+    if (this.isDogAtBedEntrance()) {
+      this.alignActorWithBed();
+      this.petLocation = "bed";
+      this.machine.drop("enterBed");
+    } else if (this.walkingEnabled()) {
+      this.walkingDirection = this.facing === "left" ? -1 : 1;
+      this.machine.drop("walk");
+    } else {
+      this.machine.drop("returnBed");
+    }
+  }
+  cancelFall() {
+    if (this.fallFrame) window.cancelAnimationFrame(this.fallFrame);
+    this.fallFrame = 0;
+    this.fallAnimation = null;
+    delete this.root.dataset.fallTarget;
+  }
+  pauseFall() {
+    const animation = this.fallAnimation;
+    if (!animation) return;
+    if (this.fallFrame) window.cancelAnimationFrame(this.fallFrame);
+    this.fallFrame = 0;
+    animation.elapsed += performance.now() - animation.startedAt;
+  }
+  resumeFall() {
+    const animation = this.fallAnimation;
+    if (!animation || this.fallFrame) return;
+    animation.startedAt = performance.now();
+    this.fallFrame = window.requestAnimationFrame(this.fall);
+  }
   updateLayout() {
     const isMobile = window.innerWidth <= this.config.mobileBreakpoint;
     this.scale = isMobile ? this.config.mobileScale : window.innerWidth <= this.config.tabletBreakpoint ? this.config.tabletScale : this.config.scale;
@@ -770,9 +855,13 @@ var DesktopPet = class {
     return {
       left: this.config.walkingRange.leftInset,
       right: Math.max(this.config.walkingRange.leftInset, window.innerWidth - width - this.config.walkingRange.rightInset),
-      top: Math.max(0, bottom - this.config.dragVerticalRange),
+      top: bottom,
       bottom
     };
+  }
+  actorDragBounds() {
+    const ground = this.actorBounds();
+    return { ...ground, top: Math.max(0, ground.bottom - this.config.dragVerticalRange) };
   }
   bedBounds() {
     const isMobile = window.innerWidth <= this.config.mobileBreakpoint;
@@ -783,9 +872,13 @@ var DesktopPet = class {
     return {
       left: this.config.walkingRange.leftInset,
       right: Math.max(this.config.walkingRange.leftInset, window.innerWidth - width - this.config.walkingRange.rightInset),
-      top: Math.max(0, bottom - this.config.dragVerticalRange),
+      top: bottom,
       bottom
     };
+  }
+  bedDragBounds() {
+    const ground = this.bedBounds();
+    return { ...ground, top: Math.max(0, ground.bottom - this.config.dragVerticalRange) };
   }
   bedActorY() {
     return this.bedY - (petSprites.idle.frameHeight - bedFrontSprite.frameHeight) * this.scale;
@@ -805,6 +898,10 @@ var DesktopPet = class {
     this.actor.style.transform = actorTransform;
     this.effectsLayer.style.transform = actorTransform;
     this.dialogueLayer.style.transform = actorTransform;
+  }
+  restoreCurrentSprite() {
+    const definition = this.machine.state === "react" ? this.reactionDefinition : petSprites[this.machine.state];
+    this.animator.setDefinition(definition);
   }
   setFacing(facing) {
     this.facing = facing;
@@ -881,6 +978,7 @@ var DesktopPet = class {
       this.timerRemaining = Math.max(0, this.timerDeadline - performance.now());
     }
     this.stopMotion();
+    this.pauseFall();
     if (this.gazeFrame) window.cancelAnimationFrame(this.gazeFrame);
     this.gazeFrame = 0;
     this.animator.pause();
@@ -891,6 +989,7 @@ var DesktopPet = class {
     this.paused = false;
     delete this.root.dataset.paused;
     this.animator.resume();
+    this.resumeFall();
     if (this.dragSession.type === "none") this.transitionController.resume();
     if (this.timerCallback) {
       const callback = this.timerCallback;

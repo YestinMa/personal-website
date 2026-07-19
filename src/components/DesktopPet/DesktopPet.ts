@@ -1,6 +1,6 @@
 import { SpriteAnimator } from "./SpriteAnimator";
 import { SpriteTransitionController } from "./SpriteTransitionController";
-import { bedBackSprite, bedFrontSprite, gazeSprite, heartSprite, petSprites } from "./petAssets";
+import { bedBackSprite, bedFrontSprite, dogLiftSprite, gazeSprite, heartSprite, petSprites } from "./petAssets";
 import { petConfig } from "./petConfig";
 import { PetMachine } from "./petMachine";
 import type { Facing, PetConfig, PetState, SpriteDefinition } from "./types";
@@ -24,6 +24,18 @@ interface DragData {
   readonly startBedX: number;
   readonly startBedY: number;
   readonly timer: SuspendedTimer | null;
+}
+
+interface FallAnimation {
+  readonly target: "dog" | "bed" | "bedWithDog";
+  readonly fromActorY: number;
+  readonly fromBedY: number;
+  readonly toActorY: number;
+  readonly toBedY: number;
+  readonly duration: number;
+  readonly onComplete: () => void;
+  elapsed: number;
+  startedAt: number;
 }
 
 type DragSession =
@@ -75,6 +87,8 @@ export class DesktopPet {
   private timerCallback: (() => void) | null = null;
   private motionFrame = 0;
   private motionTime = 0;
+  private fallFrame = 0;
+  private fallAnimation: FallAnimation | null = null;
   private gazeFrame = 0;
   private pointerX = -10_000;
   private pointerY = -10_000;
@@ -85,6 +99,7 @@ export class DesktopPet {
   private lastReactionAt = -Infinity;
   private ignoreClickUntil = -Infinity;
   private resumedWalkDuration: number | null = null;
+  private reactionDefinition: SpriteDefinition = petSprites.idle;
 
   constructor(config: PetConfig = petConfig) {
     this.config = config;
@@ -109,6 +124,8 @@ export class DesktopPet {
   destroy(): void {
     this.clearStateTimer();
     this.stopMotion();
+    this.pauseFall();
+    this.cancelFall();
     if (this.gazeFrame) window.cancelAnimationFrame(this.gazeFrame);
     this.animator.destroy();
     this.transitionController.destroy();
@@ -145,7 +162,7 @@ export class DesktopPet {
     this.gaze.className = "desktop-pet-gaze pixel-sprite";
     this.gaze.style.backgroundImage = `url("${gazeSprite.src}")`;
     this.gaze.style.backgroundSize = `${gazeSprite.frameWidth * gazeSprite.frameCount}px ${gazeSprite.frameHeight}px`;
-    this.spriteStage.append(this.sprite, this.gaze, this.createEars());
+    this.spriteStage.append(this.sprite, this.gaze);
     this.actor.append(this.spriteStage);
 
     this.effectsLayer.className = "desktop-pet-effects";
@@ -155,21 +172,12 @@ export class DesktopPet {
     this.dialogue.setAttribute("aria-label", "柴犬很开心");
     this.dialogueHeart.className = "desktop-pet-dialogue-heart pixel-sprite";
     this.dialogueHeart.style.backgroundImage = `url("${heartSprite.src}")`;
-    this.dialogueHeart.style.backgroundSize = `${heartSprite.frameWidth * heartSprite.frameCount}px ${heartSprite.frameHeight}px`;
-    this.dialogueHeart.style.backgroundPosition = `${-2 * heartSprite.frameWidth}px 0`;
+    const dialogueHeartScale = 0.5;
+    this.dialogueHeart.style.backgroundSize = `${heartSprite.frameWidth * heartSprite.frameCount * dialogueHeartScale}px ${heartSprite.frameHeight * dialogueHeartScale}px`;
+    this.dialogueHeart.style.backgroundPosition = `${-2 * heartSprite.frameWidth * dialogueHeartScale}px 0`;
     this.dialogue.append(this.dialogueHeart);
     this.dialogueLayer.append(this.dialogue);
     this.root.append(this.bedBack, this.actor, this.bedFront, this.effectsLayer, this.dialogueLayer);
-  }
-
-  private createEars(): DocumentFragment {
-    const fragment = document.createDocumentFragment();
-    const leftEar = document.createElement("span");
-    const rightEar = document.createElement("span");
-    leftEar.className = "desktop-pet-ear desktop-pet-ear--left";
-    rightEar.className = "desktop-pet-ear desktop-pet-ear--right";
-    fragment.append(leftEar, rightEar);
-    return fragment;
   }
 
   private addListeners(): void {
@@ -207,7 +215,7 @@ export class DesktopPet {
   private readonly handleBedPointerDown = (event: PointerEvent): void => this.beginDrag("draggingBed", event);
 
   private beginDrag(type: "draggingDog" | "draggingBed", event: PointerEvent): void {
-    if (event.button !== 0 || this.dragSession.type !== "none") return;
+    if (event.button !== 0 || this.dragSession.type !== "none" || this.transitionController.active || this.fallAnimation) return;
     event.preventDefault();
     const captureElement = type === "draggingDog" ? this.actor : this.bedFront;
     captureElement.setPointerCapture(event.pointerId);
@@ -237,14 +245,18 @@ export class DesktopPet {
       if (Math.hypot(deltaX, deltaY) < this.config.dragThreshold) return;
       session.phase = "active";
       this.root.dataset.dragTarget = session.type === "draggingDog" ? "dog" : "bed";
+      if (session.type === "draggingDog") {
+        // 拖狗使用独立悬空 Sprite，不复用站立或行走帧。
+        this.animator.setDefinition(dogLiftSprite);
+      }
     }
 
     if (session.type === "draggingDog") {
-      const bounds = this.actorBounds();
+      const bounds = this.actorDragBounds();
       this.actorX = clamp(session.startActorX + deltaX, bounds.left, bounds.right);
       this.actorY = clamp(session.startActorY + deltaY, bounds.top, bounds.bottom);
     } else {
-      const bounds = this.bedBounds();
+      const bounds = this.bedDragBounds();
       this.bedX = clamp(session.startBedX + deltaX, bounds.left, bounds.right);
       this.bedY = clamp(session.startBedY + deltaY, bounds.top, bounds.bottom);
       if (this.petLocation === "bed") this.alignActorWithBed();
@@ -267,24 +279,12 @@ export class DesktopPet {
     this.ignoreClickUntil = performance.now() + this.config.clickCooldown;
     this.dragSession = { type: "none" };
     if (session.type === "draggingBed") {
-      this.playReleaseAnimation("bed");
-      if (this.petLocation === "bed") this.playReleaseAnimation("dog");
-      this.resumeSuspendedBehavior(session.timer);
+      const fallTarget = this.petLocation === "bed" ? "bedWithDog" : "bed";
+      this.startFall(fallTarget, () => this.resumeSuspendedBehavior(session.timer));
       return;
     }
 
-    this.playReleaseAnimation("dog");
-    this.petLocation = "floor";
-    if (this.isDogAtBedEntrance()) {
-      this.alignActorWithBed();
-      this.petLocation = "bed";
-      this.machine.drop("enterBed");
-    } else if (this.walkingEnabled()) {
-      this.walkingDirection = this.facing === "left" ? -1 : 1;
-      this.machine.drop("walk");
-    } else {
-      this.machine.drop("returnBed");
-    }
+    this.startFall("dog", () => this.finishDogDrop());
   };
 
   private readonly handleDragCancel = (event: PointerEvent): void => {
@@ -298,6 +298,7 @@ export class DesktopPet {
     this.ignoreClickUntil = performance.now() + this.config.clickCooldown;
     this.dragSession = { type: "none" };
     delete this.root.dataset.dragTarget;
+    if (session.phase === "active" && session.type === "draggingDog") this.restoreCurrentSprite();
     this.renderPositions();
     this.resumeSuspendedBehavior(session.timer);
   };
@@ -343,6 +344,7 @@ export class DesktopPet {
     if (previous === "walk" && current === "react") {
       this.resumedWalkDuration = this.currentTimerRemaining();
     }
+    if (current === "react") this.reactionDefinition = this.animator.currentDefinition;
     this.clearStateTimer();
     this.stopMotion();
     this.transitionController.cancel();
@@ -370,10 +372,11 @@ export class DesktopPet {
     this.renderGazeNow();
     this.renderPositions();
 
-    const transitionDuration = previous === current || this.reducedMotion.matches ? 0 : this.config.transitionDuration;
-    const animation = current === "react" && this.petLocation === "bed"
-      ? { ...petSprites.react, offsetY: -18 }
-      : petSprites[current];
+    // 点击反馈不替换角色图片，避免缓存/解码期间出现空白帧；快乐感由弹跳和爱心表达。
+    const transitionDuration = previous === current || current === "react" || previous === "react" || this.reducedMotion.matches
+      ? 0
+      : this.config.transitionDuration;
+    const animation = current === "react" ? this.reactionDefinition : petSprites[current];
     this.transitionController.run(animation, transitionDuration, () => this.beginStateBehavior(previous, current));
   }
 
@@ -471,6 +474,105 @@ export class DesktopPet {
     this.motionTime = 0;
   }
 
+  private startFall(target: FallAnimation["target"], onComplete: () => void): void {
+    this.cancelFall();
+    const actorGroundY = this.actorBounds().bottom;
+    const bedGroundY = this.bedBounds().bottom;
+    const toActorY = target === "bedWithDog" ? bedGroundY - (petSprites.idle.frameHeight - bedFrontSprite.frameHeight) * this.scale : actorGroundY;
+    const toBedY = bedGroundY;
+    const actorDistance = target === "bed" ? 0 : Math.max(0, toActorY - this.actorY);
+    const bedDistance = target === "dog" ? 0 : Math.max(0, toBedY - this.bedY);
+
+    if (this.reducedMotion.matches || Math.max(actorDistance, bedDistance) < 1) {
+      if (target !== "bed") this.actorY = toActorY;
+      if (target !== "dog") this.bedY = toBedY;
+      if (target === "bedWithDog") this.alignActorWithBed();
+      this.renderPositions();
+      this.finishFall(target, onComplete);
+      return;
+    }
+
+    // 位置由 rAF 逐帧计算，二次曲线模拟重力加速；最终停点始终是底部地面线。
+    this.fallAnimation = {
+      target,
+      fromActorY: this.actorY,
+      fromBedY: this.bedY,
+      toActorY,
+      toBedY,
+      duration: this.config.fallDuration,
+      onComplete,
+      elapsed: 0,
+      startedAt: performance.now(),
+    };
+    this.root.dataset.fallTarget = target;
+    this.fallFrame = window.requestAnimationFrame(this.fall);
+  }
+
+  private readonly fall = (time: number): void => {
+    const animation = this.fallAnimation;
+    if (!animation || this.paused) return;
+    const progress = Math.min(1, (animation.elapsed + time - animation.startedAt) / animation.duration);
+    const gravityProgress = progress * progress;
+    if (animation.target !== "bed") {
+      this.actorY = animation.fromActorY + (animation.toActorY - animation.fromActorY) * gravityProgress;
+    }
+    if (animation.target !== "dog") {
+      this.bedY = animation.fromBedY + (animation.toBedY - animation.fromBedY) * gravityProgress;
+      if (animation.target === "bedWithDog") this.alignActorWithBed();
+    }
+    this.renderPositions();
+    if (progress >= 1) {
+      this.fallFrame = 0;
+      this.fallAnimation = null;
+      delete this.root.dataset.fallTarget;
+      this.finishFall(animation.target, animation.onComplete);
+      return;
+    }
+    this.fallFrame = window.requestAnimationFrame(this.fall);
+  };
+
+  private finishFall(target: FallAnimation["target"], onComplete: () => void): void {
+    if (target !== "bed") this.playReleaseAnimation("dog");
+    if (target !== "dog") this.playReleaseAnimation("bed");
+    onComplete();
+  }
+
+  private finishDogDrop(): void {
+    this.petLocation = "floor";
+    if (this.isDogAtBedEntrance()) {
+      this.alignActorWithBed();
+      this.petLocation = "bed";
+      this.machine.drop("enterBed");
+    } else if (this.walkingEnabled()) {
+      this.walkingDirection = this.facing === "left" ? -1 : 1;
+      this.machine.drop("walk");
+    } else {
+      this.machine.drop("returnBed");
+    }
+  }
+
+  private cancelFall(): void {
+    if (this.fallFrame) window.cancelAnimationFrame(this.fallFrame);
+    this.fallFrame = 0;
+    this.fallAnimation = null;
+    delete this.root.dataset.fallTarget;
+  }
+
+  private pauseFall(): void {
+    const animation = this.fallAnimation;
+    if (!animation) return;
+    if (this.fallFrame) window.cancelAnimationFrame(this.fallFrame);
+    this.fallFrame = 0;
+    animation.elapsed += performance.now() - animation.startedAt;
+  }
+
+  private resumeFall(): void {
+    const animation = this.fallAnimation;
+    if (!animation || this.fallFrame) return;
+    animation.startedAt = performance.now();
+    this.fallFrame = window.requestAnimationFrame(this.fall);
+  }
+
   private readonly move = (time: number): void => {
     if (this.paused || this.dragSession.type !== "none") return;
     const delta = this.motionTime ? Math.min((time - this.motionTime) / 1_000, 0.05) : 0;
@@ -560,9 +662,14 @@ export class DesktopPet {
     return {
       left: this.config.walkingRange.leftInset,
       right: Math.max(this.config.walkingRange.leftInset, window.innerWidth - width - this.config.walkingRange.rightInset),
-      top: Math.max(0, bottom - this.config.dragVerticalRange),
+      top: bottom,
       bottom,
     };
+  }
+
+  private actorDragBounds(): { readonly left: number; readonly right: number; readonly top: number; readonly bottom: number } {
+    const ground = this.actorBounds();
+    return { ...ground, top: Math.max(0, ground.bottom - this.config.dragVerticalRange) };
   }
 
   private bedBounds(): { readonly left: number; readonly right: number; readonly top: number; readonly bottom: number } {
@@ -574,9 +681,14 @@ export class DesktopPet {
     return {
       left: this.config.walkingRange.leftInset,
       right: Math.max(this.config.walkingRange.leftInset, window.innerWidth - width - this.config.walkingRange.rightInset),
-      top: Math.max(0, bottom - this.config.dragVerticalRange),
+      top: bottom,
       bottom,
     };
+  }
+
+  private bedDragBounds(): { readonly left: number; readonly right: number; readonly top: number; readonly bottom: number } {
+    const ground = this.bedBounds();
+    return { ...ground, top: Math.max(0, ground.bottom - this.config.dragVerticalRange) };
   }
 
   private bedActorY(): number {
@@ -600,6 +712,11 @@ export class DesktopPet {
     this.actor.style.transform = actorTransform;
     this.effectsLayer.style.transform = actorTransform;
     this.dialogueLayer.style.transform = actorTransform;
+  }
+
+  private restoreCurrentSprite(): void {
+    const definition = this.machine.state === "react" ? this.reactionDefinition : petSprites[this.machine.state];
+    this.animator.setDefinition(definition);
   }
 
   private setFacing(facing: Facing): void {
@@ -690,6 +807,7 @@ export class DesktopPet {
       this.timerRemaining = Math.max(0, this.timerDeadline - performance.now());
     }
     this.stopMotion();
+    this.pauseFall();
     if (this.gazeFrame) window.cancelAnimationFrame(this.gazeFrame);
     this.gazeFrame = 0;
     this.animator.pause();
@@ -701,6 +819,7 @@ export class DesktopPet {
     this.paused = false;
     delete this.root.dataset.paused;
     this.animator.resume();
+    this.resumeFall();
     if (this.dragSession.type === "none") this.transitionController.resume();
     if (this.timerCallback) {
       const callback = this.timerCallback;

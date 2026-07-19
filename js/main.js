@@ -53,9 +53,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (document.querySelector('link[data-desktop-pet-style]')) return;
     const petStyles = document.createElement("link");
     petStyles.rel = "stylesheet";
-    petStyles.href = new URL("css/desktop-pet.css?v=1.1.0", siteRoot).href;
+    petStyles.href = new URL("css/desktop-pet.css?v=1.2.0", siteRoot).href;
     petStyles.dataset.desktopPetStyle = "true";
     document.head.append(petStyles);
-    void import(new URL("js/desktop-pet.js?v=1.1.0", siteRoot).href);
+    void import(new URL("js/desktop-pet.js?v=1.2.0", siteRoot).href);
   });
 })();

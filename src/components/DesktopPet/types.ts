@@ -63,6 +63,7 @@ export interface PetConfig {
   readonly dragThreshold: number;
   readonly dragVerticalRange: number;
   readonly dragReleaseDuration: number;
+  readonly fallDuration: number;
   readonly bedEntryRadius: number;
   readonly mobileBreakpoint: number;
   readonly tabletBreakpoint: number;

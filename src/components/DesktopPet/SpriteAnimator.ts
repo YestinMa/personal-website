@@ -12,7 +12,13 @@ export class SpriteAnimator {
     this.applyDefinition();
   }
 
+  get currentDefinition(): SpriteDefinition {
+    return this.definition;
+  }
+
   setDefinition(definition: SpriteDefinition): void {
+    // 点击互动沿用当前 Sprite 时不重置帧，避免图片重新绑定造成闪烁。
+    if (this.definition === definition) return;
     this.definition = definition;
     this.frame = 0;
     this.lastFrameTime = 0;

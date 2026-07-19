@@ -28,6 +28,8 @@ export const petSprites: Readonly<Record<PetState, SpriteDefinition>> = {
   react: petSprite("shiba-react.png", 5, true, 0),
 };
 
+export const dogLiftSprite: SpriteDefinition = petSprite("shiba-lift.png", 6, true, 0);
+
 export const bedBackSprite: SpriteDefinition = {
   src: petAsset("bed-back.png"),
   frameWidth: 256,
@@ -44,7 +46,7 @@ export const bedBackSprite: SpriteDefinition = {
 
 export const bedFrontSprite: SpriteDefinition = {
   ...bedBackSprite,
-  src: petAsset("bed-front.png"),
+  src: petAsset("bed-front-low.png"),
 };
 
 export const gazeSprite: SpriteDefinition = {
