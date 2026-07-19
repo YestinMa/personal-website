@@ -36,7 +36,7 @@
       <a class="article-back" href="../notes-blogs.html">← Notes &amp; Blogs</a>
       <h1 class="article-title">基于蒙特卡洛和FFT方法的FCN定价分析</h1>
       <div class="article-meta">
-        <span>notes</span><span>2026-07-15</span><span>research</span>
+        <span>blog</span><span>2026-07-15</span><span>research</span>
         <span class="article-tags"><span>study</span><span>coding</span><span>quant</span><span>finance</span></span>
       </div>
       <div class="article-content"><h2 id="part1-定价分析">PART1：定价分析</h2>
@@ -99,13 +99,13 @@ def simulate_normal(n_paths, n_steps, dt, r0, mu, sigma):
 <p><strong>接下来，我们来考虑FCN的payoff结构：</strong></p>
 <p><strong>第一种，未敲入未敲出。</strong>在整个存续期内，标的利率既没有触发敲入障碍，也没有在观察日触发敲出障碍，产品通常持有至到期，投资者获得名义本金和约定票息，因此其到期收益可以写为：</p>
 <p>\(\text{Payoff}_1 = N(1+cT)\)</p>
-<figure><img src="../content/assets/notes/基于蒙特卡洛和fft方法的fcn定价分析/image-01.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<figure><img src="../content/assets/blog/基于蒙特卡洛和fft方法的fcn定价分析/image-01.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <p><strong>第二种，敲入未敲出。</strong>这种情况下，产品在存续期内曾触发敲入事件，但直到到期都没有发生敲出。此时 FCN 的“保护性”消失，投资者需要承担标的利率不利变动所带来的损失。</p>
-<p>\(\text{Payoff}_2 = N\bigl(1+cT - \displaystyle\frac{r_T - r_0}{r_o})\)</p>
-<figure><img src="../content/assets/notes/基于蒙特卡洛和fft方法的fcn定价分析/image-02.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<p>\(\text{Payoff}_2 = N\bigl(1+cT - \displaystyle\frac{r_T - r_0}{r_0})\)</p>
+<figure><img src="../content/assets/blog/基于蒙特卡洛和fft方法的fcn定价分析/image-02.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <p><strong>第三种，敲出（无论是否敲入）。</strong>只要产品在某个观察日满足敲出条件，就视为提前终止，投资者提前收回本金并获得截至敲出时点的票息收入。</p>
 <p>\(\text{Payoff}_3 = N(1+c\tau)\)</p>
-<figure><img src="../content/assets/notes/基于蒙特卡洛和fft方法的fcn定价分析/image-03.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<figure><img src="../content/assets/blog/基于蒙特卡洛和fft方法的fcn定价分析/image-03.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <p>payoff的代码部分如下，这里需要注意：KO的判断逻辑与KI的判断逻辑不一样，当在KO观察日触发KO以后，这条路径就结算并计算payoff，即中止循环；而KI的触发则具有记忆性，即首次触发就将ki_flag标记为True，后续不断把原来的状态和新状态做析取（OR）。后续再将未KO的样本根据是否KI分为safe和risky两个状态分别计算payoff。</p>
 <pre><code class="language-python">def fcn_rate_payoff(
     r_paths, # r_paths.shape = (N, 253)
@@ -157,6 +157,8 @@ def simulate_normal(n_paths, n_steps, dt, r0, mu, sigma):
     cashflow_amount[risky] = notional * (1.0 + coupon - loss_ratio)
 
     return cashflow_amount, payment_step, ki_flag, ko_flag</code></pre>
+<p>模拟结果显示，67.8% 的路径最终敲出，包含先敲入后敲出的情形，约 22.7% 的路径敲入后始终未敲出，因而保留了到期下行损失风险，另有约 9.5%的路径既未敲入也未敲出。整体来看，由于敲出界限距离初始利率较近，产品较容易提前终止，而真正进入“敲入且存续至到期”高风险状态的路径占比相对较低。</p>
+<figure><img src="../content/assets/blog/基于蒙特卡洛和fft方法的fcn定价分析/image-04.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <h3 id="基于傅里叶变换的条件期望回溯定价-fft">基于傅里叶变换的条件期望回溯定价（FFT）</h3>
 <p>接下来，我们考虑一种基于傅里叶方法的结构化产品定价：</p>
 <p>为了利用傅里叶方法对 FCN 进行定价，首先将连续时间区间 \([0,T]\) 离散为 \(M\) 个时间步：</p>
@@ -292,26 +294,25 @@ coupon = [200bp, 1400bp], step = 20bp</code></pre>
 <p>相比之下，敲出距离 \(\lvert KO-r_0\rvert\) 对FCN价值影响则较为复杂：</p>
 <p>当敲入距离较小时，例如 \(r_0 = 2\%\)价值大致分布在89—104之间，而 \(r_0 = 5\%\)时主要集中在96—102之间，说明高利率环境下FCN对障碍距离的敏感性有所下降。</p>
 <p>从不同的初始利率水平来看，随着 \(r_0\)从2%增大到5%，曲面的价值变化区间明显收窄。 最后，MC与FFT得到的价格曲面几乎完全重合，绿色误差曲面在进行位置偏移后仍较为平坦，说明两种方法在<strong>价格水平</strong>上具有较高的一致性。</p>
-<figure><img src="../content/assets/notes/基于蒙特卡洛和fft方法的fcn定价分析/image-04.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<figure><img src="../content/assets/blog/基于蒙特卡洛和fft方法的fcn定价分析/image-05.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <p><strong>第二组参数：</strong>ABM过程的波动率 \(\sigma\)</p>
 <p>FCN对ABM波动率 \(\sigma\) 呈现显著的<strong>负Vega特征</strong>：在敲入、敲出距离和票息固定时，随着波动率由约10bp上升至200bp，四种初始利率情形下的FCN价值均持续下降。其核心原因在于，波动率上升会扩大未来利率路径的分散程度，使利率触及上方KI障碍的可能性及敲入后的潜在损失同步增加。后续我们还会进一步分析其Vega的特征。</p>
-<figure><img src="../content/assets/notes/基于蒙特卡洛和fft方法的fcn定价分析/image-05.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<figure><img src="../content/assets/blog/基于蒙特卡洛和fft方法的fcn定价分析/image-06.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <p><strong>第三组参数：</strong>ABM过程的波动率 \(\sigma\)票息率 \(C\)</p>
 <h3 id="greeks分析">Greeks分析</h3>
 <p>接下来，我们来看一下FCN的Greeks， 与股票类似地，Delta表示产品对标的（利率）一阶敏感度，\(\Delta = \frac{\partial V}{\partial r}\)。Gamma表示产品对标的（利率）二阶敏感度，即对Delta的敏感程度，\(\Gamma = \frac{\partial ^2V}{\partial r^2}\)  。（图中横轴表示 \(r_0\)与KO的距离，纵轴表示Greeks值）</p>
-<figure><img src="../content/assets/notes/基于蒙特卡洛和fft方法的fcn定价分析/image-06.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<figure><img src="../content/assets/blog/基于蒙特卡洛和fft方法的fcn定价分析/image-07.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <p>Vega表示产品对标的波动率的敏感度（\(Vega = \frac{\partial V}{\partial \sigma}\)）。随着当前利率逐步上移，Vega整体由较大的负值向零靠近，但在上移约100bp、即当前利率接近固定KI障碍的位置附近，曲线出现明显的局部下探。此时利率路径是否越过KI对产品状态和最终现金流影响最大，波动率的小幅变化就会显著改变敲入概率，因此FCN对波动率的敏感度再次增强，Vega变得更负。当前利率继续上移并超过KI后，敲入概率逐渐接近饱和，波动率对“是否敲入”的边际影响下降，所以Vega绝对值快速减小并趋近于零。</p>
-<figure><img src="../content/assets/notes/基于蒙特卡洛和fft方法的fcn定价分析/image-07.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<figure><img src="../content/assets/blog/基于蒙特卡洛和fft方法的fcn定价分析/image-08.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <p>当前的蒙特卡洛的路径数是20000，会不会只是蒙特卡洛的路径数不够，导致FCN的Greeks出现如此大的震荡呢？我们分别设定蒙特卡洛模拟的路径数为20000、200000、1000000，观察震荡最严重的Gamma是否能够收敛。结果可以看到，增大路径数确实可以在一定程度上缓解Gamma的震荡。然而值得一提的是，当路径为100万条时，单次估值在90秒左右，总体运行时长在2-3个小时。</p>
-<figure><img src="../content/assets/notes/基于蒙特卡洛和fft方法的fcn定价分析/image-08.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<figure><img src="../content/assets/blog/基于蒙特卡洛和fft方法的fcn定价分析/image-09.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <h2 id="part3-对冲分析">PART3：对冲分析</h2>
 <h3 id="dv01对冲">DV01对冲</h3>
 <p>在股票挂钩的衍生品中，我们通常使用 Delta、Gamma 等希腊字母来衡量产品对标的资产价格变化的敏感度。例如，如果持有一份看涨期权空头头寸，由于看涨期权本身的 Delta 为正，因此空头头寸的 Delta 为负。为了降低股票价格变化带来的风险，可以买入一定数量的标的股票，使“期权空头的 Delta + 股票头寸的 Delta”尽可能接近 0。此时，标的资产小幅变化造成的期权损益，可以由股票头寸的反向损益进行抵消。</p>
-<p>与股票挂钩衍生品类似，利率挂钩衍生品也需要衡量产品价值对市场利率变化的敏感度。这里使用的核心指标是 <strong>DV01（Dollar Value of 1 Basis Point）</strong>，表示市场利率变化 1 个bp( 0.01） 时，金融产品价值大约变化多少。对于普通债券，DV01的计算公式是：</p>
-<p>\(DV01 \approx D\times P\times 0.0001\)    其中D 为久期，P 为债券价格。</p>
+<p>与股票挂钩衍生品类似，利率挂钩衍生品也需要衡量产品价值对市场利率变化的敏感度。这里使用的核心指标是 <strong>DV01（Dollar Value of 1 Basis Point）</strong>，表示市场利率变化 1 个bp( 0.01） 时，金融产品价值大约变化多少。</p>
 <p>本研究采用 <strong>10 年期美债期货 TY</strong> 作为 FCN 的对冲工具。原因是 FCN 的标的变量本身就是 10 年期美债收益率，因此 TY 与 FCN 面临相同的核心利率风险因子；同时，美债期货具有流动性较高、合约标准化和便于动态调整仓位等特点。当美债收益率上升时，美债期货价格通常下降；当收益率下降时，美债期货价格通常上升，因此可以利用 TY 的价格变化对冲 FCN 的利率敏感度。在具体实现中，需要分别计算 \(DV01_{FCN}^{MC},\quad DV01_{FCN}^{FFT}, \quad DV01_{TY}\)。</p>
 <p>对于 FCN 这种带有敲入、敲出等路径依赖特征的结构化产品，很难像普通债券一样直接使用久期公式。因此，代码采用 <strong>bump-and-revalue，即“扰动后重新定价”</strong> 的方法计算 DV01，即：</p>
-<p>\(\displaystyle\frac{V(y_t+1bp) - V(y_t-1bp)}{0.0001 *2}\)</p>
+<p>\(\displaystyle\frac{V(y_t+1bp) - V(y_t-1bp)}{2}\)</p>
 <p>这里有一个非常重要的细节：向上扰动和向下扰动时，MC 使用完全相同的一组随机数，即公共随机数方法（Common Random Numbers，CRN），大幅减少蒙特卡洛模拟本身的随机噪声。此外，FCN 的 DV01 并不是一个固定值，而是每天变化的。每一个交易日，代码都会根据当前收益率、剩余期限、KI KO状态等参数动态计算DV01。而FFT的DV01计算则更加简单，直接对当前利率进行 \(\+1bp\) 和 \(\-1bp\) 的扰动，再分别调用 Fourier 定价函数进行重新定价即可。</p>
 <p>如何计算国债期货的DV01？这里我采用了久期近似法，即： \(P_{TY,t} \times D_{TY} \times 0.0001 \times M\)。其中M取1000，D取6.5。需要说明的是，这是一种简化的久期近似。更严格的美债期货 DV01 需要考虑最廉券（Cheapest-to-Deliver，CTD）、转换因子等问题。本人本科的时候接触过这些概念，但是当时也是学的晕乎乎的，这里正好重新梳理一下：</p>
 <p><strong>最重要是理解：10 年期美债期货 TY 并不是“到期交割某一只固定的 10 年期国债”</strong>。它对应的是一个“可交割债券篮子”，期货空头在满足合约规则的若干只美债中选择一只交给多头。那么空头必然是选择对其来说“最经济”的券，即最廉券。简单来说，空头会比较基差（Basis = S - F），基差越低，交割越经济。那么问题又来了，一个国债篮子里票息、剩余期限、市场价格都不同。空头就会机械地选择<strong>市场价格最低的那只债</strong>，那其他可交割券几乎永远没有竞争力，“可交割券篮子”实际上名存实亡，期货合约几乎等于绑定了最低价那只债。这个时候就要引入转换因子（Convertion Factor, CF）把不同债券“折算”到同一个标准上。但是，转换因子不可能完美地消除所有差异。不同债券的实际市场收益率、融资成本、久期和凸性仍然不同，因此最终总会有一只债券比其他债券更划算，它就成为 CTD。因此，TY 本身并不是一只债券，它的价格主要跟随当前的 CTD，一张国债期货更加严格的 DV01 近似为：</p>
@@ -319,18 +320,20 @@ coupon = [200bp, 1400bp], step = 20bp</code></pre>
 <p>扯远了，我们回归正题。由于获取不到美债期货的最廉券与折现因子数据（其实是懒得找），我们直接用久期近似计算美债期货的DV01。</p>
 <p>发行人相当于持有 FCN 空头，因此发行人的利率风险方向与产品本身相反。举一个简单例子，假设利率上升 1bp 时，FCN 的价值下降 500 美元。空头获利500美元。由于利率上升通常对应 TY 价格下降，因此此时应该<strong>做多 TY 期货</strong>。收益率上升时，FCN 空头盈利，而 TY 多头亏损，两者相互抵消，即DV01对冲。对冲的结果如下：</p>
 <p>我们首先选择了2023.01 - 2024.01这个区间发行FCN产品，每日进行动态重新估值。2023年1月至2024年1月，10年期美债收益率先因通胀黏性、经济韧性和美联储“高利率维持更久”的预期上升，随后在银行业风险和衰退担忧下回落；进入下半年后，又受到强劲经济数据、国债供给增加和期限溢价抬升推动接近5%，最终随着通胀降温和市场提前交易2024年降息而快速下行。从美债价格（归一化）和FCN价值对比图中我们可以看出，二者基本上均与利率呈现负相关，但FCN在利率小幅变化时更为稳定，而当收益率接近KI区域时价值会快速下跌。</p>
-<figure><img src="../content/assets/notes/基于蒙特卡洛和fft方法的fcn定价分析/image-09.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<figure><img src="../content/assets/blog/基于蒙特卡洛和fft方法的fcn定价分析/image-10.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <p>从对冲PnL曲线图中我们可以看出：未对冲的FCN累计PnL波动非常剧烈，2023年10月收益率接近高点时一度盈利约20万元，随后随着收益率快速回落，PnL急剧反转，期末累计亏损约10.5万元，说明FCN价值对利率方向高度敏感。加入美债期货对冲后，PnL的波动明显收窄。不过，对冲PnL在10—11月仍出现较大跳动，说明单纯使用DV01只能对冲局部线性风险。当利率接近KI或KO障碍时，FCN的DV01、Gamma和敲入敲出概率会快速变化，再加上每日离散调仓、期货与收益率之间的基差风险，因此会留下较明显的残余PnL。</p>
 <p>红色和紫色曲线几乎完全重合，说明MC与FFT计算出的FCN价值和未对冲PnL高度一致；但绿色与橙色对冲结果差异较大，说明两种方法的<strong>DV01或对冲手数计算存在明显差异</strong>。FFT对冲PnL最终接近0，而MC对冲PnL累计约4万元，这与此前的敏感性分析结果相互印证：<strong>MC在Greeks估计精度明显不足，从而削弱了动态对冲的稳定性。</strong></p>
-<figure><img src="../content/assets/notes/基于蒙特卡洛和fft方法的fcn定价分析/image-10.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<figure><img src="../content/assets/blog/基于蒙特卡洛和fft方法的fcn定价分析/image-11.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <p>DV01和期货持仓曲线图与上面反映的信息一致，使用FFT方法计算DV01可以更好的平滑仓位，减少由于计算误差带来的风险敞口。</p>
-<figure><img src="../content/assets/notes/基于蒙特卡洛和fft方法的fcn定价分析/image-11.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<figure><img src="../content/assets/blog/基于蒙特卡洛和fft方法的fcn定价分析/image-12.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <h3 id="滚动发行">滚动发行</h3>
-<p>最后，我们从<code>2011\-01</code> 到 <code>2025\-07</code> 每三个月滚动发行一次，发行利率（基准）为当日的美债收益率，KI为基准上移100bp，KO为基准下移25bp，统计每一期的两模型的对冲收益并形成统计分析，样本整体敲出概率57.6%，敲入概率18.6%。按最终对冲 PnL 看，MC平均更高，MC的平均对冲后收益为98267，高于FFT的57031；同时，MC在59.3%的窗口内最终对冲收益优于FFT。但如果看“对冲是否真的降低波动/改善相对裸露仓位”，FFT更稳定。FFT在94.9%的窗口内把对冲后波动压低了，而MC只有49.2%。</p>
-<figure><img src="../content/assets/notes/基于蒙特卡洛和fft方法的fcn定价分析/image-12.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
-<h3 id="收益归因">收益归因</h3>
-<h3 id="定价收益与对冲交易成本">定价收益与对冲交易成本</h3>
-<h3 id="其他分析">其他分析</h3>
+<p>最后，我们从<code>2011\-01</code> 到 <code>2025\-07</code> 每三个月滚动发行一次，发行利率（基准）为当日的美债收益率，KI为基准上移100bp，KO为基准下移25bp，每只产品的波动率计算回看252个交易日，MC路径数采用20000条，FFT网格数采用4096。统计每一期的两模型的对冲收益并形成统计分析如下：</p>
+<p>基准情况下：样本整体敲出概率57.6%，敲入概率18.6%。按最终对冲 PnL 看，MC平均更高，MC的平均对冲后收益为98267，高于FFT的57031；同时，MC在59.3%的窗口内最终对冲收益优于FFT。但如果看“对冲是否真的降低波动/改善相对裸露仓位”，FFT更稳定。FFT在94.9%的窗口内把对冲后波动压低了，而MC只有49.2%。</p>
+<p>（这里要把利率上涨、利率下跌、利率震荡的情况分别拿出来看）</p>
+<p>收益归因：</p>
+<p>接下来，我们将日度动态重估改为周度动态重估（每周计算一次DV01，但是FCN价值仍需要每日重算，以确定是否发生敲入敲出）</p>
+<p>分析日度对冲和周度对冲的交易成本</p>
+<p>最后，我们再尝试一下Vasicek模型的定价结果，看看与ABM过程定价有什么区别：</p>
 <h2 id="part4-结语">PART4：结语</h2>
 <p>整体来看，MC 与 FFT 在定价结果上非常接近，说明两种方法都能够较好地刻画 FCN 的价值；但在 Greeks 估计和动态对冲中，FFT 的结果明显更加平滑和稳定，而 MC 即使增加路径数，也仍然会受到随机误差和计算成本的限制。这里的很多设定仍然比较简化，尤其是美债期货 DV01、CTD、基差风险以及障碍附近的非线性风险，以及经典的PDE定价方法我也没有在这里涉及，后续还有继续完善的空间。不过至少到这里，定价、敏感性和对冲已经基本连成了一条完整的链路。</p></div>
     </article>
