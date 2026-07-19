@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="利率挂钩 FCN 的 Monte Carlo 与 FFT 定价、Greeks、动态对冲、损益归因与策略研究。">
+    <title>FCN Pricing &amp; Hedging — Yuyao Ma</title>
+    <link rel="stylesheet" href="../css/style.css?v=2.0.0">
+    <link rel="stylesheet" href="static/styles.css?v=1.0.0">
+</head>
+<body class="project-page">
+    <header class="site-header">
+        <a class="site-mark" href="../index.html" aria-label="Yuyao Ma home">YM</a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation">
+            <span></span><span></span><span></span><span class="sr-only">Toggle navigation</span>
+        </button>
+        <nav class="site-nav" id="site-navigation" aria-label="Primary navigation">
+            <a class="active" href="../work.html" aria-current="page">Work</a>
+            <a href="../notes-blogs.html">Notes</a>
+            <a href="../index.html">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main class="project-main">
+        <a class="project-back" href="../work.html">← Selected Work</a>
+
+        <header class="project-hero reveal reveal-1">
+            <p class="project-kicker">Financial Engineering / 2026</p>
+            <h1>FCN Pricing<br>&amp; Hedging</h1>
+            <p class="project-lead">从两种定价方法出发，把路径依赖产品的价值、非线性风险、动态对冲与损益归因连接成一条可复现实验链路。</p>
+        </header>
+
+        <dl class="project-facts reveal reveal-2" aria-label="项目概览">
+            <div><dt>研究对象</dt><dd>10 年期美债收益率挂钩 FCN</dd></div>
+            <div><dt>定价方法</dt><dd>Monte Carlo · FFT Backward Induction</dd></div>
+            <div><dt>历史区间</dt><dd>2011.01 — 2025.02 · 170 期月度发行</dd></div>
+            <div><dt>数值设定</dt><dd>20,000 MC paths · 4,096 FFT grid</dd></div>
+        </dl>
+
+        <section class="project-section" aria-labelledby="brief-title">
+            <p class="section-index">01 / Research Brief</p>
+            <h2 id="brief-title">一个产品，两类状态，三层风险。</h2>
+            <p>固定票息票据的价值不仅取决于到期收益率，还取决于存续期内是否触及敲入与敲出障碍。研究采用一年期、100 万美元名义本金、8% 票息的统一合同：KI 位于发行收益率上方 100bp，KO 位于发行收益率下方 25bp，并按月观察敲出。</p>
+            <p>实验首先用 Monte Carlo 沿未来路径逐日判断事件，再用 FFT 在完整利率状态网格上反向递推价值。两种方法共享现金流、贴现和障碍定义，随后以 TY 美债期货近似对冲发行人的 DV01 风险。</p>
+            <blockquote>研究重点不只是得到一个价格，而是解释价格如何变化、风险何时跳变，以及对冲误差最终来自哪里。</blockquote>
+        </section>
+
+        <section class="project-section" aria-labelledby="pricing-title">
+            <p class="section-index">02 / Pricing</p>
+            <h2 id="pricing-title">MC 与 FFT 在价格层面高度一致。</h2>
+            <p>敏感性实验覆盖四种初始收益率、1,984 组 KI/KO 障碍组合、384 个波动率场景和 244 个票息场景。KI/KO 曲面上，两种方法的平均绝对价格差约为 703 美元，仅占 100 万美元名义本金的约 0.07%。</p>
+
+            <figure class="result-figure">
+                <img src="images/pricing-barrier-surface.png" alt="四种初始收益率下 MC 与 FFT 的 KI KO 距离价格曲面及误差" loading="lazy">
+                <figcaption><span>Figure 01</span> KI × KO 距离曲面。KI 越远，产品价值整体越高；MC 与 FFT 曲面保持接近。</figcaption>
+            </figure>
+
+            <figure class="result-figure">
+                <img src="images/pricing-sigma-curve.png" alt="四种初始收益率下 FCN 价值随波动率变化的 MC 和 FFT 曲线" loading="lazy">
+                <figcaption><span>Figure 02</span> 波动率敏感性。更高波动率提高触及 KI 的概率，产品呈现明显负 Vega 特征。</figcaption>
+            </figure>
+
+            <figure class="result-figure">
+                <img src="images/pricing-coupon-curve.png" alt="四种初始收益率下 FCN 价值随票息变化的 MC 和 FFT 曲线" loading="lazy">
+                <figcaption><span>Figure 03</span> 票息敏感性。价值随票息近似线性上升，两种数值方法的差异最为稳定。</figcaption>
+            </figure>
+        </section>
+
+        <section class="project-section" aria-labelledby="greeks-title">
+            <p class="section-index">03 / Risk Surfaces</p>
+            <h2 id="greeks-title">把 Greeks 从一条曲线展开为时间曲面。</h2>
+            <p>单一时点的 Greeks 无法表达路径依赖产品在临近障碍和到期时的风险迁移。这里固定合同与已实现状态，以“已存续交易日 × 当前收益率”为二维状态，分别展示未敲入与已敲入条件下的发行人风险。</p>
+
+            <figure class="result-figure">
+                <img src="images/greeks-delta-surface.png" alt="未敲入与已敲入状态下的发行人 Rate Delta DV01 时间收益率曲面" loading="lazy">
+                <figcaption><span>Figure 04</span> Rate Delta / DV01。障碍附近的方向风险随剩余期限快速变化。</figcaption>
+            </figure>
+
+            <figure class="result-figure">
+                <img src="images/greeks-gamma-surface.png" alt="未敲入与已敲入状态下的发行人 Gamma 时间收益率曲面" loading="lazy">
+                <figcaption><span>Figure 05</span> Gamma。KI 与 KO 附近的非光滑现金流使曲率高度集中，并在接近观察日时放大。</figcaption>
+            </figure>
+
+            <figure class="result-figure">
+                <img src="images/greeks-vega-surface.png" alt="未敲入与已敲入状态下的发行人 Vega 时间收益率曲面" loading="lazy">
+                <figcaption><span>Figure 06</span> Vega。波动率对事件概率的边际影响在活跃障碍附近最强。</figcaption>
+            </figure>
+
+            <figure class="result-figure">
+                <img src="images/greeks-theta-surface.png" alt="未敲入与已敲入状态下的发行人 Theta 时间收益率曲面" loading="lazy">
+                <figcaption><span>Figure 07</span> Theta。时间价值并非均匀衰减，而会被剩余观察日与障碍状态重新塑形。</figcaption>
+            </figure>
+        </section>
+
+        <section class="project-section" aria-labelledby="single-title">
+            <p class="section-index">04 / Single Issue</p>
+            <h2 id="single-title">单期实验将估值、仓位与归因放在同一条时间线上。</h2>
+            <p>以 2023 年 1 月 3 日发行的一期产品为例，MC 与 FFT 价值路径保持接近；两者的最终净对冲 PnL 分别约为 −9,638 美元和 −8,980 美元。FFT Greeks 更平滑，因而仓位变化更容易解释。</p>
+
+            <figure class="result-figure">
+                <img src="images/single-mc-fft-valuation.png" alt="2023 单期 FCN 的 MC 与 FFT 价值和发行人 DV01 对比" loading="lazy">
+                <figcaption><span>Figure 08</span> 单期价值与 DV01。价格接近不代表局部风险估计同样稳定。</figcaption>
+            </figure>
+
+            <figure class="result-figure">
+                <img src="images/single-hedge-pnl.png" alt="2023 单期 FCN 的 MC FFT 未对冲和净对冲累计损益" loading="lazy">
+                <figcaption><span>Figure 09</span> 单期对冲 PnL。TY 头寸显著吸收方向性利率风险，但事件与非线性风险仍会留下残差。</figcaption>
+            </figure>
+
+            <figure class="result-figure">
+                <img src="images/single-cumulative-attribution.png" alt="2023 单期 FCN 的 MC 与 FFT 累计损益归因" loading="lazy">
+                <figcaption><span>Figure 10</span> 累计归因。Theta、Gamma、事件跳变、hedge lag 与 TY basis 被放在同一对账框架中。</figcaption>
+            </figure>
+        </section>
+
+        <section class="project-section" aria-labelledby="rolling-title">
+            <p class="section-index">05 / Rolling Portfolio</p>
+            <h2 id="rolling-title">170 期发行把单个案例变成组合证据。</h2>
+            <p>从 2011 年 1 月到 2025 年 2 月，每月首个共同交易日发行一只一年期 FCN。日度对冲组合累计净 PnL 约 803 万美元，单期胜率约 57.6%。更重要的是，对冲后单期 PnL 标准差约 10.56 万美元，相比未对冲的 35.16 万美元下降约 70%。</p>
+
+            <figure class="result-figure">
+                <img src="images/rolling-portfolio-pnl.png" alt="170 期滚动 FCN 组合未对冲与日度 FFT 对冲累计损益" loading="lazy">
+                <figcaption><span>Figure 11</span> 滚动组合 PnL。对冲的目标是压缩风险分布，而不是机械追求更高累计收益。</figcaption>
+            </figure>
+
+            <figure class="result-figure">
+                <img src="images/rolling-portfolio-attribution.png" alt="170 期滚动 FCN 组合的累计损益归因" loading="lazy">
+                <figcaption><span>Figure 12</span> 组合归因。长期结果由时间价值、Gamma、基差与模型残差共同构成。</figcaption>
+            </figure>
+
+            <figure class="result-figure">
+                <img src="images/rolling-issue-distribution.png" alt="170 期滚动 FCN 单期净对冲和未对冲损益分布" loading="lazy">
+                <figcaption><span>Figure 13</span> 单期分布。对冲后分布明显收窄，同时保留障碍事件造成的尾部风险。</figcaption>
+            </figure>
+        </section>
+
+        <section class="project-section" aria-labelledby="strategy-title">
+            <p class="section-index">06 / Strategy Design</p>
+            <h2 id="strategy-title">调仓频率是风险控制与交易摩擦之间的选择。</h2>
+            <p>在同一套 FFT 价值与现金流上重放未对冲、每日、每周、每月和 event-adaptive 五种仓位。Event-adaptive 只在 KI 危险区、KO 事件窗、已敲入状态或周度检查时考虑交易，相比每日对冲将调仓次数由 25,135 次降至 2,209 次，减少约 91%；交易成本由约 12.48 万美元降至 5.74 万美元，减少约 54%。</p>
+
+            <figure class="result-figure">
+                <img src="images/strategy-comparison.png" alt="未对冲 日度 周度 月度和 Event Adaptive 五种 FCN 对冲策略累计净损益比较" loading="lazy">
+                <figcaption><span>Figure 14</span> 策略比较。累计收益、尾部损失、胜率、调仓次数和成本必须结合阅读。</figcaption>
+            </figure>
+
+            <div class="strategy-notes" aria-label="策略结果摘要">
+                <p><strong>Daily</strong><span>最高对冲胜率 57.6%，但承担最多交易。</span></p>
+                <p><strong>Monthly</strong><span>对冲策略中累计净 PnL 最高，但更长的仓位滞后意味着不同的风险暴露。</span></p>
+                <p><strong>Event-adaptive</strong><span>以显著更低的换手与成本换取事件区的重点风险覆盖。</span></p>
+                <p><strong>Unhedged</strong><span>累计 PnL 更高并不等于更优策略；其胜率仅 29.4%，单期波动约为日度对冲的 3.3 倍。</span></p>
+            </div>
+        </section>
+
+        <section class="project-section project-conclusion" aria-labelledby="conclusion-title">
+            <p class="section-index">07 / Takeaways</p>
+            <h2 id="conclusion-title">价格一致只是起点，风险稳定性才决定对冲质量。</h2>
+            <ol class="finding-list">
+                <li><span>01</span><p>MC 与 FFT 能给出接近的价格，但高阶有限差分会放大 MC 抽样噪声。</p></li>
+                <li><span>02</span><p>路径状态和剩余期限共同决定 Greeks；障碍附近不能用单一静态曲线概括。</p></li>
+                <li><span>03</span><p>DV01 对冲有效压缩方向性波动，但 Gamma、事件跳变、TY basis 和离散调仓仍形成剩余风险。</p></li>
+                <li><span>04</span><p>策略评价需要同时比较收益、分布、成本和尾部风险，而不是只看最终累计 PnL。</p></li>
+            </ol>
+            <p class="limitations"><strong>当前限制：</strong>TY DV01 使用固定久期近似，尚未引入 CTD 与转换因子；连续合约没有显式模拟双合约展期；固定 sigma 实验中的 Vega PnL 为零。这些限制被保留在归因残差和研究结论中，而非隐藏。</p>
+            <a class="research-link" href="../blog/基于蒙特卡洛和fft方法的fcn定价分析.html">阅读完整研究笔记 <span aria-hidden="true">↗</span></a>
+        </section>
+    </main>
+
+    <footer class="site-footer" id="contact">
+        <p>© 2026 YUYAO MA</p>
+        <div class="footer-contact"><a class="text-link" href="mailto:yestyn_ma@163.com">yestyn_ma@163.com</a><span aria-hidden="true">·</span><span>Shanghai, China</span></div>
+        <a class="text-link footer-social" href="https://github.com/YestinMa" target="_blank" rel="noreferrer">GitHub</a>
+    </footer>
+
+    <script src="../js/main.js?v=2.0.0"></script>
+</body>
+</html>
