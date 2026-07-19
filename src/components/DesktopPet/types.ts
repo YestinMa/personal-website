@@ -5,12 +5,13 @@ export type PetState =
   | "wakeUp"
   | "leaveBed"
   | "walk"
+  | "floorRest"
   | "returnBed"
   | "enterBed"
   | "react";
 
 export type RestingState = "idle" | "sit" | "sleep";
-export type ReactableState = RestingState | "walk";
+export type ReactableState = RestingState | "walk" | "floorRest";
 export type Facing = "left" | "right";
 
 export interface DurationRange {
@@ -53,6 +54,8 @@ export interface PetConfig {
   readonly sleepDuration: DurationRange;
   readonly walkOpportunity: DurationRange;
   readonly walkDuration: DurationRange;
+  readonly walkSegmentDuration: DurationRange;
+  readonly floorRestDuration: DurationRange;
   readonly walkProbability: number;
   readonly wakeUpDuration: number;
   readonly enterBedDuration: number;

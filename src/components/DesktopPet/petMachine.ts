@@ -6,13 +6,14 @@ const allowedTransitions: Readonly<Record<PetState, readonly PetState[]>> = {
   sleep: ["wakeUp", "react"],
   wakeUp: ["idle"],
   leaveBed: ["walk"],
-  walk: ["returnBed", "react"],
+  walk: ["floorRest", "returnBed", "react"],
+  floorRest: ["walk", "returnBed", "react"],
   returnBed: ["enterBed"],
   enterBed: ["idle"],
-  react: ["idle", "sit", "sleep", "walk"],
+  react: ["idle", "sit", "sleep", "walk", "floorRest"],
 };
 
-const reactableStates: readonly ReactableState[] = ["idle", "sit", "sleep", "walk"];
+const reactableStates: readonly ReactableState[] = ["idle", "sit", "sleep", "walk", "floorRest"];
 
 export class PetMachine {
   private currentState: PetState = "idle";
@@ -38,9 +39,9 @@ export class PetMachine {
     this.setState(nextState);
   }
 
-  react(): boolean {
+  react(returnState?: ReactableState): boolean {
     if (!reactableStates.includes(this.currentState as ReactableState)) return false;
-    this.reactReturnState = this.currentState as ReactableState;
+    this.reactReturnState = returnState ?? this.currentState as ReactableState;
     return this.transition("react");
   }
 

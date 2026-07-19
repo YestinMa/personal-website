@@ -19,6 +19,8 @@ export const petConfig: PetConfig = {
   sleepDuration: { min: 14_000, max: 28_000 },
   walkOpportunity: { min: 30_000, max: 70_000 },
   walkDuration: { min: 8_000, max: 18_000 },
+  walkSegmentDuration: { min: 4_000, max: 8_000 },
+  floorRestDuration: { min: 4_000, max: 9_000 },
   walkProbability: 0.62,
   wakeUpDuration: 1_300,
   enterBedDuration: 1_150,

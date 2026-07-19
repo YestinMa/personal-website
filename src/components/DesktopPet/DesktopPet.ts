@@ -23,7 +23,7 @@ interface DragData {
   readonly startActorY: number;
   readonly startBedX: number;
   readonly startBedY: number;
-  readonly timer: SuspendedTimer | null;
+  timer: SuspendedTimer | null;
 }
 
 interface FallAnimation {
@@ -98,7 +98,9 @@ export class DesktopPet {
   private nextWalkAt: number;
   private lastReactionAt = -Infinity;
   private ignoreClickUntil = -Infinity;
-  private resumedWalkDuration: number | null = null;
+  private walkBudgetRemaining = 0;
+  private activeWalkSegmentDuration = 0;
+  private animatorPausedForBedDrag = false;
   private reactionDefinition: SpriteDefinition = petSprites.idle;
 
   constructor(config: PetConfig = petConfig) {
@@ -148,11 +150,15 @@ export class DesktopPet {
 
     this.bedBack.className = "desktop-pet-bed desktop-pet-bed--back pixel-sprite";
     this.applyStaticSprite(this.bedBack, bedBackSprite);
+    // 两张现有透明素材在同一底层元素内合成，文字不再成为覆盖柴犬的前景层。
+    this.bedBack.style.backgroundImage = `url("${bedFrontSprite.src}"), url("${bedBackSprite.src}")`;
+    this.bedBack.style.backgroundSize = `${bedBackSprite.frameWidth}px ${bedBackSprite.frameHeight}px`;
 
     this.bedFront.type = "button";
-    this.bedFront.className = "desktop-pet-bed desktop-pet-bed--front pixel-sprite";
+    this.bedFront.className = "desktop-pet-bed desktop-pet-bed--front";
     this.bedFront.setAttribute("aria-label", "拖动 Hotdog 柴犬小窝");
-    this.applyStaticSprite(this.bedFront, bedFrontSprite);
+    this.bedFront.style.width = `${bedFrontSprite.frameWidth}px`;
+    this.bedFront.style.height = `${bedFrontSprite.frameHeight}px`;
 
     this.actor.type = "button";
     this.actor.className = "desktop-pet-actor";
@@ -207,7 +213,8 @@ export class DesktopPet {
     const now = performance.now();
     if (now < this.ignoreClickUntil || now - this.lastReactionAt < this.config.clickCooldown) return;
     this.recordInteraction(now);
-    if (!this.machine.react()) return;
+    const returnState = this.petLocation === "floor" ? "floorRest" : undefined;
+    if (!this.machine.react(returnState)) return;
     this.lastReactionAt = now;
   }
 
@@ -229,11 +236,9 @@ export class DesktopPet {
       startActorY: this.actorY,
       startBedX: this.bedX,
       startBedY: this.bedY,
-      timer: this.suspendStateTimer(),
+      timer: null,
     };
     this.dragSession = type === "draggingDog" ? { type, ...data } : { type, ...data };
-    this.stopMotion();
-    this.transitionController.pause();
   }
 
   private readonly handleDragMove = (event: PointerEvent): void => {
@@ -244,10 +249,17 @@ export class DesktopPet {
     if (session.phase === "pending") {
       if (Math.hypot(deltaX, deltaY) < this.config.dragThreshold) return;
       session.phase = "active";
+      session.timer = this.suspendStateTimer();
+      this.stopMotion();
+      this.transitionController.pause();
       this.root.dataset.dragTarget = session.type === "draggingDog" ? "dog" : "bed";
       if (session.type === "draggingDog") {
         // 拖狗使用独立悬空 Sprite，不复用站立或行走帧。
         this.animator.setDefinition(dogLiftSprite);
+      } else if (this.petLocation === "floor") {
+        // 外出的狗与窝是独立实体；拖窝期间连 Sprite 帧也冻结，避免原地踏步。
+        this.animator.pause();
+        this.animatorPausedForBedDrag = true;
       }
     }
 
@@ -272,7 +284,6 @@ export class DesktopPet {
 
     if (session.phase === "pending") {
       this.dragSession = { type: "none" };
-      this.resumeSuspendedBehavior(session.timer);
       return;
     }
 
@@ -327,7 +338,11 @@ export class DesktopPet {
 
   private readonly handleResize = (): void => {
     this.updateLayout();
-    if (!this.walkingEnabled() && (this.machine.state === "walk" || this.machine.state === "leaveBed")) {
+    if (!this.walkingEnabled() && (
+      this.machine.state === "walk"
+      || this.machine.state === "floorRest"
+      || this.machine.state === "leaveBed"
+    )) {
       if (this.machine.state === "leaveBed") this.machine.transition("walk");
       this.machine.transition("returnBed");
     }
@@ -341,9 +356,7 @@ export class DesktopPet {
   };
 
   private enterState(previous: PetState, current: PetState): void {
-    if (previous === "walk" && current === "react") {
-      this.resumedWalkDuration = this.currentTimerRemaining();
-    }
+    if (previous === "walk") this.consumeActiveWalkSegment();
     if (current === "react") this.reactionDefinition = this.animator.currentDefinition;
     this.clearStateTimer();
     this.stopMotion();
@@ -355,16 +368,16 @@ export class DesktopPet {
     if (current === "leaveBed") {
       this.walkingDirection = -1;
       this.setFacing("left");
-    } else if (current === "walk" && previous !== "react") {
+    } else if (current === "walk") {
       this.setFacing(this.walkingDirection < 0 ? "left" : "right");
-    } else if (current !== "walk" && current !== "returnBed" && current !== "react") {
+    } else if (current !== "floorRest" && current !== "returnBed" && current !== "react") {
       this.setFacing("right");
     }
 
     if (current === "idle" || current === "sit" || current === "sleep" || current === "wakeUp" || current === "enterBed") {
       this.petLocation = "bed";
       this.alignActorWithBed();
-    } else if (current === "leaveBed" || current === "walk" || current === "returnBed") {
+    } else if (current === "leaveBed" || current === "walk" || current === "floorRest" || current === "returnBed") {
       this.petLocation = "floor";
     }
 
@@ -373,7 +386,7 @@ export class DesktopPet {
     this.renderPositions();
 
     // 点击反馈不替换角色图片，避免缓存/解码期间出现空白帧；快乐感由弹跳和爱心表达。
-    const transitionDuration = previous === current || current === "react" || previous === "react" || this.reducedMotion.matches
+    const transitionDuration = previous === current || current === "react" || this.reducedMotion.matches
       ? 0
       : this.config.transitionDuration;
     const animation = current === "react" ? this.reactionDefinition : petSprites[current];
@@ -395,18 +408,25 @@ export class DesktopPet {
         this.scheduleState(() => this.machine.transition("idle"), this.config.wakeUpDuration);
         break;
       case "leaveBed":
+        this.walkBudgetRemaining = randomBetween(this.config.walkDuration);
         this.startMotion();
         break;
       case "walk": {
-        const duration = previous === "react" && this.resumedWalkDuration !== null
-          ? this.resumedWalkDuration
-          : randomBetween(this.config.walkDuration);
-        this.resumedWalkDuration = null;
-        this.scheduleState(() => this.machine.transition("returnBed"), duration);
+        if (this.walkBudgetRemaining <= 0) this.walkBudgetRemaining = randomBetween(this.config.walkDuration);
+        this.activeWalkSegmentDuration = Math.min(
+          this.walkBudgetRemaining,
+          randomBetween(this.config.walkSegmentDuration),
+        );
+        this.scheduleState(() => this.finishWalkSegment(), this.activeWalkSegmentDuration);
         this.startMotion();
         break;
       }
+      case "floorRest":
+        this.scheduleState(() => this.finishFloorRest(), randomBetween(this.config.floorRestDuration));
+        break;
       case "returnBed":
+        this.walkBudgetRemaining = 0;
+        this.activeWalkSegmentDuration = 0;
         this.startMotion();
         break;
       case "enterBed":
@@ -416,6 +436,26 @@ export class DesktopPet {
         this.scheduleState(() => this.machine.finishReaction(), this.config.reactDuration);
         break;
     }
+  }
+
+  private consumeActiveWalkSegment(): void {
+    if (this.activeWalkSegmentDuration <= 0) return;
+    const remaining = this.currentTimerRemaining() ?? 0;
+    const elapsed = Math.max(0, this.activeWalkSegmentDuration - remaining);
+    this.walkBudgetRemaining = Math.max(0, this.walkBudgetRemaining - elapsed);
+    this.activeWalkSegmentDuration = 0;
+  }
+
+  private finishWalkSegment(): void {
+    this.walkBudgetRemaining = Math.max(0, this.walkBudgetRemaining - this.activeWalkSegmentDuration);
+    this.activeWalkSegmentDuration = 0;
+    if (this.walkBudgetRemaining <= 0) this.machine.transition("returnBed");
+    else this.machine.transition("floorRest");
+  }
+
+  private finishFloorRest(): void {
+    if (this.walkBudgetRemaining > 0 && this.walkingEnabled()) this.machine.transition("walk");
+    else this.machine.transition("returnBed");
   }
 
   private finishIdle(): void {
@@ -712,6 +752,7 @@ export class DesktopPet {
     this.actor.style.transform = actorTransform;
     this.effectsLayer.style.transform = actorTransform;
     this.dialogueLayer.style.transform = actorTransform;
+    this.root.dataset.petLocation = this.petLocation;
   }
 
   private restoreCurrentSprite(): void {
@@ -787,7 +828,14 @@ export class DesktopPet {
   private resumeSuspendedBehavior(timer: SuspendedTimer | null): void {
     this.transitionController.resume();
     if (timer) this.scheduleState(timer.callback, timer.remaining);
+    this.resumeAnimatorAfterBedDrag();
     if (!this.transitionController.active && isMotionState(this.machine.state)) this.startMotion();
+  }
+
+  private resumeAnimatorAfterBedDrag(): void {
+    if (!this.animatorPausedForBedDrag) return;
+    this.animatorPausedForBedDrag = false;
+    if (!this.paused) this.animator.resume();
   }
 
   private clearStateTimer(): void {
@@ -818,7 +866,7 @@ export class DesktopPet {
     if (!this.paused) return;
     this.paused = false;
     delete this.root.dataset.paused;
-    this.animator.resume();
+    if (!this.animatorPausedForBedDrag) this.animator.resume();
     this.resumeFall();
     if (this.dragSession.type === "none") this.transitionController.resume();
     if (this.timerCallback) {

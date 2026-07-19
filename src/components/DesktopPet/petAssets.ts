@@ -24,6 +24,7 @@ export const petSprites: Readonly<Record<PetState, SpriteDefinition>> = {
   wakeUp: petSprite("shiba-wake.png", 4, false, -34),
   leaveBed: petSprite("shiba-walk-v2.png", 7),
   walk: petSprite("shiba-walk-v2.png", 8, true, 0),
+  floorRest: petSprite("shiba-idle.png", 2.4, true, 0),
   returnBed: petSprite("shiba-walk-v2.png", 8, true, 0),
   enterBed: petSprite("shiba-wake.png", 4, false, -34),
   react: petSprite("shiba-react.png", 5, true, 0),
