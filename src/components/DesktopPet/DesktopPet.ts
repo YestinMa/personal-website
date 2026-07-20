@@ -314,6 +314,9 @@ export class DesktopPet {
       return;
     }
 
+    // 松手后柴犬已脱离狗窝；必须在首个下落帧前关闭窝内裁切，避免下半身闪隐。
+    this.petLocation = "floor";
+    this.renderPositions();
     this.startFall("dog", () => this.finishDogDrop());
   };
 

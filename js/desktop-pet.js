@@ -148,7 +148,8 @@ var SpriteTransitionController = class {
 };
 
 // ../src/components/DesktopPet/petAssets.ts
-var petAsset = (fileName) => new URL(`../images/pet/${fileName}`, import.meta.url).href;
+var petAssetVersion = "1.6.0";
+var petAsset = (fileName) => new URL(`../images/pet/${fileName}?v=${petAssetVersion}`, import.meta.url).href;
 var petSprite = (fileName, fps, loop = true, offsetY = -18) => ({
   src: petAsset(fileName),
   frameWidth: 256,
@@ -448,6 +449,8 @@ var DesktopPet = class {
         this.startFall(fallTarget, () => this.resumeSuspendedBehavior(session.timer));
         return;
       }
+      this.petLocation = "floor";
+      this.renderPositions();
       this.startFall("dog", () => this.finishDogDrop());
     });
     __publicField(this, "handleDragCancel", (event) => {
