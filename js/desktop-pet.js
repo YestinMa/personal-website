@@ -148,7 +148,7 @@ var SpriteTransitionController = class {
 };
 
 // ../src/components/DesktopPet/petAssets.ts
-var petAssetVersion = "1.8.0";
+var petAssetVersion = "1.8.1";
 var petAsset = (fileName) => new URL(`../images/pet/${fileName}?v=${petAssetVersion}`, import.meta.url).href;
 var petSprite = (fileName, fps, loop = true, offsetY = 0) => ({
   src: petAsset(fileName),
