@@ -173,9 +173,7 @@ export class DesktopPet {
 
     this.bedBack.className = "desktop-pet-bed desktop-pet-bed--back pixel-sprite";
     this.applyStaticSprite(this.bedBack, bedBackSprite);
-    // 两张现有透明素材在同一底层元素内合成，文字不再成为覆盖柴犬的前景层。
-    this.bedBack.style.backgroundImage = `url("${bedFrontSprite.src}"), url("${bedBackSprite.src}")`;
-    this.bedBack.style.backgroundSize = `${bedBackSprite.frameWidth}px ${bedBackSprite.frameHeight}px`;
+    // 狗窝与文字已合成在单张底层素材中，避免两张轮廓叠加产生侧边黑色接缝。
 
     this.bedFront.type = "button";
     this.bedFront.className = "desktop-pet-bed desktop-pet-bed--front";

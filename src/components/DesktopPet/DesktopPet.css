@@ -131,14 +131,14 @@
 
 .desktop-pet-gaze {
   position: absolute;
-  top: 31px;
+  top: 65px;
   left: 162px;
   display: none;
   width: 12px;
   height: 6px;
 }
 .desktop-pet-gaze.is-visible { display: block; }
-.desktop-pet-root[data-pet-state="sit"] .desktop-pet-gaze { top: 22px; left: 160px; }
+.desktop-pet-root[data-pet-state="sit"] .desktop-pet-gaze { top: 56px; left: 160px; }
 
 .desktop-pet-actor.is-hovered:not(:active) .desktop-pet-sprite {
   animation: desktop-pet-hover-twitch 520ms steps(3, end) infinite alternate;

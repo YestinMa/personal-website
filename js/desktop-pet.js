@@ -148,9 +148,9 @@ var SpriteTransitionController = class {
 };
 
 // ../src/components/DesktopPet/petAssets.ts
-var petAssetVersion = "1.6.0";
+var petAssetVersion = "1.7.0";
 var petAsset = (fileName) => new URL(`../images/pet/${fileName}?v=${petAssetVersion}`, import.meta.url).href;
-var petSprite = (fileName, fps, loop = true, offsetY = -18) => ({
+var petSprite = (fileName, fps, loop = true, offsetY = 0) => ({
   src: petAsset(fileName),
   frameWidth: 256,
   frameHeight: 160,
@@ -164,11 +164,11 @@ var petSprite = (fileName, fps, loop = true, offsetY = -18) => ({
   offsetY
 });
 var petSprites = {
-  // 窝内帧统一落在前沿上边界，避免身体和 hot dog 字样互相穿插。
-  idle: petSprite("shiba-idle.png", 2.4, true, -34),
-  sit: petSprite("shiba-sit.png", 2.2, true, -34),
-  sleep: petSprite("shiba-sleep.png", 1.6, true, -34),
-  wakeUp: petSprite("shiba-wake.png", 4, false, -34),
+  // 窝内帧保持统一画布基线，由舞台裁切身体；禁止负偏移再次切掉耳朵。
+  idle: petSprite("shiba-idle.png", 2.4),
+  sit: petSprite("shiba-sit.png", 2.2),
+  sleep: petSprite("shiba-sleep.png", 1.6),
+  wakeUp: petSprite("shiba-wake.png", 4, false),
   leaveBed: petSprite("shiba-walk-v2.png", 7),
   walk: petSprite("shiba-walk-v2.png", 8, true, 0),
   floorRest: {
@@ -176,13 +176,13 @@ var petSprites = {
     visualScale: 0.95
   },
   returnBed: petSprite("shiba-walk-v2.png", 8, true, 0),
-  enterBed: petSprite("shiba-wake.png", 4, false, -34),
+  enterBed: petSprite("shiba-wake.png", 4, false),
   react: petSprite("shiba-react.png", 5, true, 0)
 };
 var dogLiftSprite = petSprite("shiba-lift.png", 6, true, 0);
-var bedReactSprite = petSprite("shiba-react.png", 5, true, -34);
+var bedReactSprite = petSprite("shiba-react.png", 5);
 var bedBackSprite = {
-  src: petAsset("bed-back.png"),
+  src: petAsset("bed-hotdog.png"),
   frameWidth: 256,
   frameHeight: 128,
   frameCount: 1,
@@ -195,8 +195,7 @@ var bedBackSprite = {
   offsetY: 0
 };
 var bedFrontSprite = {
-  ...bedBackSprite,
-  src: petAsset("bed-front-low.png")
+  ...bedBackSprite
 };
 var gazeSprite = {
   src: petAsset("gaze.png"),
@@ -624,8 +623,6 @@ var DesktopPet = class {
     this.root.setAttribute("aria-label", "\u53EF\u4E92\u52A8\u3001\u53EF\u62D6\u52A8\u7684\u50CF\u7D20\u67F4\u72AC\u7F51\u9875\u684C\u5BA0");
     this.bedBack.className = "desktop-pet-bed desktop-pet-bed--back pixel-sprite";
     this.applyStaticSprite(this.bedBack, bedBackSprite);
-    this.bedBack.style.backgroundImage = `url("${bedFrontSprite.src}"), url("${bedBackSprite.src}")`;
-    this.bedBack.style.backgroundSize = `${bedBackSprite.frameWidth}px ${bedBackSprite.frameHeight}px`;
     this.bedFront.type = "button";
     this.bedFront.className = "desktop-pet-bed desktop-pet-bed--front";
     this.bedFront.setAttribute("aria-label", "\u62D6\u52A8 Hotdog \u67F4\u72AC\u5C0F\u7A9D");

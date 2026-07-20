@@ -1,10 +1,10 @@
 import type { PetState, SpriteDefinition } from "./types";
 
-const petAssetVersion = "1.6.0";
+const petAssetVersion = "1.7.0";
 const petAsset = (fileName: string): string =>
   new URL(`../images/pet/${fileName}?v=${petAssetVersion}`, import.meta.url).href;
 
-const petSprite = (fileName: string, fps: number, loop = true, offsetY = -18): SpriteDefinition => ({
+const petSprite = (fileName: string, fps: number, loop = true, offsetY = 0): SpriteDefinition => ({
   src: petAsset(fileName),
   frameWidth: 256,
   frameHeight: 160,
@@ -19,11 +19,11 @@ const petSprite = (fileName: string, fps: number, loop = true, offsetY = -18): S
 });
 
 export const petSprites: Readonly<Record<PetState, SpriteDefinition>> = {
-  // 窝内帧统一落在前沿上边界，避免身体和 hot dog 字样互相穿插。
-  idle: petSprite("shiba-idle.png", 2.4, true, -34),
-  sit: petSprite("shiba-sit.png", 2.2, true, -34),
-  sleep: petSprite("shiba-sleep.png", 1.6, true, -34),
-  wakeUp: petSprite("shiba-wake.png", 4, false, -34),
+  // 窝内帧保持统一画布基线，由舞台裁切身体；禁止负偏移再次切掉耳朵。
+  idle: petSprite("shiba-idle.png", 2.4),
+  sit: petSprite("shiba-sit.png", 2.2),
+  sleep: petSprite("shiba-sleep.png", 1.6),
+  wakeUp: petSprite("shiba-wake.png", 4, false),
   leaveBed: petSprite("shiba-walk-v2.png", 7),
   walk: petSprite("shiba-walk-v2.png", 8, true, 0),
   floorRest: {
@@ -31,15 +31,15 @@ export const petSprites: Readonly<Record<PetState, SpriteDefinition>> = {
     visualScale: 0.95,
   },
   returnBed: petSprite("shiba-walk-v2.png", 8, true, 0),
-  enterBed: petSprite("shiba-wake.png", 4, false, -34),
+  enterBed: petSprite("shiba-wake.png", 4, false),
   react: petSprite("shiba-react.png", 5, true, 0),
 };
 
 export const dogLiftSprite: SpriteDefinition = petSprite("shiba-lift.png", 6, true, 0);
-export const bedReactSprite: SpriteDefinition = petSprite("shiba-react.png", 5, true, -34);
+export const bedReactSprite: SpriteDefinition = petSprite("shiba-react.png", 5);
 
 export const bedBackSprite: SpriteDefinition = {
-  src: petAsset("bed-back.png"),
+  src: petAsset("bed-hotdog.png"),
   frameWidth: 256,
   frameHeight: 128,
   frameCount: 1,
@@ -54,7 +54,6 @@ export const bedBackSprite: SpriteDefinition = {
 
 export const bedFrontSprite: SpriteDefinition = {
   ...bedBackSprite,
-  src: petAsset("bed-front-low.png"),
 };
 
 export const gazeSprite: SpriteDefinition = {
