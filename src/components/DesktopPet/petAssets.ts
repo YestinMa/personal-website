@@ -1,6 +1,6 @@
 import type { PetState, SpriteDefinition } from "./types";
 
-const petAssetVersion = "1.8.1";
+const petAssetVersion = "1.8.2";
 const petAsset = (fileName: string): string =>
   new URL(`../images/pet/${fileName}?v=${petAssetVersion}`, import.meta.url).href;
 

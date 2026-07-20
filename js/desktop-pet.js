@@ -148,7 +148,7 @@ var SpriteTransitionController = class {
 };
 
 // ../src/components/DesktopPet/petAssets.ts
-var petAssetVersion = "1.8.1";
+var petAssetVersion = "1.8.2";
 var petAsset = (fileName) => new URL(`../images/pet/${fileName}?v=${petAssetVersion}`, import.meta.url).href;
 var petSprite = (fileName, fps, loop = true, offsetY = 0) => ({
   src: petAsset(fileName),
@@ -359,6 +359,7 @@ var DesktopPet = class {
     __publicField(this, "machine", new PetMachine());
     __publicField(this, "root", document.createElement("div"));
     __publicField(this, "bedBack", document.createElement("div"));
+    __publicField(this, "bedVisualFront", document.createElement("div"));
     __publicField(this, "bedFront", document.createElement("button"));
     __publicField(this, "actor", document.createElement("button"));
     __publicField(this, "spriteStage", document.createElement("span"));
@@ -628,10 +629,13 @@ var DesktopPet = class {
     this.root.setAttribute("aria-label", "\u53EF\u4E92\u52A8\u3001\u53EF\u62D6\u52A8\u7684\u50CF\u7D20\u67F4\u72AC\u7F51\u9875\u684C\u5BA0");
     this.bedBack.className = "desktop-pet-bed desktop-pet-bed--back pixel-sprite";
     this.applyStaticSprite(this.bedBack, bedBackSprite);
+    this.bedVisualFront.className = "desktop-pet-bed desktop-pet-bed--visual-front pixel-sprite";
+    this.applyStaticSprite(this.bedVisualFront, bedFrontSprite);
     this.bedFront.type = "button";
-    this.bedFront.className = "desktop-pet-bed desktop-pet-bed--front pixel-sprite";
+    this.bedFront.className = "desktop-pet-bed desktop-pet-bed--front";
     this.bedFront.setAttribute("aria-label", "\u62D6\u52A8 Hotdog \u67F4\u72AC\u5C0F\u7A9D");
-    this.applyStaticSprite(this.bedFront, bedFrontSprite);
+    this.bedFront.style.width = `${bedFrontSprite.frameWidth}px`;
+    this.bedFront.style.height = `${bedFrontSprite.frameHeight}px`;
     this.actor.type = "button";
     this.actor.className = "desktop-pet-actor";
     this.actor.setAttribute("aria-label", "\u548C\u50CF\u7D20\u67F4\u72AC\u4E92\u52A8\u6216\u62D6\u52A8\u67F4\u72AC");
@@ -654,7 +658,14 @@ var DesktopPet = class {
     this.dialogueHeart.style.backgroundPosition = `${-2 * heartSprite.frameWidth * dialogueHeartScale}px 0`;
     this.dialogue.append(this.dialogueHeart);
     this.dialogueLayer.append(this.dialogue);
-    this.root.append(this.bedBack, this.actor, this.bedFront, this.effectsLayer, this.dialogueLayer);
+    this.root.append(
+      this.bedBack,
+      this.actor,
+      this.bedVisualFront,
+      this.effectsLayer,
+      this.dialogueLayer,
+      this.bedFront
+    );
   }
   addListeners() {
     this.actor.addEventListener("click", this.handleActorClick);
@@ -988,6 +999,7 @@ var DesktopPet = class {
     const bedTransform = `translate3d(${this.bedX}px, ${this.bedY}px, 0) scale(${this.scale})`;
     const actorTransform = `translate3d(${this.actorX}px, ${this.actorY}px, 0) scale(${this.scale})`;
     this.bedBack.style.transform = bedTransform;
+    this.bedVisualFront.style.transform = bedTransform;
     this.bedFront.style.transform = bedTransform;
     this.actor.style.transform = actorTransform;
     this.effectsLayer.style.transform = actorTransform;

@@ -65,6 +65,7 @@ export class DesktopPet {
   private readonly machine = new PetMachine();
   private readonly root = document.createElement("div");
   private readonly bedBack = document.createElement("div");
+  private readonly bedVisualFront = document.createElement("div");
   private readonly bedFront = document.createElement("button");
   private readonly actor = document.createElement("button");
   private readonly spriteStage = document.createElement("span");
@@ -175,10 +176,14 @@ export class DesktopPet {
     this.applyStaticSprite(this.bedBack, bedBackSprite);
     // 狗窝与文字已合成在单张底层素材中，避免两张轮廓叠加产生侧边黑色接缝。
 
+    this.bedVisualFront.className = "desktop-pet-bed desktop-pet-bed--visual-front pixel-sprite";
+    this.applyStaticSprite(this.bedVisualFront, bedFrontSprite);
+
     this.bedFront.type = "button";
-    this.bedFront.className = "desktop-pet-bed desktop-pet-bed--front pixel-sprite";
+    this.bedFront.className = "desktop-pet-bed desktop-pet-bed--front";
     this.bedFront.setAttribute("aria-label", "拖动 Hotdog 柴犬小窝");
-    this.applyStaticSprite(this.bedFront, bedFrontSprite);
+    this.bedFront.style.width = `${bedFrontSprite.frameWidth}px`;
+    this.bedFront.style.height = `${bedFrontSprite.frameHeight}px`;
 
     this.actor.type = "button";
     this.actor.className = "desktop-pet-actor";
@@ -203,7 +208,14 @@ export class DesktopPet {
     this.dialogueHeart.style.backgroundPosition = `${-2 * heartSprite.frameWidth * dialogueHeartScale}px 0`;
     this.dialogue.append(this.dialogueHeart);
     this.dialogueLayer.append(this.dialogue);
-    this.root.append(this.bedBack, this.actor, this.bedFront, this.effectsLayer, this.dialogueLayer);
+    this.root.append(
+      this.bedBack,
+      this.actor,
+      this.bedVisualFront,
+      this.effectsLayer,
+      this.dialogueLayer,
+      this.bedFront,
+    );
   }
 
   private addListeners(): void {
@@ -777,6 +789,7 @@ export class DesktopPet {
     const bedTransform = `translate3d(${this.bedX}px, ${this.bedY}px, 0) scale(${this.scale})`;
     const actorTransform = `translate3d(${this.actorX}px, ${this.actorY}px, 0) scale(${this.scale})`;
     this.bedBack.style.transform = bedTransform;
+    this.bedVisualFront.style.transform = bedTransform;
     this.bedFront.style.transform = bedTransform;
     this.actor.style.transform = actorTransform;
     this.effectsLayer.style.transform = actorTransform;

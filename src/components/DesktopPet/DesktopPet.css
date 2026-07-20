@@ -60,24 +60,28 @@
   cursor: grab;
   pointer-events: auto;
 }
-.desktop-pet-bed--front {
-  z-index: 5;
-  cursor: grab;
+.desktop-pet-bed--visual-front {
+  z-index: 3;
   opacity: 0;
+  pointer-events: none;
+}
+.desktop-pet-root[data-pet-location="bed"]:not([data-drag-target="dog"]) .desktop-pet-bed--visual-front {
+  opacity: 1;
+}
+.desktop-pet-bed--front {
+  z-index: 6;
+  cursor: grab;
   pointer-events: auto;
   /* U 形透明命中区只覆盖窝边与底部，中央仍可点击柴犬。 */
   clip-path: polygon(0 24%, 18% 24%, 18% 62%, 82% 62%, 82% 24%, 100% 24%, 100% 100%, 0 100%);
 }
-.desktop-pet-root[data-pet-location="bed"]:not([data-drag-target="dog"]) .desktop-pet-bed--front {
-  opacity: 1;
-}
 .desktop-pet-effects {
-  z-index: 3;
+  z-index: 4;
   width: 256px;
   height: 160px;
 }
 .desktop-pet-dialogue-layer {
-  z-index: 4;
+  z-index: 5;
   width: 256px;
   height: 160px;
 }
