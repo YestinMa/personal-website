@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-07-19T15:40:04.672423",
+  "charts": [
+    {
+      "chart_id": "pricing-barrier",
+      "chart_type": "heatmap",
+      "title": "KI / KO 障碍价格曲面",
+      "description": "x 轴表示 KO 距离，y 轴表示 KI 距离，颜色表示 FCN 价值或 MC 与 FFT 的价格差。",
+      "file": "pricing-barrier.json"
+    },
+    {
+      "chart_id": "pricing-sigma",
+      "chart_type": "line",
+      "title": "波动率价格敏感性",
+      "description": "x 轴表示收益率波动率，y 轴表示 FCN 价值；可比较不同初始收益率下 MC 与 FFT 的结果。",
+      "file": "pricing-sigma.json"
+    },
+    {
+      "chart_id": "pricing-coupon",
+      "chart_type": "line",
+      "title": "票息价格敏感性",
+      "description": "x 轴表示票息率，y 轴表示 FCN 价值；可比较不同初始收益率下 MC 与 FFT 的结果。",
+      "file": "pricing-coupon.json"
+    },
+    {
+      "chart_id": "greeks-delta",
+      "chart_type": "surface3d",
+      "title": "Rate Delta / DV01 时间—收益率曲面",
+      "description": "x 轴表示当前收益率，y 轴表示已存续交易日，曲面高度表示发行人的 Rate Delta / DV01。",
+      "file": "greeks-delta.json"
+    },
+    {
+      "chart_id": "greeks-gamma",
+      "chart_type": "surface3d",
+      "title": "Gamma 时间—收益率曲面",
+      "description": "x 轴表示当前收益率，y 轴表示已存续交易日，曲面高度表示发行人的 Gamma。",
+      "file": "greeks-gamma.json"
+    },
+    {
+      "chart_id": "greeks-vega",
+      "chart_type": "surface3d",
+      "title": "Vega 时间—收益率曲面",
+      "description": "x 轴表示当前收益率，y 轴表示已存续交易日，曲面高度表示发行人的 Vega。",
+      "file": "greeks-vega.json"
+    },
+    {
+      "chart_id": "greeks-theta",
+      "chart_type": "surface3d",
+      "title": "Theta 时间—收益率曲面",
+      "description": "x 轴表示当前收益率，y 轴表示已存续交易日，曲面高度表示发行人的 Theta。",
+      "file": "greeks-theta.json"
+    },
+    {
+      "chart_id": "single-valuation",
+      "chart_type": "line",
+      "title": "2023 单期 MC / FFT 估值与 DV01",
+      "description": "x 轴表示交易日，y 轴可切换 FCN 价值或发行人 DV01，图例用于比较 MC 与 FFT。",
+      "file": "single-valuation.json"
+    },
+    {
+      "chart_id": "single-hedge-pnl",
+      "chart_type": "line",
+      "title": "2023 单期对冲损益",
+      "description": "x 轴表示交易日，y 轴表示累计 PnL；图例可切换 MC/FFT 与对冲前后的路径。",
+      "file": "single-hedge-pnl.json"
+    },
+    {
+      "chart_id": "single-attribution",
+      "chart_type": "line",
+      "title": "2023 单期累计损益归因",
+      "description": "x 轴表示交易日，y 轴表示累计归因金额；可切换 MC/FFT 并通过图例查看各风险来源。",
+      "file": "single-attribution.json"
+    },
+    {
+      "chart_id": "rolling-portfolio-pnl",
+      "chart_type": "line",
+      "title": "170 期滚动组合损益",
+      "description": "x 轴表示日期，y 轴表示累计 PnL；两条线分别为未对冲组合和每日 FFT 对冲组合。",
+      "file": "rolling-portfolio-pnl.json"
+    },
+    {
+      "chart_id": "rolling-attribution",
+      "chart_type": "line",
+      "title": "170 期滚动组合累计归因",
+      "description": "x 轴表示日期，y 轴表示累计归因金额；图例用于筛选 Theta、Gamma、事件与对冲残差等来源。",
+      "file": "rolling-attribution.json"
+    },
+    {
+      "chart_id": "rolling-issue-distribution",
+      "chart_type": "bar",
+      "title": "滚动发行单期 PnL 分布",
+      "description": "x 轴表示单期最终 PnL 区间，y 轴表示落入该区间的发行期数；图例可比较对冲前后分布。",
+      "file": "rolling-issue-distribution.json"
+    },
+    {
+      "chart_id": "strategy-comparison",
+      "chart_type": "line",
+      "title": "五种对冲策略比较",
+      "description": "x 轴表示日期，y 轴表示累计净 PnL；图例可切换未对冲、日度、周度、月度和事件自适应策略。",
+      "file": "strategy-comparison.json"
+    }
+  ]
+}
