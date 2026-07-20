@@ -90,7 +90,7 @@
   transform-origin: center bottom;
 }
 .desktop-pet-root[data-pet-location=bed]:not([data-drag-target=dog]) .desktop-pet-sprite-stage {
-  clip-path: inset(0 0 40px 0);
+  clip-path: polygon(0 0, 256px 0, 256px 88px, 232px 90px, 216px 96px, 200px 105px, 184px 110px, 168px 114px, 152px 118px, 136px 119px, 120px 119px, 104px 115px, 88px 117px, 72px 107px, 56px 104px, 40px 96px, 24px 90px, 0 88px);
 }
 .desktop-pet-sprite {
   --sprite-facing: 1;

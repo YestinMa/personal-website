@@ -94,9 +94,28 @@
   transform-origin: center bottom;
 }
 
-/* 窝内仅裁去进入前壁后的身体区域，窝外 Sprite 始终完整显示。 */
+/* 沿狗窝开口的 U 形边界裁切身体，让柴犬真正位于面包前壁之后。 */
 .desktop-pet-root[data-pet-location="bed"]:not([data-drag-target="dog"]) .desktop-pet-sprite-stage {
-  clip-path: inset(0 0 40px 0);
+  clip-path: polygon(
+    0 0,
+    256px 0,
+    256px 88px,
+    232px 90px,
+    216px 96px,
+    200px 105px,
+    184px 110px,
+    168px 114px,
+    152px 118px,
+    136px 119px,
+    120px 119px,
+    104px 115px,
+    88px 117px,
+    72px 107px,
+    56px 104px,
+    40px 96px,
+    24px 90px,
+    0 88px
+  );
 }
 
 .desktop-pet-sprite {
