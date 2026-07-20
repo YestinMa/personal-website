@@ -176,10 +176,9 @@ export class DesktopPet {
     // 狗窝与文字已合成在单张底层素材中，避免两张轮廓叠加产生侧边黑色接缝。
 
     this.bedFront.type = "button";
-    this.bedFront.className = "desktop-pet-bed desktop-pet-bed--front";
+    this.bedFront.className = "desktop-pet-bed desktop-pet-bed--front pixel-sprite";
     this.bedFront.setAttribute("aria-label", "拖动 Hotdog 柴犬小窝");
-    this.bedFront.style.width = `${bedFrontSprite.frameWidth}px`;
-    this.bedFront.style.height = `${bedFrontSprite.frameHeight}px`;
+    this.applyStaticSprite(this.bedFront, bedFrontSprite);
 
     this.actor.type = "button";
     this.actor.className = "desktop-pet-actor";

@@ -61,8 +61,12 @@
 .desktop-pet-bed--front {
   z-index: 5;
   cursor: grab;
+  opacity: 0;
   pointer-events: auto;
   clip-path: polygon(0 24%, 18% 24%, 18% 62%, 82% 62%, 82% 24%, 100% 24%, 100% 100%, 0 100%);
+}
+.desktop-pet-root[data-pet-location=bed]:not([data-drag-target=dog]) .desktop-pet-bed--front {
+  opacity: 1;
 }
 .desktop-pet-effects {
   z-index: 3;
@@ -88,9 +92,6 @@
   position: absolute;
   inset: 0;
   transform-origin: center bottom;
-}
-.desktop-pet-root[data-pet-location=bed]:not([data-drag-target=dog]) .desktop-pet-sprite-stage {
-  clip-path: polygon(0 0, 256px 0, 256px 88px, 232px 90px, 216px 96px, 200px 105px, 184px 110px, 168px 114px, 152px 118px, 136px 119px, 120px 119px, 104px 115px, 88px 117px, 72px 107px, 56px 104px, 40px 96px, 24px 90px, 0 88px);
 }
 .desktop-pet-sprite {
   --sprite-facing: 1;

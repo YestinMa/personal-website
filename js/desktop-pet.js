@@ -148,7 +148,7 @@ var SpriteTransitionController = class {
 };
 
 // ../src/components/DesktopPet/petAssets.ts
-var petAssetVersion = "1.7.0";
+var petAssetVersion = "1.8.0";
 var petAsset = (fileName) => new URL(`../images/pet/${fileName}?v=${petAssetVersion}`, import.meta.url).href;
 var petSprite = (fileName, fps, loop = true, offsetY = 0) => ({
   src: petAsset(fileName),
@@ -177,10 +177,14 @@ var petSprites = {
   },
   returnBed: petSprite("shiba-walk-v2.png", 8, true, 0),
   enterBed: petSprite("shiba-wake.png", 4, false),
-  react: petSprite("shiba-react.png", 5, true, 0)
+  // 窝外互动立即进入与 floorRest 相同尺寸的趴姿，避免原地踏步和旧互动帧尾巴串层。
+  react: {
+    ...petSprite("shiba-idle.png", 2.4),
+    visualScale: 0.95
+  }
 };
 var dogLiftSprite = petSprite("shiba-lift.png", 6, true, 0);
-var bedReactSprite = petSprite("shiba-react.png", 5);
+var bedReactSprite = petSprite("shiba-idle.png", 2.4);
 var bedBackSprite = {
   src: petAsset("bed-hotdog.png"),
   frameWidth: 256,
@@ -195,7 +199,8 @@ var bedBackSprite = {
   offsetY: 0
 };
 var bedFrontSprite = {
-  ...bedBackSprite
+  ...bedBackSprite,
+  src: petAsset("bed-front-mask.png")
 };
 var gazeSprite = {
   src: petAsset("gaze.png"),
@@ -624,10 +629,9 @@ var DesktopPet = class {
     this.bedBack.className = "desktop-pet-bed desktop-pet-bed--back pixel-sprite";
     this.applyStaticSprite(this.bedBack, bedBackSprite);
     this.bedFront.type = "button";
-    this.bedFront.className = "desktop-pet-bed desktop-pet-bed--front";
+    this.bedFront.className = "desktop-pet-bed desktop-pet-bed--front pixel-sprite";
     this.bedFront.setAttribute("aria-label", "\u62D6\u52A8 Hotdog \u67F4\u72AC\u5C0F\u7A9D");
-    this.bedFront.style.width = `${bedFrontSprite.frameWidth}px`;
-    this.bedFront.style.height = `${bedFrontSprite.frameHeight}px`;
+    this.applyStaticSprite(this.bedFront, bedFrontSprite);
     this.actor.type = "button";
     this.actor.className = "desktop-pet-actor";
     this.actor.setAttribute("aria-label", "\u548C\u50CF\u7D20\u67F4\u72AC\u4E92\u52A8\u6216\u62D6\u52A8\u67F4\u72AC");
