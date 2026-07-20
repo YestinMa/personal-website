@@ -43,28 +43,28 @@
 <h3 id="时间序列与基本模型">时间序列与基本模型</h3>
 <p>时间序列是一组按照时间索引排列的随机变量。若时间指标集合为 \(\mathcal{T}=\{0,1,2,\ldots,T\}\)，则时间序列记为 \(\{X_t:t\in\mathcal{T}\}\)。</p>
 <p>与横截面数据相比，时间序列的关键特征是观测值之间通常存在动态依赖。过去的信息不仅反映历史，也可以作为解释当前值和预测未来值的变量。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="白噪声">白噪声</h3>
 <p>白噪声是最简单的平稳过程。若 \(\{\varepsilon_t\}\sim WN(0,\sigma_\varepsilon^2)\)，则 \(\mathbb{E}(\varepsilon_t)=0\)、\(\operatorname{Var}(\varepsilon_t)=\sigma_\varepsilon^2\)，并且当 \(t\neq s\) 时有 \(\operatorname{Cov}(\varepsilon_t,\varepsilon_s)=0\)。</p>
 <p>白噪声只要求不相关，不必然要求独立。如果进一步假设各期扰动独立同分布，则通常记为独立白噪声。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="自回归模型">自回归模型</h3>
 <p>一阶自回归模型 AR\(1\) 为 \(X_t=\mu+\phi X_{t-1}+\varepsilon_t\)。它用上一期的观测解释当前值。当 \(|\phi|<1\) 时，冲击的影响会逐期衰减，过程可以保持平稳。</p>
 <p>一般的 AR\(p\) 模型为 \(X_t=\mu+\phi_1X_{t-1}+\phi_2X_{t-2}+\cdots+\phi_pX_{t-p}+\varepsilon_t\)。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="移动平均模型">移动平均模型</h3>
 <p>MA\(q\) 模型用当前和过去的随机冲击解释当前值：</p>
 <p>\(X_t=\mu+\varepsilon_t+\theta_1\varepsilon_{t-1}+\cdots+\theta_q\varepsilon_{t-q}\)。</p>
 <p>需要注意，这里的“移动平均”不是观测值的算术平均，而是对白噪声冲击进行有限阶线性组合。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="arma-模型">ARMA 模型</h3>
 <p>ARMA\(p,q\) 同时包含自回归项和移动平均项：</p>
 <p>\(X_t=\mu+\sum_{i=1}^{p}\phi_iX_{t-i}+\varepsilon_t+\sum_{j=1}^{q}\theta_j\varepsilon_{t-j}\)。</p>
 <p>AR 部分描述变量自身的动态延续，MA 部分描述随机冲击在若干期内的传递。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="滞后算子">滞后算子</h3>
 <p>定义滞后算子 \(LX_t=X_{t-1}\) 和 \(L^kX_t=X_{t-k}\)。进一步定义 AR 多项式 \(\phi(L)=1-\phi_1L-\phi_2L^2-\cdots-\phi_pL^p\)，以及 MA 多项式 \(\theta(L)=1+\theta_1L+\theta_2L^2+\cdots+\theta_qL^q\)。</p>
 <p>于是 ARMA\(p,q\) 可以紧凑地写成 \(\phi(L)X_t=\mu+\theta(L)\varepsilon_t\)。</p>
 <p>以 AR\(1\) 为例，\((1-\phi L)X_t=\mu+\varepsilon_t\)。当 \(|\phi|<1\) 时，</p>
 <p>$$\begin{aligned} (1-\phi L)^{-1}&=\sum_{k=0}^{\infty}\phi^kL^k,\\ X_t&=\frac{\mu}{1-\phi}+\sum_{k=0}^{\infty}\phi^k\varepsilon_{t-k}. \end{aligned}$$</p>
 <p>这说明平稳 AR\(1\) 可以表示为 MA\(∞\)：当前值是过去所有冲击的加权和，而且权重按照几何速度衰减。</p>
 <h3 id="平稳性与相关结构">平稳性与相关结构</h3>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="协方差平稳">协方差平稳</h3>
 <p>若随机过程满足以下条件，则称其为协方差平稳，也称弱平稳：</p>
 <ol>
 <li>均值不随时间变化；</li>
@@ -72,26 +72,26 @@
 <li>两期之间的协方差只依赖时间间隔，而不依赖具体时点。</li>
 </ol>
 <p>形式化地，\(\mathbb{E}(X_t)=\mu_X\)、\(\operatorname{Var}(X_t)=\gamma(0)<\infty\)，并且 \(\operatorname{Cov}(X_t,X_{t-k})=\gamma(k)\)。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="严格平稳">严格平稳</h3>
 <p>若对任意时点、任意正整数和任意平移量，随机向量 \((X_t,X_{t+1},\ldots,X_{t+m})\) 与 \((X_{t+h},X_{t+h+1},\ldots,X_{t+h+m})\) 具有相同的联合分布，则称过程严格平稳。</p>
 <p>如果二阶矩存在，严格平稳可以推出协方差平稳；反过来一般不成立。高斯过程中，联合分布由均值和协方差完全确定，因此协方差平稳也会带来严格平稳。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="自协方差函数与自相关函数">自协方差函数与自相关函数</h3>
 <p>协方差平稳过程的自协方差函数定义为 \(\gamma(k)=\operatorname{Cov}(X_t,X_{t-k})\)，自相关函数 ACF 定义为 \(\rho(k)=\gamma(k)/\gamma(0)\)。</p>
 <p>它们满足 \(\gamma(k)=\gamma(-k)\)、\(\rho(k)=\rho(-k)\)、\(\rho(0)=1\) 以及 \(|\rho(k)|\leq 1\)。</p>
 <p>白噪声的相关结构最简单：\(\gamma(0)=\sigma_\varepsilon^2\)，而当 \(k\neq0\) 时 \(\gamma(k)=0\)。因此白噪声没有线性可预测性，但“不相关”仍不等于“独立”。</p>
 <h3 id="ar-模型的自协方差与平稳条件">AR 模型的自协方差与平稳条件</h3>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="ar-1-的矩">AR\(1\) 的矩</h3>
 <p>考虑零均值 AR\(1\)：\(X_t=\phi X_{t-1}+\varepsilon_t\)，其中 \(|\phi|<1\)。利用 MA\(∞\) 表示，\(X_t=\sum_{j=0}^{\infty}\phi^j\varepsilon_{t-j}\)，可以得到</p>
 <p>$$\begin{aligned} \gamma(0) &=\sigma_\varepsilon^2\sum_{j=0}^{\infty}\phi^{2j} =\frac{\sigma_\varepsilon^2}{1-\phi^2},\\ \gamma(k)&=\phi^{|k|}\gamma(0),\\ \rho(k)&=\phi^{|k|}. \end{aligned}$$</p>
 <p>所以 AR\(1\) 的 ACF 不截尾，而是按照几何速度拖尾。当参数为负时，ACF 会正负交替地衰减。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="yule-walker-方程">Yule-Walker 方程</h3>
 <p>对零均值 AR\(p\) 模型 \(X_t=\sum_{j=1}^{p}\phi_jX_{t-j}+\varepsilon_t\)，两边分别乘以滞后变量并取期望，可得</p>
 <p>$$\begin{aligned} \gamma(0)&=\sum_{j=1}^{p}\phi_j\gamma(j)+\sigma_\varepsilon^2,\\ \gamma(k)&=\sum_{j=1}^{p}\phi_j\gamma(k-j),\qquad k\geq1,\\ \rho(k)&=\sum_{j=1}^{p}\phi_j\rho(k-j),\qquad k\geq1. \end{aligned}$$</p>
 <p>因此 AR\(p\) 的 ACF 由一个 p 阶齐次差分方程决定，一般表现为指数衰减或阻尼振荡。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="特征根与平稳性">特征根与平稳性</h3>
 <p>AR 多项式为 \(\phi(z)=1-\phi_1z-\phi_2z^2-\cdots-\phi_pz^p\)。AR\(p\) 平稳的充分必要条件是方程 \(\phi(z)=0\) 的所有根都位于单位圆外，即 \(|z_i|>1\)。</p>
 <p>等价地，如果 \(\phi(L)=\prod_{i=1}^{p}(1-\lambda_iL)\)，则要求 \(|\lambda_i|<1\)。对 ARMA\(p,q\) 而言，平稳性完全由 AR 多项式决定，因为有限阶 MA 部分天然平稳。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="ar-2-示例">AR\(2\) 示例</h3>
 <p>考虑 \(X_t=X_{t-1}-\frac{1}{2}X_{t-2}+\varepsilon_t\)。特征方程为 \(1-z+\frac{1}{2}z^2=0\)，两个根是 \(z_1=1+i\) 和 \(z_2=1-i\)。它们的模均为 \(\sqrt{2}>1\)，所以过程平稳。</p>
 <p>由 Yule-Walker 方程可得 \(\rho(1)=2/3\)，最终有</p>
 <p>$$\rho(k)=\left(\frac{1}{\sqrt{2}}\right)^k \left[ \cos\left(\frac{\pi k}{4}\right) +\frac{1}{3}\sin\left(\frac{\pi k}{4}\right) \right].$$</p>
@@ -100,12 +100,12 @@
 <p>令 \(\theta_0=1\)。对 MA\(q\) 模型 \(X_t=\sum_{j=0}^{q}\theta_j\varepsilon_{t-j}\)，其自协方差为</p>
 <p>$$\gamma(k)= \begin{cases} \sigma_\varepsilon^2\displaystyle\sum_{j=0}^{q-k}\theta_j\theta_{j+k}, &0\leq k\leq q,\\ 0,&k>q. \end{cases}$$</p>
 <p>所以 MA\(q\) 的 ACF 在 q 阶后截尾。任何有限阶 MA 过程都是协方差平稳的。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="ma">MA\(∞\)</h3>
 <p>一般线性过程可以写成 \(X_t=\mu+\sum_{j=0}^{\infty}\psi_j\varepsilon_{t-j}\)。常用的收敛条件有平方可和 \(\sum_{j=0}^{\infty}\psi_j^2<\infty\)，以及更强的绝对可和 \(\sum_{j=0}^{\infty}|\psi_j|<\infty\)。</p>
 <p>在这些条件下，</p>
 <p>$$\begin{aligned} \mathbb{E}(X_t)&=\mu,\\ \gamma(0)&=\sigma_\varepsilon^2\sum_{j=0}^{\infty}\psi_j^2,\\ \gamma(k)&=\sigma_\varepsilon^2\sum_{j=0}^{\infty}\psi_j\psi_{j+k}. \end{aligned}$$</p>
 <p>绝对可和还会保证自协方差序列绝对可和，即 \(\sum_{k=0}^{\infty}|\gamma(k)|<\infty\)。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="arma-的-acf">ARMA 的 ACF</h3>
 <p>ARMA\(p,q\) 在前 q 阶的自协方差同时受到 AR 和 MA 参数影响；当 \(k>q\) 时，自协方差满足 AR 部分决定的递推式 \(\gamma(k)=\sum_{j=1}^{p}\phi_j\gamma(k-j)\)。</p>
 <p>因此：</p>
 <ul>
@@ -115,24 +115,24 @@
 </ul>
 <p>这组规律是 Box-Jenkins 模型识别的基础，但有限样本中的样本相关函数不会严格等于零，因此不能机械地只看某一个柱状图。</p>
 <h3 id="非平稳过程-arima-与长记忆">非平稳过程、ARIMA 与长记忆</h3>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="随机游走">随机游走</h3>
 <p>随机游走定义为 \(Y_t=Y_{t-1}+\varepsilon_t\)。反复代入可得 \(Y_t=Y_0+\sum_{j=1}^{t}\varepsilon_j\)，因此 \(\operatorname{Var}(Y_t)=\operatorname{Var}(Y_0)+t\sigma_\varepsilon^2\)。</p>
 <p>方差随时间增长，所以随机游走不是协方差平稳过程。但一阶差分 \(\Delta Y_t=Y_t-Y_{t-1}=\varepsilon_t\) 是平稳的。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="arima-模型">ARIMA 模型</h3>
 <p>若经过 d 次差分后成为 ARMA\(p,q\)，则原过程服从 ARIMA\(p,d,q\)：</p>
 <p>\(\phi(L)(1-L)^dX_t=\theta(L)\varepsilon_t\)。</p>
 <p>其中 d 表示为了获得平稳性所需的差分次数。差分不足会保留随机趋势；差分过度则会放大噪声并引入不必要的负相关。</p>
 <p>例如，若 \(X_t=X_{t-1}+u_t\) 且 \(u_t=\phi u_{t-1}+\varepsilon_t\)，则可以合并为 \((1-\phi L)(1-L)X_t=\varepsilon_t\)，因此它是 ARIMA\(1,1,0\)。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="arfima-与长记忆">ARFIMA 与长记忆</h3>
 <p>当差分阶数允许为非整数时，得到 ARFIMA 模型。分数差分算子通过二项式展开定义：</p>
 <p>$$(1-L)^d =1-dL+\frac{d(d-1)}{2!}L^2 -\frac{d(d-1)(d-2)}{3!}L^3+\cdots.$$</p>
 <p>当 \(-\frac{1}{2}<d<\frac{1}{2}\) 时，过程可以保持平稳；当 \(0<d<\frac{1}{2}\) 时，自相关以很慢的速度衰减，表现为长记忆。</p>
 <p>长记忆过程通常满足 \(\sum_{k=0}^{\infty}|\rho(k)|=\infty\)，而短记忆过程的自相关绝对可和。</p>
 <h3 id="因果表示与可逆性">因果表示与可逆性</h3>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="ar-模型的因果表示">AR 模型的因果表示</h3>
 <p>如果 AR 多项式的根都在单位圆外，则 \(\phi(L)^{-1}\) 可以展开为收敛的幂级数，因此 \(X_t=\phi(L)^{-1}\theta(L)\varepsilon_t=\sum_{j=0}^{\infty}\psi_j\varepsilon_{t-j}\)。</p>
 <p>这通常称为因果表示：当前值只依赖当前和过去的冲击，不依赖未来冲击。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="ma-模型的可逆性">MA 模型的可逆性</h3>
 <p>以 MA\(1\) 为例，\(X_t=\varepsilon_t+\theta\varepsilon_{t-1}\)。若 \(|\theta|<1\)，则</p>
 <p>\(\varepsilon_t=(1+\theta L)^{-1}X_t=X_t-\theta X_{t-1}+\theta^2X_{t-2}-\cdots\)。</p>
 <p>一般 MA\(q\) 可逆的充分必要条件是 \(\theta(z)=1+\theta_1z+\cdots+\theta_qz^q=0\) 的所有根都位于单位圆外。</p>
@@ -151,7 +151,7 @@
 <p>对 AR\(1\) 模型 \(X_t=\phi X_{t-1}+\varepsilon_t\)，有 \(\psi_j=\phi^j\)。对 ARMA\(1,1\) 模型 \((1-\phi L)X_t=(1+\theta L)\varepsilon_t\)，有 \(\psi_0=1\)，并且 \(\psi_j=\phi^{j-1}(\phi+\theta)\)，其中 \(j\geq1\)。</p>
 <p>脉冲响应把抽象参数转化为动态影响路径，因此在经济解释和政策分析中通常比单个系数更直观。</p>
 <h3 id="最佳线性预测与偏自相关">最佳线性预测与偏自相关</h3>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="最佳线性预测">最佳线性预测</h3>
 <p>用最近 k 期信息线性预测当前值：</p>
 <p>\(\widehat{X}_t=\beta_1X_{t-1}+\cdots+\beta_kX_{t-k}\)。</p>
 <p>最优系数通过最小化均方预测误差得到：</p>
@@ -159,23 +159,23 @@
 <p>一阶条件意味着预测误差与所有解释变量正交。记</p>
 <p>$$\Gamma_k= \begin{pmatrix} \gamma(0)&\gamma(1)&\cdots&\gamma(k-1)\\ \gamma(1)&\gamma(0)&\cdots&\gamma(k-2)\\ \vdots&\vdots&\ddots&\vdots\\ \gamma(k-1)&\gamma(k-2)&\cdots&\gamma(0) \end{pmatrix}, \qquad \gamma_k= \begin{pmatrix} \gamma(1)\\ \gamma(2)\\ \vdots\\ \gamma(k) \end{pmatrix}.$$</p>
 <p>则 \(\beta^*=\Gamma_k^{-1}\gamma_k\)。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="偏自相关函数">偏自相关函数</h3>
 <p>k 阶偏自相关系数等于上述回归中最后一个系数，即 \(\rho^*(k)=\beta_k^*\)。它衡量在控制 \(X_{t-1},\ldots,X_{t-k+1}\) 之后，\(X_t\) 与 \(X_{t-k}\) 之间剩余的线性关系。</p>
 <p>对 AR\(p\)，当加入前 p 个滞后后，更远滞后不再提供额外线性解释，因此 \(\rho^*(k)=0\)，其中 \(k>p\)。对可逆 MA\(q\)，其 AR 表示通常是无限阶的，因此 PACF 一般拖尾。</p>
 <h3 id="自协方差生成函数与频域分析">自协方差生成函数与频域分析</h3>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="自协方差生成函数">自协方差生成函数</h3>
 <p>定义自协方差生成函数 AGF：\(g(z)=\sum_{k=-\infty}^{\infty}\gamma(k)z^k\)。</p>
 <p>对白噪声，\(g(z)=\sigma_\varepsilon^2\)；对 MA\(q\)，\(g(z)=\theta(z)\theta(z^{-1})\sigma_\varepsilon^2\)；对 ARMA\(p,q\)，</p>
 <p>\(g(z)=\theta(z)\theta(z^{-1})\sigma_\varepsilon^2/[\phi(z)\phi(z^{-1})]\)。</p>
 <p>AGF 把整条自协方差序列压缩成一个函数，适合处理线性滤波和 ARMA 模型。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="谱函数">谱函数</h3>
 <p>谱函数是自协方差函数的傅里叶变换：</p>
 <p>$$\begin{aligned} S(\omega) &=\frac{1}{2\pi}\sum_{k=-\infty}^{\infty}\gamma(k)e^{-ik\omega}\\ &=\frac{1}{2\pi} \left[ \gamma(0)+2\sum_{k=1}^{\infty}\gamma(k)\cos(k\omega) \right]. \end{aligned}$$</p>
 <p>逆变换及方差分解为</p>
 <p>$$\gamma(k)=\int_{-\pi}^{\pi}e^{ik\omega}S(\omega)\,d\omega, \qquad \gamma(0)=\int_{-\pi}^{\pi}S(\omega)\,d\omega.$$</p>
 <p>所以谱函数把总方差分解到不同频率上。时域中的自协方差与频域中的谱函数是一一对应的，两种分析方式在信息上等价。</p>
 <p>标准化后得到谱密度 \(f(\omega)=S(\omega)/\gamma(0)\)，并满足 \(\int_{-\pi}^{\pi}f(\omega)\,d\omega=1\)。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="常见模型的谱">常见模型的谱</h3>
 <p>白噪声的谱为常数 \(S(\omega)=\sigma_\varepsilon^2/(2\pi)\)，表示所有频率对方差的贡献相同。</p>
 <p>ARMA\(p,q\) 的谱为</p>
 <p>$$S(\omega) =\frac{\sigma_\varepsilon^2}{2\pi} \frac{\left|\theta(e^{-i\omega})\right|^2} {\left|\phi(e^{-i\omega})\right|^2}.$$</p>
@@ -185,9 +185,9 @@
 <p>若平稳过程经过线性滤波 \(Y_t=\sum_{k=-\infty}^{\infty}a_kX_{t-k}=a(L)X_t\)，则输出过程的谱满足</p>
 <p>\(S_Y(\omega)=|a(e^{-i\omega})|^2S_X(\omega)\)。</p>
 <p>这条公式说明滤波器会对不同频率进行不同程度的放大或抑制。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="参数法">参数法</h3>
 <p>如果已经指定 ARMA 模型，可以先估计参数，再将估计值代入 ARMA 谱公式。参数法结构清晰，但谱估计的可靠性依赖模型设定是否正确。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="非参数法">非参数法</h3>
 <p>直接截断样本自协方差会造成估计不稳定。采用 Bartlett 权重可得</p>
 <p>$$\widehat{S}(\omega) = \frac{1}{2\pi} \left[ \widehat{\gamma}(0) + 2\sum_{k=1}^{M} \left( 1-\frac{k}{M+1} \right) \widehat{\gamma}(k)\cos(k\omega) \right].$$</p>
 <p>其中截断阶数 M 控制偏差与方差的权衡：M 太小会过度平滑，M 太大则会保留较多抽样噪声。</p>
@@ -201,22 +201,22 @@
 </ul>
 <p>Wold 分解说明，MA\(∞\) 不是少数特殊模型，而是平稳随机过程的一般表示。ARMA 模型的价值在于用有限数量的参数近似这个无限阶表示。</p>
 <h3 id="估计-定阶与诊断">估计、定阶与诊断</h3>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="ar-模型的估计">AR 模型的估计</h3>
 <p>AR\(p\) 可以直接通过最小二乘估计：</p>
 <p>$$\min_{\mu,\phi_1,\ldots,\phi_p} \sum_{t=p+1}^{T} \left( X_t-\mu-\sum_{j=1}^{p}\phi_jX_{t-j} \right)^2.$$</p>
 <p>如果误差服从正态分布，条件最大似然估计与最小二乘估计一致。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="信息准则">信息准则</h3>
 <p>增加滞后阶数通常会降低残差平方和，但会提高模型复杂度。常见信息准则为</p>
 <p>$$\begin{aligned} AIC(p)&=\log\widehat{\sigma}_p^2+\frac{2p}{T},\\ BIC(p)&=\log\widehat{\sigma}_p^2+\frac{p\log T}{T},\\ HQIC(p)&=\log\widehat{\sigma}_p^2+\frac{2p\log\log T}{T}. \end{aligned}$$</p>
 <p>选择使信息准则最小的阶数。BIC 的复杂度惩罚更强，通常偏向更简洁的模型；AIC 更关注预测表现，可能选择较大的阶数。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="arma-模型的估计难点">ARMA 模型的估计难点</h3>
 <p>将 ARMA 写成 \(X_t=z_t^\top\beta+u_t\)，其中 \(u_t=\varepsilon_t+\theta_1\varepsilon_{t-1}+\cdots+\theta_q\varepsilon_{t-q}\)，会出现两个问题：</p>
 <ol>
 <li>复合误差 \(u_t\) 存在序列相关；</li>
 <li>过去的创新 \(\varepsilon_{t-j}\) 不可直接观测。</li>
 </ol>
 <p>因此 ARMA 通常采用非线性最小二乘、条件最大似然或精确最大似然估计。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="box-jenkins-建模流程">Box-Jenkins 建模流程</h3>
 <p>Box-Jenkins 方法可以概括为四步：</p>
 <ol>
 <li><strong>平稳化</strong>：检查趋势、季节性和单位根，必要时进行变换或差分；</li>
@@ -225,11 +225,11 @@
 <li><strong>诊断</strong>：检查残差是否近似白噪声；若诊断不通过，则返回识别阶段重新设定模型。</li>
 </ol>
 <p>模型识别不是一次性完成的，而是“设定—估计—诊断—修正”的循环。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="样本自相关">样本自相关</h3>
 <p>样本自相关估计为</p>
 <p>$$\widehat{\rho}(k) = \frac{ \sum_{t=k+1}^{T} (X_t-\overline{X}) (X_{t-k}-\overline{X}) }{ \sum_{t=1}^{T} (X_t-\overline{X})^2 }.$$</p>
 <p>对于白噪声，大样本下单个样本自相关大致落在 \(\pm1.96/\sqrt{T}\) 范围内。这个区间只适合逐阶观察，同时检查多个滞后时还应进行联合检验。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="box-pierce-与-ljung-box-检验">Box-Pierce 与 Ljung-Box 检验</h3>
 <p>要联合检验 \(H_0:\rho(1)=\rho(2)=\cdots=\rho(m)=0\)，可以使用</p>
 <p>$$Q_{BP}=T\sum_{k=1}^{m}\widehat{\rho}(k)^2, \qquad Q_{LB}=T(T+2)\sum_{k=1}^{m} \frac{\widehat{\rho}(k)^2}{T-k}.$$</p>
 <p>在原假设下，它们渐近服从卡方分布。对已估计的 ARMA\(p,q\) 残差，实践中常以 \(m-p-q\) 作为近似自由度。</p>
@@ -261,14 +261,14 @@
 <h2 id="lecture-2-渐近理论">Lecture 2 渐近理论</h2>
 <h3 id="随机变量的收敛">随机变量的收敛</h3>
 <p>设随机向量序列为 \(\{X_n\}\)，极限为 \(X\)。大样本理论研究样本量增加时，统计量是否收敛、以何种方式收敛，以及围绕极限值的波动速度。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="依概率收敛与相合性">依概率收敛与相合性</h3>
 <p>若对任意 \(\varepsilon>0\) 都有 \(P(\|X_n-X\|>\varepsilon)\to0\)，则称 \(X_n\) 依概率收敛到 \(X\)，记为 \(X_n\xrightarrow{p}X\)。</p>
 <p>估计量 \(\widehat{\theta}_n\) 若满足 \(\widehat{\theta}_n\xrightarrow{p}\theta_0\)，就称它是参数 \(\theta_0\) 的相合估计量。相合性回答“样本足够大时，估计量是否会逼近真值”，但不描述逼近速度。</p>
 <p>若均方误差满足 \(\mathbb{E}\|X_n-X\|^2\to0\)，则称为均方收敛。均方收敛蕴含依概率收敛。对常数向量 \(a\)，若 \(X_n\xrightarrow{p}a\)，通常可由均值收敛到 \(a\) 且方差收敛到零来验证。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="几乎处处收敛与依分布收敛">几乎处处收敛与依分布收敛</h3>
 <p>若 \(P(\lim_{n\to\infty}X_n=X)=1\)，则称 \(X_n\) 几乎处处收敛到 \(X\)，记为 \(X_n\xrightarrow{a.s.}X\)。它比依概率收敛更强。</p>
 <p>若 \(X_n\) 的分布函数在极限分布的连续点上收敛，则称 \(X_n\) 依分布收敛到 \(X\)，记为 \(X_n\xrightarrow{d}X\)。依概率收敛蕴含依分布收敛；当极限是常数时，二者等价。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="连续映射与-slutsky-定理">连续映射与 Slutsky 定理</h3>
 <p>若 \(X_n\xrightarrow{p}X\)，且 \(g\) 连续，则 \(g(X_n)\xrightarrow{p}g(X)\)。依分布收敛也有对应的连续映射结论。</p>
 <p>Slutsky 定理把概率极限与分布极限组合起来。若 \(X_n\xrightarrow{d}X\)、\(Y_n\xrightarrow{p}c\)，则</p>
 <p>\(X_n+Y_n\xrightarrow{d}X+c\)、\(X_nY_n\xrightarrow{d}cX\)；当 \(c\neq0\) 时，还有 \(X_n/Y_n\xrightarrow{d}X/c\)。</p>
@@ -277,7 +277,7 @@
 <p>若</p>
 <p>$$\sqrt{n}\left(\widehat{\theta}_n-\theta_0\right) \xrightarrow{d}\mathcal{N}(0,V),$$</p>
 <p>则称 \(\widehat{\theta}_n\) 渐近正态，\(V\) 是其渐近方差。估计量的实际方差约为 \(V/n\)。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="大数定律与中心极限定理">大数定律与中心极限定理</h3>
 <p>对独立同分布随机变量，若 \(\mathbb{E}|X_i|<\infty\)，强大数定律给出 \(\overline{X}_n\xrightarrow{a.s.}\mu\)。若进一步 \(\operatorname{Var}(X_i)=\sigma^2<\infty\)，Lindeberg-Levy 中心极限定理给出</p>
 <p>\(\sqrt{n}(\overline{X}_n-\mu)\xrightarrow{d}\mathcal{N}(0,\sigma^2)\)。</p>
 <p>对随机向量，若均值为 \(\mu\)、协方差矩阵为 \(\Sigma\)，则</p>
@@ -285,32 +285,32 @@
 <p>Lyapunov 中心极限定理允许观测相互独立但不同分布。记 \(s_n^2=\sum_{i=1}^n\sigma_i^2\)，若存在 \(\delta>0\) 使</p>
 <p>$$\frac{1}{s_n^{2+\delta}} \sum_{i=1}^{n} \mathbb{E}|X_i-\mu_i|^{2+\delta} \longrightarrow0,$$</p>
 <p>则标准化后的和收敛到标准正态分布。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="delta-方法">Delta 方法</h3>
 <p>若 \(\sqrt{n}(\widehat{\theta}-\theta_0)\xrightarrow{d}\mathcal{N}(0,V)\)，且 \(g\) 在 \(\theta_0\) 处连续可微，导数矩阵为 \(G=\partial g(\theta_0)/\partial\theta^\top\)，则</p>
 <p>$$\sqrt{n}\left[g(\widehat{\theta})-g(\theta_0)\right] \xrightarrow{d}\mathcal{N}(0,GVG^\top).$$</p>
 <p>Delta 方法本质上是对非线性函数作一阶泰勒展开，是构造非线性参数函数标准误和 Wald 检验的基础。</p>
 <h3 id="时间序列的大数定律">时间序列的大数定律</h3>
 <p>独立性在时间序列中通常不成立，因此需要用平稳性、弱相关或遍历性替代。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="协方差平稳过程">协方差平稳过程</h3>
 <p>设 \(X_t\) 协方差平稳，均值为 \(\mu\)，自协方差为 \(\gamma(k)\)。样本均值的方差为</p>
 <p>$$\operatorname{Var}(\overline{X}_T) = \frac{1}{T} \left[ \gamma(0) +2\sum_{k=1}^{T-1} \left(1-\frac{k}{T}\right)\gamma(k) \right].$$</p>
 <p>若 \(\gamma(k)\to0\)，样本均值在适当条件下依概率收敛到 \(\mu\)。若自协方差绝对可和，则</p>
 <p>$$T\operatorname{Var}(\overline{X}_T) \longrightarrow J\equiv\sum_{k=-\infty}^{\infty}\gamma(k).$$</p>
 <p>\(J\) 称为长期方差（long-run variance），也等于零频率处谱密度的 \(2\pi\) 倍。序列相关使样本均值的渐近方差不再只是 \(\gamma(0)\)。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="遍历性">遍历性</h3>
 <p>严格平稳过程若相隔足够远的随机变量之间依赖逐渐消失，则可具有遍历性。遍历定理说明，在平稳遍历条件和有限一阶矩下，</p>
 <p>\(T^{-1}\sum_{t=1}^{T}X_t\xrightarrow{a.s.}\mathbb{E}(X_t)\)。</p>
 <p>平稳性保证分布不随时间移动，遍历性保证单条足够长的时间序列可以代表总体分布。</p>
 <h3 id="时间序列的中心极限定理">时间序列的中心极限定理</h3>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="线性过程">线性过程</h3>
 <p>对线性过程</p>
 <p>\(X_t=\mu+\sum_{j=0}^{\infty}\psi_j\varepsilon_{t-j}\)，若创新独立同分布、方差有限且系数绝对可和，则</p>
 <p>$$\sqrt{T}\left(\overline{X}_T-\mu\right) \xrightarrow{d} \mathcal{N}(0,J), \qquad J=\sigma_\varepsilon^2 \left(\sum_{j=0}^{\infty}\psi_j\right)^2.$$</p>
 <p>有限阶 MA 是 M-dependent 过程的典型例子：当两个观测间隔超过 M 时，它们相互独立。严格平稳、有限方差的 M-dependent 过程满足中心极限定理，其渐近方差仍是长期方差。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="gordin-条件">Gordin 条件</h3>
 <p>对一般平稳遍历过程，仅有大数定律还不够。Gordin 条件通过条件期望的衰减和可和性控制长期依赖，使部分和可以近似为鞅差序列，从而得到</p>
 <p>\(T^{-1/2}\sum_{t=1}^{T}(X_t-\mu)\xrightarrow{d}\mathcal{N}(0,J)\)。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="ar-1-示例">AR\(1\) 示例</h3>
 <p>对 \(X_t=\phi X_{t-1}+\varepsilon_t\)，其中 \(|\phi|<1\)，</p>
 <p>\(\gamma(k)=\sigma_\varepsilon^2\phi^{|k|}/(1-\phi^2)\)。因此</p>
 <p>$$J = \sum_{k=-\infty}^{\infty}\gamma(k) = \frac{\sigma_\varepsilon^2}{(1-\phi)^2}.$$</p>
@@ -319,7 +319,7 @@
 <p>直接对所有样本自协方差求和并不相合，因为高阶自协方差数量多、估计噪声大。核估计通过对高阶滞后降权解决这一问题：</p>
 <p>$$\widehat{J} = \widehat{\gamma}(0) + 2\sum_{k=1}^{T-1} K\left(\frac{k}{h}\right)\widehat{\gamma}(k),$$</p>
 <p>其中 \(K(\cdot)\) 是核函数，\(h\) 是带宽或截断阶数。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="常用核函数">常用核函数</h3>
 <ul>
 <li>截断核：带宽内权重为 1，带宽外为 0，边界不连续；</li>
 <li>Bartlett 核：\(K(x)=1-|x|\)（\(|x|\leq1\)），对应 Newey-West HAC 估计；</li>
@@ -352,7 +352,7 @@
 <p>给定对称正定权重矩阵 \(W_n\)，GMM 估计量定义为</p>
 <p>$$\widehat{\theta} = \arg\min_{\theta\in\Theta} Q_n(\theta), \qquad Q_n(\theta) = \overline{m}_n(\theta)^\top W_n \overline{m}_n(\theta).$$</p>
 <p>权重矩阵决定不同矩条件的相对权重。恰好识别时，只要权重矩阵非奇异，GMM 解与权重选择无关；过度识别时，权重会影响渐近效率。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="基本例子">基本例子</h3>
 <p>总体均值估计使用矩条件 \(\mathbb{E}(X_i-\mu)=0\)，样本解就是 \(\widehat{\mu}=\overline{X}\)。</p>
 <p>在线性工具变量模型 \(y_i=x_i^\top\beta+u_i\) 中，若工具变量 \(w_i\) 满足 \(\mathbb{E}(w_iu_i)=0\)，矩函数为 \(m_i(\beta)=w_i(y_i-x_i^\top\beta)\)。工具变量个数不少于内生解释变量个数是识别的必要条件之一。</p>
 <p>最大似然估计的得分满足 \(\mathbb{E}[\partial\log f(z_i,\theta_0)/\partial\theta]=0\)，因此 MLE 可以看作使用得分矩条件的恰好识别 GMM。</p>
@@ -388,24 +388,24 @@
 <p>$$\Omega = \sum_{j=-\infty}^{\infty}\Gamma(j), \qquad \Gamma(j) = \mathbb{E}[m_t(\theta_0)m_{t-j}(\theta_0)^\top].$$</p>
 <p>此时应使用 HAC 或 Newey-West 方法估计长期协方差，而不能只用同期矩 \(n^{-1}\sum_tm_tm_t^\top\)。</p>
 <h3 id="高效估计的实现">高效估计的实现</h3>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="两步-gmm">两步 GMM</h3>
 <p>第一步选取方便的正定矩阵，例如单位矩阵，得到初始相合估计：</p>
 <p>$$\widehat{\theta}^{(1)} = \arg\min_\theta \overline{m}(\theta)^\top W^{(1)} \overline{m}(\theta).$$</p>
 <p>用初始残差估计 \(\widehat{\Omega}(\widehat{\theta}^{(1)})\)，第二步令 \(W^{(2)}=\widehat{\Omega}^{-1}\)，再求</p>
 <p>$$\widehat{\theta}^{(2)} = \arg\min_\theta \overline{m}(\theta)^\top \widehat{\Omega}^{-1} \overline{m}(\theta).$$</p>
 <p>两步估计已达到一阶渐近效率。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="迭代与连续更新">迭代与连续更新</h3>
 <p>迭代 GMM 在每轮估计后重新计算权重矩阵，直到参数收敛。连续更新估计（CUE）则让权重矩阵随候选参数同时变化：</p>
 <p>\(\widehat{\theta}_{CUE}=\arg\min_\theta\overline{m}(\theta)^\top\widehat{\Omega}(\theta)^{-1}\overline{m}(\theta)\)。</p>
 <p>它们与两步 GMM 一阶渐近等价，但有限样本表现和数值稳定性可能不同。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="一步修正">一步修正</h3>
 <p>从初始相合估计出发，利用一次 Newton 型更新也可得到与高效 GMM 渐近等价的估计。一步法适合目标函数求解成本较高、但梯度和协方差容易计算的情形。</p>
 <h3 id="线性工具变量系统">线性工具变量系统</h3>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="2sls-与高效-gmm">2SLS 与高效 GMM</h3>
 <p>在线性 IV 模型中，取矩条件 \(\mathbb{E}[w_i(y_i-x_i^\top\beta)]=0\)。使用 \(W=(\mathbb{E}w_iw_i^\top)^{-1}\) 得到两阶段最小二乘（2SLS）。</p>
 <p>若误差存在条件异方差，最优权重应基于</p>
 <p>\(\Omega=\mathbb{E}(u_i^2w_iw_i^\top)\)。以 2SLS 残差估计该矩阵后再进行第二步，可得到异方差稳健的高效 IV-GMM，讲义中称为 B2SLS。若误差同方差，则 2SLS 与高效 GMM 渐近等价。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="联立方程">联立方程</h3>
 <p>将多条结构方程堆叠，可以形成系统矩条件。利用方程之间的误差协方差构造最优权重，可得到高效的系统 GMM，与三阶段最小二乘思想相联系。</p>
 <h3 id="gmm-的效率解释">GMM 的效率解释</h3>
 <p>在只使用给定矩条件信息的估计量集合中，最优 GMM 达到半参数效率界。直观上，任何正规估计量都必须利用样本矩偏离零的信息；\(\Omega^{-1}\) 恰好以最有效的方式组合这些偏离。</p>
@@ -445,20 +445,20 @@
 <h3 id="极值估计中的三大检验">极值估计中的三大检验</h3>
 <p>设无约束估计量为 \(\widehat{\theta}\)，受限估计量为</p>
 <p>\(\widetilde{\theta}=\arg\min_{\theta:h(\theta)=0}Q_n(\theta)\)。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="wald-检验">Wald 检验</h3>
 <p>若</p>
 <p>\(\sqrt{n}(\widehat{\theta}-\theta_0)\xrightarrow{d}\mathcal{N}(0,V)\)，Wald 统计量为</p>
 <p>$$W = n\,h(\widehat{\theta})^\top \left[ H(\widehat{\theta}) \widehat{V} H(\widehat{\theta})^\top \right]^{-1} h(\widehat{\theta}).$$</p>
 <p>Wald 检验只需要无约束估计量，衡量无约束估计对限制的偏离。它对非线性限制的表达形式可能敏感。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="似然比型检验">似然比型检验</h3>
 <p>极值估计中的 LR 型统计量比较受限与无约束目标函数：</p>
 <p>$$LR = n\left[ Q_n(\widetilde{\theta}) - Q_n(\widehat{\theta}) \right],$$</p>
 <p>并根据目标函数的标准化采用相应尺度修正。对最优 GMM，目标函数差具有直接的卡方极限。</p>
 <p>该检验需要同时求解受限和无约束问题，但通常比 Wald 检验更尊重参数约束的几何结构。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="lm-或-score-检验">LM 或 Score 检验</h3>
 <p>LM 检验只估计受限模型，考察受限点处目标函数梯度是否仍显著偏离零。若受限模型正确，梯度在可行方向上的分量应接近零；若限制错误，拉格朗日乘子会系统性偏离零。</p>
 <p>LM 检验在无约束模型难以估计时尤其有用。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="渐近等价">渐近等价</h3>
 <p>在原假设和常规条件下，</p>
 <p>\(W\xrightarrow{d}\chi_k^2\)、\(LR\xrightarrow{d}\chi_k^2\)、\(LM\xrightarrow{d}\chi_k^2\)。三者在固定备择下相合，在局部备择下具有相同的一阶局部功效，但有限样本结果可能不同。</p>
 <h3 id="hansen-过度识别检验">Hansen 过度识别检验</h3>
@@ -467,23 +467,23 @@
 <p>在原假设“全部矩条件均正确”下，</p>
 <p>\(J\xrightarrow{d}\chi_{r-p}^2\)。</p>
 <p>拒绝原假设表示至少一个矩条件与数据不相容，但不能直接指出是哪一个条件错误。J 检验同时依赖结构模型、工具变量外生性和协方差估计，因此“不拒绝”也不代表模型一定正确。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="差分-hansen-检验">差分 Hansen 检验</h3>
 <p>若要检验一组新增矩条件，可以比较完整模型和受限矩条件模型的 J 统计量。二者之差在原假设下服从自由度等于新增矩条件数的卡方分布。这常用于检验某组工具变量的外生性。</p>
 <h3 id="常见设定检验">常见设定检验</h3>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="hausman-外生性检验">Hausman 外生性检验</h3>
 <p>在线性回归中，若部分解释变量可能内生，可以比较 OLS 与 IV/GMM 估计。原假设下二者都相合，但 OLS 更有效；备择下只有 IV 相合。</p>
 <p>Hausman 统计量基于估计量之差：</p>
 <p>$$H = (\widehat{\beta}_{IV}-\widehat{\beta}_{OLS})^\top \left[ \widehat{\operatorname{Var}}(\widehat{\beta}_{IV}) - \widehat{\operatorname{Var}}(\widehat{\beta}_{OLS}) \right]^{-1} (\widehat{\beta}_{IV}-\widehat{\beta}_{OLS}).$$</p>
 <p>也可以把外生性限制写成额外矩条件，用差分 Hansen 检验实现。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="正态性检验">正态性检验</h3>
 <p>若模型假设误差正态，则除均值和方差条件外，高阶中心矩还应满足特定关系，例如偏度为零、峰度为三。把这些高阶矩作为额外矩条件，即可用 Hansen J 检验正态性。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="同方差检验">同方差检验</h3>
 <p>同方差性意味着条件二阶矩不随解释变量变化。可构造</p>
 <p>\(\mathbb{E}[(u_i^2-\sigma^2)q(x_i)]=0\)</p>
 <p>形式的额外矩条件，并使用 J 检验。不同的 \(q(x)\) 对应不同方向的异方差备择。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="white-信息矩阵检验">White 信息矩阵检验</h3>
 <p>正确指定的最大似然模型满足信息矩阵等式：得分外积的期望等于负 Hessian 的期望。将两者之差写成矩条件，可以检验分布设定和函数形式是否正确。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="结构突变检验">结构突变检验</h3>
 <p>把样本按候选断点分成两段，分别估计参数 \(\theta_1\) 与 \(\theta_2\)，检验 \(H_0:\theta_1=\theta_2\)。可以使用 Wald 统计量，也可以构造分段交互矩条件并使用 Hansen 检验。</p>
 <p>若断点未知并在多个候选时点搜索，临界值不再是普通卡方分布，需要使用 sup-Wald、sup-LM 等非标准检验理论。</p>
 <h3 id="短期利率模型应用">短期利率模型应用</h3>
@@ -496,13 +496,13 @@
 <p>考虑非线性模型 \(y_i=g(x_i,\beta)+u_i\)，内生变量 \(x_i\) 与误差相关，但工具变量 \(w_i\) 满足 \(\mathbb{E}[u_i\mid w_i]=0\)。</p>
 <p>选择工具函数 \(a(w_i)\) 后，矩条件为</p>
 <p>\(\mathbb{E}\{a(w_i)[y_i-g(x_i,\beta)]\}=0\)。不同工具函数会产生不同效率。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="最优工具变量">最优工具变量</h3>
 <p>令 \(D_i=\partial g(x_i,\beta_0)/\partial\beta\)，条件误差方差为</p>
 <p>\(\sigma^2(w_i)=\mathbb{E}(u_i^2\mid w_i)\)。最优工具变量与</p>
 <p>$$a^*(w_i) \propto \frac{\mathbb{E}(D_i\mid w_i)} {\sigma^2(w_i)}$$</p>
 <p>成比例。</p>
 <p>它同时体现两个原则：使用工具变量可预测的参数敏感方向，并对条件噪声较大的观测降权。线性同方差情形下，最优工具退化为用工具变量预测内生解释变量，即 2SLS 的第一阶段拟合值。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="非线性两阶段最小二乘">非线性两阶段最小二乘</h3>
 <p>直接把内生解释变量替换为第一阶段预测值在非线性模型中通常不等价于有效 IV，因为</p>
 <p>\(\mathbb{E}[g(x,\beta)\mid w]\neq g(\mathbb{E}[x\mid w],\beta)\)。正确做法是从条件矩限制出发构造工具函数和 GMM 目标。</p>
 <h3 id="检验的实施原则">检验的实施原则</h3>
@@ -531,9 +531,9 @@
 <p>反复代入得到 \(X_t=X_0+\sum_{j=1}^{t}\varepsilon_j\)。任意一次冲击都会永久进入未来水平，而且 \(\operatorname{Var}(X_t)=\operatorname{Var}(X_0)+t\sigma_\varepsilon^2\) 随时间增长。</p>
 <p>若序列经过一次差分变为平稳，即 \(\Delta X_t=X_t-X_{t-1}\sim I(0)\)，则称 \(X_t\) 为一阶单整过程，记为 \(X_t\sim I(1)\)。一般地，差分 d 次后平稳的过程记为 \(I(d)\)。</p>
 <h3 id="趋势平稳与差分平稳">趋势平稳与差分平稳</h3>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="趋势平稳过程">趋势平稳过程</h3>
 <p>趋势平稳过程可写成 \(Y_t=\alpha+\delta t+u_t\)，其中 \(u_t\) 平稳。去除确定性趋势后，偏离趋势的冲击会逐渐消失，长期预测会回到确定性趋势线。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="差分平稳过程">差分平稳过程</h3>
 <p>带漂移随机游走可写成 \(Y_t=\delta+Y_{t-1}+\varepsilon_t\)。一阶差分为 \(\Delta Y_t=\delta+\varepsilon_t\)，因此差分后平稳，但水平中的冲击具有永久影响。</p>
 <p>两类趋势的处理方式不同：</p>
 <ul>
@@ -571,15 +571,15 @@
 <p>单位根检验的原假设通常为 \(H_0:\rho=1\)，备择为 \(H_1:|\rho|<1\)。将</p>
 <p>\(Y_t=\rho Y_{t-1}+\varepsilon_t\) 改写为</p>
 <p>\(\Delta Y_t=\gamma Y_{t-1}+\varepsilon_t\)，其中 \(\gamma=\rho-1\)，于是检验 \(H_0:\gamma=0\)。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="无常数项">无常数项</h3>
 <p>回归式为 \(\Delta Y_t=\gamma Y_{t-1}+\varepsilon_t\)。DF rho 统计量为 \(T(\widehat{\rho}-1)\)，DF t 统计量是 \(\widehat{\gamma}/se(\widehat{\gamma})\)。</p>
 <p>在单位根原假设下，</p>
 <p>$$T(\widehat{\rho}-1) \Rightarrow \frac{\frac{1}{2}[W(1)^2-1]} {\int_0^1W(r)^2\,dr},$$</p>
 <p>而 t 统计量也收敛到 Brownian motion 泛函。二者都不能使用普通正态临界值。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="含常数项">含常数项</h3>
 <p>若备择模型允许非零均值，回归式为</p>
 <p>\(\Delta Y_t=\alpha+\gamma Y_{t-1}+\varepsilon_t\)。加入常数相当于在极限中对 Brownian motion 去均值，因此临界值与无常数项情形不同。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="含常数和趋势项">含常数和趋势项</h3>
 <p>若备择模型允许确定性线性趋势，回归式为</p>
 <p>\(\Delta Y_t=\alpha+\delta t+\gamma Y_{t-1}+\varepsilon_t\)。极限过程需要同时去除常数和线性趋势，临界值进一步变化。</p>
 <p>确定项必须依据数据生成过程选择。遗漏必要趋势会降低检验有效性；加入不必要趋势会损失检验功效。</p>
@@ -617,7 +617,7 @@
 <p>VAR\(p\) 的特征多项式为</p>
 <p>\(A(z)=I_K-A_1z-\cdots-A_pz^p\)。过程平稳的充分必要条件是</p>
 <p>\(\det A(z)=0\) 的所有根都位于单位圆外。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="伴随矩阵表示">伴随矩阵表示</h3>
 <p>定义状态向量 \(Z_t=(Y_t^\top,Y_{t-1}^\top,\ldots,Y_{t-p+1}^\top)^\top\)，则 VAR\(p\) 可写成 VAR\(1\)：</p>
 <p>$$Z_t = C+ \mathcal{A}Z_{t-1} +\eta_t, \qquad \mathcal{A}= \begin{pmatrix} A_1&A_2&\cdots&A_p\\ I&0&\cdots&0\\ 0&I&\cdots&0\\ \vdots&&\ddots&\vdots \end{pmatrix}.$$</p>
 <p>平稳性等价于伴随矩阵 \(\mathcal{A}\) 的全部特征值位于单位圆内。该表示便于推导预测、脉冲响应和长期矩。</p>
@@ -639,7 +639,7 @@
 <p>于是</p>
 <p>$$Y_t = \mu+ \sum_{j=0}^{\infty} \Psi_jP\varepsilon_{t-j}.$$</p>
 <p>正交化脉冲响应矩阵为 \(\Theta_j=\Psi_jP\)。\(\Theta_j(a,b)\) 表示第 b 个结构冲击上升一个标准差后，第 a 个变量在 j 期后的响应。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="cholesky-正交化">Cholesky 正交化</h3>
 <p>常见选择是令 P 为 \(\Sigma_u\) 的 Cholesky 下三角因子。这对应递归同期结构，但结果依赖变量排序：</p>
 <ul>
 <li>排在前面的变量可以同期影响后面的变量；</li>
@@ -695,7 +695,7 @@
 <p>令 \(Y_t=(Y_{1t},\ldots,Y_{Kt})^\top\)，各分量均为 \(I(d)\)。若存在非零向量 \(\beta\)，使 \(\beta^\top Y_t\sim I(d-b)\)，其中 \(b>0\)，则称 \(Y_t\) 协整，记为 \(Y_t\sim CI(d,b)\)。</p>
 <p>最常见的是 \(CI(1,1)\)：各变量为 I\(1\)，但 \(\beta^\top Y_t\) 为 I\(0\)。\(\beta\) 称为协整向量。</p>
 <p>协整向量只确定到比例；若存在 r 个线性独立的协整向量，则协整空间维度为 r。任意协整向量的非奇异线性组合仍位于同一协整空间。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="回归中的超相合性">回归中的超相合性</h3>
 <p>在简单协整回归 \(y_t=\beta x_t+u_t\) 中，若 \(x_t\) 为 I\(1\)、\(u_t\) 为 I\(0\)，OLS 对 \(\beta\) 的收敛速度通常是 T，而不是平稳回归中的 \(\sqrt{T}\)，称为超相合。</p>
 <p>但超相合不意味着普通 t 检验有效。误差与创新的相关性会产生非标准极限和有限样本偏误，需要使用修正方法或系统估计。</p>
 <h3 id="共同趋势与-ma-表示">共同趋势与 MA 表示</h3>
@@ -755,14 +755,14 @@
 <p>其中 \(D_t\) 包含常数、趋势、季节虚拟变量等确定项。</p>
 <p>对滞后差分和确定项分别从 \(\Delta Y_t\) 与 \(Y_{t-1}\) 中投影出去，得到残差协方差矩阵。广义特征值问题产生排序后的特征根</p>
 <p>\(\widehat{\lambda}_1\geq\cdots\geq\widehat{\lambda}_K\)。较大的特征根对应更强的平稳线性组合。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="trace-检验">Trace 检验</h3>
 <p>检验</p>
 <p>\(H_0:\operatorname{rank}(\Pi)\leq r\)</p>
 <p>对</p>
 <p>\(H_1:\operatorname{rank}(\Pi)=K\)，统计量为</p>
 <p>$$LR_{\mathrm{trace}}(r) = -T\sum_{i=r+1}^{K} \log(1-\widehat{\lambda}_i).$$</p>
 <p>通常从 \(r=0\) 开始顺序检验，直到首次不能拒绝，由此确定协整秩。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="最大特征根检验">最大特征根检验</h3>
 <p>检验</p>
 <p>\(H_0:\operatorname{rank}(\Pi)=r\)</p>
 <p>对</p>
@@ -811,17 +811,17 @@
 <p>$$X = F\Lambda^\top+E,$$</p>
 <p>其中 \(F_t\in\mathbb{R}^r\) 是共同因子，\(\lambda_i\) 是因子载荷，\(e_{it}\) 是个体特有成分。</p>
 <p>共同成分为 \(C_{it}=\lambda_i^\top F_t\)。因子解释跨变量的共同波动，特有成分解释单个变量的噪声和局部动态。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="旋转不可识别">旋转不可识别</h3>
 <p>对任意非奇异矩阵 H，</p>
 <p>$$F\Lambda^\top = (FH)(\Lambda H^{-\top})^\top.$$</p>
 <p>因此因子和载荷不能分别唯一识别，只能识别它们张成的空间和共同成分。常见归一化是 \(F^\top F/T=I_r\)，并令 \(\Lambda^\top\Lambda\) 为对角矩阵。</p>
 <h3 id="因子模型的类型">因子模型的类型</h3>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="精确因子模型">精确因子模型</h3>
 <p>精确因子模型假设特有成分在横截面上互不相关，且通常没有序列相关：</p>
 <p>\(\operatorname{Cov}(e_{it},e_{jt})=0\)（\(i\neq j\)）。经典套利定价理论中的因子模型常采用这一设定。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="近似因子模型">近似因子模型</h3>
 <p>近似因子模型允许特有成分存在有限的横截面和时间依赖，但要求这种依赖足够弱，不能形成新的强共同因子。大 N、大 T 宏观因子模型通常采用这一框架。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="广义因子模型">广义因子模型</h3>
 <p>广义因子模型进一步允许特有成分具有更一般的动态和横截面依赖，并从频域或动态共同成分角度定义因子。</p>
 <h3 id="精确因子模型的似然估计">精确因子模型的似然估计</h3>
 <p>假设 \(F_t\sim\mathcal{N}(0,I_r)\)、\(e_t\sim\mathcal{N}(0,\Psi)\)，且 \(\Psi\) 为对角矩阵，则</p>
@@ -830,12 +830,12 @@
 <p>\(\Sigma_X=\Lambda\Lambda^\top+\Psi\)。直接最大化在 N 较大时困难，可以把因子视为缺失数据，使用 EM 算法。</p>
 <h3 id="em-算法">EM 算法</h3>
 <p>完整数据对数似然把 \(X_t\mid F_t\) 和 \(F_t\) 分开。EM 在以下两步间迭代。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="e-步">E 步</h3>
 <p>给定当前参数，计算因子的条件矩：</p>
 <p>$$\begin{aligned} \mathbb{E}(F_t\mid X_t) &= \Lambda^\top (\Lambda\Lambda^\top+\Psi)^{-1}X_t,\\ \operatorname{Var}(F_t\mid X_t) &= I_r- \Lambda^\top (\Lambda\Lambda^\top+\Psi)^{-1}\Lambda. \end{aligned}$$</p>
 <p>还需要</p>
 <p>\(\mathbb{E}(F_tF_t^\top\mid X_t)\)，它等于条件方差加条件均值外积。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="m-步">M 步</h3>
 <p>把 E 步中的条件矩代入完整数据似然，分别更新载荷和特有方差。载荷更新相当于用因子的条件期望解释每个变量；\(\Psi\) 更新为扣除共同成分后的平均残差平方。</p>
 <p>每次迭代都不会降低观测数据似然，但 EM 可能收敛到局部极值，因此应检查初始值和收敛结果。</p>
 <h3 id="大维近似因子模型">大维近似因子模型</h3>
@@ -843,7 +843,7 @@
 <p>$$(\widehat{F},\widehat{\Lambda}) = \arg\min_{F,\Lambda} \frac{1}{NT} \sum_{i=1}^{N} \sum_{t=1}^{T} (X_{it}-\lambda_i^\top F_t)^2,$$</p>
 <p>并施加 \(F^\top F/T=I_r\)。</p>
 <p>给定 F，载荷估计为 \(\widehat{\Lambda}=X^\top F/T\)。代回目标函数后，\(\widehat{F}\) 是 \(XX^\top\) 最大的 r 个特征值对应的特征向量；等价地，可从 \(X^\top X\) 提取载荷空间。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="一致性的直觉">一致性的直觉</h3>
 <p>当 N 增加时，大量横截面变量帮助平均掉特有噪声；当 T 增加时，因子载荷估计更准确。典型大样本理论让 N、T 同时趋于无穷。</p>
 <p>主要条件包括：</p>
 <ul>
@@ -908,18 +908,18 @@
 <p>状态 \(s_t\) 不可直接观测，\(X_t\) 是带测量误差的观测。DFM 可把因子及其滞后放入状态向量，从而使用 Kalman 滤波递推估计。</p>
 <h3 id="kalman-滤波">Kalman 滤波</h3>
 <p>设基于 \(I_{t-1}\) 的状态预测为 \(s_{t|t-1}\)，预测误差协方差为 \(P_{t|t-1}\)。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="预测步骤">预测步骤</h3>
 <p>$$\begin{aligned} s_{t|t-1}&=As_{t-1|t-1},\\ P_{t|t-1}&=AP_{t-1|t-1}A^\top+BQB^\top. \end{aligned}$$</p>
 <p>观测预测和创新为</p>
 <p>\(\widehat{X}_{t|t-1}=Cs_{t|t-1}\)、</p>
 <p>\(v_t=X_t-Cs_{t|t-1}\)，创新协方差为</p>
 <p>\(F_t=CP_{t|t-1}C^\top+R\)。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="更新步骤">更新步骤</h3>
 <p>Kalman gain 为</p>
 <p>\(K_t=P_{t|t-1}C^\top F_t^{-1}\)。观察到 \(X_t\) 后，</p>
 <p>$$\begin{aligned} s_{t|t}&=s_{t|t-1}+K_tv_t,\\ P_{t|t}&=P_{t|t-1}-K_tCP_{t|t-1}. \end{aligned}$$</p>
 <p>Kalman gain 在先验状态信息和新观测之间进行最优权衡。测量噪声越大，更新越依赖预测；状态不确定性越大，更新越依赖新数据。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="似然函数">似然函数</h3>
 <p>预测创新提供 Gaussian 对数似然：</p>
 <p>$$\ell(\theta) = -\frac{1}{2} \sum_{t=1}^{T} \left[ \log|F_t| +v_t^\top F_t^{-1}v_t \right] +\text{constant}.$$</p>
 <p>因此可以对载荷、转移矩阵和噪声协方差进行最大似然估计。</p>
@@ -976,7 +976,7 @@
 <p>$$h_t = \alpha_0+ \alpha_1u_{t-1}^2+\cdots+ \alpha_pu_{t-p}^2,$$</p>
 <p>其中通常要求 \(\alpha_0>0\)、\(\alpha_i\geq0\)，以保证条件方差非负。</p>
 <p>过去冲击的符号不重要，大小通过平方进入未来波动。ARCH 把条件异方差转化为平方残差的自回归结构。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="二阶平稳性">二阶平稳性</h3>
 <p>由于 \(\mathbb{E}(u_t^2\mid\mathcal{F}_{t-1})=h_t\)，无条件方差满足</p>
 <p>$$\mathbb{E}(u_t^2) = \alpha_0+ \left(\sum_{i=1}^{p}\alpha_i\right) \mathbb{E}(u_t^2).$$</p>
 <p>若 \(\sum_{i=1}^{p}\alpha_i<1\)，则</p>
@@ -1002,7 +1002,7 @@
 <p>$$h_t = \alpha_0 +\sum_{i=1}^{q}\alpha_i u_{t-i}^2 +\sum_{j=1}^{p}\beta_j h_{t-j}.$$</p>
 <p>最常用的 GARCH\(1,1\) 为</p>
 <p>\(h_t=\alpha_0+\alpha_1u_{t-1}^2+\beta_1h_{t-1}\)。它用少量参数近似高阶 ARCH，能够描述缓慢衰减的波动持续性。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="平稳性与长期方差">平稳性与长期方差</h3>
 <p>在基本 GARCH\(1,1\) 条件下，二阶平稳通常要求</p>
 <p>\(\alpha_1+\beta_1<1\)。无条件方差为</p>
 <p>\(\bar{h}=\alpha_0/(1-\alpha_1-\beta_1)\)。</p>
@@ -1010,24 +1010,24 @@
 <p>\(h_t-\bar{h}=(\alpha_1+\beta_1)(h_{t-1}-\bar{h})+\alpha_1(u_{t-1}^2-h_{t-1})\)。</p>
 <p>\(\alpha_1+\beta_1\) 越接近 1，波动冲击衰减越慢。半衰期可近似为</p>
 <p>\(\log(1/2)/\log(\alpha_1+\beta_1)\)。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="平方过程的-arma-表示">平方过程的 ARMA 表示</h3>
 <p>令 \(v_t=u_t^2-h_t\)，则 GARCH\(1,1\) 可改写为</p>
 <p>$$u_t^2 = \alpha_0+ (\alpha_1+\beta_1)u_{t-1}^2 +v_t-\beta_1v_{t-1}.$$</p>
 <p>因此平方收益率具有 ARMA\(1,1\) 型结构，这解释了平方收益的持续相关。</p>
 <h3 id="garch-扩展">GARCH 扩展</h3>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="igarch">IGARCH</h3>
 <p>当 \(\alpha_1+\beta_1=1\) 时得到 IGARCH。条件方差中的冲击不按通常方式均值回复，无条件方差公式失效。高持续性的有限样本 GARCH 也可能被误判为 IGARCH。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="egarch">EGARCH</h3>
 <p>EGARCH 直接建模对数方差：</p>
 <p>$$\log h_t = \omega+\beta\log h_{t-1} +\alpha(|\varepsilon_{t-1}|-\mathbb{E}|\varepsilon|) +\gamma\varepsilon_{t-1}.$$</p>
 <p>因为建模 \(\log h_t\)，无需非负系数约束。参数 \(\gamma\) 捕捉不对称效应；金融数据中负收益常比同幅度正收益引起更大波动。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="tgarch">TGARCH</h3>
 <p>阈值 GARCH 可写成</p>
 <p>\(h_t=\omega+\alpha u_{t-1}^2+\gamma u_{t-1}^2I(u_{t-1}<0)+\beta h_{t-1}\)。负冲击的总影响为 \(\alpha+\gamma\)，正冲击影响为 \(\alpha\)。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="garch-m">GARCH-M</h3>
 <p>GARCH-in-Mean 把风险放入条件均值，例如</p>
 <p>\(y_t=\mu+\lambda h_t+u_t\) 或 \(y_t=\mu+\lambda\sqrt{h_t}+u_t\)，用于检验预期收益是否随条件风险变化。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="figarch">FIGARCH</h3>
 <p>FIGARCH 对平方过程引入分数差分，使波动自相关以双曲速度衰减，用于描述长记忆。其冲击持续性介于平稳 GARCH 和 IGARCH 之间，但无条件矩与参数解释需要谨慎。</p>
 <h3 id="波动预测">波动预测</h3>
 <p>GARCH\(1,1\) 的一步预测为</p>
@@ -1038,15 +1038,15 @@
 <h3 id="多变量-garch">多变量 GARCH</h3>
 <p>令 \(u_t\) 为 K 维收益创新，条件协方差矩阵为</p>
 <p>\(H_t=\mathbb{E}(u_tu_t^\top\mid\mathcal{F}_{t-1})\)。模型必须保证 H 对称正定，同时避免参数数量过快增长。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="vech-模型">VECH 模型</h3>
 <p>一般 VECH 模型对 \(H_t\) 的下三角元素建模：</p>
 <p>\(vech(H_t)=c+A\,vech(u_{t-1}u_{t-1}^\top)+B\,vech(H_{t-1})\)。</p>
 <p>完全 VECH 参数很多，且正定性约束复杂。对角 VECH 减少参数，但限制了波动之间的传递。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="bekk-模型">BEKK 模型</h3>
 <p>BEKK\(1,1\) 写成</p>
 <p>$$H_t = CC^\top +A^\top u_{t-1}u_{t-1}^\top A +B^\top H_{t-1}B.$$</p>
 <p>该参数化天然保证半正定；若 C 满秩则通常保证正定。代价是参数仍可能较多，解释也不如单变量 GARCH 直接。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="dcc-模型">DCC 模型</h3>
 <p>动态条件相关（DCC）把协方差分解为</p>
 <p>\(H_t=D_tR_tD_t\)，其中 D 包含单变量条件标准差，R 是动态相关矩阵。</p>
 <p>先分别估计每个序列的单变量 GARCH，得到标准化残差，再用</p>
@@ -1072,14 +1072,14 @@
 <p>\(Q_{Y\mid X}(\theta\mid x)=\inf\{y:F_{Y\mid X}(y\mid x)\geq\theta\}\)。</p>
 <p>样本分位数是经验分布函数的反函数。分位数对极端值比均值更稳健，但尾部分位数有效样本较少，估计不确定性更大。</p>
 <h3 id="金融风险应用">金融风险应用</h3>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="value-at-risk">Value at Risk</h3>
 <p>对损益变量 \(R_{t+1}\)，条件 VaR 本质上是尾部分位数。例如损失记为 \(L=-R\) 时，置信水平 \(1-\theta\) 的 VaR 可写成 \(VaR_{1-\theta,t}=Q_{L_{t+1}\mid\mathcal{F}_t}(1-\theta)\)。</p>
 <p>VaR 给出超过某一损失阈值的概率，但不描述超过阈值后的损失大小。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="expected-shortfall">Expected Shortfall</h3>
 <p>Expected Shortfall（ES）是超过 VaR 后的平均损失：</p>
 <p>\(ES_{1-\theta,t}=\mathbb{E}[L_{t+1}\mid L_{t+1}\geq VaR_{1-\theta,t},\mathcal{F}_t]\)。</p>
 <p>ES 能反映尾部严重程度，并具有更好的风险聚合性质。单独的分位数回归直接估计 VaR；ES 通常需要进一步建模尾部条件均值或联合估计 VaR 与 ES。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="caviar">CAViaR</h3>
 <p>条件自回归 VaR（CAViaR）直接给尾部分位数设定动态：</p>
 <p>\(q_t(\theta)=g(q_{t-1}(\theta),R_{t-1},\beta_\theta)\)。</p>
 <p>常见形式包括自适应模型、对称绝对值模型和非对称斜率模型。参数通过最小化分位数损失估计，无需先完整指定收益率分布。</p>
@@ -1098,7 +1098,7 @@
 <p>与 OLS 不同，分位数回归不要求误差同方差或正态。不同 \(\theta\) 下的系数可以不同，从而揭示解释变量对条件分布不同位置的作用。</p>
 <p>一阶条件可写成次梯度矩条件：</p>
 <p>\(n^{-1}\sum_iX_i[\theta-I(Y_i-X_i^\top\widehat{\beta}_\theta<0)]\approx0\)。因此分位数回归也可视为非光滑 GMM。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="似然解释">似然解释</h3>
 <p>非对称 Laplace 分布的负对数似然与 check 损失成比例，因此分位数回归点估计可以解释为非对称 Laplace 伪 MLE。但稳健推断不能简单依赖该工作似然的 Hessian，仍需使用分位数回归的夹心协方差。</p>
 <h3 id="ar-模型的分位数回归">AR 模型的分位数回归</h3>
 <p>分位数自回归可写成</p>
@@ -1129,12 +1129,12 @@
 </ul>
 <p>带宽过小导致密度估计方差大，带宽过大产生平滑偏误，最终会直接影响标准误。</p>
 <h3 id="bootstrap-方法">Bootstrap 方法</h3>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="成对或设计矩阵-bootstrap">成对或设计矩阵 Bootstrap</h3>
 <p>从经验分布中有放回抽取 \((Y_i,X_i)\) 对，每次重新估计分位数回归。它保留 X 的随机性和异方差结构，适合独立随机设计。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="误差-bootstrap">误差 Bootstrap</h3>
 <p>先估计残差分布，再生成</p>
 <p>\(Y_i^*=X_i^\top\widehat{\beta}_\theta+u_i^*\)。简单残差重抽样通常依赖误差与 X 独立或同分布的较强假设，异方差下可能失效。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="时间序列与加权-bootstrap">时间序列与加权 Bootstrap</h3>
 <p>存在序列相关时应使用 block bootstrap 或适合分位数得分的自助法。也可对目标函数赋随机权重。无论采用哪种方法，都必须在每个重复样本中完整重估模型。</p>
 <h3 id="删失分位数回归">删失分位数回归</h3>
 <p>若潜变量 \(Y_i^*=X_i^\top\beta_\theta+u_i\)，实际观察为</p>
@@ -1183,7 +1183,7 @@
 <p>$$\widehat{f}_h(x) = \frac{1}{nh} \sum_{i=1}^{n} K\left(\frac{X_i-x}{h}\right),$$</p>
 <p>其中 K 是核函数，h 是带宽。</p>
 <p>每个观测在自身附近放置一个缩放后的核，最终密度是这些局部密度的平均。核决定局部形状，带宽决定平滑程度。</p>
-<h3 id="常用核函数">常用核函数</h3>
+<h3 id="常用核函数-2">常用核函数</h3>
 <p>核通常满足 \(K(u)\geq0\)、\(\int K(u)\,du=1\)、对称且二阶矩有限。</p>
 <p>常见选择包括：</p>
 <ul>
@@ -1205,7 +1205,7 @@
 <p>\(\mu_2(K)=\int u^2K(u)\,du\)、\(R(K)=\int K(u)^2\,du\)，则</p>
 <p>$$\begin{aligned} \operatorname{Bias}[\widehat{f}_h(x)] &= \frac{h^2}{2}\mu_2(K)f''(x)+o(h^2),\\ \operatorname{Var}[\widehat{f}_h(x)] &= \frac{1}{nh}R(K)f(x) +o\left(\frac{1}{nh}\right). \end{aligned}$$</p>
 <p>减小 h 会降低平滑偏差但提高方差；增大 h 会使曲线更平滑但掩盖真实结构。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="最优收敛速度">最优收敛速度</h3>
 <p>一维 MSE 的主导项是 \(O(h^4)+O((nh)^{-1})\)。平衡二者得到</p>
 <p>\(h\asymp n^{-1/5}\)、\(MSE\asymp n^{-4/5}\)，估计误差速度为 \(n^{-2/5}\)，慢于参数估计的 \(n^{-1/2}\)。</p>
 <p>d 维二阶光滑情形下，最优带宽约为 \(n^{-1/(d+4)}\)，MSE 约为 \(n^{-4/(d+4)}\)。维度越高，局部邻域中的有效观测越少，这就是维度灾难。</p>
@@ -1215,16 +1215,16 @@
 <p>若希望以 f\(x\) 为中心进行推断，需要显式估计偏差、使用高阶偏差修正核，或选择更小带宽使</p>
 <p>\(\sqrt{nh}\,h^2\to0\)。后一方法称为 undersmoothing。</p>
 <h3 id="带宽选择">带宽选择</h3>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="主观选择">主观选择</h3>
 <p>绘制多个带宽下的密度曲线，结合领域知识选择合理平滑程度。该方法直观，但缺乏可重复性。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="plug-in-方法">Plug-in 方法</h3>
 <p>渐近积分均方误差为</p>
 <p>$$AMISE(h) = \frac{R(K)}{nh} + \frac{h^4}{4} \mu_2(K)^2 \int[f''(x)]^2\,dx.$$</p>
 <p>最优带宽依赖未知密度曲率，plug-in 方法先用参考分布或初步估计代入。</p>
 <p>Gaussian 核与正态参考分布下，Silverman rule 为</p>
 <p>\(h=1.06\,s\,n^{-1/5}\)。稳健版本为</p>
 <p>\(h=0.9\min(s,IQR/1.34)n^{-1/5}\)，可减少异常值导致的过度平滑。</p>
-<p>&lt;!-- Unsupported Notion block: heading_4 --&gt;</p>
+<h3 id="最小二乘交叉验证">最小二乘交叉验证</h3>
 <p>积分平方误差去掉与 h 无关的项后，可用 leave-one-out 构造</p>
 <p>$$CV(h) = \int\widehat{f}_h(x)^2\,dx - \frac{2}{n} \sum_{i=1}^{n} \widehat{f}_{-i,h}(X_i).$$</p>
 <p>选择使 CV 最小的带宽。该目标可能存在多个局部极小值，并有偏向 undersmoothing 的倾向，因此应检查搜索区间和曲线形状。</p>
