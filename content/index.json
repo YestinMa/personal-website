@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-19T10:18:08.467Z",
+  "generatedAt": "2026-07-20T00:49:21.696Z",
   "blog": [
     {
       "title": "基于蒙特卡洛和FFT方法的FCN定价分析",
@@ -49,6 +49,21 @@
       "status": "Published",
       "notionPageId": "38adb726-82a8-8016-b405-eeb42f6570f1",
       "href": "notes/最优化方法-cheatsheet.html",
+      "kind": "notes"
+    },
+    {
+      "title": "时间序列分析 STUDYNOTE",
+      "slug": "时间序列分析-studynote",
+      "date": "2025-09-01",
+      "lastEditedTime": "2026-07-19T17:06:00.000Z",
+      "category": "study",
+      "tags": [
+        "study",
+        "notes"
+      ],
+      "status": "Published",
+      "notionPageId": "3a2db726-82a8-816e-9340-e41e18511485",
+      "href": "notes/时间序列分析-studynote.html",
       "kind": "notes"
     },
     {
