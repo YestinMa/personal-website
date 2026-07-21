@@ -53,9 +53,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (document.querySelector('link[data-desktop-pet-style]')) return;
     const petStyles = document.createElement("link");
     petStyles.rel = "stylesheet";
-    petStyles.href = new URL("css/desktop-pet.css?v=1.8.4", siteRoot).href;
+    petStyles.href = new URL("css/desktop-pet.css?v=1.8.5", siteRoot).href;
     petStyles.dataset.desktopPetStyle = "true";
-    const petModuleUrl = new URL("js/desktop-pet.js?v=1.8.4", siteRoot).href;
+    const petModuleUrl = new URL("js/desktop-pet.js?v=1.8.5", siteRoot).href;
     // 样式就绪后再加载组件，避免慢速网络下未应用 CSS 的桌宠短暂闪现。
     petStyles.addEventListener("load", () => {
       void import(petModuleUrl).catch((error) => console.error(`桌宠模块加载失败：${petModuleUrl}`, error));

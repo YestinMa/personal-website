@@ -148,7 +148,7 @@ var SpriteTransitionController = class {
 };
 
 // ../src/components/DesktopPet/petAssets.ts
-var petAssetVersion = "1.8.4";
+var petAssetVersion = "1.8.5";
 var petAsset = (fileName) => new URL(`../images/pet/${fileName}?v=${petAssetVersion}`, import.meta.url).href;
 var petSprite = (fileName, fps, loop = true, offsetY = 0) => ({
   src: petAsset(fileName),
@@ -176,7 +176,7 @@ var petSprites = {
     visualScale: 0.95
   },
   returnBed: petSprite("shiba-walk-v2.png", 8, true, 0),
-  enterBed: petSprite("shiba-wake.png", 4, false),
+  enterBed: petSprite("shiba-enter.png", 4, false),
   // 窝外互动立即进入与 floorRest 相同尺寸的趴姿，避免原地踏步和旧互动帧尾巴串层。
   react: {
     ...petSprite("shiba-idle.png", 2.4),
