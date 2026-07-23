@@ -15751,6 +15751,24 @@
       "cum_ic_1": 6.80677183802133,
       "cum_ic_5": null,
       "cum_ic_22": null
+    },
+    {
+      "trade_date": "2026-07-21",
+      "ic_1": null,
+      "ic_5": null,
+      "ic_22": null,
+      "cum_ic_1": null,
+      "cum_ic_5": null,
+      "cum_ic_22": null
+    },
+    {
+      "trade_date": "2026-07-22",
+      "ic_1": null,
+      "ic_5": null,
+      "ic_22": null,
+      "cum_ic_1": null,
+      "cum_ic_5": null,
+      "cum_ic_22": null
     }
   ]
 }
