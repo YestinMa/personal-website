@@ -1,29 +1,29 @@
 {
-  "latest_trade_date": "2026-07-23",
-  "market_latest_trade_date": "2026-07-23",
-  "latest_factor_date": "2026-07-23",
+  "latest_trade_date": "2026-07-25",
+  "market_latest_trade_date": "2026-07-24",
+  "latest_factor_date": "2026-07-24",
   "status_counts": {
     "active": 1,
     "candidate": 23,
     "draft": 110
   },
   "latest_job": {
-    "run_id": "20260723-161543-factor-daily",
-    "job_date": "2026-07-23",
+    "run_id": "20260725-153830-factor-daily",
+    "job_date": "2026-07-24",
     "status": "partial_success",
     "factor_count": 24,
-    "success_factor_count": 20,
+    "success_factor_count": 16,
     "failed_factor_count": 1,
-    "skipped_factor_count": 3,
-    "rows_written": 196633,
-    "field_values_written": 196633,
+    "skipped_factor_count": 7,
+    "rows_written": 77570,
+    "field_values_written": 77570,
     "mode": "daily",
     "with_etl": false,
     "factor_scope": [
       "active",
       "candidate"
     ],
-    "started_at": "2026-07-23 16:15:43",
-    "ended_at": "2026-07-23 17:05:03"
+    "started_at": "2026-07-25 15:38:30",
+    "ended_at": "2026-07-25 15:53:29"
   }
 }
