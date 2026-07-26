@@ -3,7 +3,7 @@ title: "机器学习的数学原理（I） STUDYNOTE"
 slug: "机器学习的数学原理-i-studynote"
 date: "2025-08-31"
 lastEditedTime: "2026-07-19T08:03:00.000Z"
-renderVersion: "5"
+renderVersion: "6"
 category: "study"
 tags: ["study","notes"]
 status: "Published"

@@ -2,8 +2,8 @@
 title: "时间序列分析 STUDYNOTE"
 slug: "时间序列分析-studynote"
 date: "2025-09-01"
-lastEditedTime: "2026-07-20T01:05:00.000Z"
-renderVersion: "5"
+lastEditedTime: "2026-07-25T07:39:00.000Z"
+renderVersion: "6"
 category: "study"
 tags: ["study","notes"]
 status: "Published"
@@ -26,13 +26,13 @@ notionPageId: "3a2db726-82a8-816e-9340-e41e18511485"
 
 ### 自回归模型
 
-一阶自回归模型 AR\(1\) 为 \(X_t=\mu+\phi X_{t-1}+\varepsilon_t\)。它用上一期的观测解释当前值。当 \(|\phi|<1\) 时，冲击的影响会逐期衰减，过程可以保持平稳。
+一阶自回归模型 AR(1) 为 \(X_t=\mu+\phi X_{t-1}+\varepsilon_t\)。它用上一期的观测解释当前值。当 \(|\phi|<1\) 时，冲击的影响会逐期衰减，过程可以保持平稳。
 
-一般的 AR\(p\) 模型为 \(X_t=\mu+\phi_1X_{t-1}+\phi_2X_{t-2}+\cdots+\phi_pX_{t-p}+\varepsilon_t\)。
+一般的 AR(p) 模型为 \(X_t=\mu+\phi_1X_{t-1}+\phi_2X_{t-2}+\cdots+\phi_pX_{t-p}+\varepsilon_t\)。
 
 ### 移动平均模型
 
-MA\(q\) 模型用当前和过去的随机冲击解释当前值：
+MA(q) 模型用当前和过去的随机冲击解释当前值：
 
 \(X_t=\mu+\varepsilon_t+\theta_1\varepsilon_{t-1}+\cdots+\theta_q\varepsilon_{t-q}\)。
 
@@ -40,7 +40,7 @@ MA\(q\) 模型用当前和过去的随机冲击解释当前值：
 
 ### ARMA 模型
 
-ARMA\(p,q\) 同时包含自回归项和移动平均项：
+ARMA(p,q) 同时包含自回归项和移动平均项：
 
 \(X_t=\mu+\sum_{i=1}^{p}\phi_iX_{t-i}+\varepsilon_t+\sum_{j=1}^{q}\theta_j\varepsilon_{t-j}\)。
 
@@ -50,16 +50,16 @@ AR 部分描述变量自身的动态延续，MA 部分描述随机冲击在若�
 
 定义滞后算子 \(LX_t=X_{t-1}\) 和 \(L^kX_t=X_{t-k}\)。进一步定义 AR 多项式 \(\phi(L)=1-\phi_1L-\phi_2L^2-\cdots-\phi_pL^p\)，以及 MA 多项式 \(\theta(L)=1+\theta_1L+\theta_2L^2+\cdots+\theta_qL^q\)。
 
-于是 ARMA\(p,q\) 可以紧凑地写成 \(\phi(L)X_t=\mu+\theta(L)\varepsilon_t\)。
+于是 ARMA(p,q) 可以紧凑地写成 \(\phi(L)X_t=\mu+\theta(L)\varepsilon_t\)。
 
-以 AR\(1\) 为例，\((1-\phi L)X_t=\mu+\varepsilon_t\)。当 \(|\phi|<1\) 时，
+以 AR(1) 为例，\((1-\phi L)X_t=\mu+\varepsilon_t\)。当 \(|\phi|<1\) 时，
 
 $$\begin{aligned}
 (1-\phi L)^{-1}&=\sum_{k=0}^{\infty}\phi^kL^k,\\
 X_t&=\frac{\mu}{1-\phi}+\sum_{k=0}^{\infty}\phi^k\varepsilon_{t-k}.
 \end{aligned}$$
 
-这说明平稳 AR\(1\) 可以表示为 MA\(∞\)：当前值是过去所有冲击的加权和，而且权重按照几何速度衰减。
+这说明平稳 AR(1) 可以表示为 MA(∞)：当前值是过去所有冲击的加权和，而且权重按照几何速度衰减。
 
 ### 平稳性与相关结构
 
@@ -88,9 +88,9 @@ X_t&=\frac{\mu}{1-\phi}+\sum_{k=0}^{\infty}\phi^k\varepsilon_{t-k}.
 
 ### AR 模型的自协方差与平稳条件
 
-### AR\(1\) 的矩
+### AR(1) 的矩
 
-考虑零均值 AR\(1\)：\(X_t=\phi X_{t-1}+\varepsilon_t\)，其中 \(|\phi|<1\)。利用 MA\(∞\) 表示，\(X_t=\sum_{j=0}^{\infty}\phi^j\varepsilon_{t-j}\)，可以得到
+考虑零均值 AR(1)：\(X_t=\phi X_{t-1}+\varepsilon_t\)，其中 \(|\phi|<1\)。利用 MA(∞) 表示，\(X_t=\sum_{j=0}^{\infty}\phi^j\varepsilon_{t-j}\)，可以得到
 
 $$\begin{aligned}
 \gamma(0)
@@ -100,11 +100,11 @@ $$\begin{aligned}
 \rho(k)&=\phi^{|k|}.
 \end{aligned}$$
 
-所以 AR\(1\) 的 ACF 不截尾，而是按照几何速度拖尾。当参数为负时，ACF 会正负交替地衰减。
+所以 AR(1) 的 ACF 不截尾，而是按照几何速度拖尾。当参数为负时，ACF 会正负交替地衰减。
 
 ### Yule\-Walker 方程
 
-对零均值 AR\(p\) 模型 \(X_t=\sum_{j=1}^{p}\phi_jX_{t-j}+\varepsilon_t\)，两边分别乘以滞后变量并取期望，可得
+对零均值 AR(p) 模型 \(X_t=\sum_{j=1}^{p}\phi_jX_{t-j}+\varepsilon_t\)，两边分别乘以滞后变量并取期望，可得
 
 $$\begin{aligned}
 \gamma(0)&=\sum_{j=1}^{p}\phi_j\gamma(j)+\sigma_\varepsilon^2,\\
@@ -112,15 +112,15 @@ $$\begin{aligned}
 \rho(k)&=\sum_{j=1}^{p}\phi_j\rho(k-j),\qquad k\geq1.
 \end{aligned}$$
 
-因此 AR\(p\) 的 ACF 由一个 p 阶齐次差分方程决定，一般表现为指数衰减或阻尼振荡。
+因此 AR(p) 的 ACF 由一个 p 阶齐次差分方程决定，一般表现为指数衰减或阻尼振荡。
 
 ### 特征根与平稳性
 
-AR 多项式为 \(\phi(z)=1-\phi_1z-\phi_2z^2-\cdots-\phi_pz^p\)。AR\(p\) 平稳的充分必要条件是方程 \(\phi(z)=0\) 的所有根都位于单位圆外，即 \(|z_i|>1\)。
+AR 多项式为 \(\phi(z)=1-\phi_1z-\phi_2z^2-\cdots-\phi_pz^p\)。AR(p) 平稳的充分必要条件是方程 \(\phi(z)=0\) 的所有根都位于单位圆外，即 \(|z_i|>1\)。
 
-等价地，如果 \(\phi(L)=\prod_{i=1}^{p}(1-\lambda_iL)\)，则要求 \(|\lambda_i|<1\)。对 ARMA\(p,q\) 而言，平稳性完全由 AR 多项式决定，因为有限阶 MA 部分天然平稳。
+等价地，如果 \(\phi(L)=\prod_{i=1}^{p}(1-\lambda_iL)\)，则要求 \(|\lambda_i|<1\)。对 ARMA(p,q) 而言，平稳性完全由 AR 多项式决定，因为有限阶 MA 部分天然平稳。
 
-### AR\(2\) 示例
+### AR(2) 示例
 
 考虑 \(X_t=X_{t-1}-\frac{1}{2}X_{t-2}+\varepsilon_t\)。特征方程为 \(1-z+\frac{1}{2}z^2=0\)，两个根是 \(z_1=1+i\) 和 \(z_2=1-i\)。它们的模均为 \(\sqrt{2}>1\)，所以过程平稳。
 
@@ -136,7 +136,7 @@ $$\rho(k)=\left(\frac{1}{\sqrt{2}}\right)^k
 
 ### MA 与 ARMA 模型的协方差结构
 
-令 \(\theta_0=1\)。对 MA\(q\) 模型 \(X_t=\sum_{j=0}^{q}\theta_j\varepsilon_{t-j}\)，其自协方差为
+令 \(\theta_0=1\)。对 MA(q) 模型 \(X_t=\sum_{j=0}^{q}\theta_j\varepsilon_{t-j}\)，其自协方差为
 
 $$\gamma(k)=
 \begin{cases}
@@ -145,9 +145,9 @@ $$\gamma(k)=
 0,&k>q.
 \end{cases}$$
 
-所以 MA\(q\) 的 ACF 在 q 阶后截尾。任何有限阶 MA 过程都是协方差平稳的。
+所以 MA(q) 的 ACF 在 q 阶后截尾。任何有限阶 MA 过程都是协方差平稳的。
 
-### MA\(∞\)
+### MA(∞)
 
 一般线性过程可以写成 \(X_t=\mu+\sum_{j=0}^{\infty}\psi_j\varepsilon_{t-j}\)。常用的收敛条件有平方可和 \(\sum_{j=0}^{\infty}\psi_j^2<\infty\)，以及更强的绝对可和 \(\sum_{j=0}^{\infty}|\psi_j|<\infty\)。
 
@@ -163,13 +163,13 @@ $$\begin{aligned}
 
 ### ARMA 的 ACF
 
-ARMA\(p,q\) 在前 q 阶的自协方差同时受到 AR 和 MA 参数影响；当 \(k>q\) 时，自协方差满足 AR 部分决定的递推式 \(\gamma(k)=\sum_{j=1}^{p}\phi_j\gamma(k-j)\)。
+ARMA(p,q) 在前 q 阶的自协方差同时受到 AR 和 MA 参数影响；当 \(k>q\) 时，自协方差满足 AR 部分决定的递推式 \(\gamma(k)=\sum_{j=1}^{p}\phi_j\gamma(k-j)\)。
 
 因此：
 
-- AR\(p\)：ACF 拖尾，PACF 在 p 阶后截尾；
-- MA\(q\)：ACF 在 q 阶后截尾，PACF 拖尾；
-- ARMA\(p,q\)：ACF 与 PACF 通常都拖尾。
+- AR(p)：ACF 拖尾，PACF 在 p 阶后截尾；
+- MA(q)：ACF 在 q 阶后截尾，PACF 拖尾；
+- ARMA(p,q)：ACF 与 PACF 通常都拖尾。
 这组规律是 Box\-Jenkins 模型识别的基础，但有限样本中的样本相关函数不会严格等于零，因此不能机械地只看某一个柱状图。
 
 ### 非平稳过程、ARIMA 与长记忆
@@ -182,13 +182,13 @@ ARMA\(p,q\) 在前 q 阶的自协方差同时受到 AR 和 MA 参数影响；当
 
 ### ARIMA 模型
 
-若经过 d 次差分后成为 ARMA\(p,q\)，则原过程服从 ARIMA\(p,d,q\)：
+若经过 d 次差分后成为 ARMA(p,q)，则原过程服从 ARIMA(p,d,q)：
 
 \(\phi(L)(1-L)^dX_t=\theta(L)\varepsilon_t\)。
 
 其中 d 表示为了获得平稳性所需的差分次数。差分不足会保留随机趋势；差分过度则会放大噪声并引入不必要的负相关。
 
-例如，若 \(X_t=X_{t-1}+u_t\) 且 \(u_t=\phi u_{t-1}+\varepsilon_t\)，则可以合并为 \((1-\phi L)(1-L)X_t=\varepsilon_t\)，因此它是 ARIMA\(1,1,0\)。
+例如，若 \(X_t=X_{t-1}+u_t\) 且 \(u_t=\phi u_{t-1}+\varepsilon_t\)，则可以合并为 \((1-\phi L)(1-L)X_t=\varepsilon_t\)，因此它是 ARIMA(1,1,0)。
 
 ### ARFIMA 与长记忆
 
@@ -212,11 +212,11 @@ $$(1-L)^d
 
 ### MA 模型的可逆性
 
-以 MA\(1\) 为例，\(X_t=\varepsilon_t+\theta\varepsilon_{t-1}\)。若 \(|\theta|<1\)，则
+以 MA(1) 为例，\(X_t=\varepsilon_t+\theta\varepsilon_{t-1}\)。若 \(|\theta|<1\)，则
 
 \(\varepsilon_t=(1+\theta L)^{-1}X_t=X_t-\theta X_{t-1}+\theta^2X_{t-2}-\cdots\)。
 
-一般 MA\(q\) 可逆的充分必要条件是 \(\theta(z)=1+\theta_1z+\cdots+\theta_qz^q=0\) 的所有根都位于单位圆外。
+一般 MA(q) 可逆的充分必要条件是 \(\theta(z)=1+\theta_1z+\cdots+\theta_qz^q=0\) 的所有根都位于单位圆外。
 
 平稳性约束 AR 部分，可逆性约束 MA 部分。可逆性保证冲击可以由当前与过去的观测唯一恢复，也解决了不同 MA 参数可能产生相同自协方差结构的问题。
 
@@ -230,11 +230,11 @@ $$(1-L)^d
 
 不同模型的响应形态如下：
 
-- MA\(q\)：冲击在 q 期后完全消失；
-- 平稳 AR\(1\)：响应为几何衰减；
-- 平稳 AR\(2\)：可能出现几何衰减或阻尼振荡；
-- ARMA\(p,q\)：短期由 AR 与 MA 共同决定，长期衰减由 AR 根决定。
-对 AR\(1\) 模型 \(X_t=\phi X_{t-1}+\varepsilon_t\)，有 \(\psi_j=\phi^j\)。对 ARMA\(1,1\) 模型 \((1-\phi L)X_t=(1+\theta L)\varepsilon_t\)，有 \(\psi_0=1\)，并且 \(\psi_j=\phi^{j-1}(\phi+\theta)\)，其中 \(j\geq1\)。
+- MA(q)：冲击在 q 期后完全消失；
+- 平稳 AR(1)：响应为几何衰减；
+- 平稳 AR(2)：可能出现几何衰减或阻尼振荡；
+- ARMA(p,q)：短期由 AR 与 MA 共同决定，长期衰减由 AR 根决定。
+对 AR(1) 模型 \(X_t=\phi X_{t-1}+\varepsilon_t\)，有 \(\psi_j=\phi^j\)。对 ARMA(1,1) 模型 \((1-\phi L)X_t=(1+\theta L)\varepsilon_t\)，有 \(\psi_0=1\)，并且 \(\psi_j=\phi^{j-1}(\phi+\theta)\)，其中 \(j\geq1\)。
 
 脉冲响应把抽象参数转化为动态影响路径，因此在经济解释和政策分析中通常比单个系数更直观。
 
@@ -274,7 +274,7 @@ $$\Gamma_k=
 
 k 阶偏自相关系数等于上述回归中最后一个系数，即 \(\rho^*(k)=\beta_k^*\)。它衡量在控制 \(X_{t-1},\ldots,X_{t-k+1}\) 之后，\(X_t\) 与 \(X_{t-k}\) 之间剩余的线性关系。
 
-对 AR\(p\)，当加入前 p 个滞后后，更远滞后不再提供额外线性解释，因此 \(\rho^*(k)=0\)，其中 \(k>p\)。对可逆 MA\(q\)，其 AR 表示通常是无限阶的，因此 PACF 一般拖尾。
+对 AR(p)，当加入前 p 个滞后后，更远滞后不再提供额外线性解释，因此 \(\rho^*(k)=0\)，其中 \(k>p\)。对可逆 MA(q)，其 AR 表示通常是无限阶的，因此 PACF 一般拖尾。
 
 ### 自协方差生成函数与频域分析
 
@@ -282,7 +282,7 @@ k 阶偏自相关系数等于上述回归中最后一个系数，即 \(\rho^*(k)
 
 定义自协方差生成函数 AGF：\(g(z)=\sum_{k=-\infty}^{\infty}\gamma(k)z^k\)。
 
-对白噪声，\(g(z)=\sigma_\varepsilon^2\)；对 MA\(q\)，\(g(z)=\theta(z)\theta(z^{-1})\sigma_\varepsilon^2\)；对 ARMA\(p,q\)，
+对白噪声，\(g(z)=\sigma_\varepsilon^2\)；对 MA(q)，\(g(z)=\theta(z)\theta(z^{-1})\sigma_\varepsilon^2\)；对 ARMA(p,q)，
 
 \(g(z)=\theta(z)\theta(z^{-1})\sigma_\varepsilon^2/[\phi(z)\phi(z^{-1})]\)。
 
@@ -315,16 +315,16 @@ $$\gamma(k)=\int_{-\pi}^{\pi}e^{ik\omega}S(\omega)\,d\omega,
 
 白噪声的谱为常数 \(S(\omega)=\sigma_\varepsilon^2/(2\pi)\)，表示所有频率对方差的贡献相同。
 
-ARMA\(p,q\) 的谱为
+ARMA(p,q) 的谱为
 
 $$S(\omega)
 =\frac{\sigma_\varepsilon^2}{2\pi}
 \frac{\left|\theta(e^{-i\omega})\right|^2}
 {\left|\phi(e^{-i\omega})\right|^2}.$$
 
-对 AR\(1\)，\(S(\omega)=\frac{\sigma_\varepsilon^2}{2\pi}[1+\phi^2-2\phi\cos\omega]^{-1}\)。当参数为正且接近 1 时，低频附近的谱较高，说明序列变化缓慢、持续性强。
+对 AR(1)，\(S(\omega)=\frac{\sigma_\varepsilon^2}{2\pi}[1+\phi^2-2\phi\cos\omega]^{-1}\)。当参数为正且接近 1 时，低频附近的谱较高，说明序列变化缓慢、持续性强。
 
-对 MA\(1\)，\(S(\omega)=\frac{\sigma_\varepsilon^2}{2\pi}(1+\theta^2+2\theta\cos\omega)\)。
+对 MA(1)，\(S(\omega)=\frac{\sigma_\varepsilon^2}{2\pi}(1+\theta^2+2\theta\cos\omega)\)。
 
 ### 线性滤波与谱估计
 
@@ -366,13 +366,13 @@ Wold 分解定理指出，任何零均值协方差平稳过程都可以写成
 - 确定性部分 \(X_t^{(d)}\) 可以由过去信息完全预测；
 - 创新项 \(\varepsilon_t\) 是白噪声；
 - 随机部分的系数平方可和，即 \(\sum_{j=0}^{\infty}\psi_j^2<\infty\)。
-Wold 分解说明，MA\(∞\) 不是少数特殊模型，而是平稳随机过程的一般表示。ARMA 模型的价值在于用有限数量的参数近似这个无限阶表示。
+Wold 分解说明，MA(∞) 不是少数特殊模型，而是平稳随机过程的一般表示。ARMA 模型的价值在于用有限数量的参数近似这个无限阶表示。
 
 ### 估计、定阶与诊断
 
 ### AR 模型的估计
 
-AR\(p\) 可以直接通过最小二乘估计：
+AR(p) 可以直接通过最小二乘估计：
 
 $$\min_{\mu,\phi_1,\ldots,\phi_p}
 \sum_{t=p+1}^{T}
@@ -438,7 +438,7 @@ $$Q_{BP}=T\sum_{k=1}^{m}\widehat{\rho}(k)^2,
 Q_{LB}=T(T+2)\sum_{k=1}^{m}
 \frac{\widehat{\rho}(k)^2}{T-k}.$$
 
-在原假设下，它们渐近服从卡方分布。对已估计的 ARMA\(p,q\) 残差，实践中常以 \(m-p-q\) 作为近似自由度。
+在原假设下，它们渐近服从卡方分布。对已估计的 ARMA(p,q) 残差，实践中常以 \(m-p-q\) 作为近似自由度。
 
 若拒绝原假设，说明残差仍保留可预测结构，当前模型尚未充分提取时间依赖。
 
@@ -463,7 +463,7 @@ S&P 500 日收益的课堂示例说明：金融收益率的样本 ACF 可能只�
 1. AR 的 ACF 拖尾、PACF 截尾，MA 的 ACF 截尾、PACF 拖尾，ARMA 两者通常都拖尾；
 1. AR 根在单位圆外保证平稳与因果表示，MA 根在单位圆外保证可逆；
 1. 脉冲响应描述冲击如何跨期传播，谱函数描述方差如何分布在不同频率；
-1. Wold 分解为 MA\(∞\) 表示提供一般理论基础，ARMA 则提供有限参数近似；
+1. Wold 分解为 MA(∞) 表示提供一般理论基础，ARMA 则提供有限参数近似；
 1. 建模必须形成“平稳化—识别—估计—诊断”的闭环，残差白噪声是模型合格的最低要求。
 > 来源：Lecture 1 Stationarity and ARMA\.pdf（Xu Zheng）。本页依据原始讲义重新整理，并参照“机器学习的数学原理”笔记的中文表述与章节结构。
 
@@ -592,7 +592,7 @@ J=\sigma_\varepsilon^2
 
 \(T^{-1/2}\sum_{t=1}^{T}(X_t-\mu)\xrightarrow{d}\mathcal{N}(0,J)\)。
 
-### AR\(1\) 示例
+### AR(1) 示例
 
 对 \(X_t=\phi X_{t-1}+\varepsilon_t\)，其中 \(|\phi|<1\)，
 
@@ -855,7 +855,7 @@ $$\widehat{\theta}^{(2)}
 - 一般权重下的渐近方差是“夹心”形式，最优权重为矩条件长期协方差的逆；
 - 两步 GMM、迭代 GMM、CUE 和一步修正在一阶意义下可以达到相同效率；
 - 时间序列应用必须使用长期协方差，并关注弱识别、工具变量质量和有限样本稳定性。
-> 来源：Lecture 3 GMM Estimation \(1\)\.pdf（Xu Zheng）。
+> 来源：Lecture 3 GMM Estimation (1)\.pdf（Xu Zheng）。
 
 ---
 
@@ -1046,7 +1046,7 @@ $$a^*(w_i)
 - 外生性、正态性、同方差性、信息矩阵等式和结构稳定性都可转化为矩条件检验；
 - 非线性 IV 的效率取决于工具函数，最优工具结合条件导数与条件方差；
 - 正确协方差估计、识别强度和工具变量数量是 GMM 检验可靠性的关键。
-> 来源：Lecture 4 GMM Testing \(1\)\.pdf（Xu Zheng）。
+> 来源：Lecture 4 GMM Testing (1)\.pdf（Xu Zheng）。
 
 ---
 
@@ -1054,7 +1054,7 @@ $$a^*(w_i)
 
 ### 单位根与非平稳性
 
-对 AR\(1\) 模型 \(X_t=\phi X_{t-1}+\varepsilon_t\)，当 \(|\phi|<1\) 时过程平稳；当 \(\phi=1\) 时，
+对 AR(1) 模型 \(X_t=\phi X_{t-1}+\varepsilon_t\)，当 \(|\phi|<1\) 时过程平稳；当 \(\phi=1\) 时，
 
 \(X_t=X_{t-1}+\varepsilon_t\)，过程成为随机游走并含有单位根。
 
@@ -1078,7 +1078,7 @@ $$a^*(w_i)
 - 差分平稳过程应进行差分；
 - 对趋势平稳序列误差分会引入不必要的 MA 结构；
 - 对单位根序列只去线性趋势不能消除随机趋势。
-### 带趋势 AR\(1\) 的两种情形
+### 带趋势 AR(1) 的两种情形
 
 考虑
 
@@ -1104,7 +1104,7 @@ Y_0+\mu t
 
 其中 \(\widetilde{\varepsilon}_t\) 是平稳的暂时成分。
 
-因此 I\(1\) 过程由确定性漂移、随机趋势和周期性平稳成分组成。随机趋势创新的长期影响为 \(\psi(1)\)；条件 \(\psi(1)\neq0\) 保证长期方差为正。
+因此 I(1) 过程由确定性漂移、随机趋势和周期性平稳成分组成。随机趋势创新的长期影响为 \(\psi(1)\)；条件 \(\psi(1)\neq0\) 保证长期方差为正。
 
 ### Brownian Motion 与函数型中心极限定理
 
@@ -1189,7 +1189,7 @@ ADF 通过参数化增加滞后项处理相关性，PP 通过 HAC 长期方差�
 
 ### 实证解释
 
-对资产价格对数水平进行 ADF 检验，往往不能拒绝单位根；对其一阶差分，即对数收益率，通常可以拒绝单位根。这意味着价格水平可近似为 I\(1\)，而收益率为 I\(0\)。
+对资产价格对数水平进行 ADF 检验，往往不能拒绝单位根；对其一阶差分，即对数收益率，通常可以拒绝单位根。这意味着价格水平可近似为 I(1)，而收益率为 I(0)。
 
 “不拒绝单位根”并不是证明存在单位根。单位根检验在有限样本下功效较低，特别是当真实根接近 1、存在结构突变或非线性调整时。应结合图形、经济机制、其他检验和结构稳定性分析。
 
@@ -1197,7 +1197,7 @@ ADF 通过参数化增加滞后项处理相关性，PP 通过 HAC 长期方差�
 
 - 单位根使冲击具有永久影响，并导致方差随时间增长；
 - 趋势平稳应去趋势，差分平稳应差分，两者不能混用；
-- Beveridge\-Nelson 分解把 I\(1\) 过程拆成随机趋势和平稳成分；
+- Beveridge\-Nelson 分解把 I(1) 过程拆成随机趋势和平稳成分；
 - DF、ADF 和 PP 检验的极限是 Brownian motion 泛函，必须使用专用临界值；
 - ADF 用滞后差分处理序列相关，PP 用长期方差修正；
 - 确定项、滞后阶数、带宽和结构突变都会显著影响检验结论。
@@ -1211,7 +1211,7 @@ ADF 通过参数化增加滞后项处理相关性，PP 通过 HAC 长期方差�
 
 向量自回归（Vector Autoregression, VAR）把多个时间序列共同建模。令
 
-\(Y_t=(Y_{1t},\ldots,Y_{Kt})^\top\)，VAR\(p\) 为
+\(Y_t=(Y_{1t},\ldots,Y_{Kt})^\top\)，VAR(p) 为
 
 $$Y_t
 =
@@ -1223,7 +1223,7 @@ c+A_1Y_{t-1}+\cdots+A_pY_{t-p}+u_t,
 
 ### 平稳性
 
-VAR\(p\) 的特征多项式为
+VAR(p) 的特征多项式为
 
 \(A(z)=I_K-A_1z-\cdots-A_pz^p\)。过程平稳的充分必要条件是
 
@@ -1231,7 +1231,7 @@ VAR\(p\) 的特征多项式为
 
 ### 伴随矩阵表示
 
-定义状态向量 \(Z_t=(Y_t^\top,Y_{t-1}^\top,\ldots,Y_{t-p+1}^\top)^\top\)，则 VAR\(p\) 可写成 VAR\(1\)：
+定义状态向量 \(Z_t=(Y_t^\top,Y_{t-1}^\top,\ldots,Y_{t-p+1}^\top)^\top\)，则 VAR(p) 可写成 VAR(1)：
 
 $$Z_t
 =
@@ -1249,7 +1249,7 @@ I&0&\cdots&0\\
 
 平稳性等价于伴随矩阵 \(\mathcal{A}\) 的全部特征值位于单位圆内。该表示便于推导预测、脉冲响应和长期矩。
 
-### MA\(∞\) 表示
+### MA(∞) 表示
 
 平稳 VAR 可以反演为
 
@@ -1378,7 +1378,7 @@ Granger 因果是预测先后关系，不等同于结构因果。遗漏变量、
 
 - VAR 用所有变量的滞后共同描述多变量动态；
 - 平稳性由矩阵特征多项式或伴随矩阵特征值决定；
-- 平稳 VAR 可写成 MA\(∞\)，其系数是动态乘数；
+- 平稳 VAR 可写成 MA(∞)，其系数是动态乘数；
 - 约化式冲击同期相关，结构脉冲响应必须进行正交化或施加识别限制；
 - Cholesky 响应和方差分解依赖变量排序；
 - Granger 因果检验预测增量，不自动代表经济结构因果。
@@ -1390,21 +1390,21 @@ Granger 因果是预测先后关系，不等同于结构因果。遗漏变量、
 
 ### 协整的动机
 
-若两个相互独立的 I\(1\) 序列直接回归，可能得到很高的拟合优度和显著 t 值，即伪回归。非平稳变量之间的普通回归理论通常失效。
+若两个相互独立的 I(1) 序列直接回归，可能得到很高的拟合优度和显著 t 值，即伪回归。非平稳变量之间的普通回归理论通常失效。
 
-但某些 I\(1\) 变量虽然各自含随机趋势，其线性组合却可能平稳。这意味着变量共享长期随机趋势，并存在稳定的长期均衡关系。
+但某些 I(1) 变量虽然各自含随机趋势，其线性组合却可能平稳。这意味着变量共享长期随机趋势，并存在稳定的长期均衡关系。
 
 ### 协整的定义
 
 令 \(Y_t=(Y_{1t},\ldots,Y_{Kt})^\top\)，各分量均为 \(I(d)\)。若存在非零向量 \(\beta\)，使 \(\beta^\top Y_t\sim I(d-b)\)，其中 \(b>0\)，则称 \(Y_t\) 协整，记为 \(Y_t\sim CI(d,b)\)。
 
-最常见的是 \(CI(1,1)\)：各变量为 I\(1\)，但 \(\beta^\top Y_t\) 为 I\(0\)。\(\beta\) 称为协整向量。
+最常见的是 \(CI(1,1)\)：各变量为 I(1)，但 \(\beta^\top Y_t\) 为 I(0)。\(\beta\) 称为协整向量。
 
 协整向量只确定到比例；若存在 r 个线性独立的协整向量，则协整空间维度为 r。任意协整向量的非奇异线性组合仍位于同一协整空间。
 
 ### 回归中的超相合性
 
-在简单协整回归 \(y_t=\beta x_t+u_t\) 中，若 \(x_t\) 为 I\(1\)、\(u_t\) 为 I\(0\)，OLS 对 \(\beta\) 的收敛速度通常是 T，而不是平稳回归中的 \(\sqrt{T}\)，称为超相合。
+在简单协整回归 \(y_t=\beta x_t+u_t\) 中，若 \(x_t\) 为 I(1)、\(u_t\) 为 I(0)，OLS 对 \(\beta\) 的收敛速度通常是 T，而不是平稳回归中的 \(\sqrt{T}\)，称为超相合。
 
 但超相合不意味着普通 t 检验有效。误差与创新的相关性会产生非标准极限和有限样本偏误，需要使用修正方法或系统估计。
 
@@ -1422,7 +1422,7 @@ Granger 因果是预测先后关系，不等同于结构因果。遗漏变量、
 
 ### VAR 中的协整
 
-设水平变量服从 VAR\(p\)：
+设水平变量服从 VAR(p)：
 
 $$Y_t
 =
@@ -1568,7 +1568,7 @@ $$LR_{\max}(r,r+1)
 
 ### 小结
 
-- 协整表示多个 I\(1\) 变量共享较少的随机趋势，并存在平稳长期组合；
+- 协整表示多个 I(1) 变量共享较少的随机趋势，并存在平稳长期组合；
 - 协整向量描述长期均衡，调整矩阵描述偏离均衡后的修正速度；
 - VECM 同时保留长期关系和短期动态；
 - Engle\-Granger 方法适合单一协整关系，Johansen 方法可以系统估计多个协整向量；
@@ -1958,7 +1958,7 @@ F_{t-1}\\Y_{t-1}
 
 ### ARCH 模型
 
-ARCH\(p\) 模型为
+ARCH(p) 模型为
 
 $$h_t
 =
@@ -2000,7 +2000,7 @@ Gaussian 得分含有
 
 ### ARCH 效应的 LM 检验
 
-检验残差是否存在 ARCH\(p\) 效应：
+检验残差是否存在 ARCH(p) 效应：
 
 1. 估计均值方程，得到残差 \(\widehat{u}_t\)；
 1. 回归 \(\widehat{u}_t^2\) 对常数及其 p 阶滞后；
@@ -2011,7 +2011,7 @@ Gaussian 得分含有
 
 ### GARCH 模型
 
-GARCH\(q,p\) 同时加入滞后平方冲击和滞后条件方差：
+GARCH(q,p) 同时加入滞后平方冲击和滞后条件方差：
 
 $$h_t
 =
@@ -2019,13 +2019,13 @@ $$h_t
 +\sum_{i=1}^{q}\alpha_i u_{t-i}^2
 +\sum_{j=1}^{p}\beta_j h_{t-j}.$$
 
-最常用的 GARCH\(1,1\) 为
+最常用的 GARCH(1,1) 为
 
 \(h_t=\alpha_0+\alpha_1u_{t-1}^2+\beta_1h_{t-1}\)。它用少量参数近似高阶 ARCH，能够描述缓慢衰减的波动持续性。
 
 ### 平稳性与长期方差
 
-在基本 GARCH\(1,1\) 条件下，二阶平稳通常要求
+在基本 GARCH(1,1) 条件下，二阶平稳通常要求
 
 \(\alpha_1+\beta_1<1\)。无条件方差为
 
@@ -2041,7 +2041,7 @@ $$h_t
 
 ### 平方过程的 ARMA 表示
 
-令 \(v_t=u_t^2-h_t\)，则 GARCH\(1,1\) 可改写为
+令 \(v_t=u_t^2-h_t\)，则 GARCH(1,1) 可改写为
 
 $$u_t^2
 =
@@ -2049,7 +2049,7 @@ $$u_t^2
 (\alpha_1+\beta_1)u_{t-1}^2
 +v_t-\beta_1v_{t-1}.$$
 
-因此平方收益率具有 ARMA\(1,1\) 型结构，这解释了平方收益的持续相关。
+因此平方收益率具有 ARMA(1,1) 型结构，这解释了平方收益的持续相关。
 
 ### GARCH 扩展
 
@@ -2087,7 +2087,7 @@ FIGARCH 对平方过程引入分数差分，使波动自相关以双曲速度衰
 
 ### 波动预测
 
-GARCH\(1,1\) 的一步预测为
+GARCH(1,1) 的一步预测为
 
 \(h_{t+1|t}=\alpha_0+\alpha_1u_t^2+\beta_1h_t\)。多步预测满足
 
@@ -2118,7 +2118,7 @@ $$h_{t+s|t}
 
 ### BEKK 模型
 
-BEKK\(1,1\) 写成
+BEKK(1,1) 写成
 
 $$H_t
 =
@@ -2147,7 +2147,7 @@ $$Q_t
 ### 小结
 
 - ARCH/GARCH 对条件方差建模，能够解释波动聚集和厚尾；
-- GARCH\(1,1\) 用平方冲击和滞后方差共同控制波动，\(\alpha+\beta\) 衡量持续性；
+- GARCH(1,1) 用平方冲击和滞后方差共同控制波动，\(\alpha+\beta\) 衡量持续性；
 - Gaussian QMLE 不要求创新严格正态，但需要稳健标准误；
 - IGARCH、EGARCH、TGARCH、GARCH\-M 和 FIGARCH 分别处理永久性、不对称、风险溢价和长记忆；
 - 波动预测最终向长期方差回复，回复速度由持续性参数决定；
@@ -2505,7 +2505,7 @@ $$\sqrt{nh}
 \xrightarrow{d}
 \mathcal{N}\left(0,R(K)f(x)\right).$$
 
-若希望以 f\(x\) 为中心进行推断，需要显式估计偏差、使用高阶偏差修正核，或选择更小带宽使
+若希望以 f(x) 为中心进行推断，需要显式估计偏差、使用高阶偏差修正核，或选择更小带宽使
 
 \(\sqrt{nh}\,h^2\to0\)。后一方法称为 undersmoothing。
 

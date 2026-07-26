@@ -3,7 +3,7 @@ title: "最优化方法  CHEATSHEET"
 slug: "最优化方法-cheatsheet"
 date: "2026-06-25"
 lastEditedTime: "2026-07-19T07:20:00.000Z"
-renderVersion: "5"
+renderVersion: "6"
 category: "study"
 tags: ["study"]
 status: "Published"
