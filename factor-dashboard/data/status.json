@@ -1,79 +1,149 @@
 {
   "scheduler": {
-    "latest_run_id": "20260726-163148-master-daily",
+    "latest_run_id": "20260727-165542-master-daily",
     "stages": [
       {
-        "run_id": "20260726-163148-master-daily",
+        "run_id": "20260727-165542-master-daily",
         "stage_name": "Multifactor_Valuation_Daily",
         "stage_order": 2,
         "status": "blocked",
         "trade_date": null,
-        "started_at": "2026-07-26 16:31:51",
-        "ended_at": "2026-07-26 16:31:51",
+        "started_at": "2026-07-27 16:55:43",
+        "ended_at": "2026-07-27 16:55:43",
         "error_message": "blocked because ETL daily stage failed"
       },
       {
-        "run_id": "20260726-163148-master-daily",
+        "run_id": "20260727-165542-master-daily",
         "stage_name": "Multifactor_Financial_Event_Daily",
         "stage_order": 3,
         "status": "blocked",
         "trade_date": null,
-        "started_at": "2026-07-26 16:31:51",
-        "ended_at": "2026-07-26 16:31:51",
+        "started_at": "2026-07-27 16:55:43",
+        "ended_at": "2026-07-27 16:55:43",
         "error_message": "blocked because ETL daily stage failed"
       },
       {
-        "run_id": "20260726-163148-master-daily",
+        "run_id": "20260727-165542-master-daily",
         "stage_name": "Multifactor_ETL_Backfill",
         "stage_order": 4,
         "status": "blocked",
         "trade_date": null,
-        "started_at": "2026-07-26 16:31:51",
-        "ended_at": "2026-07-26 16:31:51",
+        "started_at": "2026-07-27 16:55:43",
+        "ended_at": "2026-07-27 16:55:43",
         "error_message": "blocked because ETL daily stage failed"
       },
       {
-        "run_id": "20260726-163148-master-daily",
+        "run_id": "20260727-165542-master-daily",
         "stage_name": "Multifactor_Factor_Daily",
         "stage_order": 5,
         "status": "blocked",
         "trade_date": null,
-        "started_at": "2026-07-26 16:31:51",
-        "ended_at": "2026-07-26 16:31:51",
+        "started_at": "2026-07-27 16:55:43",
+        "ended_at": "2026-07-27 16:55:43",
         "error_message": "blocked because ETL daily stage failed"
       },
       {
-        "run_id": "20260726-163148-master-daily",
+        "run_id": "20260727-165542-master-daily",
         "stage_name": "Multifactor_Factor_Eval_Auto_Update",
         "stage_order": 6,
         "status": "blocked",
         "trade_date": null,
-        "started_at": "2026-07-26 16:31:51",
-        "ended_at": "2026-07-26 16:31:51",
+        "started_at": "2026-07-27 16:55:43",
+        "ended_at": "2026-07-27 16:55:43",
         "error_message": "blocked because ETL daily stage failed"
       },
       {
-        "run_id": "20260726-163148-master-daily",
+        "run_id": "20260727-165542-master-daily",
         "stage_name": "Multifactor_Factor_Rolling_Metrics_Weekly",
         "stage_order": 7,
-        "status": "skipped",
+        "status": "blocked",
         "trade_date": "2026-07-24",
-        "started_at": "2026-07-26 16:31:51",
-        "ended_at": "2026-07-26 16:31:51",
-        "error_message": "skipped because weekly metrics run on Monday only"
+        "started_at": "2026-07-27 16:55:43",
+        "ended_at": "2026-07-27 16:55:43",
+        "error_message": "blocked because ETL daily stage failed"
       },
       {
-        "run_id": "20260726-163148-master-daily",
+        "run_id": "20260727-165542-master-daily",
         "stage_name": "Multifactor_ETL_Daily",
         "stage_order": 1,
         "status": "failed",
         "trade_date": null,
-        "started_at": "2026-07-26 16:31:48",
-        "ended_at": "2026-07-26 16:31:51",
-        "error_message": "near \"metadata_columns\": syntax error"
+        "started_at": "2026-07-27 16:55:42",
+        "ended_at": "2026-07-27 16:55:43",
+        "error_message": "this license is only allowed to access through the education network"
       }
     ],
     "recent_stages": [
+      {
+        "run_id": "20260727-165542-master-daily",
+        "stage_name": "Multifactor_Valuation_Daily",
+        "stage_order": 2,
+        "status": "blocked",
+        "trade_date": null,
+        "started_at": "2026-07-27 16:55:43",
+        "ended_at": "2026-07-27 16:55:43",
+        "error_message": "blocked because ETL daily stage failed"
+      },
+      {
+        "run_id": "20260727-165542-master-daily",
+        "stage_name": "Multifactor_Financial_Event_Daily",
+        "stage_order": 3,
+        "status": "blocked",
+        "trade_date": null,
+        "started_at": "2026-07-27 16:55:43",
+        "ended_at": "2026-07-27 16:55:43",
+        "error_message": "blocked because ETL daily stage failed"
+      },
+      {
+        "run_id": "20260727-165542-master-daily",
+        "stage_name": "Multifactor_ETL_Backfill",
+        "stage_order": 4,
+        "status": "blocked",
+        "trade_date": null,
+        "started_at": "2026-07-27 16:55:43",
+        "ended_at": "2026-07-27 16:55:43",
+        "error_message": "blocked because ETL daily stage failed"
+      },
+      {
+        "run_id": "20260727-165542-master-daily",
+        "stage_name": "Multifactor_Factor_Daily",
+        "stage_order": 5,
+        "status": "blocked",
+        "trade_date": null,
+        "started_at": "2026-07-27 16:55:43",
+        "ended_at": "2026-07-27 16:55:43",
+        "error_message": "blocked because ETL daily stage failed"
+      },
+      {
+        "run_id": "20260727-165542-master-daily",
+        "stage_name": "Multifactor_Factor_Eval_Auto_Update",
+        "stage_order": 6,
+        "status": "blocked",
+        "trade_date": null,
+        "started_at": "2026-07-27 16:55:43",
+        "ended_at": "2026-07-27 16:55:43",
+        "error_message": "blocked because ETL daily stage failed"
+      },
+      {
+        "run_id": "20260727-165542-master-daily",
+        "stage_name": "Multifactor_Factor_Rolling_Metrics_Weekly",
+        "stage_order": 7,
+        "status": "blocked",
+        "trade_date": "2026-07-24",
+        "started_at": "2026-07-27 16:55:43",
+        "ended_at": "2026-07-27 16:55:43",
+        "error_message": "blocked because ETL daily stage failed"
+      },
+      {
+        "run_id": "20260727-165542-master-daily",
+        "stage_name": "Multifactor_ETL_Daily",
+        "stage_order": 1,
+        "status": "failed",
+        "trade_date": null,
+        "started_at": "2026-07-27 16:55:42",
+        "ended_at": "2026-07-27 16:55:43",
+        "error_message": "this license is only allowed to access through the education network"
+      },
       {
         "run_id": "20260726-163148-master-daily",
         "stage_name": "Multifactor_Valuation_Daily",
@@ -133,6 +203,16 @@
         "started_at": "2026-07-26 16:31:51",
         "ended_at": "2026-07-26 16:31:51",
         "error_message": "skipped because weekly metrics run on Monday only"
+      },
+      {
+        "run_id": "20260726-163148-master-daily",
+        "stage_name": "Multifactor_Factor_Dashboard_Publish",
+        "stage_order": 8,
+        "status": "failed",
+        "trade_date": "2026-07-24",
+        "started_at": "2026-07-26 16:31:51",
+        "ended_at": "2026-07-26 16:33:32",
+        "error_message": null
       },
       {
         "run_id": "20260726-163148-master-daily",
@@ -232,86 +312,6 @@
         "trade_date": "2026-07-24",
         "started_at": "2026-07-25 15:54:25",
         "ended_at": "2026-07-25 15:55:57",
-        "error_message": null
-      },
-      {
-        "run_id": "20260725-153717-master-daily",
-        "stage_name": "Multifactor_Factor_Eval_Auto_Update",
-        "stage_order": 5,
-        "status": "success",
-        "trade_date": "2026-07-24",
-        "started_at": "2026-07-25 15:53:29",
-        "ended_at": "2026-07-25 15:54:25",
-        "error_message": null
-      },
-      {
-        "run_id": "20260725-153717-master-daily",
-        "stage_name": "Multifactor_Factor_Daily",
-        "stage_order": 4,
-        "status": "partial_success",
-        "trade_date": "2026-07-24",
-        "started_at": "2026-07-25 15:38:30",
-        "ended_at": "2026-07-25 15:53:29",
-        "error_message": null
-      },
-      {
-        "run_id": "20260725-153717-master-daily",
-        "stage_name": "Multifactor_ETL_Backfill",
-        "stage_order": 3,
-        "status": "success",
-        "trade_date": "2026-07-24",
-        "started_at": "2026-07-25 15:38:18",
-        "ended_at": "2026-07-25 15:38:30",
-        "error_message": null
-      },
-      {
-        "run_id": "20260725-153717-master-daily",
-        "stage_name": "Multifactor_Financial_Event_Daily",
-        "stage_order": 2,
-        "status": "success",
-        "trade_date": "2026-07-24",
-        "started_at": "2026-07-25 15:37:46",
-        "ended_at": "2026-07-25 15:38:18",
-        "error_message": null
-      },
-      {
-        "run_id": "20260725-153717-master-daily",
-        "stage_name": "Multifactor_ETL_Daily",
-        "stage_order": 1,
-        "status": "success",
-        "trade_date": "2026-07-24",
-        "started_at": "2026-07-25 15:37:17",
-        "ended_at": "2026-07-25 15:37:46",
-        "error_message": null
-      },
-      {
-        "run_id": "20260724-163839-master-daily",
-        "stage_name": "Multifactor_ETL_Backfill",
-        "stage_order": 3,
-        "status": "success",
-        "trade_date": "2026-07-24",
-        "started_at": "2026-07-24 16:40:44",
-        "ended_at": "2026-07-24 16:41:00",
-        "error_message": null
-      },
-      {
-        "run_id": "20260724-163839-master-daily",
-        "stage_name": "Multifactor_Financial_Event_Daily",
-        "stage_order": 2,
-        "status": "success",
-        "trade_date": "2026-07-24",
-        "started_at": "2026-07-24 16:40:06",
-        "ended_at": "2026-07-24 16:40:44",
-        "error_message": null
-      },
-      {
-        "run_id": "20260724-163839-master-daily",
-        "stage_name": "Multifactor_ETL_Daily",
-        "stage_order": 1,
-        "status": "success",
-        "trade_date": "2026-07-24",
-        "started_at": "2026-07-24 16:38:39",
-        "ended_at": "2026-07-24 16:40:06",
         "error_message": null
       }
     ]
