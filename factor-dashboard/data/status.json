@@ -815,16 +815,535 @@
   "backtest_layer": {
     "layer": "backtest_layer",
     "job_date": "2026-08-05",
-    "latest_run_id": "bt-20260805-100448-79224fdb",
-    "status": "failed",
+    "latest_run_id": "bt-20260805-105350-cc393c8b",
+    "status": "success",
     "summary": {
-      "run_count": 18,
-      "pending_count": 3,
-      "running_count": 3,
-      "success_count": 6,
-      "failed_count": 6
+      "run_count": 31,
+      "pending_count": 5,
+      "running_count": 6,
+      "success_count": 10,
+      "failed_count": 10
     },
     "runs": [
+      {
+        "run_id": "bt-20260805-105350-cc393c8b",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpsdk5o_8y\\AlphaTest.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260805-105350-cc393c8b",
+          "factor_name": "AlphaTest",
+          "version_id": "ver_a",
+          "start_date": "2026-01-02",
+          "end_date": "2026-01-05",
+          "universe": "ALL",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "all_factor_values",
+          "universe_size": 3,
+          "mean_ic": {
+            "22": 0.02
+          },
+          "evaluation_metrics": {
+            "coverage_ratio": 0.95,
+            "mean_turnover": 0.11
+          }
+        },
+        "artifacts": {
+          "output_dir": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpsdk5o_8y\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601",
+          "backtest_summary_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpsdk5o_8y\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\backtest_summary.csv",
+          "mean_ic_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpsdk5o_8y\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\mean_IC.csv",
+          "long_short_with_cost_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpsdk5o_8y\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\long_short_returns_with_cost.csv",
+          "plot_png": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpsdk5o_8y\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\backtest_plots.png"
+        },
+        "created_at": "2026-08-05 10:53:50",
+        "started_at": "2026-08-05 10:53:50",
+        "ended_at": "2026-08-05 10:53:50",
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpsdk5o_8y\\factor.db"
+      },
+      {
+        "run_id": "bt-20260805-105350-1bd6d353",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "failed",
+        "error_message": "Recovered stale running run after possible interruption",
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-08-05 10:53:50",
+        "started_at": "2000-01-01 00:00:00",
+        "ended_at": "2026-08-05 10:53:50",
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp3y6l_1cy\\factor.db"
+      },
+      {
+        "run_id": "bt-20260805-105350-ffd7c2ab",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "running",
+        "error_message": null,
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-08-05 10:53:50",
+        "started_at": "2026-08-05 10:53:50",
+        "ended_at": null,
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp3y6l_1cy\\factor.db"
+      },
+      {
+        "run_id": "bt-20260805-105350-b2e79ca9",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "pending",
+        "error_message": null,
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-08-05 10:53:50",
+        "started_at": null,
+        "ended_at": null,
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp_i9ulzqc\\factor.db"
+      },
+      {
+        "run_id": "bt-20260805-105349-3b69998b",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "failed",
+        "error_message": "Recovered stale running run after possible interruption",
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-08-05 10:53:49",
+        "started_at": "2000-01-01 00:00:00",
+        "ended_at": "2026-08-05 10:53:49",
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp7lklffob\\factor.db"
+      },
+      {
+        "run_id": "bt-20260805-105349-bc5a9a29",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260805-105349-bc5a9a29",
+          "factor_name": "AlphaTest",
+          "version_id": "ver_a",
+          "start_date": "2026-01-02",
+          "end_date": "2026-01-05",
+          "universe": "ALL",
+          "source_mode": "db",
+          "resolved_universe_mode": "all_factor_values",
+          "universe_size": 3,
+          "mean_ic": {
+            "1": 0.1
+          },
+          "evaluation_metrics": {
+            "coverage_ratio": 1.0
+          }
+        },
+        "artifacts": {
+          "output_dir": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpx8n93dy2\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601",
+          "backtest_summary_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpx8n93dy2\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\backtest_summary.csv",
+          "mean_ic_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpx8n93dy2\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\mean_IC.csv",
+          "long_short_with_cost_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpx8n93dy2\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\long_short_returns_with_cost.csv",
+          "plot_png": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpx8n93dy2\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\backtest_plots.png"
+        },
+        "created_at": "2026-08-05 10:53:49",
+        "started_at": "2026-08-05 10:53:49",
+        "ended_at": "2026-08-05 10:53:49",
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpx8n93dy2\\factor.db"
+      },
+      {
+        "run_id": "bt-20260805-103755-9d811d0b",
+        "factor_name": "BarraLNCAP",
+        "version_id": "ver_451674450aad",
+        "start_date": "2018-01-02",
+        "end_date": "2026-08-03",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_LNCAP\\Barra_LNCAP_20180102_20260803.parquet",
+        "status": "running",
+        "error_message": null,
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-08-05 10:37:55",
+        "started_at": "2026-08-05 10:37:55",
+        "ended_at": null,
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260805-102609-b8501dd3",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "failed",
+        "error_message": "Recovered stale running run after possible interruption",
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-08-05 10:26:09",
+        "started_at": "2000-01-01 00:00:00",
+        "ended_at": "2026-08-05 10:26:09",
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpcy3m70ly\\factor.db"
+      },
+      {
+        "run_id": "bt-20260805-102609-df2e788f",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "running",
+        "error_message": null,
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-08-05 10:26:09",
+        "started_at": "2026-08-05 10:26:09",
+        "ended_at": null,
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpcy3m70ly\\factor.db"
+      },
+      {
+        "run_id": "bt-20260805-102609-efff0e2c",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "pending",
+        "error_message": null,
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-08-05 10:26:09",
+        "started_at": null,
+        "ended_at": null,
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpqx99d72u\\factor.db"
+      },
+      {
+        "run_id": "bt-20260805-102608-871af1d9",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "failed",
+        "error_message": "Recovered stale running run after possible interruption",
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-08-05 10:26:08",
+        "started_at": "2000-01-01 00:00:00",
+        "ended_at": "2026-08-05 10:26:08",
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpjxzx8gv4\\factor.db"
+      },
+      {
+        "run_id": "bt-20260805-102608-11f7cd62",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260805-102608-11f7cd62",
+          "factor_name": "AlphaTest",
+          "version_id": "ver_a",
+          "start_date": "2026-01-02",
+          "end_date": "2026-01-05",
+          "universe": "ALL",
+          "source_mode": "db",
+          "resolved_universe_mode": "all_factor_values",
+          "universe_size": 3,
+          "mean_ic": {
+            "1": 0.1
+          },
+          "evaluation_metrics": {
+            "coverage_ratio": 1.0
+          }
+        },
+        "artifacts": {
+          "output_dir": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpwxl8es33\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601",
+          "backtest_summary_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpwxl8es33\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\backtest_summary.csv",
+          "mean_ic_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpwxl8es33\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\mean_IC.csv",
+          "long_short_with_cost_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpwxl8es33\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\long_short_returns_with_cost.csv",
+          "plot_png": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpwxl8es33\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\backtest_plots.png"
+        },
+        "created_at": "2026-08-05 10:26:08",
+        "started_at": "2026-08-05 10:26:08",
+        "ended_at": "2026-08-05 10:26:08",
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpwxl8es33\\factor.db"
+      },
+      {
+        "run_id": "bt-20260805-102608-c194df43",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpe7u1rtpr\\AlphaTest.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260805-102608-c194df43",
+          "factor_name": "AlphaTest",
+          "version_id": "ver_a",
+          "start_date": "2026-01-02",
+          "end_date": "2026-01-05",
+          "universe": "ALL",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "all_factor_values",
+          "universe_size": 3,
+          "mean_ic": {
+            "22": 0.02
+          },
+          "evaluation_metrics": {
+            "coverage_ratio": 0.95,
+            "mean_turnover": 0.11
+          }
+        },
+        "artifacts": {
+          "output_dir": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpe7u1rtpr\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601",
+          "backtest_summary_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpe7u1rtpr\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\backtest_summary.csv",
+          "mean_ic_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpe7u1rtpr\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\mean_IC.csv",
+          "long_short_with_cost_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpe7u1rtpr\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\long_short_returns_with_cost.csv",
+          "plot_png": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpe7u1rtpr\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\backtest_plots.png"
+        },
+        "created_at": "2026-08-05 10:26:08",
+        "started_at": "2026-08-05 10:26:08",
+        "ended_at": "2026-08-05 10:26:08",
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpe7u1rtpr\\factor.db"
+      },
       {
         "run_id": "bt-20260805-100448-79224fdb",
         "factor_name": "AlphaTest",
@@ -1555,6 +2074,6 @@
         "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpdwerln51\\factor.db"
       }
     ],
-    "generated_at": "2026-08-05 10:04:48"
+    "generated_at": "2026-08-05 10:53:50"
   }
 }
