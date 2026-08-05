@@ -2,6 +2,7 @@
   "factor_name": "AlphaREV0014",
   "version_id": "ver_82f6ba3fb05f",
   "run_id": "bt-20260629-111255-97cde9b9",
+  "universe": "ALL",
   "quantile_columns": [
     "1",
     "2",

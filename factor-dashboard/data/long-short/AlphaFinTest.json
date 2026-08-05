@@ -2,6 +2,7 @@
   "factor_name": "AlphaFinTest",
   "version_id": "ver_e38c3e98803b",
   "run_id": null,
+  "universe": "ALL",
   "series": [],
   "quantile_columns": []
 }

@@ -2,6 +2,7 @@
   "factor_name": "AlphaCHIP0008",
   "version_id": "ver_ca4cb8ed3d3c",
   "run_id": "bt-20260609-210916-4abfbacd",
+  "universe": "ALL",
   "quantile_columns": [
     "1",
     "2",

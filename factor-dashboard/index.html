@@ -3,20 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Factor research and portfolio backtesting by Yuyao Ma." />
-    <title>Factor Dashboard — Yuyao Ma</title>
-    <link rel="stylesheet" href="static/styles.css?v=2.0.0" />
+    <title>因子看板 Factor Dashboard</title>
+    <link rel="stylesheet" href="static/styles.css" />
   </head>
   <body>
-    <header class="factor-site-header">
-      <a class="factor-site-mark" href="../index.html" aria-label="Yuyao Ma home">YM</a>
-      <nav class="factor-site-nav" aria-label="Primary navigation">
-        <a class="active" href="../work.html" aria-current="page">Work</a>
-        <a href="../notes-blogs.html">Notes</a>
-        <a href="../index.html">About</a>
-        <a href="../index.html#contact">Contact</a>
-      </nav>
-    </header>
     <aside class="sidebar">
       <div class="brand">
         <span class="brand-mark">FD</span>
@@ -26,10 +16,11 @@
         </div>
       </div>
       <nav>
-        <a class="active" href="#overview" data-view="overview">因子总览</a>
-        <a href="#status" data-view="status">任务与数据状态</a>
-        <a href="#portfolio" data-view="portfolio">组合回测</a>
-        <a href="#paper" data-view="building" title="敬请期待">模拟盘监控</a>
+        <a class="active" href="#overview" data-view="overview"><span class="nav-icon">▦</span>因子总览</a>
+        <a href="#barra" data-view="barra"><span class="nav-icon">B</span>Barra 因子</a>
+        <a href="#status" data-view="status"><span class="nav-icon">◷</span>任务与数据状态</a>
+        <a href="#portfolio" data-view="portfolio"><span class="nav-icon">◫</span>组合回测</a>
+        <a href="#paper" data-view="building" title="敬请期待"><span class="nav-icon">◎</span>模拟盘监控</a>
       </nav>
       <div class="sidebar-footer">
         <strong>本地研究系统</strong>
@@ -48,6 +39,12 @@
           <label class="search">
             <input id="searchInput" type="search" placeholder="搜索因子..." />
           </label>
+          <select id="statusFilter" class="toolbar-select" aria-label="状态筛选">
+            <option value="all">全部状态</option>
+            <option value="active">Active</option>
+            <option value="candidate">Candidate</option>
+            <option value="draft">Draft</option>
+          </select>
           <select id="sortBy" class="toolbar-select" aria-label="排序方式">
             <option value="lifecycle_status">按状态排序</option>
             <option value="rolling_ic_mean">按IC均值</option>
@@ -61,7 +58,7 @@
           </select>
           <button id="sortDirBtn" class="icon-button" title="切换升降序">↓</button>
           <button id="refreshBtn" class="icon-button" title="刷新">↻</button>
-          <div class="user-chip">YUYAO MA</div>
+          <div class="user-chip">researcher</div>
         </div>
       </header>
 
@@ -194,21 +191,7 @@
                   <thead>
                     <tr>
                       <th>因子名</th>
-                      <th class="status-filter-cell">
-                        <div class="status-filter-control">
-                          <span>状态</span>
-                          <button id="statusFilterButton" class="table-filter-button" type="button" aria-expanded="false" aria-controls="statusFilterMenu" title="筛选状态">▾</button>
-                          <div id="statusFilterMenu" class="table-filter-menu" hidden>
-                            <div class="table-filter-title">按状态筛选</div>
-                            <div id="statusFilterOptions" class="table-filter-options"></div>
-                            <div class="table-filter-shortcuts">
-                              <button id="statusFilterSelectAll" type="button">全选</button>
-                              <button id="statusFilterClear" type="button">清空</button>
-                            </div>
-                            <button id="statusFilterApply" class="table-filter-apply" type="button">应用</button>
-                          </div>
-                        </div>
-                      </th>
+                      <th>状态</th>
                       <th>当前版本</th>
                       <th>IC均值</th>
                       <th>ICIR</th>
@@ -292,6 +275,27 @@
               </div>
             </article>
           </section>
+        </section>
+
+        <section id="barraView" class="view-section" hidden>
+          <article class="panel barra-panel">
+            <div class="panel-head barra-head">
+              <div>
+                <h2>Barra CNE6 三级描述子 <span id="barraFactorCount" class="muted"></span></h2>
+                <p class="muted">每张卡片对应一个可独立注册、评价和回测的三级描述子。</p>
+              </div>
+              <label class="barra-universe-control">
+                股票池
+                <select id="barraUniverse">
+                  <option value="ALL">ALL</option>
+                  <option value="CSI800">CSI800</option>
+                  <option value="CSI1000">CSI1000</option>
+                  <option value="CSI2000">CSI2000</option>
+                </select>
+              </label>
+            </div>
+            <div id="barraCardGrid" class="barra-card-grid"></div>
+          </article>
         </section>
 
         <section id="statusView" class="view-section" hidden>
@@ -395,6 +399,6 @@
     </main>
 
     <script>window.FACTOR_DASHBOARD_STATIC = true;</script>
-    <script src="static/app.js?v=2.0.0"></script>
+    <script src="static/app.js"></script>
   </body>
 </html>

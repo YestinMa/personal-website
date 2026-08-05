@@ -2,6 +2,7 @@
   "factor_name": "AlphaLIQ0016",
   "version_id": "ver_eb829f6cefdd",
   "run_id": "bt-20260702-181318-adedfe4a",
+  "universe": "ALL",
   "quantile_columns": [
     "1",
     "2",

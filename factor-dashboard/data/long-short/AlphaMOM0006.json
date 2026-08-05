@@ -2,6 +2,7 @@
   "factor_name": "AlphaMOM0006",
   "version_id": "ver_b6bfdec70050",
   "run_id": null,
+  "universe": "ALL",
   "series": [],
   "quantile_columns": []
 }

@@ -1,6 +1,8 @@
 const state = {
   summary: null,
   factors: [],
+  barraFactors: [],
+  barraUniverse: "ALL",
   jobs: [],
   status: null,
   portfolioBacktests: [],
@@ -19,7 +21,7 @@ const state = {
     ls: { start: 0, end: 0 },
   },
   factorTable: {
-    statusFilter: null,
+    statusFilter: "all",
     sortBy: "lifecycle_status",
     sortDir: "desc",
     collapsed: true,
@@ -40,6 +42,10 @@ const VIEW_META = {
   overview: {
     title: "因子总览 <span>Factor Overview</span>",
     subtitle: "聚焦因子表现、分组收益与区间收益分析",
+  },
+  barra: {
+    title: "Barra 因子 <span>CNE6 Descriptors</span>",
+    subtitle: "39 个三级描述子的回测表现与更新状态",
   },
   status: {
     title: "任务与数据状态 <span>Task & Data Status</span>",
@@ -106,7 +112,13 @@ function getDisplayFactorValueDate(item) {
 }
 
 function getSelectedFactorMeta() {
-  return state.factors.find((item) => item.factor_name === state.selectedFactor) || null;
+  return state.factors.find((item) => item.factor_name === state.selectedFactor)
+    || state.barraFactors.find((item) => item.factor_name === state.selectedFactor)
+    || null;
+}
+
+function selectedUniverse() {
+  return getSelectedFactorMeta()?.is_barra_cne6 ? state.barraUniverse : "ALL";
 }
 
 function getSelectedPortfolioMeta() {
@@ -251,18 +263,18 @@ function setRangeBackground(chartKey) {
   const list = chartKey === "ls" ? state.chartData.lsRaw : state.chartData[chartKey];
   const length = Array.isArray(list) ? list.length : 0;
   if (!length) {
-    bar.style.background = "linear-gradient(#d8d5cf, #d8d5cf) center / 100% 2px no-repeat";
+    bar.style.background = "linear-gradient(#dbe5f3, #dbe5f3) center / 100% 4px no-repeat";
     return;
   }
   const startPct = (Math.min(range.start, range.end) / Math.max(1, length - 1)) * 100;
   const endPct = (Math.max(range.start, range.end) / Math.max(1, length - 1)) * 100;
   bar.style.background = `linear-gradient(to right,
-    #d8d5cf 0%,
-    #d8d5cf ${startPct}%,
+    #dbe5f3 0%,
+    #dbe5f3 ${startPct}%,
     var(--blue) ${startPct}%,
     var(--blue) ${endPct}%,
-    #d8d5cf ${endPct}%,
-    #d8d5cf 100%) center / 100% 2px no-repeat`;
+    #dbe5f3 ${endPct}%,
+    #dbe5f3 100%) center / 100% 4px no-repeat`;
 }
 
 function normalizeRange(chartKey) {
@@ -369,7 +381,7 @@ function drawLineChart(canvasId, seriesList, options = {}) {
   const allPoints = seriesList.flatMap((s) => s.points || []).filter((p) => Number.isFinite(p.value));
   if (!allPoints.length) {
     ctx.clearRect(0, 0, width, height);
-    ctx.fillStyle = "#716f69";
+    ctx.fillStyle = "#6b7280";
     ctx.font = "14px Segoe UI, Arial";
     ctx.textAlign = "center";
     ctx.fillText(options.emptyText || "暂无可展示数据", width / 2, height / 2);
@@ -397,9 +409,9 @@ function drawLineChart(canvasId, seriesList, options = {}) {
   const yFor = (v) => padding.top + (1 - (v - min) / (max - min)) * plotH;
 
   ctx.clearRect(0, 0, width, height);
-  ctx.strokeStyle = "#d8d5cf";
+  ctx.strokeStyle = "#e5eaf2";
   ctx.lineWidth = 1;
-  ctx.fillStyle = "#716f69";
+  ctx.fillStyle = "#6b7280";
   ctx.font = "12px Segoe UI, Arial";
   ctx.textAlign = "right";
   for (let i = 0; i <= 4; i += 1) {
@@ -428,7 +440,7 @@ function drawLineChart(canvasId, seriesList, options = {}) {
 
   if (options.zeroLine && min < 0 && max > 0) {
     const y = yFor(0);
-    ctx.strokeStyle = "#bbb8b1";
+    ctx.strokeStyle = "#cbd5e1";
     ctx.setLineDash([4, 4]);
     ctx.beginPath();
     ctx.moveTo(padding.left, y);
@@ -477,7 +489,7 @@ function drawLineChart(canvasId, seriesList, options = {}) {
   const longestSeries = seriesList.reduce((best, item) => ((item.points || []).length > (best.points || []).length ? item : best), { points: [] });
   const first = longestSeries.points[0]?.date;
   const last = longestSeries.points[longestSeries.points.length - 1]?.date;
-  ctx.fillStyle = "#716f69";
+  ctx.fillStyle = "#6b7280";
   ctx.textAlign = "left";
   ctx.fillText(first || "", padding.left, height - 10);
   ctx.textAlign = "right";
@@ -507,7 +519,7 @@ function drawIcComboChart(canvasId, seriesList, options = {}) {
   const linePoints = seriesList.flatMap((s) => s.linePoints || []).filter((p) => Number.isFinite(p.value));
   if (!barPoints.length && !linePoints.length) {
     ctx.clearRect(0, 0, width, height);
-    ctx.fillStyle = "#716f69";
+    ctx.fillStyle = "#6b7280";
     ctx.font = "14px Segoe UI, Arial";
     ctx.textAlign = "center";
     ctx.fillText(options.emptyText || "暂无可展示数据", width / 2, height / 2);
@@ -550,9 +562,9 @@ function drawIcComboChart(canvasId, seriesList, options = {}) {
   const zeroY = yLeft(0);
 
   ctx.clearRect(0, 0, width, height);
-  ctx.strokeStyle = "#d8d5cf";
+  ctx.strokeStyle = "#e5eaf2";
   ctx.lineWidth = 1;
-  ctx.fillStyle = "#716f69";
+  ctx.fillStyle = "#6b7280";
   ctx.font = "12px Segoe UI, Arial";
   for (let i = 0; i <= 4; i += 1) {
     const y = padding.top + (i / 4) * plotH;
@@ -569,7 +581,7 @@ function drawIcComboChart(canvasId, seriesList, options = {}) {
   }
 
   if (leftMin < 0 && leftMax > 0) {
-    ctx.strokeStyle = "#bbb8b1";
+    ctx.strokeStyle = "#cbd5e1";
     ctx.setLineDash([4, 4]);
     ctx.beginPath();
     ctx.moveTo(padding.left, zeroY);
@@ -615,7 +627,7 @@ function drawIcComboChart(canvasId, seriesList, options = {}) {
 
   const first = refPoints[0]?.date;
   const last = refPoints[refPoints.length - 1]?.date;
-  ctx.fillStyle = "#716f69";
+  ctx.fillStyle = "#6b7280";
   ctx.textAlign = "left";
   ctx.fillText(first || "", padding.left, height - 10);
   ctx.textAlign = "right";
@@ -636,7 +648,7 @@ function drawIcComboChart(canvasId, seriesList, options = {}) {
     ctx.lineTo(legendX + 34, 14);
     ctx.stroke();
     const label = series.legendLabel || `${series.name} / Cum`;
-    ctx.fillStyle = "#716f69";
+    ctx.fillStyle = "#6b7280";
     ctx.textAlign = "left";
     ctx.fillText(label, legendX + 40, 18);
     legendX += 36 + ctx.measureText(label).width + 18;
@@ -781,7 +793,7 @@ function renderFactors() {
       item.factor_name.toLowerCase().includes(query) ||
       (item.factor_family || "").toLowerCase().includes(query)
     )
-    .filter((item) => !statusFilter || statusFilter.has(item.lifecycle_status))
+    .filter((item) => statusFilter === "all" || item.lifecycle_status === statusFilter)
     .filter((item) => passesMetricFilters(item, metricFilters))
     .sort((left, right) => compareFactorRows(left, right, sortBy, sortDir));
   setText("factorCount", `(${filtered.length})`);
@@ -807,65 +819,42 @@ function renderFactors() {
   });
 }
 
-function getAvailableFactorStatuses() {
-  return [...new Set(state.factors.map((item) => item.lifecycle_status).filter(Boolean))]
-    .sort((left, right) => statusRank(right) - statusRank(left) || left.localeCompare(right));
-}
-
-function renderStatusFilterOptions() {
-  const container = document.getElementById("statusFilterOptions");
-  const button = document.getElementById("statusFilterButton");
-  if (!container || !button) return;
-  const statuses = getAvailableFactorStatuses();
-  const selected = state.factorTable.statusFilter;
-  button.classList.toggle("is-filtered", selected instanceof Set);
-  button.setAttribute("aria-label", selected instanceof Set ? `状态筛选已启用，共选择 ${selected.size} 项` : "筛选状态");
-  container.innerHTML = statuses.map((status) => `
-    <label>
-      <input type="checkbox" value="${escapeHtml(status)}" ${!selected || selected.has(status) ? "checked" : ""}>
-      <span>${escapeHtml(status)}</span>
-    </label>
-  `).join("");
-}
-
-function setStatusFilterMenuOpen(open) {
-  const button = document.getElementById("statusFilterButton");
-  const menu = document.getElementById("statusFilterMenu");
-  if (!button || !menu) return;
-  if (open) renderStatusFilterOptions();
-  menu.hidden = !open;
-  button.setAttribute("aria-expanded", String(open));
-}
-
-function bindStatusTableFilter() {
-  const button = document.getElementById("statusFilterButton");
-  const menu = document.getElementById("statusFilterMenu");
-  const options = document.getElementById("statusFilterOptions");
-  if (!button || !menu || !options) return;
-
-  button.addEventListener("click", (event) => {
-    event.stopPropagation();
-    setStatusFilterMenuOpen(menu.hidden);
-  });
-  menu.addEventListener("click", (event) => event.stopPropagation());
-  document.getElementById("statusFilterSelectAll").addEventListener("click", () => {
-    options.querySelectorAll('input[type="checkbox"]').forEach((input) => { input.checked = true; });
-  });
-  document.getElementById("statusFilterClear").addEventListener("click", () => {
-    options.querySelectorAll('input[type="checkbox"]').forEach((input) => { input.checked = false; });
-  });
-  document.getElementById("statusFilterApply").addEventListener("click", () => {
-    const allStatuses = getAvailableFactorStatuses();
-    const checkedStatuses = [...options.querySelectorAll('input[type="checkbox"]:checked')].map((input) => input.value);
-    // 全选等价于不筛选；空集合则明确返回零行，行为与 Excel 表格筛选一致。
-    state.factorTable.statusFilter = checkedStatuses.length === allStatuses.length ? null : new Set(checkedStatuses);
-    renderStatusFilterOptions();
-    setStatusFilterMenuOpen(false);
-    renderFactors();
-  });
-  document.addEventListener("click", () => setStatusFilterMenuOpen(false));
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") setStatusFilterMenuOpen(false);
+function renderBarraCards() {
+  const grid = document.getElementById("barraCardGrid");
+  if (!grid) return;
+  setText("barraFactorCount", `(${state.barraFactors.length}/39)`);
+  grid.innerHTML = state.barraFactors.length
+    ? state.barraFactors.map((item) => `
+      <article class="barra-factor-card" tabindex="0" data-factor="${escapeHtml(item.factor_name)}">
+        <div class="barra-card-title">
+          <h3>${escapeHtml(item.factor_name)}</h3>
+          <span class="badge ${escapeHtml(item.lifecycle_status || "draft")}">${escapeHtml(item.lifecycle_status || "draft")}</span>
+        </div>
+        <div class="barra-card-style"><span class="barra-card-code">${escapeHtml(item.descriptor_code || "--")}</span> · ${escapeHtml(item.barra_style || "--")}</div>
+        <div class="barra-card-metrics">
+          <div class="barra-card-metric"><span>60日 IC</span><strong class="${cssNum(item.rolling_ic_mean)}">${fmt(item.rolling_ic_mean, 3)}</strong></div>
+          <div class="barra-card-metric"><span>60日 ICIR</span><strong class="${cssNum(item.rolling_icir)}">${fmt(item.rolling_icir, 2)}</strong></div>
+          <div class="barra-card-metric"><span>年化收益</span><strong class="${cssNum(item.rolling_annual_return)}">${pct(item.rolling_annual_return)}</strong></div>
+          <div class="barra-card-metric"><span>Sharpe</span><strong class="${cssNum(item.rolling_sharpe)}">${fmt(item.rolling_sharpe, 2)}</strong></div>
+          <div class="barra-card-metric"><span>胜率</span><strong>${pct(item.rolling_win_rate)}</strong></div>
+          <div class="barra-card-metric"><span>回测状态</span><strong>${escapeHtml(item.latest_backtest_status || "待回测")}</strong></div>
+        </div>
+        <div class="barra-card-footer">
+          <span>因子 ${escapeHtml(item.latest_factor_value_date || "--")}</span>
+          <span>回测 ${escapeHtml(item.latest_backtest_date || "--")}</span>
+        </div>
+      </article>
+    `).join("")
+    : '<div class="empty-state">尚未注册 Barra CNE6 描述子，请先运行 Barra bootstrap 任务。</div>';
+  grid.querySelectorAll(".barra-factor-card").forEach((card) => {
+    const open = () => selectBarraFactor(card.dataset.factor);
+    card.addEventListener("click", open);
+    card.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        open();
+      }
+    });
   });
 }
 
@@ -1033,8 +1022,8 @@ function renderIcChart() {
     const sampledPoints = samplePointsByDensity(points, getIcSamplingLimit(points.length));
     series.push({
       name: config.label,
-      color: "#243f63",
-      barColor: "#243f63",
+      color: "#2563eb",
+      barColor: "#2563eb",
       lineColor: "#e55353",
       legendLabel: `${config.label} Bar / Cumulative IC`,
       barPoints: sampledPoints.map((p) => ({ date: p.trade_date, value: numericOrNaN(p[config.barKey]) })),
@@ -1050,7 +1039,7 @@ function renderGroupChart() {
   const payload = state.chartData.group;
   const columns = payload.columns || [];
   const seriesRows = payload.series || [];
-  const palette = ["#243f63", "#55705a", "#9a7741", "#985b52", "#67728a", "#577a7e", "#89664b", "#4f6d67", "#5e6681", "#815b68"];
+  const palette = ["#2563eb", "#2f9e65", "#e79b28", "#ef5552", "#7c3aed", "#0891b2", "#c2410c", "#0f766e", "#4f46e5", "#be123c"];
   const series = columns.map((column, idx) => ({
     name: `Q${column}`,
     color: palette[idx % palette.length],
@@ -1074,9 +1063,9 @@ function renderLongShortChart() {
     long_short_value: document.getElementById("toggleLongShort").checked,
   };
   const series = [];
-  if (visible.long_value) series.push({ name: "Long", color: "#243f63", points: points.map((p) => ({ date: p.date, value: numericOrNaN(p.long_value) })) });
+  if (visible.long_value) series.push({ name: "Long", color: "#2563eb", points: points.map((p) => ({ date: p.date, value: numericOrNaN(p.long_value) })) });
   if (visible.short_value) series.push({ name: "Short", color: "#ef5552", points: points.map((p) => ({ date: p.date, value: numericOrNaN(p.short_value) })) });
-  if (visible.long_short_value) series.push({ name: "LongShort", color: "#55705a", lineWidth: 2.6, points: points.map((p) => ({ date: p.date, value: numericOrNaN(p.long_short_value) })) });
+  if (visible.long_short_value) series.push({ name: "LongShort", color: "#2f9e65", lineWidth: 2.6, points: points.map((p) => ({ date: p.date, value: numericOrNaN(p.long_short_value) })) });
 
   const stats = state.chartData.lsStats || {};
   const range = stats.max_drawdown_range;
@@ -1089,7 +1078,7 @@ function renderLongShortChart() {
         items: [
           { date: range.peak_date, color: "#e55353", label: "Peak" },
           { date: range.trough_date, color: "#e55353", label: "Trough" },
-          ...(range.recovery_date ? [{ date: range.recovery_date, color: "#243f63", label: "Recover" }] : []),
+          ...(range.recovery_date ? [{ date: range.recovery_date, color: "#2563eb", label: "Recover" }] : []),
         ],
       }
     : null;
@@ -1187,7 +1176,7 @@ function renderPortfolioChart() {
   drawLineChart("portfolioChart", [
     {
       name: "Portfolio",
-      color: "#243f63",
+      color: "#2563eb",
       lineWidth: 2.6,
       points: seriesRows.map((item) => ({ date: item.date, value: numericOrNaN(item.portfolio_nav) })),
     },
@@ -1232,6 +1221,12 @@ async function fetchFactors() {
   return STATIC_MODE ? getJson(dataPath("factors.json")) : getJson("/api/factors");
 }
 
+async function fetchBarraFactors() {
+  if (STATIC_MODE) return getJson(dataPath(`barra/${state.barraUniverse}/factors.json`));
+  const q = new URLSearchParams({ universe: state.barraUniverse, barra_only: "true" });
+  return getJson(`/api/factors?${q.toString()}`);
+}
+
 async function fetchJobs() {
   return STATIC_MODE ? getJson(dataPath("status.json")) : getJson("/api/status");
 }
@@ -1248,8 +1243,10 @@ async function fetchPortfolioBacktestDetail(runId) {
 }
 
 async function fetchEvalSeries(factor, horizon) {
+  const universe = selectedUniverse();
   if (STATIC_MODE) {
-    const payload = await getJson(dataPath(`ic/${factorKey(factor)}.json`));
+    const prefix = getSelectedFactorMeta()?.is_barra_cne6 ? `barra/${universe}/` : "";
+    const payload = await getJson(dataPath(`${prefix}ic/${factorKey(factor)}.json`));
     const seriesKey = horizon === 1 ? "ic_1" : horizon === 5 ? "ic_5" : "ic_22";
     const cumulativeKey = horizon === 1 ? "cum_ic_1" : horizon === 5 ? "cum_ic_5" : "cum_ic_22";
     return (payload.series || []).map((row) => ({
@@ -1260,7 +1257,7 @@ async function fetchEvalSeries(factor, horizon) {
   }
   const q = new URLSearchParams({
     factor,
-    universe: "ALL",
+    universe,
     horizon: String(horizon),
     eval_type: "rank_ic",
     weighting: "equal_weight",
@@ -1275,16 +1272,24 @@ async function fetchEvalSeries(factor, horizon) {
 }
 
 async function fetchBacktestNav(factor) {
-  if (STATIC_MODE) return getJson(dataPath(`long-short/${factorKey(factor)}.json`));
+  const universe = selectedUniverse();
+  if (STATIC_MODE) {
+    const prefix = getSelectedFactorMeta()?.is_barra_cne6 ? `barra/${universe}/` : "";
+    return getJson(dataPath(`${prefix}long-short/${factorKey(factor)}.json`));
+  }
   const factorMeta = getSelectedFactorMeta();
-  const q = new URLSearchParams({ factor, version_id: factorMeta?.version_id || "" });
+  const q = new URLSearchParams({ factor, version_id: factorMeta?.version_id || "", universe });
   return getJson(`/api/backtest-nav?${q.toString()}`);
 }
 
 async function fetchGroupReturns(factor) {
-  if (STATIC_MODE) return getJson(dataPath(`group-returns/${factorKey(factor)}.json`));
+  const universe = selectedUniverse();
+  if (STATIC_MODE) {
+    const prefix = getSelectedFactorMeta()?.is_barra_cne6 ? `barra/${universe}/` : "";
+    return getJson(dataPath(`${prefix}group-returns/${factorKey(factor)}.json`));
+  }
   const factorMeta = getSelectedFactorMeta();
-  const q = new URLSearchParams({ factor, version_id: factorMeta?.version_id || "" });
+  const q = new URLSearchParams({ factor, version_id: factorMeta?.version_id || "", universe });
   return getJson(`/api/group-returns?${q.toString()}`);
 }
 
@@ -1298,6 +1303,7 @@ async function fetchBacktestAnalysis(factor, startIdx, endIdx) {
     version_id: factorMeta?.version_id || "",
     start_idx: String(startIdx),
     end_idx: String(endIdx),
+    universe: selectedUniverse(),
   });
   return getJson(`/api/backtest-analysis?${q.toString()}`);
 }
@@ -1374,6 +1380,14 @@ async function selectFactor(factorName) {
   await loadFactorDependentPanels();
 }
 
+async function selectBarraFactor(factorName) {
+  state.selectedFactor = factorName;
+  setText("selectedFactorHint", factorName ? `当前: ${factorName} · ${state.barraUniverse}` : "");
+  switchView("overview");
+  renderFactors();
+  await loadFactorDependentPanels();
+}
+
 async function selectPortfolioRun(runId) {
   state.selectedPortfolioRunId = runId;
   renderPortfolioList();
@@ -1399,14 +1413,16 @@ async function showLatestJobItems() {
 }
 
 async function loadDashboard() {
-  const [summary, factors, statusPayload, portfolioBacktests] = await Promise.all([
+  const [summary, factors, barraFactors, statusPayload, portfolioBacktests] = await Promise.all([
     fetchSummary(),
     fetchFactors(),
+    fetchBarraFactors(),
     fetchJobs(),
     fetchPortfolioBacktests(),
   ]);
   state.summary = summary;
   state.factors = factors;
+  state.barraFactors = barraFactors;
   state.status = statusPayload;
   state.portfolioBacktests = portfolioBacktests || [];
   state.jobs = statusPayload?.scheduler?.recent_stages || [];
@@ -1414,6 +1430,7 @@ async function loadDashboard() {
   if (!state.selectedPortfolioRunId) state.selectedPortfolioRunId = state.portfolioBacktests[0]?.run_id || null;
   renderSummary();
   renderFactors();
+  renderBarraCards();
   renderJobs();
   await Promise.all([loadFactorDependentPanels(), loadPortfolioPanels()]);
 }
@@ -1473,6 +1490,10 @@ function bindEvents() {
     });
   });
   document.getElementById("searchInput").addEventListener("input", renderFactors);
+  document.getElementById("statusFilter").addEventListener("change", (event) => {
+    state.factorTable.statusFilter = event.target.value;
+    renderFactors();
+  });
   document.getElementById("sortBy").addEventListener("change", (event) => {
     state.factorTable.sortBy = event.target.value;
     renderFactors();
@@ -1481,6 +1502,17 @@ function bindEvents() {
     state.factorTable.sortDir = state.factorTable.sortDir === "asc" ? "desc" : "asc";
     document.getElementById("sortDirBtn").textContent = state.factorTable.sortDir === "asc" ? "↑" : "↓";
     renderFactors();
+  });
+  document.getElementById("barraUniverse").addEventListener("change", async (event) => {
+    state.barraUniverse = event.target.value;
+    try {
+      state.barraFactors = await fetchBarraFactors();
+      renderBarraCards();
+      if (getSelectedFactorMeta()?.is_barra_cne6) await loadFactorDependentPanels();
+    } catch (err) {
+      console.error(err);
+      showToast(`Barra 股票池切换失败: ${err.message}`);
+    }
   });
   ["toggleIc1", "toggleIc5", "toggleIc22"].forEach((id) => document.getElementById(id).addEventListener("change", renderIcChart));
   ["toggleLong", "toggleShort", "toggleLongShort"].forEach((id) => document.getElementById(id).addEventListener("change", renderLongShortChart));
@@ -1492,7 +1524,6 @@ function bindEvents() {
   bindNavigation();
   bindRangeHandlers();
   bindMetricFilterInputs();
-  bindStatusTableFilter();
 }
 
 bindEvents();

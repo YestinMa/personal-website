@@ -2,6 +2,7 @@
   "factor_name": "AlphaFUND0004",
   "version_id": "ver_f1f02650c4d9",
   "run_id": "bt-20260714-173502-e38fc99a",
+  "universe": "ALL",
   "quantile_columns": [
     "1",
     "2",

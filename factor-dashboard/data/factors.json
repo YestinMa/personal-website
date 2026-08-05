@@ -12,7 +12,11 @@
     "rolling_annual_return": -0.35757104366054915,
     "rolling_vol": 0.37023065329278926,
     "rolling_sharpe": -1.010387966523223,
-    "rolling_win_rate": 0.5666666666666667
+    "rolling_win_rate": 0.5666666666666667,
+    "is_barra_cne6": false,
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
   },
   {
     "factor_name": "AlphaCHIP0007",
@@ -27,7 +31,11 @@
     "rolling_annual_return": -0.28982222873114116,
     "rolling_vol": 0.2157531476651117,
     "rolling_sharpe": -1.4785181254535973,
-    "rolling_win_rate": 0.45
+    "rolling_win_rate": 0.45,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260609-203138-38c57846"
   },
   {
     "factor_name": "AlphaCHIP0008",
@@ -42,7 +50,11 @@
     "rolling_annual_return": -0.10671567342210497,
     "rolling_vol": 0.1955483931011056,
     "rolling_sharpe": -0.4801779012132919,
-    "rolling_win_rate": 0.45
+    "rolling_win_rate": 0.45,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260609-210916-4abfbacd"
   },
   {
     "factor_name": "AlphaCHIP0009",
@@ -57,7 +69,11 @@
     "rolling_annual_return": -0.5037076514134176,
     "rolling_vol": 0.21476956545666476,
     "rolling_sharpe": -3.151409861184622,
-    "rolling_win_rate": 0.36666666666666664
+    "rolling_win_rate": 0.36666666666666664,
+    "is_barra_cne6": false,
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
   },
   {
     "factor_name": "AlphaLIQ0003",
@@ -72,7 +88,11 @@
     "rolling_annual_return": 0.2069039270187858,
     "rolling_vol": 0.2651004324702226,
     "rolling_sharpe": 0.8398694633984697,
-    "rolling_win_rate": 0.48333333333333334
+    "rolling_win_rate": 0.48333333333333334,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260701-205316-75e39ebf"
   },
   {
     "factor_name": "AlphaLIQ0008",
@@ -87,7 +107,11 @@
     "rolling_annual_return": 0.3814152122731431,
     "rolling_vol": 0.29475812269211266,
     "rolling_sharpe": 1.2417167835932688,
-    "rolling_win_rate": 0.5
+    "rolling_win_rate": 0.5,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260702-005300-2ad81f35"
   },
   {
     "factor_name": "AlphaLIQ0010",
@@ -102,7 +126,11 @@
     "rolling_annual_return": 0.024813800603777025,
     "rolling_vol": 0.24159826033863183,
     "rolling_sharpe": 0.2202032175709423,
-    "rolling_win_rate": 0.4666666666666667
+    "rolling_win_rate": 0.4666666666666667,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260702-103152-e358d112"
   },
   {
     "factor_name": "AlphaLIQ0013",
@@ -117,7 +145,11 @@
     "rolling_annual_return": 0.5036305842811375,
     "rolling_vol": 0.31612731054289167,
     "rolling_sharpe": 1.4460173688107376,
-    "rolling_win_rate": 0.5166666666666667
+    "rolling_win_rate": 0.5166666666666667,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260702-125000-360ed30c"
   },
   {
     "factor_name": "AlphaLIQ0014",
@@ -132,7 +164,11 @@
     "rolling_annual_return": 0.5098468615536704,
     "rolling_vol": 0.3043931139063894,
     "rolling_sharpe": 1.503605466788451,
-    "rolling_win_rate": 0.5
+    "rolling_win_rate": 0.5,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260702-163841-ee8fb447"
   },
   {
     "factor_name": "AlphaLIQ0016",
@@ -147,7 +183,11 @@
     "rolling_annual_return": 0.5467974130043936,
     "rolling_vol": 0.32990560804927643,
     "rolling_sharpe": 1.4847107380818154,
-    "rolling_win_rate": 0.5166666666666667
+    "rolling_win_rate": 0.5166666666666667,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260702-181318-adedfe4a"
   },
   {
     "factor_name": "AlphaLIQ0019",
@@ -162,7 +202,11 @@
     "rolling_annual_return": 0.5488996867876379,
     "rolling_vol": 0.32974822126218173,
     "rolling_sharpe": 1.4893897327644914,
-    "rolling_win_rate": 0.5166666666666667
+    "rolling_win_rate": 0.5166666666666667,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260703-012155-2fc4675b"
   },
   {
     "factor_name": "AlphaLIQ0020",
@@ -177,7 +221,11 @@
     "rolling_annual_return": 0.39222967117049423,
     "rolling_vol": 0.32964828863738044,
     "rolling_sharpe": 1.1656893511361976,
-    "rolling_win_rate": 0.5
+    "rolling_win_rate": 0.5,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260703-014241-a757fd89"
   },
   {
     "factor_name": "AlphaMOM0003",
@@ -192,7 +240,11 @@
     "rolling_annual_return": -0.48056852324714283,
     "rolling_vol": 0.31438122167840526,
     "rolling_sharpe": -1.9237559288734973,
-    "rolling_win_rate": 0.5166666666666667
+    "rolling_win_rate": 0.5166666666666667,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260609-201940-831f7cfd"
   },
   {
     "factor_name": "AlphaMOM0004",
@@ -207,7 +259,11 @@
     "rolling_annual_return": 0.3969824138985911,
     "rolling_vol": 0.1932065611906913,
     "rolling_sharpe": 1.8269269073523684,
-    "rolling_win_rate": 0.65
+    "rolling_win_rate": 0.65,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260609-204443-31ccbd87"
   },
   {
     "factor_name": "AlphaMOM0005",
@@ -222,7 +278,11 @@
     "rolling_annual_return": -0.10826461549202981,
     "rolling_vol": 0.14263849426905306,
     "rolling_sharpe": -0.7324706389097255,
-    "rolling_win_rate": 0.5666666666666667
+    "rolling_win_rate": 0.5666666666666667,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260609-205809-c032d748"
   },
   {
     "factor_name": "AlphaMOM0010",
@@ -237,7 +297,11 @@
     "rolling_annual_return": -0.20571773538774274,
     "rolling_vol": 0.24566042031773108,
     "rolling_sharpe": -0.815014433709892,
-    "rolling_win_rate": 0.5333333333333333
+    "rolling_win_rate": 0.5333333333333333,
+    "is_barra_cne6": false,
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
   },
   {
     "factor_name": "AlphaREV0002",
@@ -252,7 +316,11 @@
     "rolling_annual_return": -0.45323809506401846,
     "rolling_vol": 0.1569079829398062,
     "rolling_sharpe": -3.7660120484992565,
-    "rolling_win_rate": 0.36666666666666664
+    "rolling_win_rate": 0.36666666666666664,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260616-160406-dc2a184b"
   },
   {
     "factor_name": "AlphaREV0003",
@@ -267,7 +335,11 @@
     "rolling_annual_return": -0.49407782367777264,
     "rolling_vol": 0.14645747406798326,
     "rolling_sharpe": -4.574086165619126,
-    "rolling_win_rate": 0.4
+    "rolling_win_rate": 0.4,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260625-121149-516e9939"
   },
   {
     "factor_name": "AlphaREV0004",
@@ -282,7 +354,11 @@
     "rolling_annual_return": -0.47162973351647663,
     "rolling_vol": 0.25286916385558683,
     "rolling_sharpe": -2.39519439726696,
-    "rolling_win_rate": 0.38333333333333336
+    "rolling_win_rate": 0.38333333333333336,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260625-152338-fcdeaecb"
   },
   {
     "factor_name": "AlphaREV0006",
@@ -297,7 +373,11 @@
     "rolling_annual_return": -0.8401493683559891,
     "rolling_vol": 0.2400089420004531,
     "rolling_sharpe": -7.490930291557315,
-    "rolling_win_rate": 0.25
+    "rolling_win_rate": 0.25,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260628-010520-6d6f92f6"
   },
   {
     "factor_name": "AlphaREV0007",
@@ -312,7 +392,11 @@
     "rolling_annual_return": -0.5637258884863429,
     "rolling_vol": 0.14797337565273266,
     "rolling_sharpe": -5.523231253101977,
-    "rolling_win_rate": 0.36666666666666664
+    "rolling_win_rate": 0.36666666666666664,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260628-014554-aec91269"
   },
   {
     "factor_name": "AlphaREV0008",
@@ -327,7 +411,11 @@
     "rolling_annual_return": -0.4003394107040147,
     "rolling_vol": 0.2187941174240005,
     "rolling_sharpe": -2.227636198246577,
-    "rolling_win_rate": 0.4166666666666667
+    "rolling_win_rate": 0.4166666666666667,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260628-020526-a95edd0f"
   },
   {
     "factor_name": "AlphaREV0009",
@@ -342,7 +430,11 @@
     "rolling_annual_return": -0.3851509739407094,
     "rolling_vol": 0.11737305027915958,
     "rolling_sharpe": -4.08200770303479,
-    "rolling_win_rate": 0.38333333333333336
+    "rolling_win_rate": 0.38333333333333336,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260628-032624-7faa3e5e"
   },
   {
     "factor_name": "AlphaREV0010",
@@ -357,7 +449,11 @@
     "rolling_annual_return": -0.4785302044699399,
     "rolling_vol": 0.2514511827429683,
     "rolling_sharpe": -2.4621386037599122,
-    "rolling_win_rate": 0.43333333333333335
+    "rolling_win_rate": 0.43333333333333335,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260628-034527-4eb3e026"
   },
   {
     "factor_name": "AlphaCHIP0001",
@@ -372,7 +468,11 @@
     "rolling_annual_return": -0.60669397515841,
     "rolling_vol": 0.14660450191774863,
     "rolling_sharpe": -6.2810247197518745,
-    "rolling_win_rate": 0.38333333333333336
+    "rolling_win_rate": 0.38333333333333336,
+    "is_barra_cne6": false,
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
   },
   {
     "factor_name": "AlphaCHIP0002",
@@ -387,7 +487,11 @@
     "rolling_annual_return": -0.542906593061466,
     "rolling_vol": 0.14877149497467868,
     "rolling_sharpe": -5.1806234862368665,
-    "rolling_win_rate": 0.4
+    "rolling_win_rate": 0.4,
+    "is_barra_cne6": false,
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
   },
   {
     "factor_name": "AlphaCHIP0003",
@@ -402,7 +506,11 @@
     "rolling_annual_return": -0.1569535058769468,
     "rolling_vol": 0.09379364795917414,
     "rolling_sharpe": -1.773553444283464,
-    "rolling_win_rate": 0.48333333333333334
+    "rolling_win_rate": 0.48333333333333334,
+    "is_barra_cne6": false,
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
   },
   {
     "factor_name": "AlphaCHIP0004",
@@ -417,7 +525,11 @@
     "rolling_annual_return": -0.3320338926299804,
     "rolling_vol": 0.1130085922495888,
     "rolling_sharpe": -3.512172569975956,
-    "rolling_win_rate": 0.4
+    "rolling_win_rate": 0.4,
+    "is_barra_cne6": false,
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
   },
   {
     "factor_name": "AlphaCHIP0005",
@@ -432,7 +544,11 @@
     "rolling_annual_return": -0.020170268425251603,
     "rolling_vol": 0.07888318941014942,
     "rolling_sharpe": -0.21946194882238027,
-    "rolling_win_rate": 0.55
+    "rolling_win_rate": 0.55,
+    "is_barra_cne6": false,
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
   },
   {
     "factor_name": "AlphaDIV0001",
@@ -447,7 +563,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
   },
   {
     "factor_name": "AlphaDIV0002",
@@ -462,7 +582,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260710-172220-52fecb81"
   },
   {
     "factor_name": "AlphaFUND0001",
@@ -477,7 +601,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260616-173712-19a2ff79"
   },
   {
     "factor_name": "AlphaFUND0002",
@@ -492,7 +620,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260618-180811-d1e6d13b"
   },
   {
     "factor_name": "AlphaFUND0003",
@@ -507,7 +639,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260623-172954-3d134de9"
   },
   {
     "factor_name": "AlphaFUND0004",
@@ -522,7 +658,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260714-173502-e38fc99a"
   },
   {
     "factor_name": "AlphaFUND0005",
@@ -537,7 +677,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260715-173430-b930da3c"
   },
   {
     "factor_name": "AlphaFUND0006",
@@ -552,7 +696,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260716-173042-2032ccfd"
   },
   {
     "factor_name": "AlphaFUND0007",
@@ -567,7 +715,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260717-173740-d5db28ba"
   },
   {
     "factor_name": "AlphaLIQ0001",
@@ -582,7 +734,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260622-173729-c66138d5"
   },
   {
     "factor_name": "AlphaLIQ0002",
@@ -597,7 +753,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260701-174958-cc4ecebb"
   },
   {
     "factor_name": "AlphaLIQ0004",
@@ -612,7 +772,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
   },
   {
     "factor_name": "AlphaLIQ0005",
@@ -627,7 +791,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260701-215304-37a246a7"
   },
   {
     "factor_name": "AlphaLIQ0006",
@@ -642,7 +810,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260701-224329-15790c57"
   },
   {
     "factor_name": "AlphaLIQ0007",
@@ -657,7 +829,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260701-235827-bb765a52"
   },
   {
     "factor_name": "AlphaLIQ0009",
@@ -672,7 +848,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260702-100434-672145f2"
   },
   {
     "factor_name": "AlphaLIQ0011",
@@ -687,7 +867,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260702-105253-fdf22fca"
   },
   {
     "factor_name": "AlphaLIQ0012",
@@ -702,7 +886,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260702-120101-7a6f1bae"
   },
   {
     "factor_name": "AlphaLIQ0015",
@@ -717,7 +905,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260702-172509-879d27fd"
   },
   {
     "factor_name": "AlphaLIQ0017",
@@ -732,7 +924,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260702-185622-5855e806"
   },
   {
     "factor_name": "AlphaLIQ0018",
@@ -747,7 +943,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260702-194327-3614dc70"
   },
   {
     "factor_name": "AlphaLIQ0021",
@@ -762,7 +962,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260703-020307-a230d58d"
   },
   {
     "factor_name": "AlphaLIQ0022",
@@ -777,7 +981,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260703-022350-5a387c87"
   },
   {
     "factor_name": "AlphaLIQ0023",
@@ -792,7 +1000,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260703-024502-155c80cf"
   },
   {
     "factor_name": "AlphaMOM0001",
@@ -807,7 +1019,11 @@
     "rolling_annual_return": -0.03785192182820529,
     "rolling_vol": 0.061483511599609554,
     "rolling_sharpe": -0.5972943567975852,
-    "rolling_win_rate": 0.48333333333333334
+    "rolling_win_rate": 0.48333333333333334,
+    "is_barra_cne6": false,
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
   },
   {
     "factor_name": "AlphaMOM0002",
@@ -822,7 +1038,11 @@
     "rolling_annual_return": -0.11837282205485744,
     "rolling_vol": 0.09396105019455508,
     "rolling_sharpe": -1.2942252705131747,
-    "rolling_win_rate": 0.55
+    "rolling_win_rate": 0.55,
+    "is_barra_cne6": false,
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
   },
   {
     "factor_name": "AlphaMOM0006",
@@ -837,7 +1057,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
   },
   {
     "factor_name": "AlphaMOM0007",
@@ -852,7 +1076,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
   },
   {
     "factor_name": "AlphaMOM0008",
@@ -867,7 +1095,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
   },
   {
     "factor_name": "AlphaMOM0009",
@@ -882,7 +1114,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
   },
   {
     "factor_name": "AlphaMOM0011",
@@ -897,7 +1133,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
   },
   {
     "factor_name": "AlphaMOM0012",
@@ -912,7 +1152,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
   },
   {
     "factor_name": "AlphaMOM0013",
@@ -927,7 +1171,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
   },
   {
     "factor_name": "AlphaMOM0014",
@@ -942,7 +1190,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
   },
   {
     "factor_name": "AlphaMOM0015",
@@ -957,7 +1209,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
   },
   {
     "factor_name": "AlphaMOM0016",
@@ -972,7 +1228,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260608-171514-dbdae2c7"
   },
   {
     "factor_name": "AlphaMOM0017",
@@ -987,7 +1247,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260608-181808-5154ca24"
   },
   {
     "factor_name": "AlphaMOM0018",
@@ -1002,7 +1266,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260609-002436-1e0deea4"
   },
   {
     "factor_name": "AlphaMOM0019",
@@ -1017,7 +1285,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260609-202742-34ab451c"
   },
   {
     "factor_name": "AlphaMOM0020",
@@ -1032,7 +1304,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260610-201828-2e12dc65"
   },
   {
     "factor_name": "AlphaMOM0021",
@@ -1047,7 +1323,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260610-230159-3a2d70ef"
   },
   {
     "factor_name": "AlphaMOM0022",
@@ -1062,7 +1342,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260610-230954-b63b0dd2"
   },
   {
     "factor_name": "AlphaMOM0023",
@@ -1077,7 +1361,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260610-231750-04f538e3"
   },
   {
     "factor_name": "AlphaMOM0024",
@@ -1092,7 +1380,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260610-232549-19ecc246"
   },
   {
     "factor_name": "AlphaMOM0025",
@@ -1107,7 +1399,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260610-233347-f59315d1"
   },
   {
     "factor_name": "AlphaMOM0026",
@@ -1122,7 +1418,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260610-234145-c70b2ddd"
   },
   {
     "factor_name": "AlphaMOM0027",
@@ -1137,7 +1437,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260610-234943-cf6521a5"
   },
   {
     "factor_name": "AlphaMOM0028",
@@ -1152,7 +1456,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260611-001829-2338a8d7"
   },
   {
     "factor_name": "AlphaMOM0029",
@@ -1167,7 +1475,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260611-002621-ccb77055"
   },
   {
     "factor_name": "AlphaMOM0030",
@@ -1182,7 +1494,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260611-003421-4e730e54"
   },
   {
     "factor_name": "AlphaMOM0031",
@@ -1197,7 +1513,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260611-175706-5b294bb5"
   },
   {
     "factor_name": "AlphaMOM0032",
@@ -1212,7 +1532,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260612-175555-8a8fa51f"
   },
   {
     "factor_name": "AlphaREV0001",
@@ -1227,7 +1551,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260615-161614-8a4fcb36"
   },
   {
     "factor_name": "AlphaREV0005",
@@ -1242,7 +1570,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260627-013108-b8f00c04"
   },
   {
     "factor_name": "AlphaREV0011",
@@ -1257,7 +1589,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260629-091619-d62e8a90"
   },
   {
     "factor_name": "AlphaREV0012",
@@ -1272,7 +1608,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260629-095515-7842a4f0"
   },
   {
     "factor_name": "AlphaREV0013",
@@ -1287,7 +1627,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260629-103341-33d8cffd"
   },
   {
     "factor_name": "AlphaREV0014",
@@ -1302,7 +1646,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260629-111255-97cde9b9"
   },
   {
     "factor_name": "AlphaREV0015",
@@ -1317,7 +1665,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260629-115219-4d76483f"
   },
   {
     "factor_name": "AlphaREV0016",
@@ -1332,7 +1684,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260629-155714-329234e5"
   },
   {
     "factor_name": "AlphaREV0017",
@@ -1347,7 +1703,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260629-163730-37fe13ee"
   },
   {
     "factor_name": "AlphaREV0018",
@@ -1362,7 +1722,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260629-171826-e54b4820"
   },
   {
     "factor_name": "AlphaREV0019",
@@ -1377,7 +1741,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260629-175327-c9cbfd67"
   },
   {
     "factor_name": "AlphaREV0020",
@@ -1392,7 +1760,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260629-194648-51217753"
   },
   {
     "factor_name": "AlphaREV0021",
@@ -1407,7 +1779,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260629-224658-4e291cad"
   },
   {
     "factor_name": "AlphaREV0022",
@@ -1422,7 +1798,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260629-232237-c49b0fd0"
   },
   {
     "factor_name": "AlphaREV0023",
@@ -1437,7 +1817,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260630-003651-4429ad86"
   },
   {
     "factor_name": "AlphaREV0024",
@@ -1452,7 +1836,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260630-011943-93c63806"
   },
   {
     "factor_name": "AlphaREV0025",
@@ -1467,7 +1855,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260630-034406-4655c6e6"
   },
   {
     "factor_name": "AlphaREV0026",
@@ -1482,7 +1874,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260630-121417-d1c1bf65"
   },
   {
     "factor_name": "AlphaREV0027",
@@ -1497,7 +1893,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260630-141431-3c89c302"
   },
   {
     "factor_name": "AlphaREV0028",
@@ -1512,7 +1912,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260630-125639-1f7cbc78"
   },
   {
     "factor_name": "AlphaREV0029",
@@ -1527,7 +1931,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260630-151407-17252c21"
   },
   {
     "factor_name": "AlphaREV0030",
@@ -1542,7 +1950,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260630-155601-0c7b5014"
   },
   {
     "factor_name": "AlphaREV0031",
@@ -1557,7 +1969,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260630-190014-15074308"
   },
   {
     "factor_name": "AlphaREV0032",
@@ -1572,7 +1988,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260630-194217-3e29dae9"
   },
   {
     "factor_name": "AlphaREV0033",
@@ -1587,7 +2007,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260630-210908-559b197d"
   },
   {
     "factor_name": "AlphaREV0034",
@@ -1602,7 +2026,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260630-220013-7210364a"
   },
   {
     "factor_name": "AlphaREV0035",
@@ -1617,7 +2045,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260630-225143-291bcf59"
   },
   {
     "factor_name": "AlphaREV0036",
@@ -1632,7 +2064,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260701-143902-db6a6d62"
   },
   {
     "factor_name": "AlphaREV0037",
@@ -1647,7 +2083,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260701-150117-2e162edf"
   },
   {
     "factor_name": "AlphaREV0038",
@@ -1662,7 +2102,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260701-152512-cd4ee4c7"
   },
   {
     "factor_name": "AlphaREV0039",
@@ -1677,7 +2121,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260701-160425-c4183501"
   },
   {
     "factor_name": "AlphaREV0040",
@@ -1692,7 +2140,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260701-165201-8256fdd7"
   },
   {
     "factor_name": "AlphaVOL0001",
@@ -1707,7 +2159,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260621-152836-47c70d91"
   },
   {
     "factor_name": "AlphaVOL0002",
@@ -1722,7 +2178,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260703-100723-a3365d14"
   },
   {
     "factor_name": "AlphaVOL0003",
@@ -1737,7 +2197,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260703-104206-c367ad76"
   },
   {
     "factor_name": "AlphaVOL0004",
@@ -1752,7 +2216,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260703-111609-8871d528"
   },
   {
     "factor_name": "AlphaVOL0005",
@@ -1767,7 +2235,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260703-113624-993dae37"
   },
   {
     "factor_name": "AlphaVOL0006",
@@ -1782,7 +2254,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260703-120245-f2d23973"
   },
   {
     "factor_name": "AlphaVOL0007",
@@ -1797,7 +2273,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260703-140743-824bb3ec"
   },
   {
     "factor_name": "AlphaVOL0008",
@@ -1812,7 +2292,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260703-144006-d853698c"
   },
   {
     "factor_name": "AlphaVOL0009",
@@ -1827,7 +2311,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260703-151140-4d6c921d"
   },
   {
     "factor_name": "AlphaVOL0010",
@@ -1842,7 +2330,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260703-154624-56aebc16"
   },
   {
     "factor_name": "AlphaVOL0011",
@@ -1857,7 +2349,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260703-161847-ca7beb64"
   },
   {
     "factor_name": "AlphaVOL0012",
@@ -1872,7 +2368,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260720-012000-aa856175"
   },
   {
     "factor_name": "AlphaVOL0013",
@@ -1887,7 +2387,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260720-014115-d9a45197"
   },
   {
     "factor_name": "AlphaVOL0014",
@@ -1902,7 +2406,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260720-053715-9e54eddc"
   },
   {
     "factor_name": "AlphaVOL0015",
@@ -1917,7 +2425,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260720-084645-6a418d1c"
   },
   {
     "factor_name": "AlphaVOL0016",
@@ -1932,7 +2444,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
   },
   {
     "factor_name": "AlphaVOL0017",
@@ -1947,7 +2463,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260720-095652-647e3825"
   },
   {
     "factor_name": "AlphaVOL0018",
@@ -1962,7 +2482,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
   },
   {
     "factor_name": "AlphaVOL0019",
@@ -1977,7 +2501,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260720-105608-cbd298aa"
   },
   {
     "factor_name": "AlphaVOL0020",
@@ -1992,7 +2520,11 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
   },
   {
     "factor_name": "AlphaVOL0021",
@@ -2007,6 +2539,868 @@
     "rolling_annual_return": null,
     "rolling_vol": null,
     "rolling_sharpe": null,
-    "rolling_win_rate": null
+    "rolling_win_rate": null,
+    "is_barra_cne6": false,
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-05-29",
+    "latest_backtest_run_id": "bt-20260720-122632-fab7e729"
+  },
+  {
+    "factor_name": "BarraABS",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_d565846da10f",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "ABS",
+    "barra_style": "Quality",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraACF",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_4a714f332a0d",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "ACF",
+    "barra_style": "Quality",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraAGRO",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_65cf7cd91f86",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "AGRO",
+    "barra_style": "Quality",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraATO",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_c4f210f6ffaf",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "ATO",
+    "barra_style": "Quality",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraATVR",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_372dc7c8d27f",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "ATVR",
+    "barra_style": "Liquidity",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraBETA",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_ff6c7320c56f",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "BETA",
+    "barra_style": "Volatility",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraBLEV",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_d0ca7f0ce807",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "BLEV",
+    "barra_style": "Quality",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraBTOP",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_759b9cd1b12e",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "BTOP",
+    "barra_style": "Value",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraCETOP",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_c96e65b21c2a",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "CETOP",
+    "barra_style": "Value",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraCMRA",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_70d8bdb11b62",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "CMRA",
+    "barra_style": "Volatility",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraCXGRO",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_fb9a7c8c069f",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "CXGRO",
+    "barra_style": "Quality",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraDASTD",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_988337917dff",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "DASTD",
+    "barra_style": "Volatility",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraDTOA",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_4c097703a6b5",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "DTOA",
+    "barra_style": "Quality",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraDTOP",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_ca018d38d39b",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "DTOP",
+    "barra_style": "Dividend Yield",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraEGRO",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_1229ed3d9109",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "EGRO",
+    "barra_style": "Growth",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraEM",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_7ce86f4ecaec",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "EM",
+    "barra_style": "Value",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraETOP",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_61a4d21c20a2",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "ETOP",
+    "barra_style": "Value",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraGP",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_f67315521604",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "GP",
+    "barra_style": "Quality",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraGPM",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_ade1cc25b0e8",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "GPM",
+    "barra_style": "Quality",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraHALPHA",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_be89b3fd97a1",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "HALPHA",
+    "barra_style": "Momentum",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraHSIGMA",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_c41323973df9",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "HSIGMA",
+    "barra_style": "Volatility",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraIGRO",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_2dc5e822ecd9",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "IGRO",
+    "barra_style": "Quality",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraINDMOM",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_7ec1cf93f39a",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "INDMOM",
+    "barra_style": "Momentum",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraLNCAP",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_451674450aad",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "LNCAP",
+    "barra_style": "Size",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraLTHALPHA",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_cc380e6b89cb",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "LTHALPHA",
+    "barra_style": "Value",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraLTRSTR",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_644e774a2c34",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "LTRSTR",
+    "barra_style": "Value",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraMIDCAP",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_47445403dbe6",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "MIDCAP",
+    "barra_style": "Size",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraMLEV",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_2490791dce18",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "MLEV",
+    "barra_style": "Quality",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraROA",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_c0505d27d172",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "ROA",
+    "barra_style": "Quality",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraRSTR",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_fd45430aaf89",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "RSTR",
+    "barra_style": "Momentum",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraSEASON",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_2989fcd44bb6",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "SEASON",
+    "barra_style": "Momentum",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraSGRO",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_f6fd8053435d",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "SGRO",
+    "barra_style": "Growth",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraSTOA",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_03184a77e957",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "STOA",
+    "barra_style": "Liquidity",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraSTOM",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_2c83f52bf5f4",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "STOM",
+    "barra_style": "Liquidity",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraSTOQ",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_a9681695bbba",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "STOQ",
+    "barra_style": "Liquidity",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraSTREV",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_631ead5f4973",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "STREV",
+    "barra_style": "Momentum",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraVERN",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_f8b4b5705034",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "VERN",
+    "barra_style": "Quality",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraVFLO",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_e9dcac11bc9b",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "VFLO",
+    "barra_style": "Quality",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
+  },
+  {
+    "factor_name": "BarraVSAL",
+    "factor_family": "Barra",
+    "lifecycle_status": "draft",
+    "version_id": "ver_5285de5c273a",
+    "version": "v1",
+    "latest_factor_value_date": null,
+    "latest_metric_date": null,
+    "rolling_ic_mean": null,
+    "rolling_icir": null,
+    "rolling_annual_return": null,
+    "rolling_vol": null,
+    "rolling_sharpe": null,
+    "rolling_win_rate": null,
+    "is_barra_cne6": true,
+    "descriptor_code": "VSAL",
+    "barra_style": "Quality",
+    "barra_category": "CNE6三级描述子",
+    "latest_backtest_status": null,
+    "latest_backtest_date": null,
+    "latest_backtest_run_id": null
   }
 ]
