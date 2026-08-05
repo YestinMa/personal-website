@@ -127,9 +127,9 @@
     "descriptor_code": "BETA",
     "barra_style": "Volatility",
     "barra_category": "CNE6三级描述子",
-    "latest_backtest_status": null,
-    "latest_backtest_date": null,
-    "latest_backtest_run_id": null
+    "latest_backtest_status": "success",
+    "latest_backtest_date": "2026-08-03",
+    "latest_backtest_run_id": "bt-20260805-131421-ef5dfc91"
   },
   {
     "factor_name": "BarraBLEV",

@@ -1,89 +1,169 @@
 {
   "scheduler": {
-    "latest_run_id": "20260805-084443-master-daily",
+    "latest_run_id": "20260805-163729-master-daily",
     "stages": [
       {
-        "run_id": "20260805-084443-master-daily",
+        "run_id": "20260805-163729-master-daily",
         "stage_name": "Multifactor_Valuation_Daily",
         "stage_order": 2,
         "status": "blocked",
         "trade_date": null,
-        "started_at": "2026-08-05 08:44:44",
-        "ended_at": "2026-08-05 08:44:44",
+        "started_at": "2026-08-05 16:39:35",
+        "ended_at": "2026-08-05 16:39:35",
         "error_message": "blocked because ETL daily stage failed"
       },
       {
-        "run_id": "20260805-084443-master-daily",
+        "run_id": "20260805-163729-master-daily",
         "stage_name": "Multifactor_Financial_Event_Daily",
         "stage_order": 3,
         "status": "blocked",
         "trade_date": null,
-        "started_at": "2026-08-05 08:44:44",
-        "ended_at": "2026-08-05 08:44:44",
+        "started_at": "2026-08-05 16:39:35",
+        "ended_at": "2026-08-05 16:39:35",
         "error_message": "blocked because ETL daily stage failed"
       },
       {
-        "run_id": "20260805-084443-master-daily",
+        "run_id": "20260805-163729-master-daily",
         "stage_name": "Multifactor_ETL_Backfill",
         "stage_order": 4,
         "status": "blocked",
         "trade_date": null,
-        "started_at": "2026-08-05 08:44:44",
-        "ended_at": "2026-08-05 08:44:44",
+        "started_at": "2026-08-05 16:39:35",
+        "ended_at": "2026-08-05 16:39:35",
         "error_message": "blocked because ETL daily stage failed"
       },
       {
-        "run_id": "20260805-084443-master-daily",
+        "run_id": "20260805-163729-master-daily",
         "stage_name": "Multifactor_Factor_Daily",
         "stage_order": 5,
         "status": "blocked",
         "trade_date": null,
-        "started_at": "2026-08-05 08:44:44",
-        "ended_at": "2026-08-05 08:44:44",
+        "started_at": "2026-08-05 16:39:35",
+        "ended_at": "2026-08-05 16:39:35",
         "error_message": "blocked because ETL daily stage failed"
       },
       {
-        "run_id": "20260805-084443-master-daily",
+        "run_id": "20260805-163729-master-daily",
         "stage_name": "Multifactor_Factor_Eval_Auto_Update",
         "stage_order": 6,
         "status": "blocked",
         "trade_date": null,
-        "started_at": "2026-08-05 08:44:44",
-        "ended_at": "2026-08-05 08:44:44",
+        "started_at": "2026-08-05 16:39:35",
+        "ended_at": "2026-08-05 16:39:35",
         "error_message": "blocked because ETL daily stage failed"
       },
       {
-        "run_id": "20260805-084443-master-daily",
+        "run_id": "20260805-163729-master-daily",
         "stage_name": "Multifactor_Factor_Rolling_Metrics_Weekly",
         "stage_order": 7,
         "status": "skipped",
-        "trade_date": "2026-08-03",
-        "started_at": "2026-08-05 08:44:44",
-        "ended_at": "2026-08-05 08:44:44",
+        "trade_date": "2026-08-05",
+        "started_at": "2026-08-05 16:39:35",
+        "ended_at": "2026-08-05 16:39:35",
         "error_message": "skipped because weekly metrics run on Monday only"
       },
       {
-        "run_id": "20260805-084443-master-daily",
-        "stage_name": "Multifactor_Factor_Dashboard_Publish",
+        "run_id": "20260805-163729-master-daily",
+        "stage_name": "Barra_Historical_Backtest_Monthly",
         "stage_order": 8,
-        "status": "failed",
-        "trade_date": "2026-08-03",
-        "started_at": "2026-08-05 08:44:44",
-        "ended_at": "2026-08-05 08:46:36",
-        "error_message": null
+        "status": "skipped",
+        "trade_date": "2026-08-05",
+        "started_at": "2026-08-05 16:39:35",
+        "ended_at": "2026-08-05 16:39:35",
+        "error_message": "skipped because Barra historical backtest runs on the first trading day of each month"
       },
       {
-        "run_id": "20260805-084443-master-daily",
+        "run_id": "20260805-163729-master-daily",
         "stage_name": "Multifactor_ETL_Daily",
         "stage_order": 1,
         "status": "failed",
         "trade_date": null,
-        "started_at": "2026-08-05 08:44:43",
-        "ended_at": "2026-08-05 08:44:44",
-        "error_message": "[Errno 11001] getaddrinfo failed"
+        "started_at": "2026-08-05 16:37:29",
+        "ended_at": "2026-08-05 16:39:34",
+        "error_message": "near \"metadata_columns\": syntax error"
       }
     ],
     "recent_stages": [
+      {
+        "run_id": "20260805-163729-master-daily",
+        "stage_name": "Multifactor_Valuation_Daily",
+        "stage_order": 2,
+        "status": "blocked",
+        "trade_date": null,
+        "started_at": "2026-08-05 16:39:35",
+        "ended_at": "2026-08-05 16:39:35",
+        "error_message": "blocked because ETL daily stage failed"
+      },
+      {
+        "run_id": "20260805-163729-master-daily",
+        "stage_name": "Multifactor_Financial_Event_Daily",
+        "stage_order": 3,
+        "status": "blocked",
+        "trade_date": null,
+        "started_at": "2026-08-05 16:39:35",
+        "ended_at": "2026-08-05 16:39:35",
+        "error_message": "blocked because ETL daily stage failed"
+      },
+      {
+        "run_id": "20260805-163729-master-daily",
+        "stage_name": "Multifactor_ETL_Backfill",
+        "stage_order": 4,
+        "status": "blocked",
+        "trade_date": null,
+        "started_at": "2026-08-05 16:39:35",
+        "ended_at": "2026-08-05 16:39:35",
+        "error_message": "blocked because ETL daily stage failed"
+      },
+      {
+        "run_id": "20260805-163729-master-daily",
+        "stage_name": "Multifactor_Factor_Daily",
+        "stage_order": 5,
+        "status": "blocked",
+        "trade_date": null,
+        "started_at": "2026-08-05 16:39:35",
+        "ended_at": "2026-08-05 16:39:35",
+        "error_message": "blocked because ETL daily stage failed"
+      },
+      {
+        "run_id": "20260805-163729-master-daily",
+        "stage_name": "Multifactor_Factor_Eval_Auto_Update",
+        "stage_order": 6,
+        "status": "blocked",
+        "trade_date": null,
+        "started_at": "2026-08-05 16:39:35",
+        "ended_at": "2026-08-05 16:39:35",
+        "error_message": "blocked because ETL daily stage failed"
+      },
+      {
+        "run_id": "20260805-163729-master-daily",
+        "stage_name": "Multifactor_Factor_Rolling_Metrics_Weekly",
+        "stage_order": 7,
+        "status": "skipped",
+        "trade_date": "2026-08-05",
+        "started_at": "2026-08-05 16:39:35",
+        "ended_at": "2026-08-05 16:39:35",
+        "error_message": "skipped because weekly metrics run on Monday only"
+      },
+      {
+        "run_id": "20260805-163729-master-daily",
+        "stage_name": "Barra_Historical_Backtest_Monthly",
+        "stage_order": 8,
+        "status": "skipped",
+        "trade_date": "2026-08-05",
+        "started_at": "2026-08-05 16:39:35",
+        "ended_at": "2026-08-05 16:39:35",
+        "error_message": "skipped because Barra historical backtest runs on the first trading day of each month"
+      },
+      {
+        "run_id": "20260805-163729-master-daily",
+        "stage_name": "Multifactor_ETL_Daily",
+        "stage_order": 1,
+        "status": "failed",
+        "trade_date": null,
+        "started_at": "2026-08-05 16:37:29",
+        "ended_at": "2026-08-05 16:39:34",
+        "error_message": "near \"metadata_columns\": syntax error"
+      },
       {
         "run_id": "20260805-084443-master-daily",
         "stage_name": "Multifactor_Valuation_Daily",
@@ -243,102 +323,22 @@
         "started_at": "2026-08-04 10:25:30",
         "ended_at": "2026-08-04 10:26:31",
         "error_message": "near \"metadata_columns\": syntax error"
-      },
-      {
-        "run_id": "20260803-172857-master-daily",
-        "stage_name": "Multifactor_ETL_Daily",
-        "stage_order": 1,
-        "status": "failed",
-        "trade_date": null,
-        "started_at": "2026-08-03 17:28:57",
-        "ended_at": "2026-08-03 17:28:57",
-        "error_message": "this license is only allowed to access through the education network"
-      },
-      {
-        "run_id": "20260803-172857-master-daily",
-        "stage_name": "Multifactor_Valuation_Daily",
-        "stage_order": 2,
-        "status": "blocked",
-        "trade_date": null,
-        "started_at": "2026-08-03 17:28:57",
-        "ended_at": "2026-08-03 17:28:57",
-        "error_message": "blocked because ETL daily stage failed"
-      },
-      {
-        "run_id": "20260803-172857-master-daily",
-        "stage_name": "Multifactor_Financial_Event_Daily",
-        "stage_order": 3,
-        "status": "blocked",
-        "trade_date": null,
-        "started_at": "2026-08-03 17:28:57",
-        "ended_at": "2026-08-03 17:28:57",
-        "error_message": "blocked because ETL daily stage failed"
-      },
-      {
-        "run_id": "20260803-172857-master-daily",
-        "stage_name": "Multifactor_ETL_Backfill",
-        "stage_order": 4,
-        "status": "blocked",
-        "trade_date": null,
-        "started_at": "2026-08-03 17:28:57",
-        "ended_at": "2026-08-03 17:28:57",
-        "error_message": "blocked because ETL daily stage failed"
-      },
-      {
-        "run_id": "20260803-172857-master-daily",
-        "stage_name": "Multifactor_Factor_Daily",
-        "stage_order": 5,
-        "status": "blocked",
-        "trade_date": null,
-        "started_at": "2026-08-03 17:28:57",
-        "ended_at": "2026-08-03 17:28:57",
-        "error_message": "blocked because ETL daily stage failed"
-      },
-      {
-        "run_id": "20260803-172857-master-daily",
-        "stage_name": "Multifactor_Factor_Eval_Auto_Update",
-        "stage_order": 6,
-        "status": "blocked",
-        "trade_date": null,
-        "started_at": "2026-08-03 17:28:57",
-        "ended_at": "2026-08-03 17:28:57",
-        "error_message": "blocked because ETL daily stage failed"
-      },
-      {
-        "run_id": "20260803-172857-master-daily",
-        "stage_name": "Multifactor_Factor_Rolling_Metrics_Weekly",
-        "stage_order": 7,
-        "status": "blocked",
-        "trade_date": "2026-07-31",
-        "started_at": "2026-08-03 17:28:57",
-        "ended_at": "2026-08-03 17:28:57",
-        "error_message": "blocked because ETL daily stage failed"
-      },
-      {
-        "run_id": "20260803-172857-master-daily",
-        "stage_name": "Multifactor_Factor_Dashboard_Publish",
-        "stage_order": 8,
-        "status": "success",
-        "trade_date": "2026-07-31",
-        "started_at": "2026-08-03 17:28:57",
-        "ended_at": "2026-08-03 17:30:49",
-        "error_message": null
       }
     ]
   },
   "data_layer": {
     "layer": "data_layer",
-    "job_date": "2026-08-04",
-    "latest_run_id": "20260804-102534-daily",
-    "status": "success",
+    "job_date": "2026-08-05",
+    "latest_run_id": "20260805-163800-daily",
+    "status": "partial_success",
     "summary": {
       "table_count": 4,
-      "success_table_count": 4,
-      "failed_table_count": 0,
-      "rows_written": 12209,
-      "field_values_written": 173717,
+      "success_table_count": 2,
+      "failed_table_count": 2,
+      "rows_written": 10408,
+      "field_values_written": 192548,
       "financial_raw_new_rows": 0,
-      "quota_usage": 0.00015073776245117188,
+      "quota_usage": 0.8278521633148194,
       "event_summary": {}
     },
     "daily_update": [
@@ -346,11 +346,11 @@
         "table_name": "instruments",
         "phase": "daily_update",
         "status": "success",
-        "target_date": "2026-08-03",
-        "rows_written": 5203,
-        "field_values_written": 88451,
+        "target_date": "2026-08-05",
+        "rows_written": 5204,
+        "field_values_written": 88468,
         "new_rows_inserted": 0,
-        "duration_ms": 6858,
+        "duration_ms": 38210,
         "error_type": null,
         "error_message": null
       },
@@ -358,42 +358,42 @@
         "table_name": "daily",
         "phase": "daily_update",
         "status": "success",
-        "target_date": "2026-08-03",
-        "rows_written": 5203,
-        "field_values_written": 78045,
+        "target_date": "2026-08-05",
+        "rows_written": 5204,
+        "field_values_written": 104080,
         "new_rows_inserted": 0,
-        "duration_ms": 48704,
+        "duration_ms": 54567,
         "error_type": null,
         "error_message": null
       },
       {
         "table_name": "index_daily",
         "phase": "daily_update",
-        "status": "success",
-        "target_date": "2026-08-03",
-        "rows_written": 3,
-        "field_values_written": 21,
+        "status": "failed",
+        "target_date": "2026-08-05",
+        "rows_written": 0,
+        "field_values_written": 0,
         "new_rows_inserted": 0,
-        "duration_ms": 772,
-        "error_type": null,
-        "error_message": null
+        "duration_ms": null,
+        "error_type": "TaskError",
+        "error_message": "order_book_ids: at least one valid instrument expected, got none"
       },
       {
         "table_name": "index_constituents",
         "phase": "daily_update",
-        "status": "success",
-        "target_date": "2026-08-03",
-        "rows_written": 1800,
-        "field_values_written": 7200,
+        "status": "failed",
+        "target_date": "2026-08-05",
+        "rows_written": 0,
+        "field_values_written": 0,
         "new_rows_inserted": 0,
-        "duration_ms": 396,
-        "error_type": null,
-        "error_message": null
+        "duration_ms": null,
+        "error_type": "TaskError",
+        "error_message": "invalid order_book_id: 932000.XSHG"
       }
     ],
     "backfill": [],
     "financial_events": [],
-    "generated_at": "2026-08-04 10:26:31"
+    "generated_at": "2026-08-05 16:39:34"
   },
   "factor_layer": {
     "layer": "factor_layer",
@@ -815,16 +815,445 @@
   "backtest_layer": {
     "layer": "backtest_layer",
     "job_date": "2026-08-05",
-    "latest_run_id": "bt-20260805-105350-cc393c8b",
-    "status": "success",
+    "latest_run_id": "bt-20260805-131804-8965fc8c",
+    "status": "failed",
     "summary": {
-      "run_count": 31,
+      "run_count": 41,
       "pending_count": 5,
-      "running_count": 6,
-      "success_count": 10,
-      "failed_count": 10
+      "running_count": 5,
+      "success_count": 13,
+      "failed_count": 18
     },
     "runs": [
+      {
+        "run_id": "bt-20260805-131804-8965fc8c",
+        "factor_name": "BarraBETA",
+        "version_id": "ver_ff6c7320c56f",
+        "start_date": "2018-07-11",
+        "end_date": "2026-08-03",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_BETA\\Barra_BETA_20180102_20260803.parquet",
+        "status": "failed",
+        "error_message": "resolved empty point-in-time universe for CSI2000",
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-08-05 13:18:04",
+        "started_at": "2026-08-05 13:18:04",
+        "ended_at": "2026-08-05 13:18:04",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260805-131654-287fa9b7",
+        "factor_name": "BarraBETA",
+        "version_id": "ver_ff6c7320c56f",
+        "start_date": "2018-07-11",
+        "end_date": "2026-08-03",
+        "universe": "CSI1000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_BETA\\Barra_BETA_20180102_20260803.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260805-131654-287fa9b7",
+          "factor_name": "BarraBETA",
+          "version_id": "ver_ff6c7320c56f",
+          "start_date": "2018-07-11",
+          "end_date": "2026-08-03",
+          "universe": "CSI1000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2269,
+          "mean_ic": {
+            "1": 0.007440451927595404,
+            "5": 0.009351913944334243,
+            "22": 0.009525483318197936
+          },
+          "evaluation_metrics": {
+            "icir_1": 0.06156895656747539,
+            "icir_5": 0.07937109309874085,
+            "icir_22": 0.0837207948225938,
+            "ls_annual_return": 0.12410355599526879,
+            "ls_annual_vol": 0.17454968181526515,
+            "ls_sharpe": 0.7574475064937979,
+            "ls_win_rate": 0.5171706817016914,
+            "ls_max_drawdown": -0.3635583786099734,
+            "mean_turnover": 0.08781841983549762,
+            "coverage_ratio": 0.430346505596367
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-CSI1000-18072608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-CSI1000-18072608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-CSI1000-18072608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-CSI1000-18072608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-CSI1000-18072608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-05 13:16:54",
+        "started_at": "2026-08-05 13:16:54",
+        "ended_at": "2026-08-05 13:18:04",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260805-131604-cd5c1e2b",
+        "factor_name": "BarraBETA",
+        "version_id": "ver_ff6c7320c56f",
+        "start_date": "2018-07-11",
+        "end_date": "2026-08-03",
+        "universe": "CSI800",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_BETA\\Barra_BETA_20180102_20260803.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260805-131604-cd5c1e2b",
+          "factor_name": "BarraBETA",
+          "version_id": "ver_ff6c7320c56f",
+          "start_date": "2018-07-11",
+          "end_date": "2026-08-03",
+          "universe": "CSI800",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 1309,
+          "mean_ic": {
+            "1": 0.0035862269082526836,
+            "5": 0.006613860415008705,
+            "22": 0.01144794538253883
+          },
+          "evaluation_metrics": {
+            "icir_1": 0.022692867966470524,
+            "icir_5": 0.042062338223566836,
+            "icir_22": 0.07144156141593963,
+            "ls_annual_return": 0.08912546162067803,
+            "ls_annual_vol": 0.20188900747293745,
+            "ls_sharpe": 0.5235237380559197,
+            "ls_win_rate": 0.5110199897488468,
+            "ls_max_drawdown": -0.41693157327705765,
+            "mean_turnover": 0.07842631095546629,
+            "coverage_ratio": 0.5978450031038809
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-CSI800-18072608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-CSI800-18072608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-CSI800-18072608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-CSI800-18072608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-CSI800-18072608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-05 13:16:04",
+        "started_at": "2026-08-05 13:16:04",
+        "ended_at": "2026-08-05 13:16:54",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260805-131421-ef5dfc91",
+        "factor_name": "BarraBETA",
+        "version_id": "ver_ff6c7320c56f",
+        "start_date": "2018-07-11",
+        "end_date": "2026-08-03",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_BETA\\Barra_BETA_20180102_20260803.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260805-131421-ef5dfc91",
+          "factor_name": "BarraBETA",
+          "version_id": "ver_ff6c7320c56f",
+          "start_date": "2018-07-11",
+          "end_date": "2026-08-03",
+          "universe": "ALL",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "all_factor_values",
+          "universe_size": 5185,
+          "mean_ic": {
+            "1": 0.0063934418417033,
+            "5": 0.005196079548070218,
+            "22": 0.0015412673931386482
+          },
+          "evaluation_metrics": {
+            "icir_1": 0.06309535725293706,
+            "icir_5": 0.055358176481575525,
+            "icir_22": 0.01730783438705915,
+            "ls_annual_return": 0.09077530424638702,
+            "ls_annual_vol": 0.157975417539717,
+            "ls_sharpe": 0.6288277555198731,
+            "ls_win_rate": 0.5058944131214762,
+            "ls_max_drawdown": -0.26298407649887434,
+            "mean_turnover": 0.08322757289487484,
+            "coverage_ratio": 0.8289560703534014
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-ALL-18072608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-ALL-18072608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-ALL-18072608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-ALL-18072608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-ALL-18072608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-05 13:14:21",
+        "started_at": "2026-08-05 13:14:21",
+        "ended_at": "2026-08-05 13:16:04",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260805-130534-772dbd18",
+        "factor_name": "BarraBETA",
+        "version_id": "ver_ff6c7320c56f",
+        "start_date": "2018-07-11",
+        "end_date": "2026-08-03",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_BETA\\Barra_BETA_20180102_20260803.parquet",
+        "status": "failed",
+        "error_message": "Recovered stale running run after possible interruption",
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-08-05 13:05:34",
+        "started_at": "2026-08-05 13:05:34",
+        "ended_at": "2026-08-05 13:19:42",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260805-130520-1230f7f2",
+        "factor_name": "BarraBETA",
+        "version_id": "ver_ff6c7320c56f",
+        "start_date": "2018-07-11",
+        "end_date": "2026-08-03",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_BETA\\Barra_BETA_20180102_20260803.parquet",
+        "status": "failed",
+        "error_message": "Recovered stale running run after possible interruption",
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-08-05 13:05:20",
+        "started_at": "2026-08-05 13:05:20",
+        "ended_at": "2026-08-05 13:19:42",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260805-130301-63a1a9e6",
+        "factor_name": "BarraBETA",
+        "version_id": "ver_ff6c7320c56f",
+        "start_date": "2018-07-11",
+        "end_date": "2026-08-03",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_BETA\\Barra_BETA_20180102_20260803.parquet",
+        "status": "failed",
+        "error_message": "Recovered stale running run after possible interruption",
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-08-05 13:03:01",
+        "started_at": "2026-08-05 13:03:01",
+        "ended_at": "2026-08-05 13:19:42",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260805-130130-2a4849c3",
+        "factor_name": "BarraBETA",
+        "version_id": "ver_ff6c7320c56f",
+        "start_date": "2018-07-11",
+        "end_date": "2026-08-03",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_BETA\\Barra_BETA_20180102_20260803.parquet",
+        "status": "failed",
+        "error_message": "Recovered stale running run after possible interruption",
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-08-05 13:01:30",
+        "started_at": "2026-08-05 13:01:30",
+        "ended_at": "2026-08-05 13:19:42",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260805-124923-5a4df164",
+        "factor_name": "BarraBETA",
+        "version_id": "ver_ff6c7320c56f",
+        "start_date": "2018-07-11",
+        "end_date": "2026-08-03",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_BETA\\Barra_BETA_20180102_20260803.parquet",
+        "status": "failed",
+        "error_message": "Recovered stale running run after possible interruption",
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-08-05 12:49:23",
+        "started_at": "2026-08-05 12:49:23",
+        "ended_at": "2026-08-05 13:19:42",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260805-124133-443cd824",
+        "factor_name": "BarraBETA",
+        "version_id": "ver_ff6c7320c56f",
+        "start_date": "2018-07-11",
+        "end_date": "2026-08-03",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_BETA\\Barra_BETA_20180102_20260803.parquet",
+        "status": "failed",
+        "error_message": "Recovered stale running run after possible interruption",
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-08-05 12:41:33",
+        "started_at": "2026-08-05 12:41:33",
+        "ended_at": "2026-08-05 13:19:42",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
       {
         "run_id": "bt-20260805-105350-cc393c8b",
         "factor_name": "AlphaTest",
@@ -1092,13 +1521,13 @@
         "cost": 0.001,
         "source_mode": "parquet",
         "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_LNCAP\\Barra_LNCAP_20180102_20260803.parquet",
-        "status": "running",
-        "error_message": null,
+        "status": "failed",
+        "error_message": "Recovered stale running run after possible interruption",
         "summary": null,
         "artifacts": null,
         "created_at": "2026-08-05 10:37:55",
         "started_at": "2026-08-05 10:37:55",
-        "ended_at": null,
+        "ended_at": "2026-08-05 13:19:42",
         "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
       },
       {
@@ -2074,6 +2503,6 @@
         "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpdwerln51\\factor.db"
       }
     ],
-    "generated_at": "2026-08-05 10:53:50"
+    "generated_at": "2026-08-05 13:19:42"
   }
 }
