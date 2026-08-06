@@ -74,6 +74,16 @@
       },
       {
         "run_id": "20260805-163729-master-daily",
+        "stage_name": "Multifactor_Factor_Dashboard_Publish",
+        "stage_order": 9,
+        "status": "success",
+        "trade_date": "2026-08-05",
+        "started_at": "2026-08-05 16:39:35",
+        "ended_at": "2026-08-05 16:48:22",
+        "error_message": null
+      },
+      {
+        "run_id": "20260805-163729-master-daily",
         "stage_name": "Multifactor_ETL_Daily",
         "stage_order": 1,
         "status": "failed",
@@ -153,6 +163,16 @@
         "started_at": "2026-08-05 16:39:35",
         "ended_at": "2026-08-05 16:39:35",
         "error_message": "skipped because Barra historical backtest runs on the first trading day of each month"
+      },
+      {
+        "run_id": "20260805-163729-master-daily",
+        "stage_name": "Multifactor_Factor_Dashboard_Publish",
+        "stage_order": 9,
+        "status": "success",
+        "trade_date": "2026-08-05",
+        "started_at": "2026-08-05 16:39:35",
+        "ended_at": "2026-08-05 16:48:22",
+        "error_message": null
       },
       {
         "run_id": "20260805-163729-master-daily",
@@ -313,16 +333,6 @@
         "started_at": "2026-08-04 10:26:31",
         "ended_at": "2026-08-04 10:28:18",
         "error_message": null
-      },
-      {
-        "run_id": "20260804-102530-master-daily",
-        "stage_name": "Multifactor_ETL_Daily",
-        "stage_order": 1,
-        "status": "failed",
-        "trade_date": null,
-        "started_at": "2026-08-04 10:25:30",
-        "ended_at": "2026-08-04 10:26:31",
-        "error_message": "near \"metadata_columns\": syntax error"
       }
     ]
   },
@@ -814,23 +824,509 @@
   },
   "backtest_layer": {
     "layer": "backtest_layer",
-    "job_date": "2026-08-05",
-    "latest_run_id": "bt-20260805-131804-8965fc8c",
+    "job_date": "2026-08-06",
+    "latest_run_id": "bt-20260806-124512-96aef8bb",
     "status": "failed",
     "summary": {
-      "run_count": 41,
-      "pending_count": 5,
-      "running_count": 5,
-      "success_count": 13,
-      "failed_count": 18
+      "run_count": 51,
+      "pending_count": 2,
+      "running_count": 2,
+      "success_count": 43,
+      "failed_count": 4
     },
     "runs": [
       {
-        "run_id": "bt-20260805-131804-8965fc8c",
-        "factor_name": "BarraBETA",
-        "version_id": "ver_ff6c7320c56f",
-        "start_date": "2018-07-11",
-        "end_date": "2026-08-03",
+        "run_id": "bt-20260806-124512-96aef8bb",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "failed",
+        "error_message": "Recovered stale running run after possible interruption",
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-08-06 12:45:12",
+        "started_at": "2000-01-01 00:00:00",
+        "ended_at": "2026-08-06 12:45:12",
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpkbxfxm8d\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-124512-f9037285",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "running",
+        "error_message": null,
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-08-06 12:45:12",
+        "started_at": "2026-08-06 12:45:12",
+        "ended_at": null,
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpkbxfxm8d\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-124512-80709709",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "pending",
+        "error_message": null,
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-08-06 12:45:12",
+        "started_at": null,
+        "ended_at": null,
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp4witp5t_\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-124511-b852a564",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "failed",
+        "error_message": "Recovered stale running run after possible interruption",
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-08-06 12:45:11",
+        "started_at": "2000-01-01 00:00:00",
+        "ended_at": "2026-08-06 12:45:11",
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpb6wwte9_\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-124511-2239ce25",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-124511-2239ce25",
+          "factor_name": "AlphaTest",
+          "version_id": "ver_a",
+          "start_date": "2026-01-02",
+          "end_date": "2026-01-05",
+          "universe": "ALL",
+          "source_mode": "db",
+          "resolved_universe_mode": "all_factor_values",
+          "universe_size": 3,
+          "mean_ic": {
+            "1": 0.1
+          },
+          "evaluation_metrics": {
+            "coverage_ratio": 1.0
+          }
+        },
+        "artifacts": {
+          "output_dir": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpcyx_oqab\\backtest_results\\single_factors\\AlphaTest\\20260806-ALL-26012601",
+          "backtest_summary_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpcyx_oqab\\backtest_results\\single_factors\\AlphaTest\\20260806-ALL-26012601\\backtest_summary.csv",
+          "mean_ic_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpcyx_oqab\\backtest_results\\single_factors\\AlphaTest\\20260806-ALL-26012601\\mean_IC.csv",
+          "long_short_with_cost_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpcyx_oqab\\backtest_results\\single_factors\\AlphaTest\\20260806-ALL-26012601\\long_short_returns_with_cost.csv",
+          "plot_png": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpcyx_oqab\\backtest_results\\single_factors\\AlphaTest\\20260806-ALL-26012601\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 12:45:11",
+        "started_at": "2026-08-06 12:45:11",
+        "ended_at": "2026-08-06 12:45:11",
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpcyx_oqab\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-124511-fe53c29d",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpmfrl6l6y\\AlphaTest.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-124511-fe53c29d",
+          "factor_name": "AlphaTest",
+          "version_id": "ver_a",
+          "start_date": "2026-01-02",
+          "end_date": "2026-01-05",
+          "universe": "ALL",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "all_factor_values",
+          "universe_size": 3,
+          "mean_ic": {
+            "22": 0.02
+          },
+          "evaluation_metrics": {
+            "coverage_ratio": 0.95,
+            "mean_turnover": 0.11
+          }
+        },
+        "artifacts": {
+          "output_dir": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpmfrl6l6y\\backtest_results\\single_factors\\AlphaTest\\20260806-ALL-26012601",
+          "backtest_summary_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpmfrl6l6y\\backtest_results\\single_factors\\AlphaTest\\20260806-ALL-26012601\\backtest_summary.csv",
+          "mean_ic_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpmfrl6l6y\\backtest_results\\single_factors\\AlphaTest\\20260806-ALL-26012601\\mean_IC.csv",
+          "long_short_with_cost_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpmfrl6l6y\\backtest_results\\single_factors\\AlphaTest\\20260806-ALL-26012601\\long_short_returns_with_cost.csv",
+          "plot_png": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpmfrl6l6y\\backtest_results\\single_factors\\AlphaTest\\20260806-ALL-26012601\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 12:45:11",
+        "started_at": "2026-08-06 12:45:11",
+        "ended_at": "2026-08-06 12:45:11",
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpmfrl6l6y\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-124410-d6a01ce8",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpik3ad8ik\\AlphaTest.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-124410-d6a01ce8",
+          "factor_name": "AlphaTest",
+          "version_id": "ver_a",
+          "start_date": "2026-01-02",
+          "end_date": "2026-01-05",
+          "universe": "ALL",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "all_factor_values",
+          "universe_size": 3,
+          "mean_ic": {
+            "22": 0.02
+          },
+          "evaluation_metrics": {
+            "coverage_ratio": 0.95,
+            "mean_turnover": 0.11
+          }
+        },
+        "artifacts": {
+          "output_dir": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpik3ad8ik\\backtest_results\\single_factors\\AlphaTest\\20260806-ALL-26012601",
+          "backtest_summary_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpik3ad8ik\\backtest_results\\single_factors\\AlphaTest\\20260806-ALL-26012601\\backtest_summary.csv",
+          "mean_ic_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpik3ad8ik\\backtest_results\\single_factors\\AlphaTest\\20260806-ALL-26012601\\mean_IC.csv",
+          "long_short_with_cost_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpik3ad8ik\\backtest_results\\single_factors\\AlphaTest\\20260806-ALL-26012601\\long_short_returns_with_cost.csv",
+          "plot_png": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpik3ad8ik\\backtest_results\\single_factors\\AlphaTest\\20260806-ALL-26012601\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 12:44:10",
+        "started_at": "2026-08-06 12:44:10",
+        "ended_at": "2026-08-06 12:44:10",
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpik3ad8ik\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-124410-41638115",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "failed",
+        "error_message": "Recovered stale running run after possible interruption",
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-08-06 12:44:10",
+        "started_at": "2000-01-01 00:00:00",
+        "ended_at": "2026-08-06 12:44:10",
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmperg8inbe\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-124410-d904dff2",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "running",
+        "error_message": null,
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-08-06 12:44:10",
+        "started_at": "2026-08-06 12:44:10",
+        "ended_at": null,
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmperg8inbe\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-124410-be8bb925",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "pending",
+        "error_message": null,
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-08-06 12:44:10",
+        "started_at": null,
+        "ended_at": null,
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpdug93imn\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-124409-12465d10",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "failed",
+        "error_message": "Recovered stale running run after possible interruption",
+        "summary": null,
+        "artifacts": null,
+        "created_at": "2026-08-06 12:44:09",
+        "started_at": "2000-01-01 00:00:00",
+        "ended_at": "2026-08-06 12:44:09",
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpiowe5jhr\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-124409-6d38675f",
+        "factor_name": "AlphaTest",
+        "version_id": "ver_a",
+        "start_date": "2026-01-02",
+        "end_date": "2026-01-05",
+        "universe": "ALL",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "db",
+        "factor_parquet_path": null,
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-124409-6d38675f",
+          "factor_name": "AlphaTest",
+          "version_id": "ver_a",
+          "start_date": "2026-01-02",
+          "end_date": "2026-01-05",
+          "universe": "ALL",
+          "source_mode": "db",
+          "resolved_universe_mode": "all_factor_values",
+          "universe_size": 3,
+          "mean_ic": {
+            "1": 0.1
+          },
+          "evaluation_metrics": {
+            "coverage_ratio": 1.0
+          }
+        },
+        "artifacts": {
+          "output_dir": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp4a6ympn8\\backtest_results\\single_factors\\AlphaTest\\20260806-ALL-26012601",
+          "backtest_summary_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp4a6ympn8\\backtest_results\\single_factors\\AlphaTest\\20260806-ALL-26012601\\backtest_summary.csv",
+          "mean_ic_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp4a6ympn8\\backtest_results\\single_factors\\AlphaTest\\20260806-ALL-26012601\\mean_IC.csv",
+          "long_short_with_cost_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp4a6ympn8\\backtest_results\\single_factors\\AlphaTest\\20260806-ALL-26012601\\long_short_returns_with_cost.csv",
+          "plot_png": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp4a6ympn8\\backtest_results\\single_factors\\AlphaTest\\20260806-ALL-26012601\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 12:44:09",
+        "started_at": "2026-08-06 12:44:09",
+        "ended_at": "2026-08-06 12:44:09",
+        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp4a6ympn8\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-124041-70ee71b6",
+        "factor_name": "BarraDTOP",
+        "version_id": "ver_ca018d38d39b",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
         "universe": "CSI2000",
         "periods": [
           1,
@@ -848,22 +1344,55 @@
         ],
         "cost": 0.001,
         "source_mode": "parquet",
-        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_BETA\\Barra_BETA_20180102_20260803.parquet",
-        "status": "failed",
-        "error_message": "resolved empty point-in-time universe for CSI2000",
-        "summary": null,
-        "artifacts": null,
-        "created_at": "2026-08-05 13:18:04",
-        "started_at": "2026-08-05 13:18:04",
-        "ended_at": "2026-08-05 13:18:04",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_DTOP\\Barra_DTOP_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-124041-70ee71b6",
+          "factor_name": "BarraDTOP",
+          "version_id": "ver_ca018d38d39b",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2347,
+          "mean_ic": {
+            "1": -0.0011856708604675323,
+            "5": 0.0025956056592833752,
+            "22": -0.0021025760171179903
+          },
+          "evaluation_metrics": {
+            "icir_1": -0.018914404291575586,
+            "icir_5": 0.04236470172773538,
+            "icir_22": -0.037050182987571546,
+            "ls_annual_return": 0.0422645694767434,
+            "ls_annual_vol": 0.09799363040957142,
+            "ls_sharpe": 0.47119706029669256,
+            "ls_win_rate": 0.49444444444444446,
+            "ls_max_drawdown": -0.048505629246070825,
+            "mean_turnover": 0.05312975147890352,
+            "coverage_ratio": 0.835995917163365
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDTOP\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDTOP\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDTOP\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDTOP\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDTOP\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 12:40:41",
+        "started_at": "2026-08-06 12:40:41",
+        "ended_at": "2026-08-06 12:40:51",
         "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
       },
       {
-        "run_id": "bt-20260805-131654-287fa9b7",
-        "factor_name": "BarraBETA",
-        "version_id": "ver_ff6c7320c56f",
-        "start_date": "2018-07-11",
-        "end_date": "2026-08-03",
+        "run_id": "bt-20260806-124032-e6decbc8",
+        "factor_name": "BarraDTOP",
+        "version_id": "ver_ca018d38d39b",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
         "universe": "CSI1000",
         "periods": [
           1,
@@ -881,55 +1410,55 @@
         ],
         "cost": 0.001,
         "source_mode": "parquet",
-        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_BETA\\Barra_BETA_20180102_20260803.parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_DTOP\\Barra_DTOP_20180102_20260805.parquet",
         "status": "success",
         "error_message": null,
         "summary": {
-          "run_id": "bt-20260805-131654-287fa9b7",
-          "factor_name": "BarraBETA",
-          "version_id": "ver_ff6c7320c56f",
-          "start_date": "2018-07-11",
-          "end_date": "2026-08-03",
+          "run_id": "bt-20260806-124032-e6decbc8",
+          "factor_name": "BarraDTOP",
+          "version_id": "ver_ca018d38d39b",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
           "universe": "CSI1000",
           "source_mode": "parquet",
           "resolved_universe_mode": "point_in_time_index",
-          "universe_size": 2269,
+          "universe_size": 1207,
           "mean_ic": {
-            "1": 0.007440451927595404,
-            "5": 0.009351913944334243,
-            "22": 0.009525483318197936
+            "1": -0.005886896070443426,
+            "5": -0.008127393603459479,
+            "22": -0.03441129824548818
           },
           "evaluation_metrics": {
-            "icir_1": 0.06156895656747539,
-            "icir_5": 0.07937109309874085,
-            "icir_22": 0.0837207948225938,
-            "ls_annual_return": 0.12410355599526879,
-            "ls_annual_vol": 0.17454968181526515,
-            "ls_sharpe": 0.7574475064937979,
-            "ls_win_rate": 0.5171706817016914,
-            "ls_max_drawdown": -0.3635583786099734,
-            "mean_turnover": 0.08781841983549762,
-            "coverage_ratio": 0.430346505596367
+            "icir_1": -0.048295019537214434,
+            "icir_5": -0.06747809835650397,
+            "icir_22": -0.2864085045395635,
+            "ls_annual_return": 0.07882267473039573,
+            "ls_annual_vol": 0.14877674003795538,
+            "ls_sharpe": 0.5841321020108877,
+            "ls_win_rate": 0.4777777777777778,
+            "ls_max_drawdown": -0.10541866393881394,
+            "mean_turnover": 0.05686510835286768,
+            "coverage_ratio": 0.8261059570090225
           }
         },
         "artifacts": {
-          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-CSI1000-18072608",
-          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-CSI1000-18072608\\backtest_summary.csv",
-          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-CSI1000-18072608\\mean_IC.csv",
-          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-CSI1000-18072608\\long_short_returns_with_cost.csv",
-          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-CSI1000-18072608\\backtest_plots.png"
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDTOP\\20260806-CSI1000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDTOP\\20260806-CSI1000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDTOP\\20260806-CSI1000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDTOP\\20260806-CSI1000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDTOP\\20260806-CSI1000-25102608\\backtest_plots.png"
         },
-        "created_at": "2026-08-05 13:16:54",
-        "started_at": "2026-08-05 13:16:54",
-        "ended_at": "2026-08-05 13:18:04",
+        "created_at": "2026-08-06 12:40:32",
+        "started_at": "2026-08-06 12:40:32",
+        "ended_at": "2026-08-06 12:40:41",
         "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
       },
       {
-        "run_id": "bt-20260805-131604-cd5c1e2b",
-        "factor_name": "BarraBETA",
-        "version_id": "ver_ff6c7320c56f",
-        "start_date": "2018-07-11",
-        "end_date": "2026-08-03",
+        "run_id": "bt-20260806-124017-e04a3d46",
+        "factor_name": "BarraDTOP",
+        "version_id": "ver_ca018d38d39b",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
         "universe": "CSI800",
         "periods": [
           1,
@@ -947,55 +1476,55 @@
         ],
         "cost": 0.001,
         "source_mode": "parquet",
-        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_BETA\\Barra_BETA_20180102_20260803.parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_DTOP\\Barra_DTOP_20180102_20260805.parquet",
         "status": "success",
         "error_message": null,
         "summary": {
-          "run_id": "bt-20260805-131604-cd5c1e2b",
-          "factor_name": "BarraBETA",
-          "version_id": "ver_ff6c7320c56f",
-          "start_date": "2018-07-11",
-          "end_date": "2026-08-03",
+          "run_id": "bt-20260806-124017-e04a3d46",
+          "factor_name": "BarraDTOP",
+          "version_id": "ver_ca018d38d39b",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
           "universe": "CSI800",
           "source_mode": "parquet",
           "resolved_universe_mode": "point_in_time_index",
-          "universe_size": 1309,
+          "universe_size": 890,
           "mean_ic": {
-            "1": 0.0035862269082526836,
-            "5": 0.006613860415008705,
-            "22": 0.01144794538253883
+            "1": -0.0028004298058410776,
+            "5": -0.002905079554360612,
+            "22": -0.03670237903413449
           },
           "evaluation_metrics": {
-            "icir_1": 0.022692867966470524,
-            "icir_5": 0.042062338223566836,
-            "icir_22": 0.07144156141593963,
-            "ls_annual_return": 0.08912546162067803,
-            "ls_annual_vol": 0.20188900747293745,
-            "ls_sharpe": 0.5235237380559197,
-            "ls_win_rate": 0.5110199897488468,
-            "ls_max_drawdown": -0.41693157327705765,
-            "mean_turnover": 0.07842631095546629,
-            "coverage_ratio": 0.5978450031038809
+            "icir_1": -0.017485140251576596,
+            "icir_5": -0.01782029302300407,
+            "icir_22": -0.22344249865385404,
+            "ls_annual_return": -0.004107823508240904,
+            "ls_annual_vol": 0.18109416602762202,
+            "ls_sharpe": 0.06767546657610823,
+            "ls_win_rate": 0.5277777777777778,
+            "ls_max_drawdown": -0.14800226974173702,
+            "mean_turnover": 0.05248899302178953,
+            "coverage_ratio": 0.8968144215335226
           }
         },
         "artifacts": {
-          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-CSI800-18072608",
-          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-CSI800-18072608\\backtest_summary.csv",
-          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-CSI800-18072608\\mean_IC.csv",
-          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-CSI800-18072608\\long_short_returns_with_cost.csv",
-          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-CSI800-18072608\\backtest_plots.png"
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDTOP\\20260806-CSI800-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDTOP\\20260806-CSI800-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDTOP\\20260806-CSI800-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDTOP\\20260806-CSI800-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDTOP\\20260806-CSI800-25102608\\backtest_plots.png"
         },
-        "created_at": "2026-08-05 13:16:04",
-        "started_at": "2026-08-05 13:16:04",
-        "ended_at": "2026-08-05 13:16:54",
+        "created_at": "2026-08-06 12:40:17",
+        "started_at": "2026-08-06 12:40:17",
+        "ended_at": "2026-08-06 12:40:32",
         "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
       },
       {
-        "run_id": "bt-20260805-131421-ef5dfc91",
-        "factor_name": "BarraBETA",
-        "version_id": "ver_ff6c7320c56f",
-        "start_date": "2018-07-11",
-        "end_date": "2026-08-03",
+        "run_id": "bt-20260806-124007-ffa90e79",
+        "factor_name": "BarraDTOP",
+        "version_id": "ver_ca018d38d39b",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
         "universe": "ALL",
         "periods": [
           1,
@@ -1013,56 +1542,2234 @@
         ],
         "cost": 0.001,
         "source_mode": "parquet",
-        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_BETA\\Barra_BETA_20180102_20260803.parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_DTOP\\Barra_DTOP_20180102_20260805.parquet",
         "status": "success",
         "error_message": null,
         "summary": {
-          "run_id": "bt-20260805-131421-ef5dfc91",
+          "run_id": "bt-20260806-124007-ffa90e79",
+          "factor_name": "BarraDTOP",
+          "version_id": "ver_ca018d38d39b",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "ALL",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "all_factor_values",
+          "universe_size": 5224,
+          "mean_ic": {
+            "1": -0.001583061125181048,
+            "5": 0.0030134940867283834,
+            "22": -0.004497510650823279
+          },
+          "evaluation_metrics": {
+            "icir_1": -0.01933346293991567,
+            "icir_5": 0.037589069980269715,
+            "icir_22": -0.05896902183459973,
+            "ls_annual_return": 0.06240476176036003,
+            "ls_annual_vol": 0.11345186058772205,
+            "ls_sharpe": 0.5900256595585219,
+            "ls_win_rate": 0.5,
+            "ls_max_drawdown": -0.06292353250310112,
+            "mean_turnover": 0.04755634738006872,
+            "coverage_ratio": 0.9902920586304966
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDTOP\\20260806-ALL-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDTOP\\20260806-ALL-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDTOP\\20260806-ALL-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDTOP\\20260806-ALL-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDTOP\\20260806-ALL-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 12:40:07",
+        "started_at": "2026-08-06 12:40:07",
+        "ended_at": "2026-08-06 12:40:17",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-123643-b6593ec3",
+        "factor_name": "BarraSGRO",
+        "version_id": "ver_f6fd8053435d",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_SGRO\\Barra_SGRO_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-123643-b6593ec3",
+          "factor_name": "BarraSGRO",
+          "version_id": "ver_f6fd8053435d",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2007,
+          "mean_ic": {
+            "1": 0.0020303573697553817,
+            "5": 0.005879560245741728,
+            "22": -0.0031911501352770606
+          },
+          "evaluation_metrics": {
+            "icir_1": 0.012465650898019336,
+            "icir_5": 0.03732546118662233,
+            "icir_22": -0.02678042203792484,
+            "ls_annual_return": -0.07925125499403463,
+            "ls_annual_vol": 0.20412472938235485,
+            "ls_sharpe": -0.2998346336351007,
+            "ls_win_rate": 0.5117647058823529,
+            "ls_max_drawdown": -0.2284115444266409,
+            "mean_turnover": 0.12819102383709793,
+            "coverage_ratio": 0.7266668931467137
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSGRO\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSGRO\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSGRO\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSGRO\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSGRO\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 12:36:43",
+        "started_at": "2026-08-06 12:36:43",
+        "ended_at": "2026-08-06 12:37:00",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-123416-e4a99e49",
+        "factor_name": "BarraEGRO",
+        "version_id": "ver_1229ed3d9109",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_EGRO\\Barra_EGRO_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-123416-e4a99e49",
+          "factor_name": "BarraEGRO",
+          "version_id": "ver_1229ed3d9109",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 1926,
+          "mean_ic": {
+            "1": -0.007298666899934887,
+            "5": -0.016986870853871,
+            "22": 0.005414933083023586
+          },
+          "evaluation_metrics": {
+            "icir_1": -0.048485487059874516,
+            "icir_5": -0.14897944719457495,
+            "icir_22": 0.26720991013045564,
+            "ls_annual_return": -0.257203430592038,
+            "ls_annual_vol": 0.29850999140945117,
+            "ls_sharpe": -0.845177197133603,
+            "ls_win_rate": 0.49404761904761907,
+            "ls_max_drawdown": -0.17980352456560422,
+            "mean_turnover": 0.12662522537570958,
+            "coverage_ratio": 0.7242417107392113
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraEGRO\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraEGRO\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraEGRO\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraEGRO\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraEGRO\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 12:34:16",
+        "started_at": "2026-08-06 12:34:16",
+        "ended_at": "2026-08-06 12:34:25",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-123406-844e9529",
+        "factor_name": "BarraLTHALPHA",
+        "version_id": "ver_cc380e6b89cb",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_LTHALPHA\\Barra_LTHALPHA_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-123406-844e9529",
+          "factor_name": "BarraLTHALPHA",
+          "version_id": "ver_cc380e6b89cb",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2157,
+          "mean_ic": {
+            "1": 0.0024999689368151393,
+            "5": 0.00521402432546746,
+            "22": 0.012803971357336885
+          },
+          "evaluation_metrics": {
+            "icir_1": 0.052402477418729665,
+            "icir_5": 0.11479405290247666,
+            "icir_22": 0.3858457700105952,
+            "ls_annual_return": 0.08229259145115542,
+            "ls_annual_vol": 0.09605711916805773,
+            "ls_sharpe": 0.8712721502540121,
+            "ls_win_rate": 0.55,
+            "ls_max_drawdown": -0.0657450584103042,
+            "mean_turnover": 0.0675478349687782,
+            "coverage_ratio": 0.821805915213733
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraLTHALPHA\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraLTHALPHA\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraLTHALPHA\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraLTHALPHA\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraLTHALPHA\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 12:34:06",
+        "started_at": "2026-08-06 12:34:06",
+        "ended_at": "2026-08-06 12:34:16",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-123348-73204fe1",
+        "factor_name": "BarraLTRSTR",
+        "version_id": "ver_644e774a2c34",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_LTRSTR\\Barra_LTRSTR_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-123348-73204fe1",
+          "factor_name": "BarraLTRSTR",
+          "version_id": "ver_644e774a2c34",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2331,
+          "mean_ic": {
+            "1": 0.0014038508487331548,
+            "5": 0.0029974615577476583,
+            "22": 0.014447651398041295
+          },
+          "evaluation_metrics": {
+            "icir_1": 0.02667455347912139,
+            "icir_5": 0.06441127679543077,
+            "icir_22": 0.4145798831529272,
+            "ls_annual_return": -0.03478695987212688,
+            "ls_annual_vol": 0.10773985317718507,
+            "ls_sharpe": -0.27495684321022884,
+            "ls_win_rate": 0.5166666666666667,
+            "ls_max_drawdown": -0.11564206493411555,
+            "mean_turnover": 0.06181819050074485,
+            "coverage_ratio": 0.8333060763999991
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraLTRSTR\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraLTRSTR\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraLTRSTR\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraLTRSTR\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraLTRSTR\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 12:33:48",
+        "started_at": "2026-08-06 12:33:48",
+        "ended_at": "2026-08-06 12:34:06",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-123111-69ccd15e",
+        "factor_name": "BarraCETOP",
+        "version_id": "ver_c96e65b21c2a",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_CETOP\\Barra_CETOP_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-123111-69ccd15e",
+          "factor_name": "BarraCETOP",
+          "version_id": "ver_c96e65b21c2a",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2347,
+          "mean_ic": {
+            "1": -0.007165895661253981,
+            "5": -0.007203148391081372,
+            "22": -0.02121010436365469
+          },
+          "evaluation_metrics": {
+            "icir_1": -0.04126154616295017,
+            "icir_5": -0.043327855252225864,
+            "icir_22": -0.16871551012507457,
+            "ls_annual_return": -0.2014226725244973,
+            "ls_annual_vol": 0.2094967848844038,
+            "ls_sharpe": -0.9660137823143745,
+            "ls_win_rate": 0.47058823529411764,
+            "ls_max_drawdown": -0.23946830039372013,
+            "mean_turnover": 0.14032796409147408,
+            "coverage_ratio": 0.7456472479374056
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraCETOP\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraCETOP\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraCETOP\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraCETOP\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraCETOP\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 12:31:11",
+        "started_at": "2026-08-06 12:31:11",
+        "ended_at": "2026-08-06 12:31:28",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-122834-1ebebf0b",
+        "factor_name": "BarraETOP",
+        "version_id": "ver_61a4d21c20a2",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_ETOP\\Barra_ETOP_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-122834-1ebebf0b",
+          "factor_name": "BarraETOP",
+          "version_id": "ver_61a4d21c20a2",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2346,
+          "mean_ic": {
+            "1": -0.004686757665691528,
+            "5": -0.005164745192601681,
+            "22": -0.019653842361640167
+          },
+          "evaluation_metrics": {
+            "icir_1": -0.026127051694240188,
+            "icir_5": -0.030701319442124755,
+            "icir_22": -0.160448105843669,
+            "ls_annual_return": -0.20276699176132684,
+            "ls_annual_vol": 0.22003974197295295,
+            "ls_sharpe": -0.9171604323934913,
+            "ls_win_rate": 0.49411764705882355,
+            "ls_max_drawdown": -0.2285417908061228,
+            "mean_turnover": 0.13887065772983964,
+            "coverage_ratio": 0.7463283732465318
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraETOP\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraETOP\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraETOP\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraETOP\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraETOP\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 12:28:34",
+        "started_at": "2026-08-06 12:28:34",
+        "ended_at": "2026-08-06 12:28:49",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-122429-0590a375",
+        "factor_name": "BarraBTOP",
+        "version_id": "ver_759b9cd1b12e",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_BTOP\\Barra_BTOP_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-122429-0590a375",
+          "factor_name": "BarraBTOP",
+          "version_id": "ver_759b9cd1b12e",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2347,
+          "mean_ic": {
+            "1": -0.013546493620784998,
+            "5": -0.021589336250273948,
+            "22": -0.01130128411649519
+          },
+          "evaluation_metrics": {
+            "icir_1": -0.07017371403571573,
+            "icir_5": -0.1240778203899313,
+            "icir_22": -0.08302444436500556,
+            "ls_annual_return": -0.2735768750862878,
+            "ls_annual_vol": 0.2663390005689845,
+            "ls_sharpe": -1.064946362829086,
+            "ls_win_rate": 0.43529411764705883,
+            "ls_max_drawdown": -0.26098499958642996,
+            "mean_turnover": 0.1486281402026305,
+            "coverage_ratio": 0.6462142193128558
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBTOP\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBTOP\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBTOP\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBTOP\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBTOP\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 12:24:29",
+        "started_at": "2026-08-06 12:24:29",
+        "ended_at": "2026-08-06 12:24:46",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-122200-4ebf8c9d",
+        "factor_name": "BarraCXGRO",
+        "version_id": "ver_fb9a7c8c069f",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_CXGRO\\Barra_CXGRO_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-122200-4ebf8c9d",
+          "factor_name": "BarraCXGRO",
+          "version_id": "ver_fb9a7c8c069f",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 1959,
+          "mean_ic": {
+            "1": 0.003184886378741849,
+            "5": -0.01935853596826413,
+            "22": 0.024074609640623194
+          },
+          "evaluation_metrics": {
+            "icir_1": 0.020220827801494527,
+            "icir_5": -0.126539936841646,
+            "icir_22": 0.2097181045770371,
+            "ls_annual_return": -0.23490476584899966,
+            "ls_annual_vol": 0.19734184531921867,
+            "ls_sharpe": -1.2547286576083667,
+            "ls_win_rate": 0.4764705882352941,
+            "ls_max_drawdown": -0.22667956201083939,
+            "mean_turnover": 0.13234223399367998,
+            "coverage_ratio": 0.7028864448466287
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraCXGRO\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraCXGRO\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraCXGRO\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraCXGRO\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraCXGRO\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 12:22:00",
+        "started_at": "2026-08-06 12:22:00",
+        "ended_at": "2026-08-06 12:22:10",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-122141-067b9850",
+        "factor_name": "BarraIGRO",
+        "version_id": "ver_2dc5e822ecd9",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_IGRO\\Barra_IGRO_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-122141-067b9850",
+          "factor_name": "BarraIGRO",
+          "version_id": "ver_2dc5e822ecd9",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2012,
+          "mean_ic": {
+            "1": -0.00018827788333987427,
+            "5": -7.692364630786779e-05,
+            "22": -0.016767587688672498
+          },
+          "evaluation_metrics": {
+            "icir_1": -0.002830794437834631,
+            "icir_5": -0.0010712234799770265,
+            "icir_22": -0.22343740526450995,
+            "ls_annual_return": -0.04890348155869739,
+            "ls_annual_vol": 0.11874061484736091,
+            "ls_sharpe": -0.3630431208261253,
+            "ls_win_rate": 0.5166666666666667,
+            "ls_max_drawdown": -0.14710857191143178,
+            "mean_turnover": 0.04309044832053649,
+            "coverage_ratio": 0.819850129989295
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraIGRO\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraIGRO\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraIGRO\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraIGRO\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraIGRO\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 12:21:41",
+        "started_at": "2026-08-06 12:21:41",
+        "ended_at": "2026-08-06 12:22:00",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-121903-02ded179",
+        "factor_name": "BarraAGRO",
+        "version_id": "ver_65cf7cd91f86",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_AGRO\\Barra_AGRO_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-121903-02ded179",
+          "factor_name": "BarraAGRO",
+          "version_id": "ver_65cf7cd91f86",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2236,
+          "mean_ic": {
+            "1": -0.00018131476524548346,
+            "5": -0.007877797868539158,
+            "22": -0.015813037359280288
+          },
+          "evaluation_metrics": {
+            "icir_1": -0.0009583906921595709,
+            "icir_5": -0.048286205742084545,
+            "icir_22": -0.1233443657967319,
+            "ls_annual_return": -0.05916720799831121,
+            "ls_annual_vol": 0.3004050694082192,
+            "ls_sharpe": -0.05328735492804263,
+            "ls_win_rate": 0.4470588235294118,
+            "ls_max_drawdown": -0.28994685623228145,
+            "mean_turnover": 0.14366375793718203,
+            "coverage_ratio": 0.7275929012847617
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraAGRO\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraAGRO\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraAGRO\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraAGRO\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraAGRO\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 12:19:03",
+        "started_at": "2026-08-06 12:19:03",
+        "ended_at": "2026-08-06 12:19:21",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-121628-8dead27d",
+        "factor_name": "BarraROA",
+        "version_id": "ver_c0505d27d172",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_ROA\\Barra_ROA_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-121628-8dead27d",
+          "factor_name": "BarraROA",
+          "version_id": "ver_c0505d27d172",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2346,
+          "mean_ic": {
+            "1": -0.0022857028742000454,
+            "5": -0.0276708997135271,
+            "22": 0.008734387889846842
+          },
+          "evaluation_metrics": {
+            "icir_1": -0.013490914752162783,
+            "icir_5": -0.17183854514184477,
+            "icir_22": 0.07186386134566768,
+            "ls_annual_return": -0.2619728884613708,
+            "ls_annual_vol": 0.21587077147038458,
+            "ls_sharpe": -1.2961083217180145,
+            "ls_win_rate": 0.4823529411764706,
+            "ls_max_drawdown": -0.22793551769406428,
+            "mean_turnover": 0.12439307250892018,
+            "coverage_ratio": 0.7463283732465318
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraROA\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraROA\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraROA\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraROA\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraROA\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 12:16:28",
+        "started_at": "2026-08-06 12:16:28",
+        "ended_at": "2026-08-06 12:16:45",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-121351-36fd1693",
+        "factor_name": "BarraGPM",
+        "version_id": "ver_ade1cc25b0e8",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_GPM\\Barra_GPM_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-121351-36fd1693",
+          "factor_name": "BarraGPM",
+          "version_id": "ver_ade1cc25b0e8",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2343,
+          "mean_ic": {
+            "1": 0.002358426643119584,
+            "5": 0.0040844395366948965,
+            "22": -0.004761748369933068
+          },
+          "evaluation_metrics": {
+            "icir_1": 0.014620355793754498,
+            "icir_5": 0.025780033935461955,
+            "icir_22": -0.03978248110543504,
+            "ls_annual_return": -0.21581888432787955,
+            "ls_annual_vol": 0.20430159248073418,
+            "ls_sharpe": -1.0847759548989746,
+            "ls_win_rate": 0.45294117647058824,
+            "ls_max_drawdown": -0.22453789786460565,
+            "mean_turnover": 0.11957218451949408,
+            "coverage_ratio": 0.7459744694059675
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraGPM\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraGPM\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraGPM\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraGPM\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraGPM\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 12:13:51",
+        "started_at": "2026-08-06 12:13:51",
+        "ended_at": "2026-08-06 12:14:09",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-121117-95a01df3",
+        "factor_name": "BarraGP",
+        "version_id": "ver_f67315521604",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_GP\\Barra_GP_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-121117-95a01df3",
+          "factor_name": "BarraGP",
+          "version_id": "ver_f67315521604",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2343,
+          "mean_ic": {
+            "1": -0.0017581999848480065,
+            "5": -0.028736504140577986,
+            "22": -0.0002792413768291207
+          },
+          "evaluation_metrics": {
+            "icir_1": -0.010829130469263017,
+            "icir_5": -0.18326355040007627,
+            "icir_22": -0.0023190598048229054,
+            "ls_annual_return": -0.30288462513230374,
+            "ls_annual_vol": 0.20784319287423553,
+            "ls_sharpe": -1.6283490196680646,
+            "ls_win_rate": 0.40588235294117647,
+            "ls_max_drawdown": -0.24803082220787198,
+            "mean_turnover": 0.12117595036528366,
+            "coverage_ratio": 0.7459744694059675
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraGP\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraGP\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraGP\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraGP\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraGP\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 12:11:17",
+        "started_at": "2026-08-06 12:11:17",
+        "ended_at": "2026-08-06 12:11:33",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-120758-0d711179",
+        "factor_name": "BarraATO",
+        "version_id": "ver_c4f210f6ffaf",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_ATO\\Barra_ATO_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-120758-0d711179",
+          "factor_name": "BarraATO",
+          "version_id": "ver_c4f210f6ffaf",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2347,
+          "mean_ic": {
+            "1": 0.002885537343757723,
+            "5": -0.007022012460577344,
+            "22": -0.00775434770660321
+          },
+          "evaluation_metrics": {
+            "icir_1": 0.015099169890883883,
+            "icir_5": -0.04191005558307244,
+            "icir_22": -0.06505926572580815,
+            "ls_annual_return": -0.10669586695918276,
+            "ls_annual_vol": 0.2975737834528476,
+            "ls_sharpe": -0.22840066715621268,
+            "ls_win_rate": 0.4235294117647059,
+            "ls_max_drawdown": -0.15660147330622443,
+            "mean_turnover": 0.11169346350113325,
+            "coverage_ratio": 0.746024906069644
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraATO\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraATO\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraATO\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraATO\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraATO\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 12:07:58",
+        "started_at": "2026-08-06 12:07:58",
+        "ended_at": "2026-08-06 12:08:15",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-120436-6b53fd24",
+        "factor_name": "BarraVFLO",
+        "version_id": "ver_e9dcac11bc9b",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_VFLO\\Barra_VFLO_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-120436-6b53fd24",
+          "factor_name": "BarraVFLO",
+          "version_id": "ver_e9dcac11bc9b",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2010,
+          "mean_ic": {
+            "1": 0.006837149921153717,
+            "5": -0.00985970269650164,
+            "22": 0.023012864394683686
+          },
+          "evaluation_metrics": {
+            "icir_1": 0.0401775474549242,
+            "icir_5": -0.06344037473348044,
+            "icir_22": 0.19926004206310294,
+            "ls_annual_return": -0.2002187057071011,
+            "ls_annual_vol": 0.19794548861172728,
+            "ls_sharpe": -1.0265123511400893,
+            "ls_win_rate": 0.4823529411764706,
+            "ls_max_drawdown": -0.21575300027878208,
+            "mean_turnover": 0.23562225244274265,
+            "coverage_ratio": 0.7167910447761194
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraVFLO\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraVFLO\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraVFLO\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraVFLO\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraVFLO\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 12:04:36",
+        "started_at": "2026-08-06 12:04:36",
+        "ended_at": "2026-08-06 12:05:06",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-120044-a6abf665",
+        "factor_name": "BarraVERN",
+        "version_id": "ver_f8b4b5705034",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_VERN\\Barra_VERN_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-120044-a6abf665",
+          "factor_name": "BarraVERN",
+          "version_id": "ver_f8b4b5705034",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2032,
+          "mean_ic": {
+            "1": -0.009265975894112372,
+            "5": 0.0060281352421066945,
+            "22": -0.013290576449460247
+          },
+          "evaluation_metrics": {
+            "icir_1": -0.05170597902637663,
+            "icir_5": 0.03927035411694787,
+            "icir_22": -0.11311898520202393,
+            "ls_annual_return": -0.39592344070122876,
+            "ls_annual_vol": 0.26934571655715106,
+            "ls_sharpe": -1.731205264115647,
+            "ls_win_rate": 0.4411764705882353,
+            "ls_max_drawdown": -0.3277893813597854,
+            "mean_turnover": 0.14089449405745855,
+            "coverage_ratio": 0.7292636005726557
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraVERN\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraVERN\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraVERN\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraVERN\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraVERN\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 12:00:44",
+        "started_at": "2026-08-06 12:00:44",
+        "ended_at": "2026-08-06 12:01:12",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-115614-5babceff",
+        "factor_name": "BarraVSAL",
+        "version_id": "ver_5285de5c273a",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_VSAL\\Barra_VSAL_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-115614-5babceff",
+          "factor_name": "BarraVSAL",
+          "version_id": "ver_5285de5c273a",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2034,
+          "mean_ic": {
+            "1": -0.008002983513667756,
+            "5": 0.003977498311168943,
+            "22": -0.009208913251986061
+          },
+          "evaluation_metrics": {
+            "icir_1": -0.04421799818578977,
+            "icir_5": 0.024267404531009572,
+            "icir_22": -0.07881696606006046,
+            "ls_annual_return": -0.16402606884825033,
+            "ls_annual_vol": 0.239802151140239,
+            "ls_sharpe": -0.6254538839493807,
+            "ls_win_rate": 0.5058823529411764,
+            "ls_max_drawdown": -0.2047446826753092,
+            "mean_turnover": 0.12759336839026547,
+            "coverage_ratio": 0.7293622061321177
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraVSAL\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraVSAL\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraVSAL\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraVSAL\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraVSAL\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 11:56:14",
+        "started_at": "2026-08-06 11:56:14",
+        "ended_at": "2026-08-06 11:56:41",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-115055-f4ab83cd",
+        "factor_name": "BarraDTOA",
+        "version_id": "ver_4c097703a6b5",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_DTOA\\Barra_DTOA_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-115055-f4ab83cd",
+          "factor_name": "BarraDTOA",
+          "version_id": "ver_4c097703a6b5",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2345,
+          "mean_ic": {
+            "1": -0.007796734702106228,
+            "5": 0.011598314257252254,
+            "22": -0.03108511320860861
+          },
+          "evaluation_metrics": {
+            "icir_1": -0.04763407752102106,
+            "icir_5": 0.07339504578284523,
+            "icir_22": -0.2672020884493431,
+            "ls_annual_return": -0.19182387341316198,
+            "ls_annual_vol": 0.332047471555621,
+            "ls_sharpe": -0.48238659100487247,
+            "ls_win_rate": 0.4647058823529412,
+            "ls_max_drawdown": -0.2754570609664224,
+            "mean_turnover": 0.12613595074567943,
+            "coverage_ratio": 0.7439038573366932
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDTOA\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDTOA\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDTOA\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDTOA\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDTOA\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 11:50:55",
+        "started_at": "2026-08-06 11:50:55",
+        "ended_at": "2026-08-06 11:51:26",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-114526-95abb681",
+        "factor_name": "BarraBLEV",
+        "version_id": "ver_d0ca7f0ce807",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_BLEV\\Barra_BLEV_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-114526-95abb681",
+          "factor_name": "BarraBLEV",
+          "version_id": "ver_d0ca7f0ce807",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2290,
+          "mean_ic": {
+            "1": -0.010011059546961618,
+            "5": 0.005102346968229885,
+            "22": -0.014694588679503205
+          },
+          "evaluation_metrics": {
+            "icir_1": -0.05615097415910699,
+            "icir_5": 0.03179005283603495,
+            "icir_22": -0.1255609616732216,
+            "ls_annual_return": -0.06005461726841821,
+            "ls_annual_vol": 0.25156115626538783,
+            "ls_sharpe": -0.11968136435411689,
+            "ls_win_rate": 0.5294117647058824,
+            "ls_max_drawdown": -0.21411309141044865,
+            "mean_turnover": 0.12104635573988583,
+            "coverage_ratio": 0.6345151845970624
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBLEV\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBLEV\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBLEV\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBLEV\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBLEV\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 11:45:26",
+        "started_at": "2026-08-06 11:45:26",
+        "ended_at": "2026-08-06 11:45:53",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-113825-6ba59bae",
+        "factor_name": "BarraMLEV",
+        "version_id": "ver_2490791dce18",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_MLEV\\Barra_MLEV_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-113825-6ba59bae",
+          "factor_name": "BarraMLEV",
+          "version_id": "ver_2490791dce18",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2290,
+          "mean_ic": {
+            "1": -0.009211047763257256,
+            "5": 0.009399844495419205,
+            "22": -0.015718068129937
+          },
+          "evaluation_metrics": {
+            "icir_1": -0.05147015776516881,
+            "icir_5": 0.05832959184707642,
+            "icir_22": -0.12889764848066051,
+            "ls_annual_return": -0.16560738003921893,
+            "ls_annual_vol": 0.24003598554459374,
+            "ls_sharpe": -0.6324944779398806,
+            "ls_win_rate": 0.48823529411764705,
+            "ls_max_drawdown": -0.2165811442465717,
+            "mean_turnover": 0.1266057726604914,
+            "coverage_ratio": 0.6322499007542676
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraMLEV\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraMLEV\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraMLEV\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraMLEV\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraMLEV\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 11:38:25",
+        "started_at": "2026-08-06 11:38:25",
+        "ended_at": "2026-08-06 11:38:45",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-113803-a7e222d8",
+        "factor_name": "BarraHALPHA",
+        "version_id": "ver_be89b3fd97a1",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_HALPHA\\Barra_HALPHA_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-113803-a7e222d8",
+          "factor_name": "BarraHALPHA",
+          "version_id": "ver_be89b3fd97a1",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2347,
+          "mean_ic": {
+            "1": 0.00012308044009506406,
+            "5": -0.007835728698262922,
+            "22": 0.021268639765302542
+          },
+          "evaluation_metrics": {
+            "icir_1": 0.0008722841579916515,
+            "icir_5": -0.049533589949592186,
+            "icir_22": 0.13961896382392977,
+            "ls_annual_return": -0.11592002248200306,
+            "ls_annual_vol": 0.26301724063660253,
+            "ls_sharpe": -0.3362066932769912,
+            "ls_win_rate": 0.5388888888888889,
+            "ls_max_drawdown": -0.38527634446093273,
+            "mean_turnover": 0.21416809971251288,
+            "coverage_ratio": 0.8358030823409219
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraHALPHA\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraHALPHA\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraHALPHA\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraHALPHA\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraHALPHA\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 11:38:03",
+        "started_at": "2026-08-06 11:38:04",
+        "ended_at": "2026-08-06 11:38:24",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-113742-e8031812",
+        "factor_name": "BarraRSTR",
+        "version_id": "ver_fd45430aaf89",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_RSTR\\Barra_RSTR_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-113742-e8031812",
+          "factor_name": "BarraRSTR",
+          "version_id": "ver_fd45430aaf89",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2347,
+          "mean_ic": {
+            "1": -0.002727230584972899,
+            "5": -0.006214812209009118,
+            "22": 0.02674832915756285
+          },
+          "evaluation_metrics": {
+            "icir_1": -0.017964764432994707,
+            "icir_5": -0.04130197227145782,
+            "icir_22": 0.1888111348707223,
+            "ls_annual_return": -0.13633583240719382,
+            "ls_annual_vol": 0.3144149989128586,
+            "ls_sharpe": -0.3099878345940246,
+            "ls_win_rate": 0.5055555555555555,
+            "ls_max_drawdown": -0.3983303970149321,
+            "mean_turnover": 0.07951327923593438,
+            "coverage_ratio": 0.8359984651853666
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraRSTR\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraRSTR\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraRSTR\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraRSTR\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraRSTR\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 11:37:42",
+        "started_at": "2026-08-06 11:37:42",
+        "ended_at": "2026-08-06 11:38:03",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-113720-449acb9a",
+        "factor_name": "BarraINDMOM",
+        "version_id": "ver_7ec1cf93f39a",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_INDMOM\\Barra_INDMOM_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-113720-449acb9a",
+          "factor_name": "BarraINDMOM",
+          "version_id": "ver_7ec1cf93f39a",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2347,
+          "mean_ic": {
+            "1": -0.010279397482861134,
+            "5": -0.005410121813698958,
+            "22": -0.005818066991118827
+          },
+          "evaluation_metrics": {
+            "icir_1": -0.1259578416201578,
+            "icir_5": -0.0665141919901682,
+            "icir_22": -0.08267972524510138,
+            "ls_annual_return": -0.24150157854088827,
+            "ls_annual_vol": 0.1952471274648519,
+            "ls_sharpe": -1.3187152556688697,
+            "ls_win_rate": 0.43333333333333335,
+            "ls_max_drawdown": -0.34220454484691254,
+            "mean_turnover": 0.3312017994979464,
+            "coverage_ratio": 0.835995917163365
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraINDMOM\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraINDMOM\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraINDMOM\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraINDMOM\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraINDMOM\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 11:37:20",
+        "started_at": "2026-08-06 11:37:21",
+        "ended_at": "2026-08-06 11:37:42",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-113701-c0d57574",
+        "factor_name": "BarraSEASON",
+        "version_id": "ver_2989fcd44bb6",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_SEASON\\Barra_SEASON_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-113701-c0d57574",
+          "factor_name": "BarraSEASON",
+          "version_id": "ver_2989fcd44bb6",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 1782,
+          "mean_ic": {
+            "1": -0.0006897660769991965,
+            "5": -0.008527544117935328,
+            "22": -0.022775717705709214
+          },
+          "evaluation_metrics": {
+            "icir_1": -0.01676408494190726,
+            "icir_5": -0.2008521478010405,
+            "icir_22": -0.7074268255343006,
+            "ls_annual_return": -0.16551531488643179,
+            "ls_annual_vol": 0.07891473712608846,
+            "ls_sharpe": -2.2527993903841104,
+            "ls_win_rate": 0.38333333333333336,
+            "ls_max_drawdown": -0.16157556439490994,
+            "mean_turnover": 0.4855903407602553,
+            "coverage_ratio": 0.8025123025123025
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSEASON\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSEASON\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSEASON\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSEASON\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSEASON\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 11:37:01",
+        "started_at": "2026-08-06 11:37:01",
+        "ended_at": "2026-08-06 11:37:20",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-113639-4c6b398a",
+        "factor_name": "BarraSTREV",
+        "version_id": "ver_631ead5f4973",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_STREV\\Barra_STREV_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-113639-4c6b398a",
+          "factor_name": "BarraSTREV",
+          "version_id": "ver_631ead5f4973",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2347,
+          "mean_ic": {
+            "1": 0.02125667590290805,
+            "5": 0.02218480160173525,
+            "22": 0.009087465915361232
+          },
+          "evaluation_metrics": {
+            "icir_1": 0.16146683245026,
+            "icir_5": 0.20300935742958484,
+            "icir_22": 0.08022126102985658,
+            "ls_annual_return": 0.5634881118487003,
+            "ls_annual_vol": 0.26455334217889964,
+            "ls_sharpe": 1.824348250336735,
+            "ls_win_rate": 0.5777777777777777,
+            "ls_max_drawdown": -0.10525456227427665,
+            "mean_turnover": 0.6204129255313356,
+            "coverage_ratio": 0.835995917163365
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSTREV\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSTREV\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSTREV\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSTREV\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSTREV\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 11:36:39",
+        "started_at": "2026-08-06 11:36:39",
+        "ended_at": "2026-08-06 11:37:00",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-113618-fa34786c",
+        "factor_name": "BarraATVR",
+        "version_id": "ver_372dc7c8d27f",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_ATVR\\Barra_ATVR_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-113618-fa34786c",
+          "factor_name": "BarraATVR",
+          "version_id": "ver_372dc7c8d27f",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2347,
+          "mean_ic": {
+            "1": -0.009129299955738635,
+            "5": -0.021407646615898838,
+            "22": -0.018358575059984995
+          },
+          "evaluation_metrics": {
+            "icir_1": -0.08210617732181368,
+            "icir_5": -0.1969672903036648,
+            "icir_22": -0.17998169366634656,
+            "ls_annual_return": -0.1933862949476518,
+            "ls_annual_vol": 0.208607007680644,
+            "ls_sharpe": -0.926559285831739,
+            "ls_win_rate": 0.5,
+            "ls_max_drawdown": -0.2532685219755444,
+            "mean_turnover": 0.05207002486338539,
+            "coverage_ratio": 0.835995917163365
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraATVR\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraATVR\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraATVR\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraATVR\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraATVR\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 11:36:18",
+        "started_at": "2026-08-06 11:36:18",
+        "ended_at": "2026-08-06 11:36:39",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-113557-497ec0f5",
+        "factor_name": "BarraSTOA",
+        "version_id": "ver_03184a77e957",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_STOA\\Barra_STOA_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-113557-497ec0f5",
+          "factor_name": "BarraSTOA",
+          "version_id": "ver_03184a77e957",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2315,
+          "mean_ic": {
+            "1": -0.001133328227856061,
+            "5": -0.006119259803281403,
+            "22": -0.0012922444837564669
+          },
+          "evaluation_metrics": {
+            "icir_1": -0.013843937518592926,
+            "icir_5": -0.0751314353245679,
+            "icir_22": -0.015684660759346287,
+            "ls_annual_return": 0.02591065189546571,
+            "ls_annual_vol": 0.17021248900614053,
+            "ls_sharpe": 0.23438793393430143,
+            "ls_win_rate": 0.5388888888888889,
+            "ls_max_drawdown": -0.18298850249212228,
+            "mean_turnover": 0.041010550712595545,
+            "coverage_ratio": 0.5181496689056084
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSTOA\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSTOA\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSTOA\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSTOA\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSTOA\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 11:35:57",
+        "started_at": "2026-08-06 11:35:57",
+        "ended_at": "2026-08-06 11:36:17",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-113536-c68e185c",
+        "factor_name": "BarraSTOQ",
+        "version_id": "ver_a9681695bbba",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_STOQ\\Barra_STOQ_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-113536-c68e185c",
+          "factor_name": "BarraSTOQ",
+          "version_id": "ver_a9681695bbba",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2347,
+          "mean_ic": {
+            "1": -0.007960314748371293,
+            "5": -0.019201532315530255,
+            "22": -0.0016780179488495451
+          },
+          "evaluation_metrics": {
+            "icir_1": -0.06606947510847304,
+            "icir_5": -0.1606306015128401,
+            "icir_22": -0.014935469631631853,
+            "ls_annual_return": -0.19181270503419712,
+            "ls_annual_vol": 0.23240194477504236,
+            "ls_sharpe": -0.8011863522813547,
+            "ls_win_rate": 0.49444444444444446,
+            "ls_max_drawdown": -0.29475709850018084,
+            "mean_turnover": 0.06558384525343526,
+            "coverage_ratio": 0.6572688070344653
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSTOQ\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSTOQ\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSTOQ\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSTOQ\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSTOQ\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 11:35:36",
+        "started_at": "2026-08-06 11:35:36",
+        "ended_at": "2026-08-06 11:35:56",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-113515-64f1f548",
+        "factor_name": "BarraSTOM",
+        "version_id": "ver_2c83f52bf5f4",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_STOM\\Barra_STOM_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-113515-64f1f548",
+          "factor_name": "BarraSTOM",
+          "version_id": "ver_2c83f52bf5f4",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2347,
+          "mean_ic": {
+            "1": -0.01101879563679555,
+            "5": -0.027518985665074835,
+            "22": -0.01750270026606035
+          },
+          "evaluation_metrics": {
+            "icir_1": -0.08249578621785758,
+            "icir_5": -0.20693944900142433,
+            "icir_22": -0.14498049368732993,
+            "ls_annual_return": -0.369033980423211,
+            "ls_annual_vol": 0.25222314791905315,
+            "ls_sharpe": -1.6990810124615272,
+            "ls_win_rate": 0.4722222222222222,
+            "ls_max_drawdown": -0.34634433357219363,
+            "mean_turnover": 0.10683840652177864,
+            "coverage_ratio": 0.7783281907696054
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSTOM\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSTOM\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSTOM\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSTOM\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraSTOM\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 11:35:15",
+        "started_at": "2026-08-06 11:35:15",
+        "ended_at": "2026-08-06 11:35:35",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-113454-49ce0c70",
+        "factor_name": "BarraCMRA",
+        "version_id": "ver_70d8bdb11b62",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_CMRA\\Barra_CMRA_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-113454-49ce0c70",
+          "factor_name": "BarraCMRA",
+          "version_id": "ver_70d8bdb11b62",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2315,
+          "mean_ic": {
+            "1": -0.0004450125134123363,
+            "5": -0.0010092410073417183,
+            "22": 0.011660483887298045
+          },
+          "evaluation_metrics": {
+            "icir_1": -0.003939968547835209,
+            "icir_5": -0.009368918963997672,
+            "icir_22": 0.11253469471316493,
+            "ls_annual_return": -0.15613273591424093,
+            "ls_annual_vol": 0.2260170752153125,
+            "ls_sharpe": -0.6393239103682882,
+            "ls_win_rate": 0.49444444444444446,
+            "ls_max_drawdown": -0.26076930222933625,
+            "mean_turnover": 0.26251369245373557,
+            "coverage_ratio": 0.5181093204851305
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraCMRA\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraCMRA\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraCMRA\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraCMRA\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraCMRA\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 11:34:54",
+        "started_at": "2026-08-06 11:34:54",
+        "ended_at": "2026-08-06 11:35:14",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-113433-5bc6d15d",
+        "factor_name": "BarraDASTD",
+        "version_id": "ver_988337917dff",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_DASTD\\Barra_DASTD_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-113433-5bc6d15d",
+          "factor_name": "BarraDASTD",
+          "version_id": "ver_988337917dff",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2347,
+          "mean_ic": {
+            "1": -0.008402079226358009,
+            "5": -0.02187783989998613,
+            "22": -0.007153111816876295
+          },
+          "evaluation_metrics": {
+            "icir_1": -0.05629267222796817,
+            "icir_5": -0.14688723881913027,
+            "icir_22": -0.051734895867470786,
+            "ls_annual_return": -0.26338575880044357,
+            "ls_annual_vol": 0.29575186164076156,
+            "ls_sharpe": -0.8870104167796864,
+            "ls_win_rate": 0.4888888888888889,
+            "ls_max_drawdown": -0.36833513008570795,
+            "mean_turnover": 0.08194867444804342,
+            "coverage_ratio": 0.835995917163365
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDASTD\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDASTD\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDASTD\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDASTD\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraDASTD\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 11:34:33",
+        "started_at": "2026-08-06 11:34:33",
+        "ended_at": "2026-08-06 11:34:54",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-113412-2a383553",
+        "factor_name": "BarraHSIGMA",
+        "version_id": "ver_c41323973df9",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_HSIGMA\\Barra_HSIGMA_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-113412-2a383553",
+          "factor_name": "BarraHSIGMA",
+          "version_id": "ver_c41323973df9",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2347,
+          "mean_ic": {
+            "1": -0.006986635527185323,
+            "5": -0.01866768600840447,
+            "22": -0.01620905096482412
+          },
+          "evaluation_metrics": {
+            "icir_1": -0.05905463261678796,
+            "icir_5": -0.16204904606052284,
+            "icir_22": -0.15330825789775632,
+            "ls_annual_return": -0.21144901046937403,
+            "ls_annual_vol": 0.23108763422010598,
+            "ls_sharpe": -0.9134773351982364,
+            "ls_win_rate": 0.5111111111111111,
+            "ls_max_drawdown": -0.26554470106792394,
+            "mean_turnover": 0.05546381248988955,
+            "coverage_ratio": 0.8358030823409219
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraHSIGMA\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraHSIGMA\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraHSIGMA\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraHSIGMA\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraHSIGMA\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 11:34:12",
+        "started_at": "2026-08-06 11:34:12",
+        "ended_at": "2026-08-06 11:34:33",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
+      },
+      {
+        "run_id": "bt-20260806-113351-c84d105d",
+        "factor_name": "BarraBETA",
+        "version_id": "ver_ff6c7320c56f",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
+        "periods": [
+          1,
+          5,
+          22
+        ],
+        "quantile": 10,
+        "long_p": [
+          90,
+          100
+        ],
+        "short_q": [
+          0,
+          10
+        ],
+        "cost": 0.001,
+        "source_mode": "parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_BETA\\Barra_BETA_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-113351-c84d105d",
           "factor_name": "BarraBETA",
           "version_id": "ver_ff6c7320c56f",
-          "start_date": "2018-07-11",
-          "end_date": "2026-08-03",
-          "universe": "ALL",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
           "source_mode": "parquet",
-          "resolved_universe_mode": "all_factor_values",
-          "universe_size": 5185,
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2347,
           "mean_ic": {
-            "1": 0.0063934418417033,
-            "5": 0.005196079548070218,
-            "22": 0.0015412673931386482
+            "1": 0.00934732380380249,
+            "5": 0.019415186609229376,
+            "22": 0.05965519463089238
           },
           "evaluation_metrics": {
-            "icir_1": 0.06309535725293706,
-            "icir_5": 0.055358176481575525,
-            "icir_22": 0.01730783438705915,
-            "ls_annual_return": 0.09077530424638702,
-            "ls_annual_vol": 0.157975417539717,
-            "ls_sharpe": 0.6288277555198731,
-            "ls_win_rate": 0.5058944131214762,
-            "ls_max_drawdown": -0.26298407649887434,
-            "mean_turnover": 0.08322757289487484,
-            "coverage_ratio": 0.8289560703534014
+            "icir_1": 0.07228521202514612,
+            "icir_5": 0.15821051020174892,
+            "icir_22": 0.53425094121114,
+            "ls_annual_return": 0.1525016722528163,
+            "ls_annual_vol": 0.23968728422206043,
+            "ls_sharpe": 0.7107069194154132,
+            "ls_win_rate": 0.5333333333333333,
+            "ls_max_drawdown": -0.2435311681246649,
+            "mean_turnover": 0.12424376146928083,
+            "coverage_ratio": 0.8358030823409219
           }
         },
         "artifacts": {
-          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-ALL-18072608",
-          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-ALL-18072608\\backtest_summary.csv",
-          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-ALL-18072608\\mean_IC.csv",
-          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-ALL-18072608\\long_short_returns_with_cost.csv",
-          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260805-ALL-18072608\\backtest_plots.png"
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraBETA\\20260806-CSI2000-25102608\\backtest_plots.png"
         },
-        "created_at": "2026-08-05 13:14:21",
-        "started_at": "2026-08-05 13:14:21",
-        "ended_at": "2026-08-05 13:16:04",
+        "created_at": "2026-08-06 11:33:51",
+        "started_at": "2026-08-06 11:33:51",
+        "ended_at": "2026-08-06 11:34:11",
         "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
       },
       {
-        "run_id": "bt-20260805-130534-772dbd18",
-        "factor_name": "BarraBETA",
-        "version_id": "ver_ff6c7320c56f",
-        "start_date": "2018-07-11",
-        "end_date": "2026-08-03",
-        "universe": "ALL",
+        "run_id": "bt-20260806-113329-6da7a7ef",
+        "factor_name": "BarraMIDCAP",
+        "version_id": "ver_47445403dbe6",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
         "periods": [
           1,
           5,
@@ -1079,431 +3786,56 @@
         ],
         "cost": 0.001,
         "source_mode": "parquet",
-        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_BETA\\Barra_BETA_20180102_20260803.parquet",
-        "status": "failed",
-        "error_message": "Recovered stale running run after possible interruption",
-        "summary": null,
-        "artifacts": null,
-        "created_at": "2026-08-05 13:05:34",
-        "started_at": "2026-08-05 13:05:34",
-        "ended_at": "2026-08-05 13:19:42",
-        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-130520-1230f7f2",
-        "factor_name": "BarraBETA",
-        "version_id": "ver_ff6c7320c56f",
-        "start_date": "2018-07-11",
-        "end_date": "2026-08-03",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "parquet",
-        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_BETA\\Barra_BETA_20180102_20260803.parquet",
-        "status": "failed",
-        "error_message": "Recovered stale running run after possible interruption",
-        "summary": null,
-        "artifacts": null,
-        "created_at": "2026-08-05 13:05:20",
-        "started_at": "2026-08-05 13:05:20",
-        "ended_at": "2026-08-05 13:19:42",
-        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-130301-63a1a9e6",
-        "factor_name": "BarraBETA",
-        "version_id": "ver_ff6c7320c56f",
-        "start_date": "2018-07-11",
-        "end_date": "2026-08-03",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "parquet",
-        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_BETA\\Barra_BETA_20180102_20260803.parquet",
-        "status": "failed",
-        "error_message": "Recovered stale running run after possible interruption",
-        "summary": null,
-        "artifacts": null,
-        "created_at": "2026-08-05 13:03:01",
-        "started_at": "2026-08-05 13:03:01",
-        "ended_at": "2026-08-05 13:19:42",
-        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-130130-2a4849c3",
-        "factor_name": "BarraBETA",
-        "version_id": "ver_ff6c7320c56f",
-        "start_date": "2018-07-11",
-        "end_date": "2026-08-03",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "parquet",
-        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_BETA\\Barra_BETA_20180102_20260803.parquet",
-        "status": "failed",
-        "error_message": "Recovered stale running run after possible interruption",
-        "summary": null,
-        "artifacts": null,
-        "created_at": "2026-08-05 13:01:30",
-        "started_at": "2026-08-05 13:01:30",
-        "ended_at": "2026-08-05 13:19:42",
-        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-124923-5a4df164",
-        "factor_name": "BarraBETA",
-        "version_id": "ver_ff6c7320c56f",
-        "start_date": "2018-07-11",
-        "end_date": "2026-08-03",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "parquet",
-        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_BETA\\Barra_BETA_20180102_20260803.parquet",
-        "status": "failed",
-        "error_message": "Recovered stale running run after possible interruption",
-        "summary": null,
-        "artifacts": null,
-        "created_at": "2026-08-05 12:49:23",
-        "started_at": "2026-08-05 12:49:23",
-        "ended_at": "2026-08-05 13:19:42",
-        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-124133-443cd824",
-        "factor_name": "BarraBETA",
-        "version_id": "ver_ff6c7320c56f",
-        "start_date": "2018-07-11",
-        "end_date": "2026-08-03",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "parquet",
-        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_BETA\\Barra_BETA_20180102_20260803.parquet",
-        "status": "failed",
-        "error_message": "Recovered stale running run after possible interruption",
-        "summary": null,
-        "artifacts": null,
-        "created_at": "2026-08-05 12:41:33",
-        "started_at": "2026-08-05 12:41:33",
-        "ended_at": "2026-08-05 13:19:42",
-        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-105350-cc393c8b",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "parquet",
-        "factor_parquet_path": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpsdk5o_8y\\AlphaTest.parquet",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_MIDCAP\\Barra_MIDCAP_20180102_20260805.parquet",
         "status": "success",
         "error_message": null,
         "summary": {
-          "run_id": "bt-20260805-105350-cc393c8b",
-          "factor_name": "AlphaTest",
-          "version_id": "ver_a",
-          "start_date": "2026-01-02",
-          "end_date": "2026-01-05",
-          "universe": "ALL",
+          "run_id": "bt-20260806-113329-6da7a7ef",
+          "factor_name": "BarraMIDCAP",
+          "version_id": "ver_47445403dbe6",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
           "source_mode": "parquet",
-          "resolved_universe_mode": "all_factor_values",
-          "universe_size": 3,
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2347,
           "mean_ic": {
-            "22": 0.02
+            "1": -0.0006593648557152399,
+            "5": -0.00017000873880132603,
+            "22": -0.01303958800708896
           },
           "evaluation_metrics": {
-            "coverage_ratio": 0.95,
-            "mean_turnover": 0.11
+            "icir_1": -0.01091800528634474,
+            "icir_5": -0.0028875283094793778,
+            "icir_22": -0.2383081069297917,
+            "ls_annual_return": -0.0547382783289897,
+            "ls_annual_vol": 0.13863016315285165,
+            "ls_sharpe": -0.33722449871755217,
+            "ls_win_rate": 0.43333333333333335,
+            "ls_max_drawdown": -0.2146919524960922,
+            "mean_turnover": 0.07919393010979914,
+            "coverage_ratio": 0.835995917163365
           }
         },
         "artifacts": {
-          "output_dir": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpsdk5o_8y\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601",
-          "backtest_summary_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpsdk5o_8y\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\backtest_summary.csv",
-          "mean_ic_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpsdk5o_8y\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\mean_IC.csv",
-          "long_short_with_cost_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpsdk5o_8y\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\long_short_returns_with_cost.csv",
-          "plot_png": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpsdk5o_8y\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\backtest_plots.png"
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraMIDCAP\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraMIDCAP\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraMIDCAP\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraMIDCAP\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraMIDCAP\\20260806-CSI2000-25102608\\backtest_plots.png"
         },
-        "created_at": "2026-08-05 10:53:50",
-        "started_at": "2026-08-05 10:53:50",
-        "ended_at": "2026-08-05 10:53:50",
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpsdk5o_8y\\factor.db"
+        "created_at": "2026-08-06 11:33:29",
+        "started_at": "2026-08-06 11:33:29",
+        "ended_at": "2026-08-06 11:33:50",
+        "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
       },
       {
-        "run_id": "bt-20260805-105350-1bd6d353",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "db",
-        "factor_parquet_path": null,
-        "status": "failed",
-        "error_message": "Recovered stale running run after possible interruption",
-        "summary": null,
-        "artifacts": null,
-        "created_at": "2026-08-05 10:53:50",
-        "started_at": "2000-01-01 00:00:00",
-        "ended_at": "2026-08-05 10:53:50",
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp3y6l_1cy\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-105350-ffd7c2ab",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "db",
-        "factor_parquet_path": null,
-        "status": "running",
-        "error_message": null,
-        "summary": null,
-        "artifacts": null,
-        "created_at": "2026-08-05 10:53:50",
-        "started_at": "2026-08-05 10:53:50",
-        "ended_at": null,
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp3y6l_1cy\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-105350-b2e79ca9",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "db",
-        "factor_parquet_path": null,
-        "status": "pending",
-        "error_message": null,
-        "summary": null,
-        "artifacts": null,
-        "created_at": "2026-08-05 10:53:50",
-        "started_at": null,
-        "ended_at": null,
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp_i9ulzqc\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-105349-3b69998b",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "db",
-        "factor_parquet_path": null,
-        "status": "failed",
-        "error_message": "Recovered stale running run after possible interruption",
-        "summary": null,
-        "artifacts": null,
-        "created_at": "2026-08-05 10:53:49",
-        "started_at": "2000-01-01 00:00:00",
-        "ended_at": "2026-08-05 10:53:49",
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp7lklffob\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-105349-bc5a9a29",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "db",
-        "factor_parquet_path": null,
-        "status": "success",
-        "error_message": null,
-        "summary": {
-          "run_id": "bt-20260805-105349-bc5a9a29",
-          "factor_name": "AlphaTest",
-          "version_id": "ver_a",
-          "start_date": "2026-01-02",
-          "end_date": "2026-01-05",
-          "universe": "ALL",
-          "source_mode": "db",
-          "resolved_universe_mode": "all_factor_values",
-          "universe_size": 3,
-          "mean_ic": {
-            "1": 0.1
-          },
-          "evaluation_metrics": {
-            "coverage_ratio": 1.0
-          }
-        },
-        "artifacts": {
-          "output_dir": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpx8n93dy2\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601",
-          "backtest_summary_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpx8n93dy2\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\backtest_summary.csv",
-          "mean_ic_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpx8n93dy2\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\mean_IC.csv",
-          "long_short_with_cost_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpx8n93dy2\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\long_short_returns_with_cost.csv",
-          "plot_png": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpx8n93dy2\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\backtest_plots.png"
-        },
-        "created_at": "2026-08-05 10:53:49",
-        "started_at": "2026-08-05 10:53:49",
-        "ended_at": "2026-08-05 10:53:49",
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpx8n93dy2\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-103755-9d811d0b",
+        "run_id": "bt-20260806-113301-28b82cdf",
         "factor_name": "BarraLNCAP",
         "version_id": "ver_451674450aad",
-        "start_date": "2018-01-02",
-        "end_date": "2026-08-03",
-        "universe": "ALL",
+        "start_date": "2025-10-31",
+        "end_date": "2026-08-05",
+        "universe": "CSI2000",
         "periods": [
           1,
           5,
@@ -1520,989 +3852,50 @@
         ],
         "cost": 0.001,
         "source_mode": "parquet",
-        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_LNCAP\\Barra_LNCAP_20180102_20260803.parquet",
-        "status": "failed",
-        "error_message": "Recovered stale running run after possible interruption",
-        "summary": null,
-        "artifacts": null,
-        "created_at": "2026-08-05 10:37:55",
-        "started_at": "2026-08-05 10:37:55",
-        "ended_at": "2026-08-05 13:19:42",
+        "factor_parquet_path": "D:\\projects\\study\\MultifactorStrategy-master\\factors\\calculated\\barra\\Barra_LNCAP\\Barra_LNCAP_20180102_20260805.parquet",
+        "status": "success",
+        "error_message": null,
+        "summary": {
+          "run_id": "bt-20260806-113301-28b82cdf",
+          "factor_name": "BarraLNCAP",
+          "version_id": "ver_451674450aad",
+          "start_date": "2025-10-31",
+          "end_date": "2026-08-05",
+          "universe": "CSI2000",
+          "source_mode": "parquet",
+          "resolved_universe_mode": "point_in_time_index",
+          "universe_size": 2347,
+          "mean_ic": {
+            "1": -0.0017104874679485065,
+            "5": -0.002470157829553276,
+            "22": -0.008179398045581005
+          },
+          "evaluation_metrics": {
+            "icir_1": -0.029389783977566246,
+            "icir_5": -0.04758756498598481,
+            "icir_22": -0.19247061227540563,
+            "ls_annual_return": -0.037547937577860124,
+            "ls_annual_vol": 0.10907542954504072,
+            "ls_sharpe": -0.2965407591199932,
+            "ls_win_rate": 0.5111111111111111,
+            "ls_max_drawdown": -0.10351755356037484,
+            "mean_turnover": 0.06710863332151877,
+            "coverage_ratio": 0.835995917163365
+          }
+        },
+        "artifacts": {
+          "output_dir": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraLNCAP\\20260806-CSI2000-25102608",
+          "backtest_summary_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraLNCAP\\20260806-CSI2000-25102608\\backtest_summary.csv",
+          "mean_ic_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraLNCAP\\20260806-CSI2000-25102608\\mean_IC.csv",
+          "long_short_with_cost_csv": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraLNCAP\\20260806-CSI2000-25102608\\long_short_returns_with_cost.csv",
+          "plot_png": "D:\\projects\\study\\MultifactorStrategy-master\\backtest_results\\single_factors\\BarraLNCAP\\20260806-CSI2000-25102608\\backtest_plots.png"
+        },
+        "created_at": "2026-08-06 11:33:01",
+        "started_at": "2026-08-06 11:33:01",
+        "ended_at": "2026-08-06 11:33:29",
         "report_scope": "D:\\projects\\study\\MultifactorStrategy-master\\database\\data\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-102609-b8501dd3",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "db",
-        "factor_parquet_path": null,
-        "status": "failed",
-        "error_message": "Recovered stale running run after possible interruption",
-        "summary": null,
-        "artifacts": null,
-        "created_at": "2026-08-05 10:26:09",
-        "started_at": "2000-01-01 00:00:00",
-        "ended_at": "2026-08-05 10:26:09",
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpcy3m70ly\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-102609-df2e788f",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "db",
-        "factor_parquet_path": null,
-        "status": "running",
-        "error_message": null,
-        "summary": null,
-        "artifacts": null,
-        "created_at": "2026-08-05 10:26:09",
-        "started_at": "2026-08-05 10:26:09",
-        "ended_at": null,
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpcy3m70ly\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-102609-efff0e2c",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "db",
-        "factor_parquet_path": null,
-        "status": "pending",
-        "error_message": null,
-        "summary": null,
-        "artifacts": null,
-        "created_at": "2026-08-05 10:26:09",
-        "started_at": null,
-        "ended_at": null,
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpqx99d72u\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-102608-871af1d9",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "db",
-        "factor_parquet_path": null,
-        "status": "failed",
-        "error_message": "Recovered stale running run after possible interruption",
-        "summary": null,
-        "artifacts": null,
-        "created_at": "2026-08-05 10:26:08",
-        "started_at": "2000-01-01 00:00:00",
-        "ended_at": "2026-08-05 10:26:08",
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpjxzx8gv4\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-102608-11f7cd62",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "db",
-        "factor_parquet_path": null,
-        "status": "success",
-        "error_message": null,
-        "summary": {
-          "run_id": "bt-20260805-102608-11f7cd62",
-          "factor_name": "AlphaTest",
-          "version_id": "ver_a",
-          "start_date": "2026-01-02",
-          "end_date": "2026-01-05",
-          "universe": "ALL",
-          "source_mode": "db",
-          "resolved_universe_mode": "all_factor_values",
-          "universe_size": 3,
-          "mean_ic": {
-            "1": 0.1
-          },
-          "evaluation_metrics": {
-            "coverage_ratio": 1.0
-          }
-        },
-        "artifacts": {
-          "output_dir": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpwxl8es33\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601",
-          "backtest_summary_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpwxl8es33\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\backtest_summary.csv",
-          "mean_ic_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpwxl8es33\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\mean_IC.csv",
-          "long_short_with_cost_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpwxl8es33\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\long_short_returns_with_cost.csv",
-          "plot_png": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpwxl8es33\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\backtest_plots.png"
-        },
-        "created_at": "2026-08-05 10:26:08",
-        "started_at": "2026-08-05 10:26:08",
-        "ended_at": "2026-08-05 10:26:08",
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpwxl8es33\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-102608-c194df43",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "parquet",
-        "factor_parquet_path": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpe7u1rtpr\\AlphaTest.parquet",
-        "status": "success",
-        "error_message": null,
-        "summary": {
-          "run_id": "bt-20260805-102608-c194df43",
-          "factor_name": "AlphaTest",
-          "version_id": "ver_a",
-          "start_date": "2026-01-02",
-          "end_date": "2026-01-05",
-          "universe": "ALL",
-          "source_mode": "parquet",
-          "resolved_universe_mode": "all_factor_values",
-          "universe_size": 3,
-          "mean_ic": {
-            "22": 0.02
-          },
-          "evaluation_metrics": {
-            "coverage_ratio": 0.95,
-            "mean_turnover": 0.11
-          }
-        },
-        "artifacts": {
-          "output_dir": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpe7u1rtpr\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601",
-          "backtest_summary_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpe7u1rtpr\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\backtest_summary.csv",
-          "mean_ic_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpe7u1rtpr\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\mean_IC.csv",
-          "long_short_with_cost_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpe7u1rtpr\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\long_short_returns_with_cost.csv",
-          "plot_png": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpe7u1rtpr\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\backtest_plots.png"
-        },
-        "created_at": "2026-08-05 10:26:08",
-        "started_at": "2026-08-05 10:26:08",
-        "ended_at": "2026-08-05 10:26:08",
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpe7u1rtpr\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-100448-79224fdb",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "db",
-        "factor_parquet_path": null,
-        "status": "failed",
-        "error_message": "Recovered stale running run after possible interruption",
-        "summary": null,
-        "artifacts": null,
-        "created_at": "2026-08-05 10:04:48",
-        "started_at": "2000-01-01 00:00:00",
-        "ended_at": "2026-08-05 10:04:48",
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpp4t8qksp\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-100448-ceffdac1",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "db",
-        "factor_parquet_path": null,
-        "status": "running",
-        "error_message": null,
-        "summary": null,
-        "artifacts": null,
-        "created_at": "2026-08-05 10:04:48",
-        "started_at": "2026-08-05 10:04:48",
-        "ended_at": null,
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpp4t8qksp\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-100448-bb089d32",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "db",
-        "factor_parquet_path": null,
-        "status": "pending",
-        "error_message": null,
-        "summary": null,
-        "artifacts": null,
-        "created_at": "2026-08-05 10:04:48",
-        "started_at": null,
-        "ended_at": null,
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp2ozuw7bq\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-100447-29b0c9eb",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "db",
-        "factor_parquet_path": null,
-        "status": "failed",
-        "error_message": "Recovered stale running run after possible interruption",
-        "summary": null,
-        "artifacts": null,
-        "created_at": "2026-08-05 10:04:47",
-        "started_at": "2000-01-01 00:00:00",
-        "ended_at": "2026-08-05 10:04:47",
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpe9m62ki9\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-100447-60c4ccb0",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "db",
-        "factor_parquet_path": null,
-        "status": "success",
-        "error_message": null,
-        "summary": {
-          "run_id": "bt-20260805-100447-60c4ccb0",
-          "factor_name": "AlphaTest",
-          "version_id": "ver_a",
-          "start_date": "2026-01-02",
-          "end_date": "2026-01-05",
-          "universe": "ALL",
-          "source_mode": "db",
-          "resolved_universe_mode": "all_factor_values",
-          "universe_size": 3,
-          "mean_ic": {
-            "1": 0.1
-          },
-          "evaluation_metrics": {
-            "coverage_ratio": 1.0
-          }
-        },
-        "artifacts": {
-          "output_dir": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpswh2j7y3\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601",
-          "backtest_summary_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpswh2j7y3\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\backtest_summary.csv",
-          "mean_ic_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpswh2j7y3\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\mean_IC.csv",
-          "long_short_with_cost_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpswh2j7y3\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\long_short_returns_with_cost.csv",
-          "plot_png": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpswh2j7y3\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\backtest_plots.png"
-        },
-        "created_at": "2026-08-05 10:04:47",
-        "started_at": "2026-08-05 10:04:47",
-        "ended_at": "2026-08-05 10:04:47",
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpswh2j7y3\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-100447-8ec0c2e9",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "parquet",
-        "factor_parquet_path": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp2qrh64sa\\AlphaTest.parquet",
-        "status": "success",
-        "error_message": null,
-        "summary": {
-          "run_id": "bt-20260805-100447-8ec0c2e9",
-          "factor_name": "AlphaTest",
-          "version_id": "ver_a",
-          "start_date": "2026-01-02",
-          "end_date": "2026-01-05",
-          "universe": "ALL",
-          "source_mode": "parquet",
-          "resolved_universe_mode": "all_factor_values",
-          "universe_size": 3,
-          "mean_ic": {
-            "22": 0.02
-          },
-          "evaluation_metrics": {
-            "coverage_ratio": 0.95,
-            "mean_turnover": 0.11
-          }
-        },
-        "artifacts": {
-          "output_dir": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp2qrh64sa\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601",
-          "backtest_summary_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp2qrh64sa\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\backtest_summary.csv",
-          "mean_ic_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp2qrh64sa\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\mean_IC.csv",
-          "long_short_with_cost_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp2qrh64sa\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\long_short_returns_with_cost.csv",
-          "plot_png": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp2qrh64sa\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\backtest_plots.png"
-        },
-        "created_at": "2026-08-05 10:04:47",
-        "started_at": "2026-08-05 10:04:47",
-        "ended_at": "2026-08-05 10:04:47",
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp2qrh64sa\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-093852-714d6743",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "db",
-        "factor_parquet_path": null,
-        "status": "failed",
-        "error_message": "Recovered stale running run after possible interruption",
-        "summary": null,
-        "artifacts": null,
-        "created_at": "2026-08-05 09:38:52",
-        "started_at": "2000-01-01 00:00:00",
-        "ended_at": "2026-08-05 09:38:52",
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpkr12ab39\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-093852-c80d4bc7",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "db",
-        "factor_parquet_path": null,
-        "status": "running",
-        "error_message": null,
-        "summary": null,
-        "artifacts": null,
-        "created_at": "2026-08-05 09:38:52",
-        "started_at": "2026-08-05 09:38:52",
-        "ended_at": null,
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpkr12ab39\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-093852-b5e0956b",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "db",
-        "factor_parquet_path": null,
-        "status": "pending",
-        "error_message": null,
-        "summary": null,
-        "artifacts": null,
-        "created_at": "2026-08-05 09:38:52",
-        "started_at": null,
-        "ended_at": null,
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmphw3xk1yd\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-093851-554c3343",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "db",
-        "factor_parquet_path": null,
-        "status": "failed",
-        "error_message": "Recovered stale running run after possible interruption",
-        "summary": null,
-        "artifacts": null,
-        "created_at": "2026-08-05 09:38:51",
-        "started_at": "2000-01-01 00:00:00",
-        "ended_at": "2026-08-05 09:38:51",
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpju77g1yt\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-093851-8d37dbc2",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "db",
-        "factor_parquet_path": null,
-        "status": "success",
-        "error_message": null,
-        "summary": {
-          "run_id": "bt-20260805-093851-8d37dbc2",
-          "factor_name": "AlphaTest",
-          "version_id": "ver_a",
-          "start_date": "2026-01-02",
-          "end_date": "2026-01-05",
-          "universe": "ALL",
-          "source_mode": "db",
-          "resolved_universe_mode": "all_factor_values",
-          "universe_size": 3,
-          "mean_ic": {
-            "1": 0.1
-          },
-          "evaluation_metrics": {
-            "coverage_ratio": 1.0
-          }
-        },
-        "artifacts": {
-          "output_dir": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpknyzh369\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601",
-          "backtest_summary_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpknyzh369\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\backtest_summary.csv",
-          "mean_ic_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpknyzh369\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\mean_IC.csv",
-          "long_short_with_cost_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpknyzh369\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\long_short_returns_with_cost.csv",
-          "plot_png": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpknyzh369\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\backtest_plots.png"
-        },
-        "created_at": "2026-08-05 09:38:51",
-        "started_at": "2026-08-05 09:38:51",
-        "ended_at": "2026-08-05 09:38:51",
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpknyzh369\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-093851-58c315db",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "parquet",
-        "factor_parquet_path": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpphttt5d3\\AlphaTest.parquet",
-        "status": "success",
-        "error_message": null,
-        "summary": {
-          "run_id": "bt-20260805-093851-58c315db",
-          "factor_name": "AlphaTest",
-          "version_id": "ver_a",
-          "start_date": "2026-01-02",
-          "end_date": "2026-01-05",
-          "universe": "ALL",
-          "source_mode": "parquet",
-          "resolved_universe_mode": "all_factor_values",
-          "universe_size": 3,
-          "mean_ic": {
-            "22": 0.02
-          },
-          "evaluation_metrics": {
-            "coverage_ratio": 0.95,
-            "mean_turnover": 0.11
-          }
-        },
-        "artifacts": {
-          "output_dir": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpphttt5d3\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601",
-          "backtest_summary_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpphttt5d3\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\backtest_summary.csv",
-          "mean_ic_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpphttt5d3\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\mean_IC.csv",
-          "long_short_with_cost_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpphttt5d3\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\long_short_returns_with_cost.csv",
-          "plot_png": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpphttt5d3\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\backtest_plots.png"
-        },
-        "created_at": "2026-08-05 09:38:51",
-        "started_at": "2026-08-05 09:38:51",
-        "ended_at": "2026-08-05 09:38:51",
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpphttt5d3\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-093700-822ee362",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "db",
-        "factor_parquet_path": null,
-        "status": "pending",
-        "error_message": null,
-        "summary": null,
-        "artifacts": null,
-        "created_at": "2026-08-05 09:37:00",
-        "started_at": null,
-        "ended_at": null,
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp45kk84th\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-093659-7a64a422",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "db",
-        "factor_parquet_path": null,
-        "status": "failed",
-        "error_message": "Recovered stale running run after possible interruption",
-        "summary": null,
-        "artifacts": null,
-        "created_at": "2026-08-05 09:36:59",
-        "started_at": "2000-01-01 00:00:00",
-        "ended_at": "2026-08-05 09:36:59",
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpf7mc1_zh\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-093659-24f17ff6",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "db",
-        "factor_parquet_path": null,
-        "status": "running",
-        "error_message": null,
-        "summary": null,
-        "artifacts": null,
-        "created_at": "2026-08-05 09:36:59",
-        "started_at": "2026-08-05 09:36:59",
-        "ended_at": null,
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpf7mc1_zh\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-093658-2435c004",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "db",
-        "factor_parquet_path": null,
-        "status": "failed",
-        "error_message": "Recovered stale running run after possible interruption",
-        "summary": null,
-        "artifacts": null,
-        "created_at": "2026-08-05 09:36:58",
-        "started_at": "2000-01-01 00:00:00",
-        "ended_at": "2026-08-05 09:36:58",
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp5l02g88q\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-093658-5d302685",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "db",
-        "factor_parquet_path": null,
-        "status": "success",
-        "error_message": null,
-        "summary": {
-          "run_id": "bt-20260805-093658-5d302685",
-          "factor_name": "AlphaTest",
-          "version_id": "ver_a",
-          "start_date": "2026-01-02",
-          "end_date": "2026-01-05",
-          "universe": "ALL",
-          "source_mode": "db",
-          "resolved_universe_mode": "all_factor_values",
-          "universe_size": 3,
-          "mean_ic": {
-            "1": 0.1
-          },
-          "evaluation_metrics": {
-            "coverage_ratio": 1.0
-          }
-        },
-        "artifacts": {
-          "output_dir": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp1x91m23a\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601",
-          "backtest_summary_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp1x91m23a\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\backtest_summary.csv",
-          "mean_ic_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp1x91m23a\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\mean_IC.csv",
-          "long_short_with_cost_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp1x91m23a\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\long_short_returns_with_cost.csv",
-          "plot_png": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp1x91m23a\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\backtest_plots.png"
-        },
-        "created_at": "2026-08-05 09:36:58",
-        "started_at": "2026-08-05 09:36:58",
-        "ended_at": "2026-08-05 09:36:58",
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmp1x91m23a\\factor.db"
-      },
-      {
-        "run_id": "bt-20260805-093658-23c32516",
-        "factor_name": "AlphaTest",
-        "version_id": "ver_a",
-        "start_date": "2026-01-02",
-        "end_date": "2026-01-05",
-        "universe": "ALL",
-        "periods": [
-          1,
-          5,
-          22
-        ],
-        "quantile": 10,
-        "long_p": [
-          90,
-          100
-        ],
-        "short_q": [
-          0,
-          10
-        ],
-        "cost": 0.001,
-        "source_mode": "parquet",
-        "factor_parquet_path": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpdwerln51\\AlphaTest.parquet",
-        "status": "success",
-        "error_message": null,
-        "summary": {
-          "run_id": "bt-20260805-093658-23c32516",
-          "factor_name": "AlphaTest",
-          "version_id": "ver_a",
-          "start_date": "2026-01-02",
-          "end_date": "2026-01-05",
-          "universe": "ALL",
-          "source_mode": "parquet",
-          "resolved_universe_mode": "all_factor_values",
-          "universe_size": 3,
-          "mean_ic": {
-            "22": 0.02
-          },
-          "evaluation_metrics": {
-            "coverage_ratio": 0.95,
-            "mean_turnover": 0.11
-          }
-        },
-        "artifacts": {
-          "output_dir": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpdwerln51\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601",
-          "backtest_summary_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpdwerln51\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\backtest_summary.csv",
-          "mean_ic_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpdwerln51\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\mean_IC.csv",
-          "long_short_with_cost_csv": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpdwerln51\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\long_short_returns_with_cost.csv",
-          "plot_png": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpdwerln51\\backtest_results\\single_factors\\AlphaTest\\20260805-ALL-26012601\\backtest_plots.png"
-        },
-        "created_at": "2026-08-05 09:36:58",
-        "started_at": "2026-08-05 09:36:59",
-        "ended_at": "2026-08-05 09:36:59",
-        "report_scope": "C:\\Users\\14483\\AppData\\Local\\Temp\\tmpdwerln51\\factor.db"
       }
     ],
-    "generated_at": "2026-08-05 13:19:42"
+    "generated_at": "2026-08-06 12:45:12"
   }
 }

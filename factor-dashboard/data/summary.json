@@ -1,11 +1,11 @@
 {
-  "latest_trade_date": "2026-08-05",
+  "latest_trade_date": "2026-08-06",
   "market_latest_trade_date": "2026-08-05",
   "latest_factor_date": "2026-07-24",
   "status_counts": {
     "active": 1,
-    "candidate": 23,
-    "draft": 149
+    "candidate": 59,
+    "draft": 113
   },
   "latest_job": {
     "run_id": "20260725-161059-factor-daily",
