@@ -1309,6 +1309,67 @@ h1 span { color: var(--blue); font-size: 18px; font-weight: 400; }
 .dual-range input[type="range"]::-webkit-slider-thumb,
 .dual-range input[type="range"]::-moz-range-thumb { box-shadow: none; }
 
+/* Barra 一级风格采用全宽研究卡，与 Alpha 表格型总览明确区分。 */
+.barra-card-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 28px;
+  margin-top: 22px;
+}
+.barra-style-card {
+  min-width: 0;
+  padding: 28px 30px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+.barra-style-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+.barra-style-eyebrow { color: var(--blue); font-size: 10px; font-weight: 700; letter-spacing: .15em; }
+.barra-style-card-head h3 { margin: 7px 0 5px; font-family: Georgia, "Times New Roman", serif; font-size: 30px; font-weight: 500; }
+.barra-style-card-head p { margin: 0; color: var(--muted); font-size: 12px; }
+.barra-style-status { display: grid; justify-items: end; gap: 10px; font-size: 12px; }
+.barra-style-meta {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  margin: 18px 0;
+  border: 1px solid var(--line);
+  background: var(--line);
+}
+.barra-style-meta span { display: grid; gap: 5px; padding: 12px 14px; background: var(--panel); color: var(--muted); font-size: 10px; letter-spacing: .04em; }
+.barra-style-meta strong { color: var(--text); font-size: 13px; letter-spacing: 0; }
+.barra-style-chart-grid,
+.barra-style-window-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.barra-style-chart-grid section,
+.barra-style-window-grid section,
+.barra-style-research { min-width: 0; border: 1px solid var(--line); padding: 16px; }
+.barra-style-chart-grid h4,
+.barra-style-window-grid h4,
+.barra-style-research h4 { margin: 0 0 12px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+.barra-style-chart { height: 270px; }
+.barra-style-chart canvas { width: 100%; height: 100%; }
+.barra-style-window-grid { margin-top: 18px; }
+.barra-metric-table-wrap { overflow-x: auto; }
+.barra-metric-table,
+.barra-research-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.barra-metric-table th,
+.barra-metric-table td,
+.barra-research-table th,
+.barra-research-table td { padding: 8px 7px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+.barra-metric-table th:first-child,
+.barra-research-table th:first-child { text-align: left; color: var(--muted); font-weight: 500; }
+.barra-metric-table thead th,
+.barra-research-table thead th { color: var(--muted); font-size: 9px; letter-spacing: .04em; }
+.barra-style-research { margin-top: 18px; }
+.barra-research-table { max-width: 720px; }
+.barra-style-card footer { margin-top: 16px; color: var(--muted); font-size: 10px; line-height: 1.7; }
+
 @media (max-width: 900px) {
   body { min-width: 0; }
   .factor-site-header { height: 68px; padding: 0 18px; }
@@ -1332,6 +1393,9 @@ h1 span { color: var(--blue); font-size: 18px; font-weight: 400; }
   .panel, .factor-panel, .ic-panel { min-width: 0; height: auto; }
   .table-wrap { overflow-x: auto; }
   .portfolio-run-list { height: 420px; }
+  .barra-style-card { padding: 20px; }
+  .barra-style-chart-grid, .barra-style-window-grid { grid-template-columns: minmax(0, 1fr); }
+  .barra-style-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 560px) {
@@ -1339,6 +1403,10 @@ h1 span { color: var(--blue); font-size: 18px; font-weight: 400; }
   .factor-site-nav a { letter-spacing: .08em; }
   .stats-grid { grid-template-columns: 1fr; }
   .toolbar-select { max-width: calc(50vw - 30px); }
+  .barra-style-card-head { flex-direction: column; }
+  .barra-style-status { justify-items: start; }
+  .barra-style-meta { grid-template-columns: minmax(0, 1fr); }
+  .barra-style-chart { height: 230px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

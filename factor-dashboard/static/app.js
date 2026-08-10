@@ -2,6 +2,7 @@ const state = {
   summary: null,
   factors: [],
   barraFactors: [],
+  barraDetails: {},
   barraUniverse: "ALL",
   jobs: [],
   status: null,
@@ -44,8 +45,8 @@ const VIEW_META = {
     subtitle: "聚焦因子表现、分组收益与区间收益分析",
   },
   barra: {
-    title: "Barra 因子 <span>CNE6 Descriptors</span>",
-    subtitle: "39 个三级描述子的回测表现与更新状态",
+    title: "Barra 因子 <span>CNE6 Style Factors</span>",
+    subtitle: "8 个一级风格因子的成立以来与 60 日研究表现",
   },
   status: {
     title: "任务与数据状态 <span>Task & Data Status</span>",
@@ -253,6 +254,7 @@ function switchView(nextView) {
     renderGroupChart();
     renderLongShortChart();
     renderPortfolioChart();
+    if (nextView === "barra") renderBarraCharts();
   });
 }
 
@@ -881,43 +883,122 @@ function bindStatusTableFilter() {
   });
 }
 
+function barraMetricTable(windowMetrics) {
+  const strategies = [
+    ["高分组（多头）", "high_group"],
+    ["低分组", "low_group"],
+    ["多空对冲", "long_short"],
+  ];
+  const metrics = [
+    ["累计收益", "cumulative_return", pct],
+    ["年化收益", "annual_return", pct],
+    ["年化波动", "annual_volatility", pct],
+    ["Sharpe", "sharpe", (value) => fmt(value, 2)],
+    ["最大回撤", "max_drawdown", pct],
+    ["胜率", "win_rate", pct],
+  ];
+  return `
+    <div class="barra-metric-table-wrap">
+      <table class="barra-metric-table">
+        <thead><tr><th>指标</th>${strategies.map(([label]) => `<th>${label}</th>`).join("")}</tr></thead>
+        <tbody>${metrics.map(([label, key, formatter]) => `
+          <tr><th>${label}</th>${strategies.map(([, strategy]) => {
+            const value = windowMetrics?.[strategy]?.[key];
+            return `<td class="${cssNum(value)}">${formatter(value)}</td>`;
+          }).join("")}</tr>
+        `).join("")}</tbody>
+      </table>
+    </div>`;
+}
+
+function barraResearchTable(research) {
+  const windows = [["成立以来", "since_inception"], ["最近 60 日", "last_60"]];
+  const rows = [];
+  [1, 5, 22].forEach((horizon) => {
+    rows.push([`IC_${horizon}`, (item) => fmt(item?.ic?.[String(horizon)]?.mean, 3)]);
+    rows.push([`ICIR_${horizon}`, (item) => fmt(item?.ic?.[String(horizon)]?.icir, 2)]);
+  });
+  rows.push(["平均换手率", (item) => pct(item?.mean_turnover)]);
+  rows.push(["横截面覆盖率", (item) => pct(item?.coverage_ratio)]);
+  return `
+    <table class="barra-research-table">
+      <thead><tr><th>研究指标</th>${windows.map(([label]) => `<th>${label}</th>`).join("")}</tr></thead>
+      <tbody>${rows.map(([label, formatter]) => `
+        <tr><th>${label}</th>${windows.map(([, key]) => `<td>${formatter(research?.[key])}</td>`).join("")}</tr>
+      `).join("")}</tbody>
+    </table>`;
+}
+
+function barraChartSeries(detail, recentOnly = false) {
+  const rows = recentOnly ? (detail?.series || []).slice(-61) : (detail?.series || []);
+  const definitions = [
+    ["高分组（多头）", "long_value", "#243f63"],
+    ["低分组", "short_value", "#c78b2a"],
+    ["多空对冲（成本后）", "long_short_value", "#8f3d45"],
+  ];
+  return definitions.map(([name, field, color]) => {
+    const valid = rows.filter((item) => Number.isFinite(Number(item[field])));
+    const base = valid.length ? Number(valid[0][field]) : NaN;
+    return {
+      name,
+      color,
+      lineWidth: field === "long_short_value" ? 2.5 : 1.8,
+      points: valid.map((item) => ({ date: item.date, value: Number.isFinite(base) && base !== 0 ? Number(item[field]) / base : NaN })),
+    };
+  });
+}
+
+function renderBarraCharts() {
+  state.barraFactors.forEach((item, index) => {
+    const detail = state.barraDetails[item.factor_name] || {};
+    drawLineChart(`barraStyleFull-${index}`, barraChartSeries(detail, false), { emptyText: "暂无成立以来回测曲线" });
+    drawLineChart(`barraStyle60-${index}`, barraChartSeries(detail, true), { emptyText: "不足 60 个交易日" });
+  });
+}
+
 function renderBarraCards() {
   const grid = document.getElementById("barraCardGrid");
   if (!grid) return;
-  setText("barraFactorCount", `(${state.barraFactors.length}/39)`);
+  setText("barraFactorCount", `(${state.barraFactors.length}/8)`);
   grid.innerHTML = state.barraFactors.length
-    ? state.barraFactors.map((item) => `
-      <article class="barra-factor-card" tabindex="0" data-factor="${escapeHtml(item.factor_name)}">
-        <div class="barra-card-title">
-          <h3>${escapeHtml(item.factor_name)}</h3>
-          <span class="badge ${escapeHtml(item.lifecycle_status || "draft")}">${escapeHtml(item.lifecycle_status || "draft")}</span>
+    ? state.barraFactors.map((item, index) => {
+      const detail = state.barraDetails[item.factor_name] || {};
+      return `
+      <article class="barra-style-card" data-factor="${escapeHtml(item.factor_name)}">
+        <header class="barra-style-card-head">
+          <div>
+            <div class="barra-style-eyebrow">${escapeHtml(item.style_code || "STYLE")} · CNE6 STYLE FACTOR</div>
+            <h3>${escapeHtml(item.display_name || item.factor_name)}</h3>
+            <p>${escapeHtml(item.eligible_descriptor_count ?? 0)} / ${escapeHtml(item.configured_descriptor_count ?? 0)} 个三级描述子参与当前版本 · 可用项覆盖门槛 ${pct(item.component_coverage_ratio)}</p>
+          </div>
+          <div class="barra-style-status">
+            <span class="badge ${escapeHtml(item.lifecycle_status || "draft")}">${escapeHtml(item.lifecycle_status || "draft")}</span>
+            <strong>${escapeHtml(item.latest_backtest_status || "待回测")}</strong>
+          </div>
+        </header>
+        <div class="barra-style-meta">
+          <span>成立日 <strong>${escapeHtml(item.inception_date || "--")}</strong></span>
+          <span>因子日 <strong>${escapeHtml(item.latest_factor_value_date || "--")}</strong></span>
+          <span>回测日 <strong>${escapeHtml(item.latest_backtest_date || "--")}</strong></span>
+          <span>股票池 <strong>${escapeHtml(state.barraUniverse)}</strong></span>
         </div>
-        <div class="barra-card-style"><span class="barra-card-code">${escapeHtml(item.descriptor_code || "--")}</span> · ${escapeHtml(item.barra_style || "--")}</div>
-        <div class="barra-card-metrics">
-          <div class="barra-card-metric"><span>60日 IC</span><strong class="${cssNum(item.rolling_ic_mean)}">${fmt(item.rolling_ic_mean, 3)}</strong></div>
-          <div class="barra-card-metric"><span>60日 ICIR</span><strong class="${cssNum(item.rolling_icir)}">${fmt(item.rolling_icir, 2)}</strong></div>
-          <div class="barra-card-metric"><span>年化收益</span><strong class="${cssNum(item.rolling_annual_return)}">${pct(item.rolling_annual_return)}</strong></div>
-          <div class="barra-card-metric"><span>Sharpe</span><strong class="${cssNum(item.rolling_sharpe)}">${fmt(item.rolling_sharpe, 2)}</strong></div>
-          <div class="barra-card-metric"><span>胜率</span><strong>${pct(item.rolling_win_rate)}</strong></div>
-          <div class="barra-card-metric"><span>回测状态</span><strong>${escapeHtml(item.latest_backtest_status || "待回测")}</strong></div>
+        <div class="barra-style-chart-grid">
+          <section><h4>成立以来净值</h4><div class="barra-style-chart"><canvas id="barraStyleFull-${index}"></canvas></div></section>
+          <section><h4>最近 60 日净值</h4><div class="barra-style-chart"><canvas id="barraStyle60-${index}"></canvas></div></section>
         </div>
-        <div class="barra-card-footer">
-          <span>因子 ${escapeHtml(item.latest_factor_value_date || "--")}</span>
-          <span>回测 ${escapeHtml(item.latest_backtest_date || "--")}</span>
+        <div class="barra-style-window-grid">
+          <section><h4>成立以来回测指标</h4>${barraMetricTable(detail.windows?.since_inception)}</section>
+          <section><h4>最近 60 日回测指标</h4>${barraMetricTable(detail.windows?.last_60)}</section>
         </div>
-      </article>
-    `).join("")
-    : '<div class="empty-state">尚未注册 Barra CNE6 描述子，请先运行 Barra bootstrap 任务。</div>';
-  grid.querySelectorAll(".barra-factor-card").forEach((card) => {
-    const open = () => selectBarraFactor(card.dataset.factor);
-    card.addEventListener("click", open);
-    card.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        open();
-      }
-    });
-  });
+        <section class="barra-style-research">
+          <h4>IC、换手与覆盖</h4>
+          ${barraResearchTable(detail.research || {})}
+        </section>
+        <footer>高分组与低分组为分组毛收益；多空对冲为高分组减低分组并计入单边 0.1% 成本。当前组件：${escapeHtml((item.eligible_descriptors || []).join("、") || "--")}</footer>
+      </article>`;
+    }).join("")
+    : '<div class="empty-state">尚未生成 Barra 一级风格因子，请先运行 Barra style update 任务。</div>';
+  renderBarraCharts();
 }
 
 function passesMetricFilters(item, metricFilters) {
@@ -1280,13 +1361,24 @@ async function fetchSummary() {
 }
 
 async function fetchFactors() {
-  return STATIC_MODE ? getJson(dataPath("factors.json")) : getJson("/api/factors");
+  return STATIC_MODE ? getJson(dataPath("factors.json")) : getJson("/api/factors?alpha_only=true");
 }
 
 async function fetchBarraFactors() {
-  if (STATIC_MODE) return getJson(dataPath(`barra/${state.barraUniverse}/factors.json`));
-  const q = new URLSearchParams({ universe: state.barraUniverse, barra_only: "true" });
-  return getJson(`/api/factors?${q.toString()}`);
+  if (STATIC_MODE) return getJson(dataPath(`barra-style/${state.barraUniverse}/styles.json`));
+  const q = new URLSearchParams({ universe: state.barraUniverse });
+  return getJson(`/api/barra-styles?${q.toString()}`);
+}
+
+async function fetchBarraStyleDetails(styles) {
+  const entries = await Promise.all((styles || []).map(async (item) => {
+    if (STATIC_MODE) {
+      return [item.factor_name, await getJson(dataPath(`barra-style/${state.barraUniverse}/details/${factorKey(item.factor_name)}.json`))];
+    }
+    const q = new URLSearchParams({ factor: item.factor_name, universe: state.barraUniverse });
+    return [item.factor_name, await getJson(`/api/barra-style-detail?${q.toString()}`)];
+  }));
+  return Object.fromEntries(entries);
 }
 
 async function fetchJobs() {
@@ -1485,6 +1577,7 @@ async function loadDashboard() {
   state.summary = summary;
   state.factors = factors;
   state.barraFactors = barraFactors;
+  state.barraDetails = await fetchBarraStyleDetails(barraFactors);
   state.status = statusPayload;
   state.portfolioBacktests = portfolioBacktests || [];
   state.jobs = statusPayload?.scheduler?.recent_stages || [];
@@ -1565,8 +1658,8 @@ function bindEvents() {
     state.barraUniverse = event.target.value;
     try {
       state.barraFactors = await fetchBarraFactors();
+      state.barraDetails = await fetchBarraStyleDetails(state.barraFactors);
       renderBarraCards();
-      if (getSelectedFactorMeta()?.is_barra_cne6) await loadFactorDependentPanels();
     } catch (err) {
       console.error(err);
       showToast(`Barra 股票池切换失败: ${err.message}`);
@@ -1578,6 +1671,7 @@ function bindEvents() {
     renderIcChart();
     renderGroupChart();
     renderLongShortChart();
+    if (state.currentView === "barra") renderBarraCharts();
   });
   bindNavigation();
   bindRangeHandlers();
