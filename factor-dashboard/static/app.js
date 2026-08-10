@@ -4,6 +4,8 @@ const state = {
   barraFactors: [],
   barraDetails: {},
   barraUniverse: "ALL",
+  // 每张风格卡独立保存折叠状态和曲线显示偏好，切换股票池后仍保持研究视图。
+  barraCardOptions: {},
   jobs: [],
   status: null,
   portfolioBacktests: [],
@@ -379,7 +381,21 @@ function drawLineChart(canvasId, seriesList, options = {}) {
   const { ctx, width, height } = setupCanvas(canvas);
   const legendItems = (seriesList || []).filter((item) => item?.name);
   const hasLegend = legendItems.length > 0;
-  const padding = { left: 52, right: 20, top: hasLegend ? 64 : 30, bottom: 34 };
+  ctx.font = "12px Segoe UI, Arial";
+  // 图例按画布宽度自动换行，避免长中文标签在窄卡片内相互覆盖。
+  let legendX = 12;
+  let legendRow = 0;
+  const legendLayout = legendItems.map((series) => {
+    const itemWidth = 48 + ctx.measureText(series.name || "").width;
+    if (legendX > 12 && legendX + itemWidth > width - 12) {
+      legendX = 12;
+      legendRow += 1;
+    }
+    const item = { series, x: legendX, y: 24 + legendRow * 24 };
+    legendX += itemWidth + 14;
+    return item;
+  });
+  const padding = { left: 52, right: 20, top: hasLegend ? 32 + (legendRow + 1) * 24 : 30, bottom: 34 };
   const allPoints = seriesList.flatMap((s) => s.points || []).filter((p) => Number.isFinite(p.value));
   if (!allPoints.length) {
     ctx.clearRect(0, 0, width, height);
@@ -497,19 +513,17 @@ function drawLineChart(canvasId, seriesList, options = {}) {
   ctx.textAlign = "right";
   ctx.fillText(last || "", width - padding.right, height - 10);
 
-  let legendX = padding.left + 12;
-  const legendY = 34;
-  legendItems.forEach((series) => {
+  ctx.textAlign = "left";
+  legendLayout.forEach(({ series, x, y }) => {
     ctx.strokeStyle = series.color;
     ctx.lineWidth = series.lineWidth || 2;
     ctx.setLineDash(series.dash ? [6, 5] : []);
     ctx.beginPath();
-    ctx.moveTo(legendX, legendY);
-    ctx.lineTo(legendX + 22, legendY);
+    ctx.moveTo(x, y);
+    ctx.lineTo(x + 22, y);
     ctx.stroke();
     ctx.setLineDash([]);
-    ctx.fillText(series.name || "", legendX + 28, legendY + 5);
-    legendX += 24 + ctx.measureText(series.name || "").width + 18;
+    ctx.fillText(series.name || "", x + 28, y + 5);
   });
 }
 
@@ -883,7 +897,14 @@ function bindStatusTableFilter() {
   });
 }
 
-function barraMetricTable(windowMetrics) {
+function getBarraCardOptions(factorName) {
+  return state.barraCardOptions[factorName] || {
+    collapsed: false,
+    visible: { high_group: true, low_group: true, long_short: true },
+  };
+}
+
+function barraMetricTable(windowMetrics, visible) {
   const strategies = [
     ["高分组（多头）", "high_group"],
     ["低分组", "low_group"],
@@ -897,12 +918,13 @@ function barraMetricTable(windowMetrics) {
     ["最大回撤", "max_drawdown", pct],
     ["胜率", "win_rate", pct],
   ];
+  const activeStrategies = strategies.filter(([, key]) => visible[key]);
   return `
     <div class="barra-metric-table-wrap">
       <table class="barra-metric-table">
-        <thead><tr><th>指标</th>${strategies.map(([label]) => `<th>${label}</th>`).join("")}</tr></thead>
+        <thead><tr><th>指标</th>${activeStrategies.map(([label]) => `<th>${label}</th>`).join("")}</tr></thead>
         <tbody>${metrics.map(([label, key, formatter]) => `
-          <tr><th>${label}</th>${strategies.map(([, strategy]) => {
+          <tr><td class="barra-metric-label">${label}</td>${activeStrategies.map(([, strategy]) => {
             const value = windowMetrics?.[strategy]?.[key];
             return `<td class="${cssNum(value)}">${formatter(value)}</td>`;
           }).join("")}</tr>
@@ -929,14 +951,14 @@ function barraResearchTable(research) {
     </table>`;
 }
 
-function barraChartSeries(detail, recentOnly = false) {
+function barraChartSeries(detail, recentOnly = false, visible = {}) {
   const rows = recentOnly ? (detail?.series || []).slice(-61) : (detail?.series || []);
   const definitions = [
     ["高分组（多头）", "long_value", "#243f63"],
     ["低分组", "short_value", "#c78b2a"],
     ["多空对冲（成本后）", "long_short_value", "#8f3d45"],
   ];
-  return definitions.map(([name, field, color]) => {
+  return definitions.filter(([, field]) => visible[field === "long_value" ? "high_group" : field === "short_value" ? "low_group" : "long_short"] !== false).map(([name, field, color]) => {
     const valid = rows.filter((item) => Number.isFinite(Number(item[field])));
     const base = valid.length ? Number(valid[0][field]) : NaN;
     return {
@@ -951,8 +973,9 @@ function barraChartSeries(detail, recentOnly = false) {
 function renderBarraCharts() {
   state.barraFactors.forEach((item, index) => {
     const detail = state.barraDetails[item.factor_name] || {};
-    drawLineChart(`barraStyleFull-${index}`, barraChartSeries(detail, false), { emptyText: "暂无成立以来回测曲线" });
-    drawLineChart(`barraStyle60-${index}`, barraChartSeries(detail, true), { emptyText: "不足 60 个交易日" });
+    const options = getBarraCardOptions(item.factor_name);
+    drawLineChart(`barraStyleFull-${index}`, barraChartSeries(detail, false, options.visible), { emptyText: "暂无可选成立以来回测曲线" });
+    drawLineChart(`barraStyle60-${index}`, barraChartSeries(detail, true, options.visible), { emptyText: "不足 60 个交易日" });
   });
 }
 
@@ -963,8 +986,14 @@ function renderBarraCards() {
   grid.innerHTML = state.barraFactors.length
     ? state.barraFactors.map((item, index) => {
       const detail = state.barraDetails[item.factor_name] || {};
+      const options = getBarraCardOptions(item.factor_name);
+      const visibilityControls = [
+        ["high_group", "高分组"],
+        ["low_group", "低分组"],
+        ["long_short", "多空对冲"],
+      ].map(([key, label]) => `<label><input type="checkbox" data-barra-series="${key}" ${options.visible[key] ? "checked" : ""}>${label}</label>`).join("");
       return `
-      <article class="barra-style-card" data-factor="${escapeHtml(item.factor_name)}">
+      <article class="barra-style-card ${options.collapsed ? "is-collapsed" : ""}" data-factor="${escapeHtml(item.factor_name)}">
         <header class="barra-style-card-head">
           <div>
             <div class="barra-style-eyebrow">${escapeHtml(item.style_code || "STYLE")} · CNE6 STYLE FACTOR</div>
@@ -975,7 +1004,10 @@ function renderBarraCards() {
             <span class="badge ${escapeHtml(item.lifecycle_status || "draft")}">${escapeHtml(item.lifecycle_status || "draft")}</span>
             <strong>${escapeHtml(item.latest_backtest_status || "待回测")}</strong>
           </div>
+          <button class="barra-card-collapse" type="button" aria-expanded="${!options.collapsed}" data-barra-collapse>${options.collapsed ? "展开研究卡" : "折叠研究卡"}</button>
         </header>
+        <div class="barra-card-body" ${options.collapsed ? "hidden" : ""}>
+        <div class="barra-series-controls" role="group" aria-label="选择展示曲线">${visibilityControls}</div>
         <div class="barra-style-meta">
           <span>成立日 <strong>${escapeHtml(item.inception_date || "--")}</strong></span>
           <span>因子日 <strong>${escapeHtml(item.latest_factor_value_date || "--")}</strong></span>
@@ -987,18 +1019,42 @@ function renderBarraCards() {
           <section><h4>最近 60 日净值</h4><div class="barra-style-chart"><canvas id="barraStyle60-${index}"></canvas></div></section>
         </div>
         <div class="barra-style-window-grid">
-          <section><h4>成立以来回测指标</h4>${barraMetricTable(detail.windows?.since_inception)}</section>
-          <section><h4>最近 60 日回测指标</h4>${barraMetricTable(detail.windows?.last_60)}</section>
+          <section><h4>成立以来回测指标</h4>${barraMetricTable(detail.windows?.since_inception, options.visible)}</section>
+          <section><h4>最近 60 日回测指标</h4>${barraMetricTable(detail.windows?.last_60, options.visible)}</section>
         </div>
         <section class="barra-style-research">
           <h4>IC、换手与覆盖</h4>
           ${barraResearchTable(detail.research || {})}
         </section>
         <footer>高分组与低分组为分组毛收益；多空对冲为高分组减低分组并计入单边 0.1% 成本。当前组件：${escapeHtml((item.eligible_descriptors || []).join("、") || "--")}</footer>
+        </div>
       </article>`;
     }).join("")
     : '<div class="empty-state">尚未生成 Barra 一级风格因子，请先运行 Barra style update 任务。</div>';
   renderBarraCharts();
+  grid.onclick = (event) => {
+    const button = event.target.closest("[data-barra-collapse]");
+    if (!button) return;
+    const card = button.closest(".barra-style-card");
+    const factorName = card?.dataset.factor;
+    if (!factorName) return;
+    const options = getBarraCardOptions(factorName);
+    state.barraCardOptions[factorName] = { ...options, collapsed: !options.collapsed };
+    renderBarraCards();
+  };
+  grid.onchange = (event) => {
+    const checkbox = event.target.closest("[data-barra-series]");
+    if (!checkbox) return;
+    const card = checkbox.closest(".barra-style-card");
+    const factorName = card?.dataset.factor;
+    if (!factorName) return;
+    const options = getBarraCardOptions(factorName);
+    state.barraCardOptions[factorName] = {
+      ...options,
+      visible: { ...options.visible, [checkbox.dataset.barraSeries]: checkbox.checked },
+    };
+    renderBarraCards();
+  };
 }
 
 function passesMetricFilters(item, metricFilters) {
