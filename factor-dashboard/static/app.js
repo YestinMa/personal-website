@@ -18,6 +18,7 @@ const state = {
     group: { columns: [], series: [] },
     lsRaw: [],
     ls: [],
+    attribution: null,
   },
   ranges: {
     ic: { start: 0, end: 0 },
@@ -1518,6 +1519,45 @@ async function fetchBacktestAnalysis(factor, startIdx, endIdx) {
   return getJson(`/api/backtest-analysis?${q.toString()}`);
 }
 
+async function fetchBarraReturnAttribution(factor) {
+  const factorMeta = getSelectedFactorMeta();
+  if (STATIC_MODE) return getJson(dataPath(`attribution/${factorKey(factor)}.json`));
+  const q = new URLSearchParams({ factor, version_id: factorMeta?.version_id || "", universe: selectedUniverse() });
+  return getJson(`/api/barra-return-attribution?${q.toString()}`);
+}
+
+function attributionTable(rows, fields) {
+  if (!(rows || []).length) return '<div class="empty-state">暂无归因明细</div>';
+  return `<table><thead><tr>${fields.map((x) => `<th>${escapeHtml(x.label)}</th>`).join("")}</tr></thead><tbody>${rows.map((row) => `<tr>${fields.map((x) => `<td>${escapeHtml(x.format ? x.format(row[x.key]) : displayText(row[x.key]))}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+}
+
+function renderAttribution() {
+  const payload = state.chartData.attribution;
+  setText("attributionTitle", state.selectedFactor);
+  if (!payload?.available) {
+    setHtml("attributionSummary", `<div class="empty-state">${escapeHtml(payload?.reason || "该回测尚未生成收益归因")}</div>`);
+    drawLineChart("attributionChart", [], { emptyText: "暂无归因曲线" });
+    setHtml("attributionStyleTable", ""); setHtml("attributionIndustryTable", ""); setHtml("attributionDownloads", ""); return;
+  }
+  const s = payload.summary || {};
+  const chips = [["可归因天数", s.attributable_days], ["不可归因天数", s.unattributed_days], ["累计风格贡献", pct(s.cumulative_style_contribution)], ["累计行业贡献", pct(s.cumulative_industry_contribution)], ["累计特质收益", pct(s.cumulative_specific_contribution)], ["累计成本", pct(s.cumulative_transaction_cost)], ["平均 R²", fmt(s.mean_r_squared)]].map(([label, value]) => `<div class="metric-chip"><span>${label}</span><strong>${displayText(typeof value === "number" ? value : value)}</strong></div>`).join("");
+  setHtml("attributionSummary", chips);
+  const accum = {}; const values = { style_contribution: 0, industry_contribution: 0, specific_contribution: 0, net_return: 0 };
+  (payload.daily || []).forEach((row) => { Object.keys(values).forEach((key) => { values[key] += Number(row[key]) || 0; }); accum[row.date] = { date: row.date, ...values }; });
+  const rows = Object.values(accum);
+  drawLineChart("attributionChart", [
+    { name: "风格", color: "#457b9d", data: rows.map((x) => ({ date: x.date, value: x.style_contribution })) },
+    { name: "行业", color: "#2a9d8f", data: rows.map((x) => ({ date: x.date, value: x.industry_contribution })) },
+    { name: "特质", color: "#6a4c93", data: rows.map((x) => ({ date: x.date, value: x.specific_contribution })) },
+    { name: "净收益", color: "#1d3557", data: rows.map((x) => ({ date: x.date, value: x.net_return })) },
+  ], { emptyText: "暂无可归因日" });
+  const style = [...(payload.styles || [])].reduce((map, row) => { const key = row.style_factor; const item = map[key] || { style_name: row.style_name, contribution: 0, exposure: 0, factor_return: 0, n: 0 }; item.contribution += Number(row.contribution) || 0; item.exposure += Number(row.exposure) || 0; item.factor_return += Number(row.factor_return) || 0; item.n += 1; map[key] = item; return map; }, {});
+  setHtml("attributionStyleTable", attributionTable(Object.values(style).map((x) => ({ ...x, exposure: x.exposure / x.n, factor_return: x.factor_return / x.n })), [{ key: "style_name", label: "风格" }, { key: "contribution", label: "累计贡献", format: pct }, { key: "exposure", label: "平均暴露", format: fmt }, { key: "factor_return", label: "平均收益", format: pct }]));
+  const industries = Object.values([...(payload.industries || [])].reduce((map, row) => { const key = row.industry; map[key] = (map[key] || 0) + (Number(row.contribution) || 0); return map; }, {})).length ? Object.entries((payload.industries || []).reduce((map, row) => { map[row.industry] = (map[row.industry] || 0) + (Number(row.contribution) || 0); return map; }, {})).map(([industry, contribution]) => ({ industry, contribution })).sort((a,b) => Math.abs(b.contribution)-Math.abs(a.contribution)).slice(0,10) : [];
+  setHtml("attributionIndustryTable", attributionTable(industries, [{ key: "industry", label: "行业" }, { key: "contribution", label: "累计贡献", format: pct }]));
+  setHtml("attributionDownloads", Object.entries(payload.downloads || {}).filter(([,v]) => v).map(([k,v]) => `<a href="${escapeHtml(v)}" target="_blank">下载 ${escapeHtml(k)} CSV</a>`).join(" · "));
+}
+
 function chooseDefaultFactor() {
   state.selectedFactor = state.factors[0]?.factor_name || null;
   setText("selectedFactorHint", state.selectedFactor ? `当前: ${state.selectedFactor}` : "");
@@ -1546,16 +1586,18 @@ function queueLongShortAnalysis() {
 
 async function loadFactorDependentPanels() {
   if (!state.selectedFactor) return;
-  const [ic1, ic5, ic22, backtestNav, groupReturns] = await Promise.all([
+  const [ic1, ic5, ic22, backtestNav, groupReturns, attribution] = await Promise.all([
     fetchEvalSeries(state.selectedFactor, 1),
     fetchEvalSeries(state.selectedFactor, 5),
     fetchEvalSeries(state.selectedFactor, 22),
     fetchBacktestNav(state.selectedFactor),
     fetchGroupReturns(state.selectedFactor),
+    fetchBarraReturnAttribution(state.selectedFactor),
   ]);
   state.chartData.ic = mergeIC(ic1, ic5, ic22);
   state.chartData.group = groupReturns || { columns: [], series: [] };
   state.chartData.lsRaw = backtestNav?.series || [];
+  state.chartData.attribution = attribution;
   state.ranges.ic = { start: 0, end: Math.max(0, state.chartData.ic.length - 1) };
   state.ranges.ls = { start: 0, end: Math.max(0, state.chartData.lsRaw.length - 1) };
   setRangeInputs("ic");
@@ -1565,6 +1607,7 @@ async function loadFactorDependentPanels() {
   setText("lsChartTitle", state.selectedFactor);
   renderIcChart();
   renderGroupChart();
+  renderAttribution();
   await updateLongShortAnalysis();
 }
 
