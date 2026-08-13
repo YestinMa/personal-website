@@ -44,8 +44,8 @@ const state = {
 const STATIC_MODE = Boolean(window.FACTOR_DASHBOARD_STATIC);
 const VIEW_META = {
   overview: {
-    title: "因子总览 <span>Factor Overview</span>",
-    subtitle: "聚焦因子表现、分组收益与区间收益分析",
+    title: "研究工作台 <span>Factor Research Workspace</span>",
+    subtitle: "聚焦候选与活跃因子的回测、表现与 Barra 收益归因",
   },
   barra: {
     title: "Barra 因子 <span>CNE6 Style Factors</span>",
@@ -788,7 +788,6 @@ function renderSummary() {
   setText("latestFactorDate", s.latest_factor_date);
   setText("activeCount", s.status_counts.active || 0);
   setText("candidateCount", s.status_counts.candidate || 0);
-  setText("draftCount", s.status_counts.draft || 0);
   setText("latestJobStatus", s.latest_job?.status || "--");
   setText("statusMarketTradeDate", s.market_latest_trade_date || s.latest_trade_date);
   setText("statusFactorDate", s.latest_factor_date);
@@ -1076,7 +1075,6 @@ function passesMetricFilters(item, metricFilters) {
 function statusRank(status) {
   if (status === "active") return 3;
   if (status === "candidate") return 2;
-  if (status === "draft") return 1;
   return 0;
 }
 
