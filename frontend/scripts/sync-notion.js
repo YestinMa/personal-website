@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const FRONTEND_DIR = path.resolve(SCRIPT_DIR, "..");
 const REPO_ROOT = path.resolve(FRONTEND_DIR, "..");
-const CONTENT_RENDER_VERSION = "5";
+const CONTENT_RENDER_VERSION = "7";
 
 const NOTION_API_BASE = "https://api.notion.com/v1";
 const NOTION_VERSION = "2022-06-28";
@@ -466,6 +466,9 @@ async function renderBlocks(token, blocks, context, depth = 0) {
       case "heading_3":
         lines.push(`### ${getBlockText(block, "heading_3")}`, "");
         break;
+      case "heading_4":
+        lines.push(`#### ${getBlockText(block, "heading_4")}`, "");
+        break;
       case "paragraph":
         lines.push(`${indent}${getBlockText(block, "paragraph")}`, "");
         break;
@@ -671,7 +674,7 @@ function markdownToHtml(markdown) {
       continue;
     }
 
-    const headingMatch = line.match(/^(#{1,3})\s+(.*)$/);
+    const headingMatch = line.match(/^(#{1,4})\s+(.*)$/);
     if (headingMatch) {
       flushParagraph();
       flushList();
@@ -771,10 +774,19 @@ function buildArticleHtml(meta, markdownBody) {
   const articleHtml = markdownToHtml(markdownBody);
   const hasMermaid = articleHtml.includes('class="mermaid"');
   const hasMath = containsMath(markdownBody);
+  const isNote = meta.kind === "notes";
   const title = escapeHtml(meta.title);
   const category = escapeHtml(meta.category || meta.kind);
   const date = escapeHtml(meta.date || "");
   const tags = (meta.tags || []).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("");
+  const tocLabel = isNote ? "Chapters" : "On This Page";
+  const chapterPagination = isNote
+    ? `
+      <nav class="chapter-pagination" data-chapter-pagination aria-label="章节导航" hidden>
+        <a class="chapter-page chapter-page-prev" data-chapter-prev href="#" hidden><span>上一篇</span><strong></strong></a>
+        <a class="chapter-page chapter-page-next" data-chapter-next href="#" hidden><span>下一篇</span><strong></strong></a>
+      </nav>`
+    : "";
 
   return `<!DOCTYPE html>
 <html lang="zh-CN">
@@ -786,7 +798,7 @@ function buildArticleHtml(meta, markdownBody) {
   <link rel="stylesheet" href="../css/style.css?v=2.0.0">
   ${hasMath ? '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">' : ""}
 </head>
-<body class="article-page">
+<body class="article-page${isNote ? " article-notes-page" : ""}">
   <header class="site-header">
     <a class="site-mark" href="../index.html" aria-label="Yuyao Ma home">YM</a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation">
@@ -809,7 +821,7 @@ function buildArticleHtml(meta, markdownBody) {
     <article class="article-main">
       <div class="article-mobile-nav">
         <details><summary>All Notes</summary><ol class="article-nav" data-note-list></ol></details>
-        <details><summary>On This Page</summary><ol class="article-nav" data-toc-list></ol></details>
+        <details><summary>${tocLabel}</summary><ol class="article-nav" data-toc-list></ol></details>
       </div>
       <a class="article-back" href="../notes-blogs.html">← Notes &amp; Blogs</a>
       <h1 class="article-title">${title}</h1>
@@ -817,11 +829,11 @@ function buildArticleHtml(meta, markdownBody) {
         <span>${escapeHtml(meta.kind)}</span><span>${date}</span><span>${category}</span>
         <span class="article-tags">${tags}</span>
       </div>
-      <div class="article-content">${articleHtml}</div>
+      <div class="article-content">${articleHtml}</div>${chapterPagination}
     </article>
 
-    <aside class="article-nav article-side-nav" aria-label="On this page">
-      <h2>On This Page</h2>
+    <aside class="article-nav article-side-nav" aria-label="${tocLabel}">
+      <h2>${tocLabel}</h2>
       <ol data-toc-list></ol>
     </aside>
   </main>
@@ -833,8 +845,8 @@ function buildArticleHtml(meta, markdownBody) {
   </footer>
 
   <script src="../js/main.js?v=2.3.0"></script>
-  <script src="../js/article.js?v=2.0.0"></script>
-  ${
+  <script src="../js/article.js?v=2.2.0"></script>
+${
     hasMath
       ? `<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
@@ -854,7 +866,7 @@ function buildArticleHtml(meta, markdownBody) {
   </script>`
       : ""
   }
-  ${
+${
     hasMermaid
       ? `<script type="module">
     import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";

@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="../css/style.css?v=2.0.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 </head>
-<body class="article-page">
+<body class="article-page article-notes-page">
   <header class="site-header">
     <a class="site-mark" href="../index.html" aria-label="Yuyao Ma home">YM</a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation">
@@ -31,7 +31,7 @@
     <article class="article-main">
       <div class="article-mobile-nav">
         <details><summary>All Notes</summary><ol class="article-nav" data-note-list></ol></details>
-        <details><summary>On This Page</summary><ol class="article-nav" data-toc-list></ol></details>
+        <details><summary>Chapters</summary><ol class="article-nav" data-toc-list></ol></details>
       </div>
       <a class="article-back" href="../notes-blogs.html">← Notes &amp; Blogs</a>
       <h1 class="article-title">最优化方法  CHEATSHEET</h1>
@@ -335,10 +335,14 @@
 <li>对 \(c_i(x)\le 0\) ，乘子必须非负</li>
 <li>常用 projected update： \(\mu_i^{k+1}=max\{0,\mu_i^k+\sigma_k c_i(x^{k+1})\}\)</li>
 </ul></div>
+      <nav class="chapter-pagination" data-chapter-pagination aria-label="章节导航" hidden>
+        <a class="chapter-page chapter-page-prev" data-chapter-prev href="#" hidden><span>上一篇</span><strong></strong></a>
+        <a class="chapter-page chapter-page-next" data-chapter-next href="#" hidden><span>下一篇</span><strong></strong></a>
+      </nav>
     </article>
 
-    <aside class="article-nav article-side-nav" aria-label="On this page">
-      <h2>On This Page</h2>
+    <aside class="article-nav article-side-nav" aria-label="Chapters">
+      <h2>Chapters</h2>
       <ol data-toc-list></ol>
     </aside>
   </main>
@@ -350,8 +354,8 @@
   </footer>
 
   <script src="../js/main.js?v=2.3.0"></script>
-  <script src="../js/article.js?v=2.1.0"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script src="../js/article.js?v=2.2.0"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -367,6 +371,6 @@
       });
     });
   </script>
-  
+
 </body>
 </html>

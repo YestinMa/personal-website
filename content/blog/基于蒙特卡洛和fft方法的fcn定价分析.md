@@ -3,7 +3,7 @@ title: "基于蒙特卡洛和FFT方法的FCN定价分析"
 slug: "基于蒙特卡洛和fft方法的fcn定价分析"
 date: "2026-07-15"
 lastEditedTime: "2026-07-19T07:21:00.000Z"
-renderVersion: "6"
+renderVersion: "7"
 category: "research"
 tags: ["study","coding","quant","finance"]
 status: "Published"

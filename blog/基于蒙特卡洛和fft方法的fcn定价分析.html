@@ -338,7 +338,7 @@ coupon = [200bp, 1400bp], step = 20bp</code></pre>
 <p>整体来看，MC 与 FFT 在定价结果上非常接近，说明两种方法都能够较好地刻画 FCN 的价值；但在 Greeks 估计和动态对冲中，FFT 的结果明显更加平滑和稳定，而 MC 即使增加路径数，也仍然会受到随机误差和计算成本的限制。这里的很多设定仍然比较简化，尤其是美债期货 DV01、CTD、基差风险以及障碍附近的非线性风险，以及经典的PDE定价方法我也没有在这里涉及，后续还有继续完善的空间。不过至少到这里，定价、敏感性和对冲已经基本连成了一条完整的链路。</p></div>
     </article>
 
-    <aside class="article-nav article-side-nav" aria-label="On this page">
+    <aside class="article-nav article-side-nav" aria-label="On This Page">
       <h2>On This Page</h2>
       <ol data-toc-list></ol>
     </aside>
@@ -351,8 +351,8 @@ coupon = [200bp, 1400bp], step = 20bp</code></pre>
   </footer>
 
   <script src="../js/main.js?v=2.3.0"></script>
-  <script src="../js/article.js?v=2.1.0"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script src="../js/article.js?v=2.2.0"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -368,6 +368,6 @@ coupon = [200bp, 1400bp], step = 20bp</code></pre>
       });
     });
   </script>
-  
+
 </body>
 </html>
