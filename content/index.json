@@ -1,42 +1,52 @@
 {
-  "generatedAt": "2026-09-27T09:25:40.937Z",
-  "blog": [
+  "generatedAt": "2026-10-04T14:31:49.714Z",
+  "blog": [],
+  "notes": [
     {
-      "title": "基于蒙特卡洛和FFT方法的FCN定价分析",
-      "slug": "基于蒙特卡洛和fft方法的fcn定价分析",
-      "date": "2026-07-15",
-      "lastEditedTime": "2026-07-19T07:21:00.000Z",
-      "category": "research",
+      "title": "数理统计 CHEATSHEET",
+      "slug": "数理统计-cheatsheet",
+      "date": "2026-10-04",
+      "lastEditedTime": "2026-10-04T14:24:00.000Z",
+      "category": "study",
       "tags": [
         "study",
-        "coding",
-        "quant",
-        "finance"
+        "notes"
       ],
       "status": "Published",
-      "notionPageId": "39edb726-82a8-808e-9b82-d23e05f2201f",
-      "href": "blog/基于蒙特卡洛和fft方法的fcn定价分析.html",
-      "kind": "blog"
+      "notionPageId": "3efdb726-82a8-81e7-87b7-d5ba616533ae",
+      "href": "notes/数理统计-cheatsheet.html",
+      "kind": "notes"
     },
     {
-      "title": "多因子选股策略",
-      "slug": "多因子选股策略",
-      "date": "2026-06-16T08:26:00.000Z",
-      "lastEditedTime": "2026-07-19T07:20:00.000Z",
-      "category": "quant",
+      "title": "金融工程 CHEATSHEET",
+      "slug": "金融工程-cheatsheet",
+      "date": "2026-10-04",
+      "lastEditedTime": "2026-10-04T14:24:00.000Z",
+      "category": "study",
       "tags": [
-        "quant",
-        "finance",
-        "coding",
-        "study"
+        "study",
+        "notes"
       ],
       "status": "Published",
-      "notionPageId": "381db726-82a8-8032-b891-c1762b4695a3",
-      "href": "blog/多因子选股策略.html",
-      "kind": "blog"
-    }
-  ],
-  "notes": [
+      "notionPageId": "3efdb726-82a8-810c-8c76-c2661d0938ef",
+      "href": "notes/金融工程-cheatsheet.html",
+      "kind": "notes"
+    },
+    {
+      "title": "随机过程 CHEATSHEET",
+      "slug": "随机过程-cheatsheet",
+      "date": "2026-10-04",
+      "lastEditedTime": "2026-10-04T14:24:00.000Z",
+      "category": "study",
+      "tags": [
+        "study",
+        "notes"
+      ],
+      "status": "Published",
+      "notionPageId": "3efdb726-82a8-81ce-9a32-e06acb71f32f",
+      "href": "notes/随机过程-cheatsheet.html",
+      "kind": "notes"
+    },
     {
       "title": "最优化方法  CHEATSHEET",
       "slug": "最优化方法-cheatsheet",

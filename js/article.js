@@ -227,7 +227,14 @@ function initializeChapterNavigation(entries, rootLevel) {
 
 function populateArticleNavigation() {
   const { entries, headings, rootLevel } = collectHeadingEntries();
-  if (!entries.length) return;
+  if (!entries.length) {
+    // 空白占位笔记暂不显示无内容的章节栏，添加标题后会自动恢复。
+    document.querySelectorAll("[data-toc-list]").forEach((list) => {
+      const container = list.closest("aside, details");
+      if (container) container.hidden = true;
+    });
+    return;
+  }
 
   if (document.body.classList.contains("article-notes-page")) {
     populateHierarchicalToc(entries, rootLevel);

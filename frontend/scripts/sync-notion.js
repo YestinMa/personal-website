@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const FRONTEND_DIR = path.resolve(SCRIPT_DIR, "..");
 const REPO_ROOT = path.resolve(FRONTEND_DIR, "..");
-const CONTENT_RENDER_VERSION = "7";
+const CONTENT_RENDER_VERSION = "8";
 
 const NOTION_API_BASE = "https://api.notion.com/v1";
 const NOTION_VERSION = "2022-06-28";
@@ -779,6 +779,9 @@ function buildArticleHtml(meta, markdownBody) {
   const category = escapeHtml(meta.category || meta.kind);
   const date = escapeHtml(meta.date || "");
   const tags = (meta.tags || []).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("");
+  const mathStylesheet = hasMath
+    ? '  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">'
+    : "";
   const tocLabel = isNote ? "Chapters" : "On This Page";
   const chapterPagination = isNote
     ? `
@@ -796,7 +799,7 @@ function buildArticleHtml(meta, markdownBody) {
   <meta name="description" content="${escapeHtml(meta.title)}">
   <title>${title} — Yuyao Ma</title>
   <link rel="stylesheet" href="../css/style.css?v=2.0.0">
-  ${hasMath ? '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">' : ""}
+${mathStylesheet}
 </head>
 <body class="article-page${isNote ? " article-notes-page" : ""}">
   <header class="site-header">
@@ -845,7 +848,7 @@ function buildArticleHtml(meta, markdownBody) {
   </footer>
 
   <script src="../js/main.js?v=2.3.0"></script>
-  <script src="../js/article.js?v=2.2.0"></script>
+  <script src="../js/article.js?v=2.3.0"></script>
 ${
     hasMath
       ? `<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
@@ -1025,7 +1028,7 @@ async function collectContentEntries(contentRoot, kind) {
     const fullPath = path.join(dir, entry.name);
     const content = await fs.readFile(fullPath, "utf8");
     const meta = parseFrontmatter(content);
-    if (!meta) continue;
+    if (!meta || !isPublishedStatus(meta.status)) continue;
 
     items.push({
       title: meta.title || "Untitled",
@@ -1078,6 +1081,12 @@ async function renderExistingContent(contentRoot) {
       const nextMeta = { ...meta, kind, slug: meta.slug || entry.name.replace(/\.md$/, "") };
       const nextContent = rawContent.replace(/^renderVersion:\s*"[^"]*"/m, `renderVersion: "${CONTENT_RENDER_VERSION}"`);
       const htmlPath = path.join(REPO_ROOT, kind, `${nextMeta.slug}.html`);
+
+      // Draft 仅保留 Markdown 源文件，不进入公开页面或内容索引。
+      if (!isPublishedStatus(nextMeta.status)) {
+        await fs.rm(htmlPath, { force: true });
+        continue;
+      }
 
       await fs.mkdir(path.dirname(htmlPath), { recursive: true });
       await fs.writeFile(markdownPath, nextContent, "utf8");
