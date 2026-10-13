@@ -2,7 +2,7 @@
 title: "最优化方法  CHEATSHEET"
 slug: "最优化方法-cheatsheet"
 date: "2026-06-25"
-lastEditedTime: "2026-07-19T07:20:00.000Z"
+lastEditedTime: "2026-10-10T06:41:00.000Z"
 renderVersion: "8"
 category: "study"
 tags: ["study"]
@@ -12,7 +12,7 @@ notionPageId: "38adb726-82a8-8016-b405-eeb42f6570f1"
 
 ## 一、优化问题的基本概念
 
-### 一般形式
+### 1\.1 优化问题一般形式
 
 优化问题（optimization problem）的一般形式： \(min\ f(x),\ s.t.\ x\in X\)
 
@@ -20,7 +20,7 @@ notionPageId: "38adb726-82a8-8016-b405-eeb42f6570f1"
 - \(f:R^n\to R\) ：目标函数（objective function）
 - \(X\subset R^n\) ：约束集合（constraint set）或可行域（feasible region）
 - 约束集可由 \(c_i(x)\le 0\) 和 \(c_i(x)=0\) 给出
-### 基本术语
+### 1\.2 基本术语
 
 - 可行点（feasible point）： \(x\in X\)
 - 可行域（feasible region）： \(X\)
@@ -28,13 +28,13 @@ notionPageId: "38adb726-82a8-8016-b405-eeb42f6570f1"
 - 最优值（optimal value）： \(f(x^*)\)
 - 最大化可改写为最小化： \(max\ f(x)\iff min(-f(x))\)
 - 若最小值或最大值在 \(X\) 上取不到，则考虑下确界 \(inf\ f(x)\) 和上确界\(sup\ f(x)\)
-### 全局最优与局部最优
+### 1\.3 全局最优与局部最优
 
 - 全局极小点（global minimum）：若 \(x\in X\) 且 \(f(x)\le f(y)\) 对所有 \(y\in X\) 成立
 - 局部极小点（local minimum）：若存在 \(\varepsilon\) \-邻域，使得附近可行点都满足 \(f(x)\le f(y)\)
 - 严格局部极小点（strict local minimum）：若附近所有 \(y\ne x\) 都满足 \(f(x)<f(y)\)
 ![Notion image](../content/assets/notes/最优化方法-cheatsheet/image-01.png)
-### 算法收敛
+### 1\.4 算法收敛
 
 - 迭代算法（iterative algorithm）产生序列 \(x_k\)
 - 若 \(lim_{k\to\infty}||x_k-x^*||=0\) ，则称算法收敛到最优解
@@ -45,23 +45,23 @@ notionPageId: "38adb726-82a8-8016-b405-eeb42f6570f1"
 
 ## 二、向量范数与矩阵范数
 
-### 向量范数
+### 2\.1 向量范数
 
 向量范数（vector norm）是**映射**： \(||\cdot||:R^n\to R_+\)，并满足：
 
 - 正定性（positive definiteness）： \(||v||\ge 0\) ，且 \(||v||=0 \iff v=0\)
 - 齐次性（homogeneity）： \(||\alpha v||=|\alpha|\,||v||\)
 - 三角不等式（triangle inequality）： \(||v+w||\le ||v||+||w||\)
-### 常见向量范数
+### 2\.2 常见向量范数
 
 - \(l_1\) 范数： \(||x||_1=\sum_i |x_i|\)，适合刻画稀疏性（sparsity）或分量累积误差
 - \(l_2\) 范数： \(||x||_2=(\sum_i x_i^2)^{1/2}\)，欧氏距离
 - \(l_\infty\) 范数： \(||x||_\infty=\max_i |x_i|\)，最大分量偏差
-### Cauchy\-Schwarz 不等式
+### 2\.3 Cauchy\-Schwarz 不等式
 
 对任意 \(a,b\in R^n\) ：\(|a^Tb|\le ||a||_2\,||b||_2\)。当且仅当 \(a,b\) 线性相关时取等号。
 
-### 矩阵范数
+### 2\.4 矩阵范数
 
 对 \(A=(A_{ij})\in R^{m\times n}\) ：
 
@@ -78,13 +78,15 @@ notionPageId: "38adb726-82a8-8016-b405-eeb42f6570f1"
 
 \(\langle A,B\rangle = Tr(AB^T)=\sum_{i=1}^m\sum_{j=1}^n a_{ij}b_{ij}\)，这等价于把矩阵看成向量后的欧氏内积。
 
-### 矩阵形式的 Cauchy\-Schwarz 不等式
+### 2\.5 矩阵形式的 Cauchy\-Schwarz 不等式
 
 对任意 \(A,B\in R^{m\times n}\) ： \(|\langle A,B\rangle|\le ||A||_F\,||B||_F\)。当且仅当 \(A,B\) 线性相关时取等号。
 
 此外，Frobenius 范数满足： \(||A||_F=\sqrt{\langle A,A\rangle}\)
 
 ## 三、仿射集、凸集与凸锥
+
+### 3\.1 基本概念
 
 仿射组合（affine combination）： \(x=\theta_1x_1+\theta_2x_2+\cdots+\theta_kx_k\) ，其中 \(\sum_{i=1}^k\theta_i=1\)
 
@@ -112,7 +114,7 @@ notionPageId: "38adb726-82a8-8016-b405-eeb42f6570f1"
 
 锥包（conic hull）： \(cone(S)\)
 
-### 三种组合的比较
+**三种组合的比较**
 
 仿射组合：系数和为 \(1\) ，系数可正可负
 
@@ -120,7 +122,7 @@ notionPageId: "38adb726-82a8-8016-b405-eeb42f6570f1"
 
 锥组合：系数非负，但不要求和为 \(1\)
 
-### 常见例子与性质
+**常见例子与性质**
 
 半空间（halfspace）、超平面（hyperplane）、球（ball）、椭球（ellipsoid）、多面体（polyhedron）都是凸集
 
@@ -130,7 +132,7 @@ notionPageId: "38adb726-82a8-8016-b405-eeb42f6570f1"
 
 若 \(S,T\) 是凸集，则 \(S+T\) 是凸集
 
-### 仿射变换与分式线性变换
+**仿射变换与分式线性变换**
 
 仿射变换（affine transformation）： \(f(x)=Ax+b\)。若 \(S\) 是凸集，则 \(f(S)\) 是凸集；若 \(C\) 是凸集，则 \(f^{-1}(C)\) 是凸集
 
@@ -140,7 +142,7 @@ notionPageId: "38adb726-82a8-8016-b405-eeb42f6570f1"
 
 ## 四、凸函数与最优性基础
 
-### 凸函数、凹函数、严格凸函数、强凸函数
+### 4\.1 凸函数、凹函数、严格凸函数、强凸函数
 
 凸函数（convex function）： \(f(\theta x+(1-\theta)y)\le \theta f(x)+(1-\theta)f(y)\) ，其中 \(\theta\in [0,1]\)
 
@@ -154,7 +156,7 @@ notionPageId: "38adb726-82a8-8016-b405-eeb42f6570f1"
 
 仿射函数 \(a^Tx+b\) ：既凸又凹。\(e^x\) ：凸。\(\log x\) ：在 \((0,\infty)\) 上凹。\(|x|\) ：凸，但在 \(0\) 处不可导。\(x\log x\) ：在 \((0,\infty)\) 上凸。范数（norm）是凸函数
 
-### 判别工具
+### 4\.2 凸函数判别工具
 
 直线判别定理： \(f\) 凸当且仅当对任意 \(x,v\) ，函数 \(g(t)=f(x+tv)\) 关于 \(t\) 是凸的
 
@@ -164,7 +166,7 @@ notionPageId: "38adb726-82a8-8016-b405-eeb42f6570f1"
 
 二阶条件：若 \(f\) 二次连续可微，则 \(f\) 凸当且仅当 \(\nabla^2 f(x)\succeq 0\)。若 \(\nabla^2 f(x)\succ 0\) ，则 \(f\) 严格凸
 
-### 二次函数
+### 4\.3 二次函数
 
 二次函数： \(f(x)=\frac12 x^TPx+q^Tx+r\)
 
@@ -172,7 +174,7 @@ notionPageId: "38adb726-82a8-8016-b405-eeb42f6570f1"
 
 因而 \(f\) 凸当且仅当 \(P\succeq 0\)
 
-### 无约束最优性条件
+### 4\.4 无约束最优性条件
 
 一阶必要条件：若 \(x^*\) 是局部极小点，则 \(\nabla f(x^*)=0\)
 
@@ -188,13 +190,13 @@ notionPageId: "38adb726-82a8-8016-b405-eeb42f6570f1"
 
 ## 五、梯度下降法与线搜索
 
-### 基本概念
+### 5\.1 基本概念
 
 基本框架：考虑无约束优化： \(\min_{x \in R^n} f(x)\)，迭代格式： \(x_{k+1} = x_k + \alpha_k d_k\)
 
 下降方向：若 \(\nabla f(x_k)^T d_k < 0\)，则 \(d_k\) 是下降方向
 
-### 线搜索方法与收敛判别条件
+### 5\.2 线搜索方法与收敛判别条件
 
 精确线搜索（exact line search）： \(\alpha_k^* = \arg\min_{\alpha > 0} \phi(\alpha)\)，\(\phi(\alpha) = f(x_k + \alpha d_k)\)
 
@@ -215,12 +217,12 @@ notionPageId: "38adb726-82a8-8016-b405-eeb42f6570f1"
   - 目标函数梯度L\-Lipschitz连续： \(||\nabla f(x) - \nabla f(y)|| \le L ||x - y||, \forall x, y \in \mathbb{R^n}\)；
   - 迭代过程中满足Wolfe准则；
   则有： \(\sum_{k=0}^{\infty} \cos^2 \theta_k\, ||\nabla f(x_k)||_2^2 < \infty\)
-### 梯度下降法
+### 5\.3 梯度下降法
 
 - 取 \(d_k = -\nabla f(x_k)\)，迭代： \(x_{k+1} = x_k - \alpha_k \nabla f(x_k)\)
 - 负梯度方向是最速下降方向（steepest descent direction）
 - 梯度下降的问题：狭长谷地中容易出现 zigzag；条件数大时收敛慢；只利用一阶信息，对曲率适应性弱。
-### BB 方法
+### 5\.4 BB 方法
 
 BB 不是只看当前梯度，而是用前后两步差分去估计局部尺度，仍采用： \(x_{k+1} = x_k - \alpha_k \nabla f(x_k)\)记： \(s_{k-1} = x_k - x_{k-1},\ y_{k-1} = \nabla f(x_k) - \nabla f(x_{k-1})\)，有常见步长： 
 
@@ -228,6 +230,8 @@ BB 不是只看当前梯度，而是用前后两步差分去估计局部尺度�
 ![Notion image](../content/assets/notes/最优化方法-cheatsheet/image-06.png)
 
 ## 六、牛顿法（Newton Method）
+
+### 6\.1 基本概念
 
 牛顿法使用二阶Taylor展开近似原函数： \(f(x_k + d) \approx f(x_k) + \nabla f(x_k)^T d + \frac12 d^T \nabla^2 f(x_k) d\)
 
@@ -245,17 +249,17 @@ BB 不是只看当前梯度，而是用前后两步差分去估计局部尺度�
 - Hessian 可能不正定或奇异
 - 只具局部收敛性，对初值敏感
 - 固定取 \(\alpha_k = 1\) 可能发散
-### 修正牛顿法（Modified Newton Method）
+### 6\.2 修正牛顿法（Modified Newton Method）
 
 \(B_k = \nabla^2 f(x_k) + \tau_k I\)，再解： \(B_k d_k = -\nabla f(x_k)\)
 
 （当二阶信息不可靠时，给 Hessian 加一个保守修正）
 
-### 阻尼牛顿法（Damped Newton Method）
+### 6\.3 阻尼牛顿法（Damped Newton Method）
 
 \(x_{k+1} = x_k + \alpha_k d_k\)，其中 \(\alpha_k\) 由线搜索确定，常配合 Armijo 条件
 
-### CG 与牛顿子问题
+### 6\.4 CG 与牛顿子问题
 
 牛顿步需要求解： \(\nabla^2 f(x_k)d_k = -\nabla f(x_k)\)，对大规模问题，直接分解代价约为 \(O(n^3)\)，若矩阵对称正定，可用共轭梯度（Conjugate Gradient, CG）近似求解，这样就把求牛顿步转成了高效解一个线性系统。
 
@@ -263,7 +267,7 @@ BB 不是只看当前梯度，而是用前后两步差分去估计局部尺度�
 - CG 沿 \(A\)\-共轭方向做精确线搜索。
 - 若 \(A\) 有 \(r\) 个不同特征值，则 CG 至多 \(r\) 步终止
 ![Notion image](../content/assets/notes/最优化方法-cheatsheet/image-07.png)
-### 不精确牛顿法
+### 6\.5 不精确牛顿法
 
 允许残差： \(\nabla^2 f(x_k)d_k = -\nabla f(x_k) + r_k\)
 
@@ -273,13 +277,13 @@ BB 不是只看当前梯度，而是用前后两步差分去估计局部尺度�
 
 ## 七、拟牛顿方法（Quasi\-Newton Method）
 
-### 拟牛顿方法的基本思想
+### 7\.1 拟牛顿方法的基本思想
 
 拟牛顿方法的基本思想：不直接计算 Hessian，而构造近似矩阵： \(B_k \approx \nabla^2 f(x_k),\ H_k \approx [\nabla^2 f(x_k)]^{-1}\)
 
 搜索方向可写为： \(d_k = -B_k^{-1}\nabla f(x_k)\)，也可写为： \(d_k = -H_k \nabla f(x_k)\)
 
-### 割线方程
+### 7\.2 割线方程
 
 定义： \(s_k = x_{k+1} - x_k,\ y_k = \nabla f(x_{k+1}) - \nabla f(x_k)\)，割线方程（secant equation）为： \(B_{k+1}s_k = y_k\)
 
@@ -289,13 +293,13 @@ BB 不是只看当前梯度，而是用前后两步差分去估计局部尺度�
 
 ![Notion image](../content/assets/notes/最优化方法-cheatsheet/image-09.png)
 
-### SR1 （秩一更新）
+### 7\.3 SR1 （秩一更新）
 
 记： \(r_k = y_k - B_k s_k\)，SR1 更新表示为： \(B_{k+1} = B_k + \frac{r_k r_k^T}{r_k^T s_k}\)
 
 SR1满足割线方程，保持对称，**但不保证正定**，它是更新思想的起点，而不是最优选择
 
-### BFGS （秩二更新）
+### 7\.4 BFGS （秩二更新）
 
  \(B_{k+1} = B_k + \frac{y_k y_k^T}{s_k^T y_k} - \frac{B_k s_k s_k^T B_k}{s_k^T B_k s_k}\)（第二项是引入更新信息，第三项是剔除旧的错误信息）
 
@@ -309,7 +313,7 @@ L\-BFGS不显式存储完整 \(H_k\) 或 \(B_k\)，只保留最近 \(m\) 组 \(s
 
 ## 八、最小二乘问题
 
-### 线性最小二乘（LS）
+### 8\.1 线性最小二乘（LS）
 
 \(\min_x \frac12 ||Ax - b||_2^2\)，残差： \(r(x) = Ax - b\)
 
@@ -327,7 +331,7 @@ L\-BFGS不显式存储完整 \(H_k\) 或 \(B_k\)，只保留最近 \(m\) 组 \(s
 
 在数值计算的过程中， \(A^T A\) 会放大病态性： \(\kappa(A^T A) = \kappa(A)^2\)，实际中常用 QR 或 SVD 求解。
 
-### 非线性最小二乘（NLS）
+### 8\.2 非线性最小二乘（NLS）
 
  \(\min_x \frac12 \sum_{i=1}^m r_i(x)^2 = \frac12 ||r(x)||_2^2\)
 
@@ -337,7 +341,7 @@ L\-BFGS不显式存储完整 \(H_k\) 或 \(B_k\)，只保留最近 \(m\) 组 \(s
 
 Hessian： \(\nabla^2 f(x) = J(x)^T J(x) + \sum_{i=1}^m r_i(x)\nabla^2 r_i(x)\) 第一项来自 Jacobian，第二项来自残差本身的非线性曲率，引入Gauss\-Newton近似： \(\nabla^2 f(x) \approx J(x)^T J(x)\)
 
-### Gauss\-Newton法
+### 8\.3 Gauss\-Newton法
 
 局部线性化： \(r(x_k + d) \approx r(x_k) + J(x_k)d\)
 
@@ -351,13 +355,13 @@ Hessian： \(\nabla^2 f(x) = J(x)^T J(x) + \sum_{i=1}^m r_i(x)\nabla^2 r_i(x)\) 
 
 ## 九、约束优化与罚函数方法
 
-### 约束优化问题
+### 9\.1 约束优化问题
 
 一般形式： \(\min_x f(x)\)，约束： \(c_i(x) = 0,\ i \in E,\ c_j(x) \le 0,\ j \in I\)
 
 难点：既要降低目标函数，又要满足约束，下降方向未必留在可行域里
 
-### 外点罚函数法
+### 9\.2 外点罚函数法
 
 外点罚函数法允许迭代过程中暂时违反约束。
 
@@ -372,9 +376,9 @@ Hessian： \(\nabla^2 f(x) = J(x)^T J(x) + \sum_{i=1}^m r_i(x)\nabla^2 r_i(x)\) 
 - 迭代点允许暂时不可行，通过增大 \(\sigma\) 逐步拉回可行域。先允许犯规，再逐步把犯规成本抬高
 - 罚参数的作用：\(\sigma\) 越大，约束违反通常越小，但是子问题会变得病态
 - 停止准则： \(||c(x_{k+1})||_2 \le \varepsilon\) ，\(||x_{k+1} - x_k||_2 \le \varepsilon\)
-### 罚函数法思想的应用：LASSO和低秩矩阵修复
+### 9\.3 罚函数法思想的应用：LASSO和低秩矩阵修复
 
-### 内点罚函数法
+### 9\.4 内点罚函数法
 
 内点罚函数要求迭代始终严格可行
 
@@ -384,7 +388,7 @@ Hessian： \(\nabla^2 f(x) = J(x)^T J(x) + \sum_{i=1}^m r_i(x)\nabla^2 r_i(x)\) 
 
 无约束问题常以 \(\nabla f(x^*) = 0\) 作为一阶条件。约束优化中，变量不能沿任意方向移动，因此一般不能要求 \(\nabla f(x^*) = 0\)。受约束时，最优点可能仍有非零梯度，只是没有可行下降方向
 
-### 约束形式与 Lagrangian
+### 10\.1 约束形式与 Lagrangian
 
 - 统一记号： \(c_i(x) = 0,\ i \in E,\ c_i(x) \le 0,\ i \in I\)
 - Lagrangian： \(L(x,\lambda) = f(x) + \sum_{i \in E}\lambda_i c_i(x) + \sum_{i \in I}\lambda_i c_i(x)\)
@@ -394,7 +398,7 @@ Hessian： \(\nabla^2 f(x) = J(x)^T J(x) + \sum_{i=1}^m r_i(x)\nabla^2 r_i(x)\) 
 
 （ KKT是 penalty 观点自然逼近出的条件）
 
-### 切锥、线性化可行锥与LICQ
+### 10\.2 切锥、线性化可行锥与LICQ
 
 对可行集 \(X\)，切锥（tangent cone） \(T_X(x)\) 表示点 \(x\) 处的一阶可行方向集合
 
@@ -406,7 +410,7 @@ Hessian： \(\nabla^2 f(x) = J(x)^T J(x) + \sum_{i=1}^m r_i(x)\nabla^2 r_i(x)\) 
 
 LICQ（Linear Independence Constraint Qualification）：活跃约束的梯度线性无关（在适当约束资格条件下，可由线性化可行锥推导 KKT 条件）
 
-### KKT 条件
+### 10\.3 KKT 条件
 
 - 平衡条件（stationarity）： \(\nabla_x L(x^*,\lambda^*) = 0\)（目标函数的下降趋势被约束梯度平衡）
 - 原始可行性（primal feasibility）： \(c_i(x^*) = 0,\ i \in E,\ c_i(x^*) \le 0,\ i \in I\)
@@ -417,9 +421,9 @@ LICQ（Linear Independence Constraint Qualification）：活跃约束的梯度�
   - 即：不活跃约束不起作用，真正起作用的只能是边界上的活跃约束
 对一般非凸问题：KKT 是必要条件，不一定充分；对凸优化问题：在适当条件下，KKT 往往既必要又充分。因此在算法中，KKT 点通常先作为候选最优点来逼近
 
-## 增广拉格朗日方法（Augmented Lagrangian Method）
+## 十一、增广拉格朗日方法（Augmented Lagrangian Method）
 
-### 增广拉格朗日函数
+### 11\.1 增广拉格朗日函数
 
 对等式约束 \(c(x)=0\) ，增广拉格朗日函数（augmented Lagrangian）： \(L_\sigma(x,\lambda)=f(x)+\lambda^Tc(x)+\frac{\sigma}{2}||c(x)||^2\)（原目标函数、乘子修正、可行性控制）
 
@@ -431,7 +435,7 @@ LICQ（Linear Independence Constraint Qualification）：活跃约束的梯度�
 - 若可行性改进足够，可保持 \(\sigma_{k+1}=\sigma_k\)，若可行性停滞，再增大 \(\sigma_{k+1}=\rho\sigma_k\) ，其中 \(\rho>1\)
 - 罚参数是辅助角色，乘子更新才是核心
 - ALM 的目标是逼近 KKT 系统，常见停止准则： \(||c(x^k)||\le \varepsilon_{feas}\) ，且 \(||\nabla_x L(x^k,\lambda^k)||\le \varepsilon_{opt}\)
-### 不等式约束的 projected update
+### 11\.2 不等式约束的 projected update
 
 - 对 \(c_i(x)\le 0\) ，乘子必须非负
 - 常用 projected update： \(\mu_i^{k+1}=max\{0,\mu_i^k+\sigma_k c_i(x^{k+1})\}\)

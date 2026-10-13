@@ -2,7 +2,7 @@
 title: "随机过程 CHEATSHEET"
 slug: "随机过程-cheatsheet"
 date: "2026-10-04"
-lastEditedTime: "2026-10-10T08:11:00.000Z"
+lastEditedTime: "2026-10-12T01:37:00.000Z"
 renderVersion: "8"
 category: "study"
 tags: ["study","notes"]
@@ -97,7 +97,9 @@ $$f_{X_{(1)},\ldots,X_{(n)}}(x_1,\ldots,x_n)=n!\prod_{i=1}^nf(x_i)\,\mathbf1_{\{
 - **数学期望**
 离散型： \(\mathbb{E}[g(X)]=\sum_xg(x)p_X(x)\)
 
-  连续型 \(\mathbb{E}[g(X)]=\int g(x)f_X(x)\,dx\)；存在条件  \(\mathbb{E}|g(X)|<\infty\)
+  连续型 \(\mathbb{E}[g(X)]=\int g(x)f_X(x)\,dx\)；存在条件  \(\mathbb{E}|g(X)|<\infty\)。此处的积分为**Lebesgue\-Stieltjes积分。**
+
+  - \(\mathbb{E}(aX+bY)=a\mathbb{E}X+b\mathbb{E}Y\)。
 - **方差与矩**
 \(D(X)=\mathbb{E}[(X-\mathbb{E}X)^2]=\mathbb{E}(X^2)-(\mathbb{E}X)^2\)
 
@@ -144,8 +146,8 @@ $$f_{X_{(1)},\ldots,X_{(n)}}(x_1,\ldots,x_n)=n!\prod_{i=1}^nf(x_i)\,\mathbf1_{\{
 - **Borel–Cantelli 引理（PPT 原式）**：设 \(A_n\ (n\ge1)\) 为一列随机事件，令 \(X_n=\mathbf1_{A_n}\)。若 \(\sum_{n=1}^{\infty}\mathbb{P}(A_n)<\infty\)，则 \(X_n\xrightarrow{a.s.}0\)。
 ![Notion image](../content/assets/notes/随机过程-cheatsheet/image-03.png)
 
-- **依概率收敛的子列（PPT 例 7）**：若 \(X_n\xrightarrow{\mathbb{P}}X\)，则存在子列 \(X_{n_k}\xrightarrow[k\to\infty]{a.s.}X\)。
-- \(L^2\)**\-柯西列（PPT 引理 8）**：设 \(X_n\ (n\ge1)\) 定义在同一概率空间且 \(\mathbb{E}(X_n^2)<\infty\)。如果 \(\lim_{n,m\to\infty}\mathbb{E}[(X_n-X_m)^2]=0\)，则存在随机变量 \(X\)，使 \(X_n\xrightarrow{L^2}X\)。此时称 \((X_n)\) 为 \(L^2\) 的柯西列。
+- **依概率收敛的子列**：若 \(X_n\xrightarrow{\mathbb{P}}X\)，则存在子列 \(X_{n_k}\xrightarrow[k\to\infty]{a.s.}X\)。
+- \(L^2\)**\-柯西列**：设 \(X_n\ (n\ge1)\) 定义在同一概率空间且 \(\mathbb{E}(X_n^2)<\infty\)。如果 \(\lim_{n,m\to\infty}\mathbb{E}[(X_n-X_m)^2]=0\)，则存在随机变量 \(X\)，使 \(X_n\xrightarrow{L^2}X\)。此时称 \((X_n)\) 为 \(L^2\) 的柯西列。
 
 ### 1\.8 大数定律与中心极限定理
 

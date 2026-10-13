@@ -131,8 +131,9 @@
 <li><strong>数学期望</strong></li>
 </ul>
 <p>离散型： \(\mathbb{E}[g(X)]=\sum_xg(x)p_X(x)\)</p>
-<p>  连续型 \(\mathbb{E}[g(X)]=\int g(x)f_X(x)\,dx\)；存在条件  \(\mathbb{E}|g(X)|<\infty\)</p>
+<p>  连续型 \(\mathbb{E}[g(X)]=\int g(x)f_X(x)\,dx\)；存在条件  \(\mathbb{E}|g(X)|<\infty\)。此处的积分为<strong>Lebesgue-Stieltjes积分。</strong></p>
 <ul>
+<li>\(\mathbb{E}(aX+bY)=a\mathbb{E}X+b\mathbb{E}Y\)。</li>
 <li><strong>方差与矩</strong></li>
 </ul>
 <p>\(D(X)=\mathbb{E}[(X-\mathbb{E}X)^2]=\mathbb{E}(X^2)-(\mathbb{E}X)^2\)</p>
@@ -180,8 +181,8 @@
 </ul>
 <figure><img src="../content/assets/notes/随机过程-cheatsheet/image-03.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <ul>
-<li><strong>依概率收敛的子列（PPT 例 7）</strong>：若 \(X_n\xrightarrow{\mathbb{P}}X\)，则存在子列 \(X_{n_k}\xrightarrow[k\to\infty]{a.s.}X\)。</li>
-<li>\(L^2\)<strong>-柯西列（PPT 引理 8）</strong>：设 \(X_n\ (n\ge1)\) 定义在同一概率空间且 \(\mathbb{E}(X_n^2)<\infty\)。如果 \(\lim_{n,m\to\infty}\mathbb{E}[(X_n-X_m)^2]=0\)，则存在随机变量 \(X\)，使 \(X_n\xrightarrow{L^2}X\)。此时称 \((X_n)\) 为 \(L^2\) 的柯西列。</li>
+<li><strong>依概率收敛的子列</strong>：若 \(X_n\xrightarrow{\mathbb{P}}X\)，则存在子列 \(X_{n_k}\xrightarrow[k\to\infty]{a.s.}X\)。</li>
+<li>\(L^2\)<strong>-柯西列</strong>：设 \(X_n\ (n\ge1)\) 定义在同一概率空间且 \(\mathbb{E}(X_n^2)<\infty\)。如果 \(\lim_{n,m\to\infty}\mathbb{E}[(X_n-X_m)^2]=0\)，则存在随机变量 \(X\)，使 \(X_n\xrightarrow{L^2}X\)。此时称 \((X_n)\) 为 \(L^2\) 的柯西列。</li>
 </ul>
 <h3 id="1-8-大数定律与中心极限定理">1.8 大数定律与中心极限定理</h3>
 <ul>
