@@ -2,7 +2,7 @@
 title: "随机过程 CHEATSHEET"
 slug: "随机过程-cheatsheet"
 date: "2026-10-04"
-lastEditedTime: "2026-10-12T01:37:00.000Z"
+lastEditedTime: "2026-10-15T06:24:00.000Z"
 renderVersion: "8"
 category: "study"
 tags: ["study","notes"]
@@ -184,3 +184,38 @@ $$\mathbb{E}[X\mid Y]=\mathbb{E}[\mathbb{E}(X\mid Y,Z)\mid Y],$$
 $$\mathbb{E}[X\mid Y_1,\ldots,Y_m]=\mathbb{E}[\mathbb{E}(X\mid Y_1,\ldots,Y_n)\mid Y_1,\ldots,Y_m],\qquad m\le n.$$
 
 - **关于 **\(\sigma\)**\-代数的条件期望：** 对 \(\mathcal G\subseteq\mathcal F\)、\(X\in L^1\)，\(Z=\mathbb{E}(X\mid\mathcal G)\) 当且仅当：① \(Z\) 为 \(\mathcal G\)\-可测；② 对所有 \(A\in\mathcal G\)，\(\int_AZ\,d\mathbb{P}=\int_AX\,d\mathbb{P}\)。等价地，\(\mathbb{E}(ZH)=\mathbb{E}(XH)\) 对所有有界 \(\mathcal G\)\-可测 \(H\) 成立。\(Z\) 几乎处处唯一。
+
+## 二、随机过程的基本概念
+
+### 2\.1 随机过程与样本路径
+
+- **定义**：在概率空间 \((\Omega,\mathcal F,\mathbb{P})\) 上，给定指标集 \(T\) 和状态空间 \(S\)。随机过程是映射 \(X:T\times\Omega\to S\)，记 \(X_t(\omega)=X(t,\omega)\)；对每个固定 \(t\in T\)，\(X_t\) 是随机变量。
+- **两种截面**：固定 \(t\)，\(\omega\mapsto X_t(\omega)\) 是一个随机变量；固定 \(\omega\)，\(t\mapsto X_t(\omega)\) 是一条**样本路径（轨道）**。固定时刻与固定样本点的含义不同。
+- **时间与状态**：\(T=\{0,1,2,\ldots\}\) 为离散时间，\(T=[0,\infty)\) 为连续时间；\(S\) 可为离散集或 \(\mathbb R\) 等空间。时间类型与状态类型是独立的分类维度。
+### 2\.2 有限维分布函数族
+
+- **定义**：对任意 \(n\ge1\) 和 \(t_1,\ldots,t_n\in T\)，过程在这些时刻的联合分布函数为
+$$F_{t_1,\ldots,t_n}(x_1,\ldots,x_n)
+=\mathbb{P}(X_{t_1}\le x_1,\ldots,X_{t_n}\le x_n).$$
+
+全部这样的 \(F_{t_1,\ldots,t_n}\) 组成**有限维分布函数族**。一维分布描述单个时刻；二维及更高维分布还描述跨时刻的依赖。
+
+### 2\.3 Kolmogorov存在定理
+
+- **对称性**：时间点的排列和阈值的排列必须一致。对置换 \(\pi\)，
+\(F_{t_1,\ldots,t_n}(x_1,\ldots,x_n)=F_{t_{\pi(1)},\ldots,t_{\pi(n)}}(x_{\pi(1)},\ldots,x_{\pi(n)})\)。
+
+- **相容性（边缘一致）**：忽略一个坐标应得到低一维分布，例如
+\(\lim_{x_n\to\infty}F_{t_1,\ldots,t_n}(x_1,\ldots,x_n)=F_{t_1,\ldots,t_{n-1}}(x_1,\ldots,x_{n-1})\)。
+
+- **Kolmogorov 存在定理**：若一族有效的有限维分布满足对称性与相容性，则存在某个概率空间上的随机过程，以它们为有限维分布。典型构造采用路径空间 \(\Omega=\mathbb R^T\) 和坐标过程 \(X_t(\omega)=\omega(t)\)。定理只保证过程存在，**不保证路径连续或可微**。
+### 2\.4 数字特征
+
+- 对实值过程 \(X=(X_t)_{t\in T}\)，在相应矩存在时：
+- **均值函数**：\(m_X(t)=\mathbb{E}X_t\)；**方差函数**：\(D_X(t)=D(X_t)\)。
+- **相关函数**：\(R_X(s,t)=\mathbb{E}(X_sX_t)\)；**协方差函数**：\(C_X(s,t)=\operatorname{Cov}(X_s,X_t)=R_X(s,t)-m_X(s)m_X(t)\)。
+- **相关系数函数**：\(\rho_X(s,t)=C_X(s,t)/\sqrt{D_X(s)D_X(t)}\)，要求两个方差都为正。特别地，\(C_X(t,t)=D_X(t)\ge0\)，\(C_X(s,t)=C_X(t,s)\)，\(|C_X(s,t)|\le\sqrt{D_X(s)D_X(t)}\)。
+### 2\.5 随机过程的分类与网络例子
+
+- **按时间参数**：离散时间、连续时间；**按状态空间**：离散状态、连续状态。
+- **按演化性质**：独立增量过程（包括泊松过程）、马尔可夫过程、鞅和平稳过程。
