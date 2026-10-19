@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="随机过程 CHEATSHEET">
-  <title>随机过程 CHEATSHEET — Yuyao Ma</title>
+  <meta name="description" content="随机过程">
+  <title>随机过程 — Yuyao Ma</title>
   <link rel="stylesheet" href="../css/style.css?v=2.0.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 </head>
@@ -34,7 +34,7 @@
         <details><summary>Chapters</summary><ol class="article-nav" data-toc-list></ol></details>
       </div>
       <a class="article-back" href="../notes-blogs.html">← Notes &amp; Blogs</a>
-      <h1 class="article-title">随机过程 CHEATSHEET</h1>
+      <h1 class="article-title">随机过程</h1>
       <div class="article-meta">
         <span>notes</span><span>2026-10-04</span><span>study</span>
         <span class="article-tags"><span>study</span><span>notes</span></span>
@@ -95,7 +95,7 @@
 <ul>
 <li><strong>常见分布</strong></li>
 </ul>
-<figure><img src="../content/assets/notes/随机过程-cheatsheet/image-01.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<figure><img src="../content/assets/notes/随机过程/image-01.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <ul>
 <li>\(\Gamma(\alpha)=\int_0^\infty t^{\alpha-1}e^{-t}\,dt\)，且 \(\Gamma(\alpha+1)=\alpha\Gamma(\alpha)\)（\(\alpha&gt;0\)）。</li>
 <li>\(\Gamma(\alpha) = (\alpha-1)! \quad \alpha \in \mathbb{N}^+\) </li>
@@ -175,11 +175,11 @@
 <li><strong> </strong>\(L^r\)<strong>收敛： </strong>\(X_n\xrightarrow{L^r}X\)：\(\mathbb{E}|X_n-X|^r\to0\)</li>
 </ul>
 <p><strong>关系图</strong>：</p>
-<figure><img src="../content/assets/notes/随机过程-cheatsheet/image-02.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<figure><img src="../content/assets/notes/随机过程/image-02.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <ul>
 <li><strong>Borel–Cantelli 引理（PPT 原式）</strong>：设 \(A_n\ (n\ge1)\) 为一列随机事件，令 \(X_n=\mathbf1_{A_n}\)。若 \(\sum_{n=1}^{\infty}\mathbb{P}(A_n)&lt;\infty\)，则 \(X_n\xrightarrow{a.s.}0\)。</li>
 </ul>
-<figure><img src="../content/assets/notes/随机过程-cheatsheet/image-03.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<figure><img src="../content/assets/notes/随机过程/image-03.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <ul>
 <li><strong>依概率收敛的子列</strong>：若 \(X_n\xrightarrow{\mathbb{P}}X\)，则存在子列 \(X_{n_k}\xrightarrow[k\to\infty]{a.s.}X\)。</li>
 <li>\(L^2\)<strong>-柯西列</strong>：设 \(X_n\ (n\ge1)\) 定义在同一概率空间且 \(\mathbb{E}(X_n^2)&lt;\infty\)。如果 \(\lim_{n,m\to\infty}\mathbb{E}[(X_n-X_m)^2]=0\)，则存在随机变量 \(X\)，使 \(X_n\xrightarrow{L^2}X\)。此时称 \((X_n)\) 为 \(L^2\) 的柯西列。</li>
@@ -194,7 +194,7 @@
 <ul>
 <li><strong>定义</strong>：\(X\in L^1\) 时，\(\mathbb{E}(X\mid Y)=g(Y)\) 是 \(\sigma(Y)\)-可测的随机变量，且对每个 \(B\in\sigma(Y)\)，\(\int_Bg(Y)\,d\mathbb{P}=\int_BX\,d\mathbb{P}\)。等价地，对每个有界 Borel 函数 \(h\)，\(\mathbb{E}[g(Y)h(Y)]=\mathbb{E}[Xh(Y)]\)。这样的 \(g(Y)\) 几乎处处唯一。</li>
 </ul>
-<figure><img src="../content/assets/notes/随机过程-cheatsheet/image-04.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<figure><img src="../content/assets/notes/随机过程/image-04.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <ul>
 <li><strong>离散型计算</strong>：若 \(\mathbb{P}(Y=y)&gt;0\)，\(\mathbb{E}(X\mid Y=y)=\sum_xx\mathbb{P}(X=x\mid Y=y)\)；令 \(g(y)\) 为右式，再代入 \(Y\)。</li>
 <li><strong>连续型计算</strong>：在 \(f_Y(y)&gt;0\) 的点，\(g(y)=\int_{\mathbb R}x f_{X\mid Y}(x\mid y)\,dx=\dfrac{\int x f_{X,Y}(x,y)\,dx}{f_Y(y)}\)。\(f_Y(y)=0\) 处的 \(g(y)\) 可任意定义而不改变条件期望。</li>

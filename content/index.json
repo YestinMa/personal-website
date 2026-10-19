@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-10-15T06:26:15.788Z",
+  "generatedAt": "2026-10-19T09:06:14.016Z",
   "blog": [],
   "notes": [
     {
-      "title": "数理统计 CHEATSHEET",
-      "slug": "数理统计-cheatsheet",
+      "title": "数理统计",
+      "slug": "数理统计",
       "date": "2026-10-04",
-      "lastEditedTime": "2026-10-04T14:24:00.000Z",
+      "lastEditedTime": "2026-10-19T09:02:00.000Z",
       "category": "study",
       "tags": [
         "study",
@@ -14,14 +14,14 @@
       ],
       "status": "Published",
       "notionPageId": "3efdb726-82a8-81e7-87b7-d5ba616533ae",
-      "href": "notes/数理统计-cheatsheet.html",
+      "href": "notes/数理统计.html",
       "kind": "notes"
     },
     {
-      "title": "金融工程 CHEATSHEET",
-      "slug": "金融工程-cheatsheet",
+      "title": "金融工程",
+      "slug": "金融工程",
       "date": "2026-10-04",
-      "lastEditedTime": "2026-10-04T14:24:00.000Z",
+      "lastEditedTime": "2026-10-19T09:02:00.000Z",
       "category": "study",
       "tags": [
         "study",
@@ -29,14 +29,14 @@
       ],
       "status": "Published",
       "notionPageId": "3efdb726-82a8-810c-8c76-c2661d0938ef",
-      "href": "notes/金融工程-cheatsheet.html",
+      "href": "notes/金融工程.html",
       "kind": "notes"
     },
     {
-      "title": "随机过程 CHEATSHEET",
-      "slug": "随机过程-cheatsheet",
+      "title": "随机过程",
+      "slug": "随机过程",
       "date": "2026-10-04",
-      "lastEditedTime": "2026-10-15T06:24:00.000Z",
+      "lastEditedTime": "2026-10-19T09:02:00.000Z",
       "category": "study",
       "tags": [
         "study",
@@ -44,28 +44,29 @@
       ],
       "status": "Published",
       "notionPageId": "3efdb726-82a8-81ce-9a32-e06acb71f32f",
-      "href": "notes/随机过程-cheatsheet.html",
+      "href": "notes/随机过程.html",
       "kind": "notes"
     },
     {
-      "title": "最优化方法  CHEATSHEET",
-      "slug": "最优化方法-cheatsheet",
+      "title": "最优化方法",
+      "slug": "最优化方法",
       "date": "2026-06-25",
-      "lastEditedTime": "2026-10-10T06:41:00.000Z",
+      "lastEditedTime": "2026-10-19T09:03:00.000Z",
       "category": "study",
       "tags": [
-        "study"
+        "study",
+        "notes"
       ],
       "status": "Published",
       "notionPageId": "38adb726-82a8-8016-b405-eeb42f6570f1",
-      "href": "notes/最优化方法-cheatsheet.html",
+      "href": "notes/最优化方法.html",
       "kind": "notes"
     },
     {
-      "title": "时间序列分析 CHEATSHEET",
-      "slug": "时间序列分析-cheatsheet",
+      "title": "时间序列分析",
+      "slug": "时间序列分析",
       "date": "2025-09-01",
-      "lastEditedTime": "2026-09-27T08:50:00.000Z",
+      "lastEditedTime": "2026-10-19T09:01:00.000Z",
       "category": "study",
       "tags": [
         "study",
@@ -73,14 +74,14 @@
       ],
       "status": "Published",
       "notionPageId": "3a2db726-82a8-816e-9340-e41e18511485",
-      "href": "notes/时间序列分析-cheatsheet.html",
+      "href": "notes/时间序列分析.html",
       "kind": "notes"
     },
     {
-      "title": "机器学习的数学原理（I） STUDYNOTE",
-      "slug": "机器学习的数学原理-i-studynote",
+      "title": "机器学习的数学原理",
+      "slug": "机器学习的数学原理",
       "date": "2025-08-31",
-      "lastEditedTime": "2026-07-19T08:03:00.000Z",
+      "lastEditedTime": "2026-10-19T09:02:00.000Z",
       "category": "study",
       "tags": [
         "study",
@@ -88,7 +89,7 @@
       ],
       "status": "Published",
       "notionPageId": "3a2db726-82a8-80d3-adec-e0640e3554c0",
-      "href": "notes/机器学习的数学原理-i-studynote.html",
+      "href": "notes/机器学习的数学原理.html",
       "kind": "notes"
     }
   ]
