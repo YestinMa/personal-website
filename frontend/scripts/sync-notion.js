@@ -594,7 +594,8 @@ function parseInlineMarkdown(text) {
     if (segment.startsWith("`") && segment.endsWith("`")) {
       return `<code>${escapeHtml(segment.slice(1, -1))}</code>`;
     }
-    return segment;
+    // 公式内容进入 HTML 文本节点前要转义，避免 a<b 被浏览器解析成标签。
+    return escapeHtml(segment);
   });
   return html;
 }
