@@ -1,37 +1,7 @@
 {
-  "generatedAt": "2026-10-19T09:06:14.016Z",
+  "generatedAt": "2026-10-20T05:07:46.656Z",
   "blog": [],
   "notes": [
-    {
-      "title": "数理统计",
-      "slug": "数理统计",
-      "date": "2026-10-04",
-      "lastEditedTime": "2026-10-19T09:02:00.000Z",
-      "category": "study",
-      "tags": [
-        "study",
-        "notes"
-      ],
-      "status": "Published",
-      "notionPageId": "3efdb726-82a8-81e7-87b7-d5ba616533ae",
-      "href": "notes/数理统计.html",
-      "kind": "notes"
-    },
-    {
-      "title": "金融工程",
-      "slug": "金融工程",
-      "date": "2026-10-04",
-      "lastEditedTime": "2026-10-19T09:02:00.000Z",
-      "category": "study",
-      "tags": [
-        "study",
-        "notes"
-      ],
-      "status": "Published",
-      "notionPageId": "3efdb726-82a8-810c-8c76-c2661d0938ef",
-      "href": "notes/金融工程.html",
-      "kind": "notes"
-    },
     {
       "title": "随机过程",
       "slug": "随机过程",
@@ -63,6 +33,21 @@
       "kind": "notes"
     },
     {
+      "title": "数理统计",
+      "slug": "数理统计",
+      "date": "2026-01-25",
+      "lastEditedTime": "2026-10-20T00:54:00.000Z",
+      "category": "study",
+      "tags": [
+        "study",
+        "notes"
+      ],
+      "status": "Published",
+      "notionPageId": "3efdb726-82a8-81e7-87b7-d5ba616533ae",
+      "href": "notes/数理统计.html",
+      "kind": "notes"
+    },
+    {
       "title": "时间序列分析",
       "slug": "时间序列分析",
       "date": "2025-09-01",
@@ -90,6 +75,21 @@
       "status": "Published",
       "notionPageId": "3a2db726-82a8-80d3-adec-e0640e3554c0",
       "href": "notes/机器学习的数学原理.html",
+      "kind": "notes"
+    },
+    {
+      "title": "金融工程",
+      "slug": "金融工程",
+      "date": "2024-03-04",
+      "lastEditedTime": "2026-10-20T00:52:00.000Z",
+      "category": "study",
+      "tags": [
+        "study",
+        "notes"
+      ],
+      "status": "Published",
+      "notionPageId": "3efdb726-82a8-810c-8c76-c2661d0938ef",
+      "href": "notes/金融工程.html",
       "kind": "notes"
     }
   ]
