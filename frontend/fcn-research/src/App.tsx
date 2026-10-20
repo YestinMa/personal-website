@@ -40,7 +40,6 @@ export default function App() {
           <p className="project-kicker">Financial Engineering / Interactive Research</p>
           <h1>FCN Pricing<br />&amp; Hedging</h1>
           <p>Monte Carlo 与 FFT 定价、风险曲面、动态对冲和损益归因的交互式实验结果。</p>
-          <a className="notes-link" href="../blog/基于蒙特卡洛和fft方法的fcn定价分析.html">阅读技术推导 →</a>
         </header>
 
         {error ? <div className="manifest-error"><p>{error}</p><button type="button" onClick={() => setRetry((value) => value + 1)}>重新加载全部图表</button></div> : null}

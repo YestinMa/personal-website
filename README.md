@@ -46,6 +46,28 @@ npm run render
 powershell -ExecutionPolicy Bypass -File .\scripts\publish-website.ps1
 ```
 
+更简单的方式是直接双击仓库根目录的：
+
+```text
+sync-notion-and-publish.bat
+```
+
+BAT 会自动检查环境与 Git 分支、同步 Notion、重新生成文章、提交同步产物并推送到 `origin/main`。用于 Windows 任务计划程序时可添加 `--no-pause` 参数，结束后不会等待按键。
+
+可先运行安全预检（不会同步、修改、提交或推送）：
+
+```text
+sync-notion-and-publish.bat --validate-only --no-pause
+```
+
+如需在不修改文件、不提交、不推送的情况下检查环境，可运行：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\publish-website.ps1 -ValidateOnly
+```
+
+发布失败时，错误摘要会写入 `scripts/last-publish-error.log`。
+
 脚本只暂存 `content/`、`notes/` 和 `blog/` 同步产物，不会把其他工作区改动一并提交。
 
 ## 本地预览

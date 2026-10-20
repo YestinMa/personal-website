@@ -4,7 +4,8 @@ param(
     [string]$Remote = "origin",
     [string]$CommitMessage = "",
     [switch]$SkipInstall,
-    [switch]$NoPush
+    [switch]$NoPush,
+    [switch]$ValidateOnly
 )
 
 Set-StrictMode -Version Latest
@@ -61,18 +62,31 @@ function Ensure-RequiredEnvironment {
     if (Test-Path $envFile) {
         $envContent = Get-Content $envFile -Encoding utf8
         foreach ($line in $envContent) {
-            if ($line -match "^\s*([A-Za-z0-9_]+)\s*=") {
-                $envMap[$Matches[1]] = $true
+            if ($line -match '^\s*([A-Za-z0-9_]+)\s*=\s*(.*?)\s*$') {
+                $envMap[$Matches[1]] = $Matches[2].Trim('"', "'")
             }
         }
     }
 
-    # 这里同时兼容系统环境变量和 .env 文件，避免用户必须重复配置两份。
-    $requiredKeys = @("NOTION_TOKEN")
-    foreach ($key in $requiredKeys) {
-        if ([string]::IsNullOrWhiteSpace([Environment]::GetEnvironmentVariable($key)) -and -not $envMap.ContainsKey($key)) {
-            throw "未检测到 $key，请先在系统环境变量或仓库根目录 .env 中配置。"
-        }
+    function Get-ConfiguredValue {
+        param([string]$Key)
+        $systemValue = [Environment]::GetEnvironmentVariable($Key)
+        if (-not [string]::IsNullOrWhiteSpace($systemValue)) { return $systemValue }
+        if ($envMap.ContainsKey($Key)) { return $envMap[$Key] }
+        return ""
+    }
+
+    # 同时兼容系统环境变量和 .env，并根据同步模式检查对应的 Notion 页面标识。
+    if ([string]::IsNullOrWhiteSpace((Get-ConfiguredValue "NOTION_TOKEN"))) {
+        throw "未检测到有效的 NOTION_TOKEN，请先在系统环境变量或仓库根目录 .env 中配置。"
+    }
+    $syncMode = Get-ConfiguredValue "NOTION_SYNC_MODE"
+    if ([string]::IsNullOrWhiteSpace($syncMode)) { $syncMode = "database" }
+    if ($syncMode -eq "database" -and [string]::IsNullOrWhiteSpace((Get-ConfiguredValue "NOTION_DATABASE_ID"))) {
+        throw "NOTION_SYNC_MODE=database 时必须配置 NOTION_DATABASE_ID。"
+    }
+    if ($syncMode -eq "page" -and [string]::IsNullOrWhiteSpace((Get-ConfiguredValue "NOTION_ROOT_PAGE_ID"))) {
+        throw "NOTION_SYNC_MODE=page 时必须配置 NOTION_ROOT_PAGE_ID。"
     }
 }
 
@@ -96,16 +110,49 @@ function Ensure-RepositoryState {
     if (-not (($remoteExists -split "\r?\n") -contains $Remote)) {
         throw "未找到 Git 远端 $Remote。"
     }
+
+    $stagedFiles = Get-GitOutput -Arguments @("diff", "--cached", "--name-only")
+    if (-not [string]::IsNullOrWhiteSpace($stagedFiles)) {
+        # 自动提交前禁止已有暂存内容，避免把用户手动准备的改动混入同步提交。
+        throw "检测到已暂存但尚未提交的文件。请先提交或取消暂存后再运行自动同步。"
+    }
+
+    Write-Step "检查远端分支状态"
+    Invoke-CheckedCommand -ScriptBlock { git fetch $Remote $Branch --quiet } -ErrorMessage "无法获取 $Remote/$Branch 的最新状态"
+    $aheadBehind = Get-GitOutput -Arguments @("rev-list", "--left-right", "--count", "$Remote/$Branch...HEAD")
+    $counts = $aheadBehind -split "\s+"
+    $behindCount = if ($counts.Count -ge 1) { [int]$counts[0] } else { 0 }
+    if ($behindCount -gt 0) {
+        throw "远端 $Remote/$Branch 比本地领先 $behindCount 个提交。请先执行 git pull --ff-only，再重新同步。"
+    }
 }
 
 function Ensure-FrontendDependencies {
+    param([switch]$CheckOnly)
+
     if ($SkipInstall) {
+        return
+    }
+
+    $packageFile = Join-Path $script:FrontendDir "package.json"
+    $package = Get-Content $packageFile -Raw -Encoding utf8 | ConvertFrom-Json
+    $dependencyProperty = $package.PSObject.Properties["dependencies"]
+    $devDependencyProperty = $package.PSObject.Properties["devDependencies"]
+    $dependencyCount = if ($null -eq $dependencyProperty) { 0 } else { @($dependencyProperty.Value.PSObject.Properties).Count }
+    $dependencyCount += if ($null -eq $devDependencyProperty) { 0 } else { @($devDependencyProperty.Value.PSObject.Properties).Count }
+    if ($dependencyCount -eq 0) {
+        Write-Step "同步工具仅使用 Node.js 内置模块，无需安装依赖"
         return
     }
 
     $nodeModulesDir = Join-Path $script:FrontendDir "node_modules"
     if (Test-Path $nodeModulesDir) {
         Write-Step "frontend 依赖已存在，跳过 npm install"
+        return
+    }
+
+    if ($CheckOnly) {
+        Write-Step "预检发现依赖尚未安装；正式运行时将自动执行 npm install"
         return
     }
 
@@ -191,6 +238,7 @@ function Push-Branch {
     Push-Location $script:RepoRoot
     try {
         Invoke-CheckedCommand -ScriptBlock { git push $Remote $Branch } -ErrorMessage "git push 失败"
+        Write-Host "GitHub Pages: https://yestinma.github.io/personal-website/" -ForegroundColor Green
     }
     finally {
         Pop-Location
@@ -208,7 +256,11 @@ function Main {
 
     Ensure-RequiredEnvironment
     Ensure-RepositoryState
-    Ensure-FrontendDependencies
+    Ensure-FrontendDependencies -CheckOnly:$ValidateOnly
+    if ($ValidateOnly) {
+        Write-Step "预检通过：Notion 配置、Git 分支与远端状态均正常"
+        return
+    }
     Run-NotionSync
     Stage-SyncOutputs
 
@@ -222,5 +274,16 @@ function Main {
     }
 }
 
-Main
+$errorLog = Join-Path $PSScriptRoot "last-publish-error.log"
+try {
+    Main
+    if (Test-Path $errorLog) { Remove-Item $errorLog -Force }
+}
+catch {
+    # 仅记录错误摘要，不写入 .env 或任何密钥内容。
+    $message = "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] $($_.Exception.Message)"
+    Set-Content -LiteralPath $errorLog -Value $message -Encoding utf8
+    Write-Error "$($_.Exception.Message)`n错误日志：$errorLog"
+    exit 1
+}
 
