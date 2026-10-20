@@ -119,6 +119,20 @@ function splitContentIntoChapters(content, entries, rootLevel) {
   return sections;
 }
 
+function addConstructionPlaceholder(container) {
+  // 只在没有正文、公式或媒体内容时占位；章节标题本身不算正文。
+  const contentNodes = container.querySelectorAll("p, li, blockquote, pre, figure, table, .math-block, img, video, audio, iframe");
+  const hasContent = [...contentNodes].some((node) => (
+    node.textContent.trim() || node.matches("img, video, audio, iframe") || node.querySelector("img, video, audio, iframe")
+  ));
+  if (hasContent) return;
+
+  const placeholder = document.createElement("p");
+  placeholder.className = "article-construction-placeholder";
+  placeholder.textContent = ".U・ᴥ・U 正在施工中.....";
+  container.append(placeholder);
+}
+
 function readHashId() {
   try {
     return decodeURIComponent(window.location.hash.slice(1));
@@ -134,6 +148,7 @@ function initializeChapterNavigation(entries, rootLevel) {
   const chapters = entries.filter((entry) => entry.level === rootLevel);
   const sections = splitContentIntoChapters(content, entries, rootLevel);
   if (!sections.length) return;
+  sections.forEach(addConstructionPlaceholder);
 
   const entryById = new Map(entries.map((entry) => [entry.id, entry]));
   const sectionById = new Map(sections.map((section) => [section.dataset.chapterId, section]));
@@ -228,6 +243,10 @@ function initializeChapterNavigation(entries, rootLevel) {
 function populateArticleNavigation() {
   const { entries, headings, rootLevel } = collectHeadingEntries();
   if (!entries.length) {
+    if (document.body.classList.contains("article-notes-page")) {
+      const content = document.querySelector(".article-content");
+      if (content) addConstructionPlaceholder(content);
+    }
     // 空白占位笔记暂不显示无内容的章节栏，添加标题后会自动恢复。
     document.querySelectorAll("[data-toc-list]").forEach((list) => {
       const container = list.closest("aside, details");
