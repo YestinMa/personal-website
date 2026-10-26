@@ -530,6 +530,7 @@
 <p>$$h_{t+1|t} = \omega+\alpha u_t^2+\beta h_t.$$</p>
 <p>当 α+β&lt;1 时，多步预测向长期方差回复：</p>
 <p>$$h_{t+s|t} = \bar h + (\alpha+\beta)^{s-1} (h_{t+1|t}-\bar h).$$</p>
+<figure><img src="../content/assets/notes/时间序列分析/image-01.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <h3 id="arch-lm-与平方收益的-arma-结构">ARCH-LM 与平方收益的 ARMA 结构</h3>
 <ul>
 <li><strong>ARCH-LM</strong>：先估计均值方程，再将 ûₜ² 对常数和 p 阶滞后平方残差回归；在“无 ARCH 效应”下，TR² 渐近服从 χ²(p)。</li>
