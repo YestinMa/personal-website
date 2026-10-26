@@ -201,7 +201,8 @@ function slugify(value) {
 }
 
 function escapeInlineMarkdown(text) {
-  return text.replace(/([\\`*_{}\[\]()#+\-.!|>])/g, "\\$1");
+  // 普通圆括号不是 Markdown 控制符，转义后会与 KaTeX 的行内公式定界符冲突。
+  return text.replace(/([\\`*_{}\[\]#+\-.!|>])/g, "\\$1");
 }
 
 function richTextToMarkdown(richText = []) {
@@ -572,11 +573,20 @@ function containsMath(markdown) {
   return /\\\(|\\\[|\$\$[\s\S]*?\$\$/.test(markdown);
 }
 
+function restoreModelNotationParentheses(text) {
+  // 兼容旧同步结果：模型名后的普通括号曾被误写成 KaTeX 定界符。
+  return text.replace(/\b([A-Z][A-Z0-9]*(?:-[A-Z][A-Z0-9]*)?)\\\(([^()\r\n]+)\\\)/g, (match, model, expression) => {
+    const isModelOrder = /^(?:[A-Za-z0-9,.+\-\s]|∞|\\infty)+$/.test(expression);
+    return isModelOrder ? `${model}(${expression})` : match;
+  });
+}
+
 function parseInlineMarkdown(text) {
   // 先把公式片段占位，避免后续的转义和强调解析破坏 KaTeX 所需分隔符。
   const protectedSegments = [];
   const placeholderPrefix = "__INLINE_TOKEN_";
-  const withPlaceholders = text.replace(/(\\\([\s\S]*?\\\)|\\\[[\s\S]*?\\\]|\$\$[\s\S]*?\$\$|`[^`]+`)/g, (segment) => {
+  const normalizedText = restoreModelNotationParentheses(text);
+  const withPlaceholders = normalizedText.replace(/(\\\([\s\S]*?\\\)|\\\[[\s\S]*?\\\]|\$\$[\s\S]*?\$\$|`[^`]+`)/g, (segment) => {
     const placeholder = `${placeholderPrefix}${protectedSegments.length}__`;
     protectedSegments.push(segment);
     return placeholder;

@@ -17,9 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  const name = document.querySelector(".display-name");
+  const parallaxTitles = document.querySelectorAll(".display-name, [data-pointer-parallax]");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  if (!name || reduceMotion.matches) return;
+  if (!parallaxTitles.length || reduceMotion.matches) return;
 
   let frame = 0;
   let targetX = 0;
@@ -27,7 +27,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 将指针位置映射到极小位移，并通过动画帧合并高频事件，保持排版稳定。
   const renderOffset = () => {
-    name.style.transform = `translate3d(${targetX}px, ${targetY}px, 0)`;
+    parallaxTitles.forEach((title) => {
+      title.style.transform = `translate3d(${targetX}px, ${targetY}px, 0)`;
+    });
     frame = 0;
   };
 

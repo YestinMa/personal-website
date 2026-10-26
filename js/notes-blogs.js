@@ -13,7 +13,7 @@ function renderList(listId, items) {
   }
 
   list.innerHTML = items.map((item, index) => `
-    <li>
+    <li class="reveal" style="animation-delay: ${120 + index * 80}ms">
       <a href="${item.href}">
         <span class="item-number">${String(index + 1).padStart(2, "0")}</span>
         <span class="content-title">${item.title}</span>
