@@ -84,11 +84,13 @@ python -m http.server 8000
 
 顶层导航的 Logs 展示从 `feat: 增加了日志功能` 起推送到 `main` 的所有新提交，按新到旧排列，格式为 `提交说明 (版本号)`。一次推送包含多个提交时逐条展示；提交说明取首行。
 
+每条日志下方显示 7 位提交哈希（悬停可查看完整值）和精确到分钟的北京时间。推送时间取该提交首次被主分支 push 工作流收录时的 `created_at`，同一次推送的多个提交共用时间，工作流重跑不改变它。历史工作流缺失或本地生成时，明确标注为 Git 提交时间，不将提交时间冒充推送时间。部署工作流仅增加 Actions 只读权限以读取历史运行记录。
+
 网站版本保存在根目录 `VERSION`，当前为 `1.1`，独立于 `frontend/package.json`。笔记同步不修改版本；发布功能更新时手动修改 `VERSION`，并与功能一起提交。旧日志使用对应提交时的版本。
 
 GitHub Actions 的 `Deploy website and logs` 获取完整 Git 历史、生成日志并部署 Pages。生成结果只进入部署产物，不回写仓库；`content/logs.json` 保留首条记录供本地预览。首次接入时将仓库 **Settings → Pages → Build and deployment → Source** 设为 **GitHub Actions**，停止原有分支部署。
 
-提交功能后，可运行 `node scripts/generate-logs.mjs dist/content/logs.json` 检查实际日志；运行 `node --test scripts/generate-logs.test.mjs` 验证版本与排序。只有成功提交到 Git 历史的更新才会进入生成结果，工作区改动不会被误记为推送。
+提交功能后，可运行 `node scripts/generate-logs.mjs dist/content/logs.json` 检查实际日志；运行 `node --test scripts/generate-logs.test.mjs scripts/logs-ui.test.mjs` 验证版本、排序和哈希时间展示。只有成功提交到 Git 历史的更新才会进入生成结果，工作区改动不会被误记为推送。
 
 ## 编码
 

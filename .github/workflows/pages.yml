@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
   pages: write
   id-token: write
 
@@ -29,8 +30,10 @@ jobs:
         with:
           node-version: '22'
       - name: Test logs generation
-        run: node --test scripts/generate-logs.test.mjs
+        run: node --test scripts/generate-logs.test.mjs scripts/logs-ui.test.mjs
       - name: Package tracked public assets
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         # 只打包公开站点目录，避免上传环境文件、工具及工作区临时文件。
         run: |
           mkdir -p dist

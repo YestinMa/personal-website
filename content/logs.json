@@ -2,7 +2,10 @@
   "entries": [
     {
       "message": "feat: 增加了日志功能",
-      "version": "1.1"
+      "version": "1.1",
+      "sha": "c57c0fc238faaf1d4d8ca8b982a1fa25e35b3f31",
+      "committedAt": "2026-10-28T02:46:14.000Z",
+      "pushedAt": null
     }
   ]
 }
