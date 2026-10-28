@@ -260,7 +260,69 @@
 <ul>
 <li><strong>按时间参数</strong>：离散时间、连续时间；<strong>按状态空间</strong>：离散状态、连续状态。</li>
 <li><strong>按演化性质</strong>：独立增量过程（包括泊松过程）、马尔可夫过程、鞅和平稳过程。</li>
-</ul></div>
+</ul>
+<h2 id="三-泊松过程">三、泊松过程</h2>
+<h3 id="3-1-齐次泊松过程">3.1 齐次泊松过程</h3>
+<p><strong>定义与分布</strong></p>
+<p>设 \(N(t)\) 是 \((0,t]\) 内的事件总数，\(\lambda&gt;0\) 为单位时间的平均到达次数（强度）。齐次泊松过程满足：<strong>① </strong>\(N(0)=0\)<strong>；② 不相交区间的增量相互独立；③ 增量平稳</strong>，即一段时间内的次数只取决于区间长度。具体地，对 \(0\le s&lt;t\)，</p>
+<p>$$N(t)-N(s)\sim\operatorname{Poi}(\lambda(t-s)),\qquad \mathbb{P}(N(t)-N(s)=k) =e^{-\lambda(t-s)}\frac{[\lambda(t-s)]^k}{k!}.$$</p>
+<p>特别地，\(N(t)\sim\operatorname{Poi}(\lambda t)\)。在很短的时间 \(h\) 内，发生一次的概率为 \(\lambda h+o(h)\)，发生至少两次的概率为 \(o(h)\)。（<strong>“强度”是单位时间的瞬时到达率</strong>）</p>
+<p><strong>叠加与分类</strong></p>
+<ul>
+<li><strong>叠加</strong>：若 \(N_1,\ldots,N_r\) 相互独立，强度分别为 \(\lambda_1,\ldots,\lambda_r\)，则 \(N(t)=\sum_iN_i(t)\) 仍是泊松过程，强度为 \(\Lambda=\sum_i\lambda_i\)。例如两路独立客流合并后，平均到达率直接相加。</li>
+<li><strong>分类（稀疏化）</strong>：对强度 \(\lambda\) 的每次到达独立地赋予类别 \(i\)，类别概率为 \(p_i\)，\(\sum_i p_i=1\)。各类计数过程相互独立，强度为 \(\lambda p_i\)。</li>
+<li><strong>下一次事件的类别</strong>：在独立泊松流叠加中，下一次到达来自第 \(i\) 类的概率是 \(\lambda_i/\Lambda\)。这一比例也适用于叠加流中依次到来的各次事件的类别。</li>
+</ul>
+<p><strong>有限维分布</strong></p>
+<p>同时问多个时刻的计数时，先把累计计数拆成不相交区间的增量。令 \(0=t_0&lt;t_1&lt;\cdots&lt;t_m\)，\(k_0=0\)，\(0\le k_1\le\cdots\le k_m\)，则 \(N(t_j)-N(t_{j-1})\) 相互独立，分别服从 \(\operatorname{Poi}(\lambda(t_j-t_{j-1}))\)。因此</p>
+<p>$$\mathbb{P}\bigl(N(t_1)=k_1,\ldots,N(t_m)=k_m\bigr) =\prod_{j=1}^{m}e^{-\lambda(t_j-t_{j-1})} \frac{[\lambda(t_j-t_{j-1})]^{k_j-k_{j-1}}}{(k_j-k_{j-1})!}.$$</p>
+<p>若某个 \(k_j&lt;k_{j-1}\)，概率为 \(0\)，因为累计次数不可能减少。</p>
+<p><strong>泊松过程的数字特征</strong></p>
+<p> \(\mathbb{E}N(t)=\operatorname{Var}(N(t))=\lambda t\)。</p>
+<p>对 \(s\le t\)，写作 \(N(t)=N(s)+[N(t)-N(s)]\)；括号中的未来增量与 \(N(s)\) 独立，由此得到</p>
+<div class="math-block">$$C_N(s,t)=\operatorname{Cov}(N(s),N(t))=\lambda\min(s,t),$$</div>
+<p>$$R_N(s,t)=\mathbb{E}[N(s)N(t)] =C_N(s,t)+\mathbb{E}N(s)\mathbb{E}N(t) =\lambda\min(s,t)+\lambda^2st.$$</p>
+<p><strong>等待时间、时间间隔与到达时刻</strong></p>
+<p>记 \(\tau_k\) 为第 \(k\) 次到达的时刻，\(\tau_0=0\)；记 \(T_k=\tau_k-\tau_{k-1}\) 为第 \(k-1\) 次至第 \(k\) 次之间的间隔，故 \(\tau_k=T_1+\cdots+T_k\)。有如下的事件关系：</p>
+<p>$$\{\tau_k\le t\}=\{N(t)\ge k\},\qquad \{\tau_k&gt;t\}=\{N(t)\le k-1\}.$$</p>
+<p>首次等待超过 \(t\)，等价于到 \(t\) 还没有事件，所以 \(\mathbb{P}(T_1&gt;t)=\mathbb{P}(N(t)=0)=e^{-\lambda t}\)。全部 \(T_k\) 相互独立且同服从 \(\operatorname{Exp}(\lambda)\)；反过来，独立同分布的指数间隔可构造齐次泊松过程。</p>
+<p>作为 \(k\) 个独立指数变量之和，\(\tau_k\sim\operatorname{Gamma}(k,\lambda)\)，这里 \(\lambda\) 是<strong>率参数</strong>：</p>
+<p>$$F_{\tau_k}(t)=1-e^{-\lambda t}\sum_{j=0}^{k-1}\frac{(\lambda t)^j}{j!}, \qquad f_{\tau_k}(t)=\frac{\lambda^kt^{k-1}e^{-\lambda t}}{(k-1)!},\quad t&gt;0.$$</p>
+<p>前 \(n\) 次到达时刻的<strong>无条件</strong>联合密度为 \(f_{\tau_1,\ldots,\tau_n}(u_1,\ldots,u_n)=\lambda^ne^{-\lambda u_n}\)，定义域是 \(0&lt;u_1&lt;\cdots&lt;u_n\)。</p>
+<p><strong>已知 </strong>\(N(t)=n\)<strong> 后的结论</strong></p>
+<p>此时 \((0,t)\) 内的 \(n\) 个<strong>无序</strong>到达位置相当于独立的 \(\operatorname{Uniform}(0,t)\) 样本。把它们排序，才得到 \(\tau_1&lt;\cdots&lt;\tau_n\)；有序时刻的联合条件密度是</p>
+<p>$$f_{\tau_1,\ldots,\tau_n\mid N(t)=n}(u_1,\ldots,u_n) =\frac{n!}{t^n},\qquad 0&lt;u_1&lt;\cdots&lt;u_n&lt;t.$$</p>
+<p>每个位置落在 \((0,s]\) 的概率为 \(s/t\)，所以 \(N(s)\mid N(t)=n\sim\operatorname{Bin}(n,s/t)\)，\(0\le s\le t\)。第 \(k\) 个有序时刻是次序统计量：</p>
+<div class="math-block">$$\frac{\tau_k}{t}\mid N(t)=n\sim\operatorname{Beta}(k,n-k+1),$$</div>
+<p>$$f_{\tau_k\mid N(t)=n}(u) =\frac{n!}{(k-1)!(n-k)!}\frac{u^{k-1}(t-u)^{n-k}}{t^n}, \qquad 0&lt;u&lt;t,\ 1\le k\le n.$$</p>
+<p><strong>注</strong>：无条件时 \(\tau_k\) 是 Gamma 分布；固定 \(N(t)=n\) 后才有上述 Beta 结论。</p>
+<figure><img src="../content/assets/notes/随机过程/image-05.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<p>长期看，到达频率满足 \(N(t)/t\to\lambda\) 几乎处处（\(t\to\infty\)）。</p>
+<h3 id="3-2-复合泊松过程">3.2 复合泊松过程</h3>
+<p><strong>从计数到随机总量</strong></p>
+<p>普通泊松过程只记录事件次数。若每次事件还带来随机跳幅 \(X_j\)（如理赔金额），令 \(X_1,X_2,\ldots\) 独立同分布，并且整个序列与强度 \(\lambda\) 的计数过程 \(N\) 独立，定义</p>
+<div class="math-block">$$S(t)=\sum_{j=1}^{N(t)}X_j,\qquad N(t)=0\text{ 时 }S(t)=0.$$</div>
+<p>给定 \(N(t)=n\)，\(S(t)\) 就是 \(n\) 个跳幅之和；不固定 \(n\) 时，它是以泊松概率加权的这些和的混合分布。\(S(t)-S(s)\) 只累加 \((s,t]\) 的新跳幅，因此有独立、平稳增量，增量的泊松参数为 \(\lambda(t-s)\)。</p>
+<p><strong>数字特征</strong></p>
+<p>设 \(\mu=\mathbb{E}X_1\) 且 \(\mathbb{E}X_1^2&lt;\infty\)。先给定 \(N(t)=n\)，有 \(\mathbb{E}[S(t)\mid N(t)=n]=n\mu\)、\(\operatorname{Var}(S(t)\mid N(t)=n)=n\operatorname{Var}(X_1)\)。再用全期望、全方差公式，得到</p>
+<p>$$\mathbb{E}S(t)=\lambda t\mu,\qquad \operatorname{Var}(S(t)) =\lambda t\,\mathbb{E}(X_1^2) =\lambda t[\operatorname{Var}(X_1)+\mu^2].$$</p>
+<p>其中 \(\mu^2\) 一项来自<strong>事件次数本身的随机性</strong>。由独立增量，对于任意 \(s,t\ge0\)，</p>
+<p>$$C_S(s,t)=\lambda\min(s,t)\mathbb{E}(X_1^2),\qquad R_S(s,t)=C_S(s,t)+\lambda^2st\mu^2.$$</p>
+<p>若 \(\varphi_X(u)=\mathbb{E}e^{iuX_1}\)，对随机次数先条件化，可得 \(\varphi_{S(t)}(u)=\exp\{\lambda t[\varphi_X(u)-1]\}\)。若 \(\mathbb{E}|X_1|&lt;\infty\)，还满足长期平均 \(S(t)/t\to\lambda\mathbb{E}X_1\) 几乎处处。</p>
+<h3 id="3-3-非时齐泊松过程">3.3 非时齐泊松过程</h3>
+<p><strong>强度随时间改变</strong></p>
+<p>非时齐过程把常数强度 \(\lambda\) 换成非负、局部可积的函数 \(\lambda(u)\)。定义累计强度 \(m(t)=\int_0^t\lambda(u)\,du\)，即从 \(0\) 到 \(t\) 的强度曲线下面积。过程从 \(N(0)=0\) 开始，仍有独立增量，但区间 \((s,t]\) 的参数改为该区间的累计强度：</p>
+<p>$$N(t)-N(s)\sim\operatorname{Poi}\!\left(\int_s^t\lambda(u)\,du\right) =\operatorname{Poi}(m(t)-m(s)).$$</p>
+<p>于是 \(N(t)\sim\operatorname{Poi}(m(t))\)，\(\mathbb{E}N(t)=\operatorname{Var}(N(t))=m(t)\)，\(C_N(s,t)=m(\min(s,t))\)。相同长度的区间如果处于不同时间段，参数可能不同，所以增量通常<strong>不平稳</strong>。在 \(\lambda\) 连续的点，小区间发生一次的概率为 \(\lambda(t)h+o(h)\)，两次及以上为 \(o(h)\)。</p>
+<p><strong>等待与条件到达位置</strong></p>
+<p>首次到达晚于 \(t\) 等价于 \(N(t)=0\)，故 \(\mathbb{P}(\tau_1&gt;t)=e^{-m(t)}\)。固定时刻 \(s\) 之后直到 \(t\) 没有新到达的概率为 \(e^{-[m(t)-m(s)]}\)。由于强度随时间变化，相邻到达间隔一般不再是同参数的独立同分布指数变量。</p>
+<p>若 \(m(t)&gt;0\) 且已知 \(N(t)=n\)，无序的 \(n\) 个到达位置独立同分布，公共分布函数及密度分别是</p>
+<p>$$F(u)=\frac{m(u)}{m(t)},\quad 0\le u\le t; \qquad f(u)=\frac{\lambda(u)}{m(t)},\quad 0&lt;u&lt;t.$$</p>
+<p>因此 \(N(s)\mid N(t)=n\sim\operatorname{Bin}(n,m(s)/m(t))\)。排序后各时刻的联合条件密度为</p>
+<p>$$f_{\tau_1,\ldots,\tau_n\mid N(t)=n}(u_1,\ldots,u_n) =\frac{n!}{m(t)^n}\prod_{j=1}^n\lambda(u_j), \qquad 0&lt;u_1&lt;\cdots&lt;u_n&lt;t.$$</p>
+<p>强度高的时间段更容易出现到达点；只有强度恒定时，上式才化为齐次过程的均匀位置结论。</p>
+<p><strong>时间变换</strong></p>
+<p>若 \(M\) 是强度 \(1\) 的齐次泊松过程，则 \(N(t)=M(m(t))\) 是累计强度为 \(m(t)\) 的非时齐过程。若 \(M\) 的强度为 \(\lambda_0\)、\(g(u)\ge0\)，把时钟改为 \(m_g(t)=\int_0^tg(u)\,du\)，那么 \(M(m_g(t))\) 的强度为 \(\lambda_0g(t)\)。</p></div>
       <nav class="chapter-pagination" data-chapter-pagination aria-label="章节导航" hidden>
         <a class="chapter-page chapter-page-prev" data-chapter-prev href="#" hidden><span>上一篇</span><strong></strong></a>
         <a class="chapter-page chapter-page-next" data-chapter-next href="#" hidden><span>下一篇</span><strong></strong></a>
