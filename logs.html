@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Website updates and release history by Yuyao Ma.">
+    <title>Logs — Yuyao Ma</title>
+    <link rel="stylesheet" href="css/style.css?v=2.0.0">
+    <link rel="stylesheet" href="css/logs.css?v=1.1">
+</head>
+<body class="logs-page">
+    <header class="site-header">
+        <a class="site-mark" href="index.html" aria-label="Yuyao Ma home">YM</a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation">
+            <span></span><span></span><span></span><span class="sr-only">Toggle navigation</span>
+        </button>
+        <nav class="site-nav" id="site-navigation" aria-label="Primary navigation">
+            <a href="work.html">Work</a>
+            <a href="notes-blogs.html">Notes</a>
+            <a class="active" href="logs.html" aria-current="page">Logs</a>
+            <a href="index.html">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+    <main class="logs-main">
+        <section class="logs-console" aria-labelledby="logs-heading">
+            <header class="logs-toolbar">
+                <span class="logs-lights" aria-hidden="true"><i></i><i></i><i></i></span>
+                <h1 id="logs-heading">Logs</h1>
+                <span class="logs-branch">main</span>
+            </header>
+            <div class="logs-output" tabindex="0" role="region" aria-label="推送日志，从最新到最旧">
+                <p class="logs-command" aria-hidden="true">$ git log --oneline</p>
+                <p class="logs-status" role="status">正在读取日志…</p>
+                <ol class="logs-entries" id="logs-entries" aria-label="更新记录"></ol>
+            </div>
+        </section>
+    </main>
+    <footer class="site-footer" id="contact">
+        <p>© 2026 YUYAO MA</p>
+        <div class="footer-contact"><a class="text-link" href="mailto:yestyn_ma@163.com">yestyn_ma@163.com</a><span aria-hidden="true">·</span><span>Shanghai, China</span></div>
+        <a class="text-link footer-social" href="https://github.com/YestinMa" target="_blank" rel="noreferrer">GitHub</a>
+    </footer>
+    <script src="js/main.js?v=2.3.1"></script>
+    <script src="js/logs.js?v=1.1"></script>
+</body>
+</html>

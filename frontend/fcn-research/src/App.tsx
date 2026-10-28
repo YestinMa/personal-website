@@ -29,6 +29,7 @@ export default function App() {
         <nav className={`site-nav ${menuOpen ? "is-open" : ""}`} id="site-navigation" aria-label="Primary navigation">
           <a className="active" href="../work.html" aria-current="page">Work</a>
           <a href="../notes-blogs.html">Notes</a>
+          <a href="../logs.html">Logs</a>
           <a href="../index.html">About</a>
           <a href="#contact">Contact</a>
         </nav>

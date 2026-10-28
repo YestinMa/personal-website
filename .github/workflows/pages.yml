@@ -1,0 +1,47 @@
+name: Deploy website and logs
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test logs generation
+        run: node --test scripts/generate-logs.test.mjs
+      - name: Package tracked public assets
+        # 只打包公开站点目录，避免上传环境文件、工具及工作区临时文件。
+        run: |
+          mkdir -p dist
+          mapfile -t public_paths < <(git ls-tree --name-only HEAD | grep -E '^(.*\.html|css|js|images|notes|blog|content|factor-dashboard|fcn-research)$')
+          git archive HEAD -- "${public_paths[@]}" | tar -x -C dist
+          node scripts/generate-logs.mjs dist/content/logs.json
+          touch dist/.nojekyll
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v5
