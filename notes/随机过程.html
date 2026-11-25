@@ -323,7 +323,146 @@
 <p>$$f_{\tau_1,\ldots,\tau_n\mid N(t)=n}(u_1,\ldots,u_n) =\frac{n!}{m(t)^n}\prod_{j=1}^n\lambda(u_j), \qquad 0&lt;u_1&lt;\cdots&lt;u_n&lt;t.$$</p>
 <p>强度高的时间段更容易出现到达点；只有强度恒定时，上式才化为齐次过程的均匀位置结论。</p>
 <p><strong>时间变换</strong></p>
-<p>若 \(M\) 是强度 \(1\) 的齐次泊松过程，则 \(N(t)=M(m(t))\) 是累计强度为 \(m(t)\) 的非时齐过程。若 \(M\) 的强度为 \(\lambda_0\)、\(g(u)\ge0\)，把时钟改为 \(m_g(t)=\int_0^tg(u)\,du\)，那么 \(M(m_g(t))\) 的强度为 \(\lambda_0g(t)\)。</p></div>
+<p>若 \(M\) 是强度 \(1\) 的齐次泊松过程，则 \(N(t)=M(m(t))\) 是累计强度为 \(m(t)\) 的非时齐过程。若 \(M\) 的强度为 \(\lambda_0\)、\(g(u)\ge0\)，把时钟改为 \(m_g(t)=\int_0^tg(u)\,du\)，那么 \(M(m_g(t))\) 的强度为 \(\lambda_0g(t)\)。</p>
+<h2 id="四-离散时间马尔科夫链">四、离散时间马尔科夫链</h2>
+<h3 id="4-0-introduction">4.0 INTRODUCTION</h3>
+<p>现实生活中，许多随机变化的现象都可以用马尔可夫链来描述。例如，天气在晴天与雨天之间转换，金融市场在牛市、熊市与震荡市之间切换，消费者在不同品牌之间转移。这些过程虽然具有随机性，但其变化往往存在一定的概率规律：<strong>如果系统未来的状态只依赖于当前状态，而与此前经历的历史无关，就称其具有马尔可夫性。</strong>离散时间马尔可夫链正是研究这类随机过程的数学工具。</p>
+<p>本章知识概要：</p>
+<ol>
+<li>理解马尔可夫性、时齐马氏链、转移概率与转移矩阵。</li>
+<li>掌握 Chapman-Kolmogorov （C-K）方程及多步转移概率的计算。</li>
+<li>掌握首达概率、首达时间及平均返回时间。</li>
+<li>理解可达、互通、常返（正常返、零常返）、非常返、周期、遍历状态。</li>
+<li>掌握平稳分布、极限分布及其成立条件。</li>
+</ol>
+<h3 id="4-1-基本定义与马尔科夫性质">4.1 基本定义与马尔科夫性质</h3>
+<p>离散时间随机过程记为 \(X=(X_n)_{n\ge0}\)。\(n\) 是离散时间，\(X_n\) 是第 \(n\) 步所处的状态；所有可能状态组成状态空间 \(S\)（有限或可数集）。初始分布记为 \(\pi_i(0)=\mathbb{P}(X_0=i)\)。</p>
+<h4 id="1-马尔科夫性质">（1）马尔科夫性质</h4>
+<p>给定当前状态后，下一步的条件分布不再依赖更早的状态。对条件事件概率为正的历史，</p>
+<p>$$\mathbb{P}(X_{n+1}=j\mid X_n=i,X_{n-1}=i_{n-1},\ldots,X_0=i_0) =\mathbb{P}(X_{n+1}=j\mid X_n=i).$$</p>
+<p>它表示预测未来时，当前状态已经包含所需的历史信息。对多个未来步数也有相应的条件独立形式。</p>
+<h4 id="2-马尔科夫链">（2）马尔科夫链</h4>
+<p><strong>具有马尔科夫性质的离散时间、离散状态随机过程</strong>称为马尔科夫链。一般马尔科夫链的一步转移概率可以随时间 \(n\) 变化，记为</p>
+<div class="math-block">$$p_{ij}(n)=\mathbb{P}(X_{n+1}=j\mid X_n=i).$$</div>
+<h4 id="3-时齐马尔科夫链">（3）时齐马尔科夫链</h4>
+<p>若对每一对状态 \(i,j\)，\(p_{ij}(n)\) 都不随 \(n\) 改变，则称为时齐（时间齐次）马尔科夫链。此时记</p>
+<div class="math-block">$$p_{ij}=\mathbb{P}(X_{n+1}=j\mid X_n=i),\qquad i,j\in S.$$</div>
+<p>后文使用单个矩阵 \(P\)、\(P^n\) 和固定状态分类时，均讨论时齐链。</p>
+<h4 id="4-转移概率矩阵-p">（4）转移概率矩阵 P</h4>
+<p>时齐链的一步转移矩阵 \(P=(p_{ij})_{i,j\in S}\) 的每个元素非负，<strong>每一行</strong>的和为 \(1\)：</p>
+<div class="math-block">$$p_{ij}\ge0,\qquad \sum_{j\in S}p_{ij}=1.$$</div>
+<h3 id="4-2-多步转移概率与分布演化">4.2 多步转移概率与分布演化</h3>
+<p>一步矩阵只告诉我们下一步去哪里。若想知道两天后、一周后处于哪个状态，需要把中途所有可能经过的状态都考虑进去。<strong>矩阵乘法</strong>正好可以完成这件事。</p>
+<figure><img src="../content/assets/notes/随机过程/image-06.svg" alt="图 4\-1　经由中间状态的两步转移"><figcaption>图 4\-1　经由中间状态的两步转移</figcaption></figure>
+<h4 id="1-多步转移概率">（1）多步转移概率</h4>
+<p>从 \(i\) 出发，经过 \(n\) 步到达 \(j\) 的概率记为</p>
+<div class="math-block">$$p_{ij}^{(n)}=\mathbb{P}(X_{m+n}=j\mid X_m=i),\qquad n\ge0.$$</div>
+<p>时齐性保证它与起始时刻 \(m\) 无关。约定 \(p_{ij}^{(0)}=\mathbf1_{\{i=j\}}\)，\(p_{ij}^{(1)}=p_{ij}\)，并记 \(P^{(n)}=(p_{ij}^{(n)})\)。</p>
+<h4 id="2-chapman-kolmogorov-c-k-方程">（2）Chapman–Kolmogorov（C–K）方程</h4>
+<p>把 \(m+n\) 步的路径按第 \(m\) 步所处状态 \(k\) 分解，再用马尔科夫性质：</p>
+<p>$$p_{ij}^{(m+n)} =\sum_{k\in S}p_{ik}^{(m)}p_{kj}^{(n)},\qquad m,n\ge0.$$</p>
+<p>前一因子是“先到 \(k\)”，后一因子是“从 \(k\) 再到 \(j\)”。计算特定多步概率时，<strong>可以选择便于求解的中间时刻。</strong></p>
+<figure><img src="../content/assets/notes/随机过程/image-07.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<p>C–K 方程的<strong>矩阵形式</strong>是 \(P^{(m+n)}=P^{(m)}P^{(n)}\)，所以</p>
+<div class="math-block">$$P^{(n)}=P^n,\qquad P^0=I.$$</div>
+<p>例如 \((P^2)_{ij}=\sum_kp_{ik}p_{kj}\)：先选一个中间状态 \(k\)，把两段路径概率相乘，再对所有 \(k\) 求和。\(P^n\) 的第 \(i\) 行就是从状态 \(i\) 出发，经过 \(n\) 步后的分布。以“晴、雨”为例，若晴天后仍晴的概率为 \(0.8\)、雨天后转晴的概率为 \(0.3\)，则按“晴、雨”排序，</p>
+<div class="math-block">$$P=\begin{pmatrix}0.8&amp;0.2\\0.3&amp;0.7\end{pmatrix}.$$</div>
+<p>从晴天出发，两天后仍晴的概率是 \(0.8^2+0.2\times0.3=0.70\)：路径可以是“晴→晴→晴”，也可以是“晴→雨→晴”。</p>
+<h4 id="3-初始分布与分布演化">（3）初始分布与分布演化</h4>
+<p>将各时刻分布写为<strong>行向量</strong> \(\pi(n)=(\mathbb{P}(X_n=j))_{j\in S}\)，则</p>
+<p>$$\pi(n)=\pi(0)P^n,\qquad \pi_j(n)=\sum_{i\in S}\pi_i(0)p_{ij}^{(n)}.$$</p>
+<p>一步递推为 \(\pi(n+1)=\pi(n)P\)。</p>
+<p><strong>注意区分：</strong>\(P^n\) 描述“给定起点”的转移，\(\pi(0)P^n\) 描述“起点也随机”时的总体分布。</p>
+<h3 id="4-3-可达性与周期性">4.3 可达性与周期性</h3>
+<h4 id="1-可达">（1）可达</h4>
+<p>若存在 \(n\ge0\) 使 \(p_{ij}^{(n)}&gt;0\)，记 \(i\to j\)，称 \(j\) 从 \(i\) 可达。约定 \(n=0\) 时 \(i\to i\)。</p>
+<p>可达性有传递性：\(i\to j\) 且 \(j\to k\) 推出 \(i\to k\)。</p>
+<h4 id="2-互通与互通类">（2）互通与互通类</h4>
+<p>若 \(i\to j\) 且 \(j\to i\)，记 \(i\leftrightarrow j\)，称两状态互通。互通是等价关系，因而将状态空间划分为互不相交的<strong>互通类</strong>。同一类中的状态能沿正概率路径相互到达；不同类之间即使存在单向可达，也不属于同一类。</p>
+<h4 id="3-周期与非周期">（3）周期与非周期</h4>
+<p>状态 \(i\) 的周期为所有可能的正步数返回时间的最大公约数：</p>
+<div class="math-block">$$d(i)=\gcd\{n\ge1:p_{ii}^{(n)}&gt;0\}.$$</div>
+<p>若 \(d(i)=1\)，称 \(i\) 非周期；若 \(d(i)&gt;1\)，只能在特定同余类的步数返回。<strong>互通状态具有相同周期，因此可以说一个互通类的周期。</strong>若 \(p_{ii}&gt;0\)，则 \(i\) 一定非周期；但 \(p_{ii}=0\) 并不必然周期性。</p>
+<figure><img src="../content/assets/notes/随机过程/image-08.svg" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<p>两状态确定性交替时，从 \(A\) 只能在偶数步返回，周期为 \(2\)；若允许 \(A\) 一步留在原地，返回步数包含 \(1\)，周期即为 \(1\)。</p>
+<h3 id="4-4-常返性与状态分类">4.4 常返性与状态分类</h3>
+<h4 id="1-首次到达概率">（1）首次到达概率</h4>
+<ul>
+<li>从 \(i\) 出发，<strong>首次</strong>在第 \(n\ge1\) 步到达 \(j\) 的概率记为</li>
+</ul>
+<p>$$f_{ij}^{(n)} =\mathbb{P}_i(X_n=j,\ X_1\ne j,\ldots,X_{n-1}\ne j).$$</p>
+<ul>
+<li>总的到达概率为 (f_{ij}=\sum_{n\ge1}f_{ij}^{(n)}</li>
+</ul>
+<p>=\mathbb{P}_i(\tau_j&lt;\infty)) （迟早到达概率）</p>
+<ul>
+<li>将第n步到达j的概率拆解：</li>
+</ul>
+<p>$$p_{ij}^{(n)} =f_{ij}^{(n)}+\sum_{\ell=1}^{n-1}f_{ij}^{(\ell)}p_{jj}^{(n-\ell)}, \qquad n\ge1,\ i,j\in S.$$</p>
+<h4 id="2-首次返回时间">（2）首次返回时间</h4>
+<p>从 \(i\) 出发，定义 \(\tau_i=\inf\{n\ge1:X_n=i\}\)，并约定若永不返回则 \(\tau_i=\infty\)。虽然起始时 \(X_0=i\)，\(n=0\) 不算返回。<strong>其分布满足 </strong>\(\mathbb{P}_i(\tau_i=n)=f_{ii}^{(n)}\)<strong>。</strong></p>
+<h4 id="3-常返与非常返">（3）常返与非常返</h4>
+<p>若 \(f_{ii}=\mathbb{P}_i(\tau_i&lt;\infty)=1\)，状态 \(i\) <strong>常返</strong>；若 \(f_{ii}&lt;1\)，状态 \(i\) 非常返（暂留）。等价判据是</p>
+<p>$$i\text{ 常返}\quad\Longleftrightarrow\quad \sum_{n=0}^{\infty}p_{ii}^{(n)}=\infty \quad\Longleftrightarrow\quad f_{ii} = 1$$</p>
+<ul>
+<li>常返状态从自身出发会以概率 \(1\) 无限次回到自身；非常返状态有正概率在某次离开后再不回来。</li>
+<li>互通状态具有相同的常返或非常返类型。</li>
+</ul>
+<h4 id="4-正常返与零常返">（4）正常返与零常返</h4>
+<p>将平均返回时间记为 \(\mu_i=\mathbb{E}_i\tau_i\)。对常返状态：</p>
+<div class="math-block">$$\mu_i=\sum_{n=1}^{\infty}n f_{ii}^{(n)}.$$</div>
+<p>常返且 \(\mu_i&lt;\infty\) 称<strong>正常返</strong>；常返但 \(\mu_i=\infty\) 称<strong>零常返</strong>。</p>
+<ul>
+<li><strong>非常返时 </strong>\(\tau_i=\infty\)<strong> 有正概率，因而 </strong>\(\mu_i=\infty\)<strong>，不能凭平均返回时间无穷判定零常返。</strong></li>
+<li><strong>互通状态的正常返／零常返类型也一致。</strong></li>
+<li>整数集 Z上的一维简单对称随机游走是的所有状态均为<strong>零常返状态（如下）</strong></li>
+</ul>
+<figure><img src="../content/assets/notes/随机过程/image-09.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<h4 id="5-平均返回时间与长期概率">（5）平均返回时间与长期概率</h4>
+<p>若 \(i\) 的周期为 \(d_i\)，则沿可返回的周期子序列有</p>
+<p>$$\lim_{n\to\infty}p_{ii}^{(nd_i)} =\frac{d_i}{\mu_i},$$</p>
+<p>若 \(i\) 非周期且正常返，普通极限为 \(\lim_{n\to\infty}p_{ii}^{(n)}=1/\mu_i\)。（由于周期状态的 \(p_{ii}^{(n)}\) 通常在不同子序列上振荡，一般不能写成所有 \(n\) 的极限）。<strong>零常返和非常返的序列极限为0。</strong></p>
+<h3 id="4-5-状态空间分解">4.5 状态空间分解</h3>
+<figure><img src="../content/assets/notes/随机过程/image-10.svg" alt="图 4\-3　有限状态链的暂留部分与闭互通类"><figcaption>图 4\-3　有限状态链的暂留部分与闭互通类</figcaption></figure>
+<h4 id="1-闭集与闭互通类">（1）闭集与闭互通类</h4>
+<p>非空集合 \(C\subseteq S\) 称为<strong>闭集</strong>，若从其中任一状态一步都不会走出：</p>
+<p>$$\sum_{j\in C}p_{ij}=1\quad(i\in C), \qquad\text{等价于 }p_{ij}=0\quad(i\in C,\ j\notin C).$$</p>
+<p>一旦进入闭集，之后始终留在其中。既是互通类又是闭集的集合称闭互通类。单个吸收状态是最简单的闭互通类。</p>
+<ul>
+<li>若整个 \(S\) 是一个互通类，即任意 \(i,j\in S\) 都互通，<strong>则链不可约。</strong></li>
+</ul>
+<h4 id="3-常返状态与闭类">（3）常返状态与闭类</h4>
+<p>若 \(i\) 常返且 \(i\to j\)，那么 \(j\) 也常返，且 \(j\to i\)。（<strong>一个常返状态不能到达一个无法回来的地方</strong>）。所以常返状态所在的互通类必为闭类。有限闭互通类中的状态全部正常返；对于无限状态空间，闭且不可约并不足以保证正常返。</p>
+<h4 id="4-状态空间分解定理">（4）状态空间分解定理</h4>
+<p>可数状态空间可写成不交并</p>
+<div class="math-block">$$S=U\;\dot\cup\;C_1\;\dot\cup\;C_2\;\dot\cup\cdots,$$</div>
+<p>其中 \(U\) 是所有非常返状态的集合；每个 \(C_r\) 是由常返状态组成的闭互通类，不同 \(C_r\) 互不连通。有限状态空间中至少有一个这样的闭类，各闭类都正常返，链最终以概率 \(1\) 进入某个闭类。而无限状态空间<strong>可能</strong>没有常返类。</p>
+<figure><img src="../content/assets/notes/随机过程/image-11.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<h3 id="4-6-长期行为与稳定分布">4.6 长期行为与稳定分布</h3>
+<p><strong>从指定起点出发，分布会不会收敛？</strong>以及<strong>有没有一种分布，经过一步仍保持不变？——</strong>前者对应极限分布，后者对应平稳分布。周期性会影响前者，却不必然妨碍后者。</p>
+<p>&lt;!-- Unsupported Notion block: table --&gt;</p>
+<p>&lt;!-- Unsupported Notion block: table_row --&gt;</p>
+<p>&lt;!-- Unsupported Notion block: table_row --&gt;</p>
+<p>&lt;!-- Unsupported Notion block: table_row --&gt;</p>
+<p>&lt;!-- Unsupported Notion block: table_row --&gt;</p>
+<h4 id="1-转移概率的长期极限">（1）转移概率的长期极限</h4>
+<p>目标状态 \(j\) 非常返或零常返时，对任意起点 \(i\)，\(p_{ij}^{(n)}\to0\)。若 \(j\) 非周期且正常返，令 \(f_{ij}=\mathbb{P}_i(\tau_j&lt;\infty)\)，则</p>
+<div class="math-block">$$\lim_{n\to\infty}p_{ij}^{(n)}=\frac{f_{ij}}{\mu_j}.$$</div>
+<p>若整条链不可约且正常返，则 \(f_{ij}=1\)。若 \(j\) 有周期，通常要分同余类考察 \(p_{ij}^{(n)}\)，普通极限可能不存在。</p>
+<h4 id="2-遍历性">（2）遍历性</h4>
+<p>存在一组<strong>严格正</strong>的数 \(\pi_j\)，使任意 \(i,j\) 都有 \(p_{ij}^{(n)}\to\pi_j\)，称为该马氏链具有遍历性。</p>
+<h4 id="3-极限分布">（3）极限分布</h4>
+<figure><img src="../content/assets/notes/随机过程/image-12.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<h4 id="4-平稳分布">（4）平稳分布</h4>
+<figure><img src="../content/assets/notes/随机过程/image-13.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<ul>
+<li>极限分布和平稳分布示意图：</li>
+</ul>
+<figure><img src="../content/assets/notes/随机过程/image-14.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<h3 id="4-7-总结">4.7 总结</h3>
+<figure><img src="../content/assets/notes/随机过程/image-15.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
+<h2 id="五-连续时间马尔科夫链">五、连续时间马尔科夫链</h2>
+<h2 id="六-鞅过程">六、鞅过程</h2></div>
       <nav class="chapter-pagination" data-chapter-pagination aria-label="章节导航" hidden>
         <a class="chapter-page chapter-page-prev" data-chapter-prev href="#" hidden><span>上一篇</span><strong></strong></a>
         <a class="chapter-page chapter-page-next" data-chapter-next href="#" hidden><span>下一篇</span><strong></strong></a>
