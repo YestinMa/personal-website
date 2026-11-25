@@ -268,6 +268,9 @@ img { display: block; max-width: 100%; }
 .article-content h1 { margin: 4.5rem 0 1.5rem; font-size: 2.7rem; }
 .article-content h2 { margin: 4rem 0 1.3rem; padding-top: .5rem; border-top: 1px solid var(--line); font-size: 2.25rem; }
 .article-content h3 { margin: 2.7rem 0 1rem; font-size: 1.55rem; }
+.article-content table { width: 100%; margin: 1.5rem 0; border-collapse: collapse; font-size: .94rem; }
+.article-content th, .article-content td { padding: .7rem .8rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.article-content th { color: var(--ink); font-weight: 600; border-top: 1px solid var(--line); }
 .article-content p, .article-content ul, .article-content ol, .article-content blockquote, .article-content pre, .article-content figure, .article-content .math-block { margin: 0 0 1.4rem; }
 .article-content ul, .article-content ol { padding-left: 1.4rem; }
 .article-content blockquote { margin-left: 0; padding-left: 1.4rem; border-left: 1px solid var(--navy); color: var(--muted); font-family: var(--serif); font-size: 1.15rem; }

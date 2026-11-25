@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="随机过程">
   <title>随机过程 — Yuyao Ma</title>
-  <link rel="stylesheet" href="../css/style.css?v=2.0.1">
+  <link rel="stylesheet" href="../css/style.css?v=2.0.2">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 </head>
 <body class="article-page article-notes-page">
@@ -392,9 +392,9 @@
 </ul>
 <p>$$f_{ij}^{(n)} =\mathbb{P}_i(X_n=j,\ X_1\ne j,\ldots,X_{n-1}\ne j).$$</p>
 <ul>
-<li>总的到达概率为 (f_{ij}=\sum_{n\ge1}f_{ij}^{(n)}</li>
+<li>总的到达概率（迟早到达概率）为</li>
 </ul>
-<p>=\mathbb{P}_i(\tau_j&lt;\infty)) （迟早到达概率）</p>
+<div class="math-block">$$f_{ij}=\sum_{n=1}^{\infty}f_{ij}^{(n)}=\mathbb{P}_i(\tau_j&lt;\infty).$$</div>
 <ul>
 <li>将第n步到达j的概率拆解：</li>
 </ul>
@@ -440,11 +440,12 @@
 <figure><img src="../content/assets/notes/随机过程/image-11.png" alt="Notion image"><figcaption>Notion image</figcaption></figure>
 <h3 id="4-6-长期行为与稳定分布">4.6 长期行为与稳定分布</h3>
 <p><strong>从指定起点出发，分布会不会收敛？</strong>以及<strong>有没有一种分布，经过一步仍保持不变？——</strong>前者对应极限分布，后者对应平稳分布。周期性会影响前者，却不必然妨碍后者。</p>
-<p>&lt;!-- Unsupported Notion block: table --&gt;</p>
-<p>&lt;!-- Unsupported Notion block: table_row --&gt;</p>
-<p>&lt;!-- Unsupported Notion block: table_row --&gt;</p>
-<p>&lt;!-- Unsupported Notion block: table_row --&gt;</p>
-<p>&lt;!-- Unsupported Notion block: table_row --&gt;</p>
+<table><tbody>
+<tr><th>问题</th><th>数学对象</th><th>先检查什么</th></tr>
+<tr><td>从 \(i\) 出发，\(n\) 步后到 \(j\) 的概率是否趋稳</td><td>\(p_{ij}^{(n)}\)</td><td>目标类的常返性、周期</td></tr>
+<tr><td>给定初始分布，\(X_n\) 的分布是否收敛</td><td>\(\pi(0)P^n\)</td><td>起点可进入哪些闭类、是否周期</td></tr>
+<tr><td>哪个分布经过一步保持不变</td><td>\(\alpha P=\alpha\)</td><td>\(\alpha\) 是否为总和为 \(1\) 的非负向量</td></tr>
+</tbody></table>
 <h4 id="1-转移概率的长期极限">（1）转移概率的长期极限</h4>
 <p>目标状态 \(j\) 非常返或零常返时，对任意起点 \(i\)，\(p_{ij}^{(n)}\to0\)。若 \(j\) 非周期且正常返，令 \(f_{ij}=\mathbb{P}_i(\tau_j&lt;\infty)\)，则</p>
 <div class="math-block">$$\lim_{n\to\infty}p_{ij}^{(n)}=\frac{f_{ij}}{\mu_j}.$$</div>
@@ -482,7 +483,7 @@
   </footer>
 
   <script src="../js/main.js?v=2.3.0"></script>
-  <script src="../js/article.js?v=2.3.1"></script>
+  <script src="../js/article.js?v=2.3.2"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
   <script>

@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const FRONTEND_DIR = path.resolve(SCRIPT_DIR, "..");
 const REPO_ROOT = path.resolve(FRONTEND_DIR, "..");
-const CONTENT_RENDER_VERSION = "8";
+const CONTENT_RENDER_VERSION = "9";
 
 const NOTION_API_BASE = "https://api.notion.com/v1";
 const NOTION_VERSION = "2022-06-28";
@@ -506,6 +506,17 @@ async function renderBlocks(token, blocks, context, depth = 0) {
         lines.push(`![${caption}](${url})`, "");
         break;
       }
+      case "table": {
+        // Notion 表格的行保存在子块中，按单元格顺序转为 Markdown 表格。
+        const rows = children.filter((child) => child.type === "table_row")
+          .map((row) => (row.table_row?.cells || []).map((cell) => richTextToMarkdown(cell).replace(/\|/g, "\\|")));
+        if (rows.length) {
+          const width = block.table?.table_width || Math.max(...rows.map((row) => row.length));
+          const formatRow = (row) => `| ${Array.from({ length: width }, (_, index) => row[index] || "").join(" | ")} |`;
+          lines.push(formatRow(rows[0]), formatRow(Array(width).fill("---")), ...rows.slice(1).map(formatRow), "");
+        }
+        break;
+      }
       case "bookmark":
         lines.push(`[${block.bookmark.url}](${block.bookmark.url})`, "");
         break;
@@ -624,6 +635,7 @@ function markdownToHtml(markdown) {
   let codeLines = [];
   let listType = null;
   let quoteLines = [];
+  let tableRows = [];
 
   function flushParagraph() {
     if (!paragraph.length) return;
@@ -657,6 +669,21 @@ function markdownToHtml(markdown) {
     codeLines = [];
   }
 
+  function flushTable() {
+    if (!tableRows.length) return;
+    // 仅按未转义的竖线分列，保留单元格内的字面竖线与行内公式。
+    const splitCells = (row) => row.trim().replace(/^\||\|$/g, "")
+      .split(/(?<!\\)\|/).map((cell) => cell.trim().replace(/\\\|/g, "|"));
+    const rows = tableRows.filter((row) => !/^\|?\s*(?:-+\s*\|\s*)+-+\s*\|?$/.test(row));
+    html.push("<table><tbody>");
+    rows.forEach((row, index) => {
+      const tag = index === 0 ? "th" : "td";
+      html.push(`<tr>${splitCells(row).map((cell) => `<${tag}>${parseInlineMarkdown(cell)}</${tag}>`).join("")}</tr>`);
+    });
+    html.push("</tbody></table>");
+    tableRows = [];
+  }
+
   for (const rawLine of lines) {
     const line = rawLine.trimEnd();
 
@@ -673,8 +700,18 @@ function markdownToHtml(markdown) {
       flushParagraph();
       flushList();
       flushQuote();
+      flushTable();
       continue;
     }
+
+    if (/^\|.*\|$/.test(line.trim())) {
+      flushParagraph();
+      flushList();
+      flushQuote();
+      tableRows.push(line);
+      continue;
+    }
+    flushTable();
 
     if (line.startsWith("```")) {
       flushParagraph();
@@ -776,6 +813,7 @@ function markdownToHtml(markdown) {
   flushParagraph();
   flushList();
   flushQuote();
+  flushTable();
   flushCodeBlock();
 
   return html.join("\n");
@@ -809,7 +847,7 @@ function buildArticleHtml(meta, markdownBody) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="${escapeHtml(meta.title)}">
   <title>${title} — Yuyao Ma</title>
-  <link rel="stylesheet" href="../css/style.css?v=2.0.1">
+  <link rel="stylesheet" href="../css/style.css?v=2.0.2">
 ${mathStylesheet}
 </head>
 <body class="article-page${isNote ? " article-notes-page" : ""}">
@@ -860,7 +898,7 @@ ${mathStylesheet}
   </footer>
 
   <script src="../js/main.js?v=2.3.0"></script>
-  <script src="../js/article.js?v=2.3.1"></script>
+  <script src="../js/article.js?v=2.3.2"></script>
 ${
     hasMath
       ? `<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>

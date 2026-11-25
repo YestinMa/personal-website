@@ -256,7 +256,8 @@ function populateArticleNavigation() {
   }
 
   if (document.body.classList.contains("article-notes-page")) {
-    populateHierarchicalToc(entries, rootLevel);
+    // 笔记目录只展示章节与其下一层知识点，三级标题仍保留正文锚点。
+    populateHierarchicalToc(entries.filter((entry) => entry.level <= rootLevel + 1), rootLevel);
     initializeChapterNavigation(entries, rootLevel);
     return;
   }
