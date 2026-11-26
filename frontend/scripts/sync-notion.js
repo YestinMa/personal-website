@@ -1039,11 +1039,12 @@ async function collectSourcePages(config) {
 }
 
 function parseFrontmatter(content) {
-  const match = content.match(/^---\n([\s\S]*?)\n---\n\n?/);
+  // Git 在 Windows 上可能以 CRLF 检出旧笔记，同步写入的文件则使用 LF。
+  const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n(?:\r?\n)?/);
   if (!match) return null;
 
   const meta = {};
-  for (const line of match[1].split("\n")) {
+  for (const line of match[1].split(/\r?\n/)) {
     const separatorIndex = line.indexOf(":");
     if (separatorIndex === -1) continue;
 

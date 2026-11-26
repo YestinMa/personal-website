@@ -1,6 +1,9 @@
 import { strict as assert } from "node:assert";
+import { mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import path from "node:path";
 import { test } from "node:test";
-import { buildArticleHtml, markdownToHtml } from "./sync-notion.js";
+import { buildArticleHtml, markdownToHtml, writeContentIndex } from "./sync-notion.js";
 
 test("混合的二级列表仍位于父条目中，退出缩进后恢复原列表", () => {
   const html = markdownToHtml([
@@ -46,4 +49,25 @@ test("保留行内公式、原样代码和列表中的强调", () => {
 test("长笔记的图片延迟加载，保留本地资源路径", () => {
   const html = markdownToHtml("![](../content/assets/notes/note/image-01.png)");
   assert.match(html, /<img loading="lazy" decoding="async" src="\.\.\/content\//);
+});
+
+test("重建索引时同时保留 Windows 检出的旧笔记和新生成的笔记", async (t) => {
+  const root = await mkdtemp(path.join(tmpdir(), "website-index-"));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  const notes = path.join(root, "notes");
+  await mkdir(notes);
+  const fixtures = [
+    ["旧笔记", "2026-10-04", "Published", "\r\n"],
+    ["新笔记", "2026-11-26", "Published", "\n"],
+    ["草稿", "2026-11-25", "Draft", "\r\n"],
+  ];
+  for (const [title, date, status, newline] of fixtures) {
+    const body = ["---", 'title: ' + JSON.stringify(title), 'date: ' + JSON.stringify(date),
+      'status: ' + JSON.stringify(status), "---", "", "正文"].join(newline);
+    await writeFile(path.join(notes, title + ".md"), body, "utf8");
+  }
+
+  await writeContentIndex(root);
+  const index = JSON.parse(await readFile(path.join(root, "index.json"), "utf8"));
+  assert.deepEqual(index.notes.map(({ href }) => href), ["notes/新笔记.html", "notes/旧笔记.html"]);
 });
