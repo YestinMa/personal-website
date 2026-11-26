@@ -23,6 +23,11 @@ build/
 *.min.js
 *.min.css
 
+# KaTeX 官方发行文件是公开静态资源，需要随网站一起部署。
+!/css/vendor/katex-0.16.11/katex.min.css
+!/js/vendor/katex-0.16.11/katex.min.js
+!/js/vendor/katex-0.16.11/auto-render.min.js
+
 # 环境变量文件
 .env
 .env.local
