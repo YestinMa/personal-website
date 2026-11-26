@@ -2,7 +2,7 @@
 title: "Python程序设计与数据科学"
 slug: "python程序设计与数据科学"
 date: "2026-11-26"
-lastEditedTime: "2026-11-26T10:25:29.951Z"
+lastEditedTime: "2026-11-26T10:49:50.125Z"
 renderVersion: "9"
 category: "study"
 tags: ["coding","study"]
@@ -94,10 +94,10 @@ test_str[0] >> 'P'
 
 - 字符编码：本质是二进制数据与文字的一一对应
 - 编码标准
-- ASCII（美国信息交换标准编码）早期、无法表示汉字
-- Unicode：一种新的编码标准，支持几乎所有书写系统
+  - ASCII（美国信息交换标准编码）早期、无法表示汉字
+  - Unicode：一种新的编码标准，支持几乎所有书写系统
 - 编码方式
-- UTF-8（Unicode Transformation Format）最广泛，可以向后兼容ASCII码
+  - UTF-8（Unicode Transformation Format）最广泛，可以向后兼容ASCII码
 
 #### .encode() .decode() 的用法
 
@@ -112,10 +112,8 @@ encoded_string = original_string.encode(encoding='utf-8', errors='strict')
 ```
 
 - 参数：
-- encoding：指定要使用的编码格式，例如 'utf-8'、'ascii'、'latin-1' 等。如果不指定，默认使用'utf-8'。
-- errors：指定错误处理方式，如：'strict'（默认）：遇到无法编码的字符时引发
-
-UnicodeEncodeError。'ignore'：忽略无法编码的字符。'replace'：用替代字符（通常是 ?）替代无法编码的字符。
+  - encoding：指定要使用的编码格式，例如 'utf-8'、'ascii'、'latin-1' 等。如果不指定，默认使用'utf-8'。
+  - errors：指定错误处理方式，如：'strict'（默认）：遇到无法编码的字符时引发UnicodeEncodeError。'ignore'：忽略无法编码的字符。'replace'：用替代字符（通常是 ?）替代无法编码的字符。
 
 ```py
 decoded_string = byte_sequence.decode(encoding='utf-8', errors='strict')
@@ -433,9 +431,9 @@ end = "" 取消换行
 #### 迭代器与迭代器协议
 
 - 迭代器（iterator）的特点
-- 惰性计算：不会一次性将所有数据加载到内存，而是按需计算
-- 一次性：用完即废
-- 大部分以**列表**或**列表型为对象**的参数都可以接收迭代器对象
+  - 惰性计算：不会一次性将所有数据加载到内存，而是按需计算
+  - 一次性：用完即废
+  - 大部分以**列表**或**列表型为对象**的参数都可以接收迭代器对象
 - 生成器（generator）是创建迭代器的一种简单方法，生成器是一种特殊的迭代器。
 - 迭代器协议是一种另对象可遍历的一种通用方式。
 
@@ -479,8 +477,9 @@ sum(x**2 for x in range(1,100))
 #### itertools模块
 
 - itertools.groupby(iterable, key)
-- 根据每一独一的key，生成`(key,sub-iterator)`元组
-- 用法：`for key, sub in itertools.groupby(iterable, key):       -` 只对`**`相邻的元素`**`按照`key`进行分组，如果希望整体分组，先要使用sorted()\`方法
+  - 根据每一独一的key，生成`(key,sub-iterator)`元组
+  - 用法：`for key, sub in itertools.groupby(iterable, key):`
+  - `groupby()` 只对**相邻的元素**按 `key` 分组。如果希望按同一个键合并分组，先用 `sorted()` 按同一个键排序。
 
 ```py
 import itertools
@@ -574,8 +573,8 @@ random.gauss(mu,sigma) #高斯分布
 - for循环：循环遍历序列（列表、元组、字典、集合、字符串）中的元素
 - while循环：在条件为真的情况下重复执行代码块
 - 二者都支持break和continue语句
-- break：直接跳出循环
-- continue：跳过当前循环的剩余部分，开始下一次循环
+  - break：直接跳出循环
+  - continue：跳过当前循环的剩余部分，开始下一次循环
 
 ```py
 # 用for循环生成一个99乘法表
@@ -820,7 +819,7 @@ with open(path, 'r', encoding = 'utf-8') as f:
 #### 定义和创建对象
 
 - 创建对象并调用方法：
-- `self` 是对象自身的引用，必须作为第一个参数传入类的方法
+  - `self` 是对象自身的引用，必须作为第一个参数传入类的方法
 
 ```py
 class Person:
@@ -849,7 +848,7 @@ person1.introduce()
 #### 实例属性与类属性
 
 - 实例属性定义在`_init_` 中，用`self` 关键字表示
-- 每个对象都有独立的实例属性，互不干扰
+  - 每个对象都有独立的实例属性，互不干扰
 - 类属性定义在类的顶层，属于整个类
 
 ```py
@@ -3468,7 +3467,7 @@ np.where(cond_arr, xarr, yarr)
 | cumprod | 从0开始元素的累计积 |
 
 - mean、sum等函数，既可以求整个数组的值，也可以指定一个axis，形成一个下降一个维度的数组。
-- axis=0,意为压缩行
+  - axis=0,意为压缩行
 - sum()方法通常可以用于计算布尔值数组中True的个数。
 
 `(arr8 > 9).sum()`
@@ -3588,7 +3587,7 @@ obj2**2
 ```
 
 - 可以直接通过一个字典生成Series `obj3 = pd.Series(dict1)`
-- 这个方法也可以指定一个索引列表，用以指定索引排列的顺序，当列表中的键没有出现在数据中时，value会返回NaN，当字典数据的键没有出现在列表中时，它将被排除在外。
+  - 这个方法也可以指定一个索引列表，用以指定索引排列的顺序，当列表中的键没有出现在数据中时，value会返回NaN，当字典数据的键没有出现在列表中时，它将被排除在外。
 - Pandas用isnull notnull检查缺失数据
 
 ```py
@@ -3799,7 +3798,7 @@ frame3.rank(axis = 0, ascending = False, method = 'first')
 
 - 重复索引的情况可以出现，但是并不支持这么做
 - 通过`obj.index.is_unique` 检查是否存在重复索引
-- 注：这里is\_unique不是一个方法，而是一个属性
+  - 注：这里is\_unique不是一个方法，而是一个属性
 
 #### 描述性统计概述
 
@@ -3851,15 +3850,15 @@ skiprows
 index\_col
 
 - 可以设置为单个列的索引（列名或列的整数位置）或多个列的列表。
-- 如果是整数（如0），表示将第一列作为索引。
-- 如果是列名（如'A'），表示将名为'A'的列作为索引。
-- 如果需要使用多列，可以传递一个列表（如\[0, 1\]），表示将前两列作为多级索引。
+  - 如果是整数（如0），表示将第一列作为索引。
+  - 如果是列名（如'A'），表示将名为'A'的列作为索引。
+  - 如果需要使用多列，可以传递一个列表（如\[0, 1\]），表示将前两列作为多级索引。
 
 na\_values
 
 - 用于缺失值处理
-- 传入列表或字符串
-- 传入**字典**，指定每列应该处理的缺失值是什么
+  - 传入列表或字符串
+  - 传入**字典**，指定每列应该处理的缺失值是什么
 
 ```py
 # This is a comment
@@ -4149,8 +4148,8 @@ df_with_dummies = df.join(dummies)
 
 - 通过在字符串前面加r，使得反斜杠不会被当做Python的转义字符
 - 下面两种路径都是正确的：
-- r'C:\\xxx'
-- 'C:\\\\xxx'
+  - r'C:\\xxx'
+  - 'C:\\\\xxx'
 
 #### Python内建字符串处理方法
 
@@ -4171,7 +4170,7 @@ pieces = [x.strip() for x in val.split(',')]
 - `replace()` 方法，用一种模式替代另一种模式（可以传入空字符）
 - `count()` 方法，返回字符串出现的次数
 - 定位子字符串：`in` , `find()` 和`index()`
-- `str.find()` 找不到时返回 -1；`str.index()` 找不到时抛出 `ValueError`。
+  - `str.find()` 找不到时返回 -1；`str.index()` 找不到时抛出 `ValueError`。
 - `startwith(), endwith()` 字面意思，返回布尔值
 - lower()\`\`upper()\`\`title() 大小写转换方法
 
@@ -4214,9 +4213,9 @@ pieces = [x.strip() for x in val.split(',')]
 - \\\[0-9\]表示所有的数字
 - . 代表任意字符
 - 特殊元字符**(大写表示取反)**
-- \\d = \\\[0,9\]; \\D =\\\[\^0-9\]
-- \\w = \\\[a-zA-Z0-9\_\]; \\W
-- \\s 匹配任何空白字符（空格，制表符，换行符）; \\S
+  - \\d = \\\[0,9\]; \\D =\\\[\^0-9\]
+  - \\w = \\\[a-zA-Z0-9\_\]; \\W
+  - \\s 匹配任何空白字符（空格，制表符，换行符）; \\S
 - \^匹配行首字符，\$匹配行尾字符
 
 捕获组与非捕获组
@@ -4293,7 +4292,7 @@ print(match2.group(2)) #7890
 #### re模块
 
 - `re.match()` 如果模式匹配成功，它返回一个匹配对象；如果匹配失败，则返回None。
-- 匹配结果可以通过`result.group()` 返回。
+  - 匹配结果可以通过`result.group()` 返回。
 - `re.search(pattern,string)` 扫描整个字符串，找到**第一个**匹配的地方。
 - match和search的区别在于：完全匹配与内含模式匹配
 
@@ -4381,8 +4380,8 @@ plt.show()
 代码块`fig = plt.figure()`
 
 - `plt.show()` 为**阻塞式调用方法**，会释放内存中的所有图形资源，并阻碍下面代码的运行。（可以指定`block=False` 改为非阻塞式调用）
-- 在使用内联绘图后端的 Jupyter Notebook 中，通常不用显式调用 `plt.show()` 也能显示图像。
-- 如果一次只创建一个图形，就不需要显式定义Figure对象
+  - 在使用内联绘图后端的 Jupyter Notebook 中，通常不用显式调用 `plt.show()` 也能显示图像。
+  - 如果一次只创建一个图形，就不需要显式定义Figure对象
 
 ```py
 fig1 = plt.figure(1) # 指定当前活动图形
@@ -4395,7 +4394,7 @@ plt.show() #将内存中的Figure1和Figure2同时释放，并阻塞命令行
 ```
 
 - `plt.subplots(2, 2)` 一次创建一个 Figure 和四个 Axes，比逐个调用 `add_subplot()` 更直接。
-- 返回的 `axes` 可按行列索引；左上角是 `axes[0, 0]`。
+  - 返回的 `axes` 可按行列索引；左上角是 `axes[0, 0]`。
 
 ```py
 fig, axes = plt.subplots(2,2)
@@ -4405,9 +4404,9 @@ axes[0,1] =
 ```
 
 - `plt.subplots()` 其他选项
-- `sharex`与`sharey` 所有子图使用相同的x\\y刻度
-- `figsize` 以元组\*宽度，高度\* 的形式传入
-- `dpi` 分辨率：默认值为100
+  - `sharex`与`sharey` 所有子图使用相同的x\\y刻度
+  - `figsize` 以元组\*宽度，高度\* 的形式传入
+  - `dpi` 分辨率：默认值为100
 - `plt.subplots_adjust()` 用于调整subplot子图周围的间距
 
 ```py
@@ -4417,16 +4416,16 @@ plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=0, hspa
 #### Figure对象与Axes对象
 
 - Figure是顶层画布，相当于一张纸
-- Figure对象常用属性和方法：
-- figsize画布大小；dpi分辨率
-- fig.add\_subplot()添加子图
-- fig.savefig()保存图片
+  - Figure对象常用属性和方法：
+    - figsize画布大小；dpi分辨率
+    - fig.add\_subplot()添加子图
+    - fig.savefig()保存图片
 - Axes是图中的**实际绘图区域**，一个Figure对象中可以有多个Axes对象
-- Axes对象常用属性和方法：
-- `axes.plot()` 折线；`axes.scatter()` 散点图
-- `axes.set_title()` 设置标题
-- `axes.set_xlabel()/ylabel()` 设置标签
-- `axes.set_xtick()/ytick()` 设置标签刻度
+  - Axes对象常用属性和方法：
+    - `axes.plot()` 折线；`axes.scatter()` 散点图
+    - `axes.set_title()` 设置标题
+    - `axes.set_xlabel()/ylabel()` 设置标签
+    - `axes.set_xtick()/ytick()` 设置标签刻度
 
 #### pyplot的状态机接口机制
 
@@ -4444,7 +4443,7 @@ ax.plot(x, y, color='g', marker='o', linestyle='--') # 显式表达
 
 - 可以通过**十六进制颜色编码**指定颜色
 - `drawstyle` 选项
-- 三种：steps-pre; steps-mid; steps-post
+  - 三种：steps-pre; steps-mid; steps-post
 
 ```py
 plt.plot(data, 'bo--', label='Default')
@@ -4535,10 +4534,10 @@ axes.set_ylim([600,1800])
 #### 将图片保存到文件
 
 - `fig.fivefig()/ plt.savefig()`
-- `fname` 指定文件名称
-- `dpi` 指定分辨率
-- `format` 指定格式
-- `bbox_inches` 要保存的图片范围，如果传递tight，则会去除掉空白部分
+  - `fname` 指定文件名称
+  - `dpi` 指定分辨率
+  - `format` 指定格式
+  - `bbox_inches` 要保存的图片范围，如果传递tight，则会去除掉空白部分
 
 #### Axes图表方法
 
@@ -4551,13 +4550,13 @@ axes.set_ylim([600,1800])
 #### 柱状图
 
 - 基本语法：Axes.bar(x, height, width=0.8, bottom=None, align='center',\`\`color=None, edgecolor=None, **kwargs)
-- x为分组，height为每组的高度
-- width是每个柱的宽度
-- bottom定义柱子在 y 轴方向上的起点，默认从 0 开始
-- align控制柱子与xtick的对齐方式
-- center即中心对齐
-- edge为左对齐
-- color为柱子的颜色，edgecolor为柱子边框的颜色
+  - x为分组，height为每组的高度
+  - width是每个柱的宽度
+  - bottom定义柱子在 y 轴方向上的起点，默认从 0 开始
+  - align控制柱子与xtick的对齐方式
+    - center即中心对齐
+    - edge为左对齐
+  - color为柱子的颜色，edgecolor为柱子边框的颜色
 
 ```py
 df = pd.DataFrame(np.random.randn(10,4).cumsum(0),
@@ -4664,8 +4663,8 @@ plt.show()
 #### time模块
 
 - 提供简单低等级的时间操作
-- 获取当前时间戳`time.time()`
-- 程序暂停功能`time.sleep(second)`
+  - 获取当前时间戳`time.time()`
+  - 程序暂停功能`time.sleep(second)`
 
 #### datetime模块
 
@@ -4695,12 +4694,12 @@ delta.days # datetime.timedelta类型
 #### 字符串与datetime类型的互相转化
 
 - 使用str方法或者传递一个指定的格式给`strftime()` 方法对**datetime对象**或pandas的**Timestamp对象**进行格式化
-- %Y 四位年份， %y两位年份
-- %m 两位年份
-- %d 两位日期
-- %H 24小时制小时，%I 12小时制小时
-- %M 两位数的分钟
-- %S 秒
+  - %Y 四位年份， %y两位年份
+  - %m 两位年份
+  - %d 两位日期
+  - %H 24小时制小时，%I 12小时制小时
+  - %M 两位数的分钟
+  - %S 秒
 
 ```py
 stamp = datetime(2011, 1, 3)
@@ -4715,7 +4714,7 @@ datestrs = ['7/6/2011', '8/7/2017']
 ```
 
 - dateutil包的parser.parse方法：能够解析大部分人类可理解的日期表示
-- 参数`dayfirst=True` 显式表明日期在月份之前
+  - 参数`dayfirst=True` 显式表明日期在月份之前
 
 ```py
 from dateutil.parser import parse
@@ -4822,14 +4821,14 @@ pd.date_range(start='2023-03-09', periods=20) # 指定期数
 ```
 
 - `freq` 的用法
-- D为每日，B为每工作日
-- 在 pandas 3.x 中，使用 `h`（小时）、`min`（分钟）、`s`（秒）。
-- ME（Monthend）、BME（BusinessMonthend）
-- MS（MonthStart）BMS（BusinessMonthStart）
-- W-MON、W-TUE（Week）从指定的星期开始每周
-- WOM-1MON（WOM日期） 每月第几个星期几
-- 日期偏移与倍数：例如：4H代表每四个小时
-- 还有很多......
+  - D为每日，B为每工作日
+  - 在 pandas 3.x 中，使用 `h`（小时）、`min`（分钟）、`s`（秒）。
+  - ME（Monthend）、BME（BusinessMonthend）
+  - MS（MonthStart）BMS（BusinessMonthStart）
+  - W-MON、W-TUE（Week）从指定的星期开始每周
+  - WOM-1MON（WOM日期） 每月第几个星期几
+  - 日期偏移与倍数：例如：4H代表每四个小时
+  - 还有很多......
 
 #### 移动数据
 
@@ -4863,7 +4862,7 @@ monthly.index = monthly.index.to_period("M")  # 结果索引改为月频 PeriodI
 
 - closed指定了**时间窗口**哪边关闭
 - label指定了重采样后的时间戳采用哪一侧的
-- 可以使用`offset` 对结果索引做位移操作（注意不是loffset）
+  - 可以使用`offset` 对结果索引做位移操作（注意不是loffset）
 - 例如：1min--5min的降采样：
 
 ![](../content/assets/notes/python程序设计与数据科学/image-78.png)
@@ -4880,7 +4879,7 @@ df_hour = df_daily.resample("h").ffill() # 向前填充
 #### OHLC重采样
 
 - `ts.resample(freq).ohlc()` 是 Pandas 中用于时间序列重采样的一种方法，**ohlc 是Open, High, Low, Close** 的缩写，主要用于处理金融时间序列数据（如股票价格或交易量）。
-- 调用后，pandas自动计算窗口期内的最大值、最小值、第一个值、最后一个值，并返回一个四列的Dataframe
+  - 调用后，pandas自动计算窗口期内的最大值、最小值、第一个值、最后一个值，并返回一个四列的Dataframe
 
 ```py
 ts.resample('5min').ohlc()
@@ -4891,7 +4890,7 @@ ts.resample('5min').ohlc()
 #### 移动窗口函数
 
 - 移动窗口按顺序计算局部统计量，例如移动平均，用于观察趋势和短期波动。
-- `rolling(250)` 使用最近 250 个观测，股票日线中通常对应 250 个有效交易日；`rolling('250D')` 使用 250 日的时间跨度。整数窗口默认要求有完整窗口的观测数，时间窗口的 `min_periods` 默认是 1。
+  - `rolling(250)` 使用最近 250 个观测，股票日线中通常对应 250 个有效交易日；`rolling('250D')` 使用 250 日的时间跨度。整数窗口默认要求有完整窗口的观测数，时间窗口的 `min_periods` 默认是 1。
 
 ```py
 close_px_all['AAPL'].plot() # 苹果公司的股价

@@ -111,14 +111,16 @@ test_str[0] &gt;&gt; &#39;P&#39;
 <li>字符编码：本质是二进制数据与文字的一一对应
 </li>
 <li>编码标准
-</li>
+<ul>
 <li>ASCII（美国信息交换标准编码）早期、无法表示汉字
 </li>
 <li>Unicode：一种新的编码标准，支持几乎所有书写系统
+</li></ul>
 </li>
 <li>编码方式
-</li>
+<ul>
 <li>UTF-8（Unicode Transformation Format）最广泛，可以向后兼容ASCII码
+</li></ul>
 </li></ul>
 <h4 id="encode-decode-的用法">.encode() .decode() 的用法</h4>
 <p>在Python中，.encode() 和 .decode() 是用于处理<strong>字符串</strong>与<strong>字节序列</strong>之间转换的方法，特别是在涉及文本编码和解码时。</p>
@@ -128,12 +130,12 @@ test_str[0] &gt;&gt; &#39;P&#39;
 # 输出的结果是b&#39;&lt;text&gt;&#39;，b为byte，代表文本已编码</code></pre>
 <ul>
 <li>参数：
-</li>
+<ul>
 <li>encoding：指定要使用的编码格式，例如 &#39;utf-8&#39;、&#39;ascii&#39;、&#39;latin-1&#39; 等。如果不指定，默认使用&#39;utf-8&#39;。
 </li>
-<li>errors：指定错误处理方式，如：&#39;strict&#39;（默认）：遇到无法编码的字符时引发
+<li>errors：指定错误处理方式，如：&#39;strict&#39;（默认）：遇到无法编码的字符时引发UnicodeEncodeError。&#39;ignore&#39;：忽略无法编码的字符。&#39;replace&#39;：用替代字符（通常是 ?）替代无法编码的字符。
 </li></ul>
-<p>UnicodeEncodeError。&#39;ignore&#39;：忽略无法编码的字符。&#39;replace&#39;：用替代字符（通常是 ?）替代无法编码的字符。</p>
+</li></ul>
 <pre><code class="language-py">decoded_string = byte_sequence.decode(encoding=&#39;utf-8&#39;, errors=&#39;strict&#39;)</code></pre>
 <h4 id="字符串的索引与切片">字符串的索引与切片</h4>
 <pre><code class="language-py">slice_str = &#39;FINTECH&#39;
@@ -381,12 +383,13 @@ end = &quot;&quot; 取消换行</code></pre>
 <h4 id="迭代器与迭代器协议">迭代器与迭代器协议</h4>
 <ul>
 <li>迭代器（iterator）的特点
-</li>
+<ul>
 <li>惰性计算：不会一次性将所有数据加载到内存，而是按需计算
 </li>
 <li>一次性：用完即废
 </li>
 <li>大部分以<strong>列表</strong>或<strong>列表型为对象</strong>的参数都可以接收迭代器对象
+</li></ul>
 </li>
 <li>生成器（generator）是创建迭代器的一种简单方法，生成器是一种特殊的迭代器。
 </li>
@@ -423,10 +426,13 @@ sum(x**2 for x in range(1,100))</code></pre>
 <h4 id="itertools模块">itertools模块</h4>
 <ul>
 <li>itertools.groupby(iterable, key)
-</li>
+<ul>
 <li>根据每一独一的key，生成<code>(key,sub-iterator)</code>元组
 </li>
-<li>用法：<code>for key, sub in itertools.groupby(iterable, key):       -</code> 只对<code>**</code>相邻的元素<code>**</code>按照<code>key</code>进行分组，如果希望整体分组，先要使用sorted()`方法
+<li>用法：<code>for key, sub in itertools.groupby(iterable, key):</code>
+</li>
+<li><code>groupby()</code> 只对<strong>相邻的元素</strong>按 <code>key</code> 分组。如果希望按同一个键合并分组，先用 <code>sorted()</code> 按同一个键排序。
+</li></ul>
 </li></ul>
 <pre><code class="language-py">import itertools
 
@@ -499,10 +505,11 @@ random.gauss(mu,sigma) #高斯分布</code></pre>
 <li>while循环：在条件为真的情况下重复执行代码块
 </li>
 <li>二者都支持break和continue语句
-</li>
+<ul>
 <li>break：直接跳出循环
 </li>
 <li>continue：跳过当前循环的剩余部分，开始下一次循环
+</li></ul>
 </li></ul>
 <pre><code class="language-py"># 用for循环生成一个99乘法表
 for i in range(1,10):
@@ -704,8 +711,9 @@ with open(path, &#39;r&#39;, encoding = &#39;utf-8&#39;) as f:
 <h4 id="定义和创建对象">定义和创建对象</h4>
 <ul>
 <li>创建对象并调用方法：
-</li>
+<ul>
 <li><code>self</code> 是对象自身的引用，必须作为第一个参数传入类的方法
+</li></ul>
 </li></ul>
 <pre><code class="language-py">class Person:
     # 方法是类内部的函数
@@ -729,8 +737,9 @@ person1.introduce()</code></pre>
 <h4 id="实例属性与类属性">实例属性与类属性</h4>
 <ul>
 <li>实例属性定义在<code>_init_</code> 中，用<code>self</code> 关键字表示
-</li>
+<ul>
 <li>每个对象都有独立的实例属性，互不干扰
+</li></ul>
 </li>
 <li>类属性定义在类的顶层，属于整个类
 </li></ul>
@@ -2900,8 +2909,9 @@ np.where(cond_arr, xarr, yarr)</code></pre>
 </tbody></table>
 <ul>
 <li>mean、sum等函数，既可以求整个数组的值，也可以指定一个axis，形成一个下降一个维度的数组。
-</li>
+<ul>
 <li>axis=0,意为压缩行
+</li></ul>
 </li>
 <li>sum()方法通常可以用于计算布尔值数组中True的个数。
 </li></ul>
@@ -3000,8 +3010,9 @@ obj2**2
 &#39;b&#39; in obj2</code></pre>
 <ul>
 <li>可以直接通过一个字典生成Series <code>obj3 = pd.Series(dict1)</code>
-</li>
+<ul>
 <li>这个方法也可以指定一个索引列表，用以指定索引排列的顺序，当列表中的键没有出现在数据中时，value会返回NaN，当字典数据的键没有出现在列表中时，它将被排除在外。
+</li></ul>
 </li>
 <li>Pandas用isnull notnull检查缺失数据
 </li></ul>
@@ -3160,8 +3171,9 @@ frame3.sort_values(by = [&#39;a&#39;,&#39;b&#39;], ascending = False)</code></pr
 <li>重复索引的情况可以出现，但是并不支持这么做
 </li>
 <li>通过<code>obj.index.is_unique</code> 检查是否存在重复索引
-</li>
+<ul>
 <li>注：这里is_unique不是一个方法，而是一个属性
+</li></ul>
 </li></ul>
 <h4 id="描述性统计概述">描述性统计概述</h4>
 <h4 id="相关系数与协方差">相关系数与协方差</h4>
@@ -3203,20 +3215,22 @@ pd.set_option(&#39;display.expand_frame_repr&#39;, False)  # 不在行数超出�
 <p>index_col</p>
 <ul>
 <li>可以设置为单个列的索引（列名或列的整数位置）或多个列的列表。
-</li>
+<ul>
 <li>如果是整数（如0），表示将第一列作为索引。
 </li>
 <li>如果是列名（如&#39;A&#39;），表示将名为&#39;A&#39;的列作为索引。
 </li>
 <li>如果需要使用多列，可以传递一个列表（如\[0, 1\]），表示将前两列作为多级索引。
 </li></ul>
+</li></ul>
 <p>na_values</p>
 <ul>
 <li>用于缺失值处理
-</li>
+<ul>
 <li>传入列表或字符串
 </li>
 <li>传入<strong>字典</strong>，指定每列应该处理的缺失值是什么
+</li></ul>
 </li></ul>
 <pre><code class="language-py"># This is a comment
 # This is another comment
@@ -3456,10 +3470,11 @@ df_with_dummies = df.join(dummies)</code></pre>
 <li>通过在字符串前面加r，使得反斜杠不会被当做Python的转义字符
 </li>
 <li>下面两种路径都是正确的：
-</li>
+<ul>
 <li>r&#39;C:\xxx&#39;
 </li>
 <li>&#39;C:\\xxx&#39;
+</li></ul>
 </li></ul>
 <h4 id="python内建字符串处理方法">Python内建字符串处理方法</h4>
 <ul>
@@ -3478,8 +3493,9 @@ pieces = [x.strip() for x in val.split(&#39;,&#39;)]</code></pre>
 <li><code>count()</code> 方法，返回字符串出现的次数
 </li>
 <li>定位子字符串：<code>in</code> , <code>find()</code> 和<code>index()</code>
-</li>
+<ul>
 <li><code>str.find()</code> 找不到时返回 -1；<code>str.index()</code> 找不到时抛出 <code>ValueError</code>。
+</li></ul>
 </li>
 <li><code>startwith(), endwith()</code> 字面意思，返回布尔值
 </li>
@@ -3528,12 +3544,13 @@ pieces = [x.strip() for x in val.split(&#39;,&#39;)]</code></pre>
 <li>. 代表任意字符
 </li>
 <li>特殊元字符<strong>(大写表示取反)</strong>
-</li>
+<ul>
 <li>\d = \\[0,9\]; \D =\\[\^0-9\]
 </li>
 <li>\w = \\[a-zA-Z0-9\_\]; \W
 </li>
 <li>\s 匹配任何空白字符（空格，制表符，换行符）; \S
+</li></ul>
 </li>
 <li>\^匹配行首字符，\$匹配行尾字符
 </li></ul>
@@ -3598,8 +3615,9 @@ print(match2.group(2)) #7890</code></pre>
 <h4 id="re模块">re模块</h4>
 <ul>
 <li><code>re.match()</code> 如果模式匹配成功，它返回一个匹配对象；如果匹配失败，则返回None。
-</li>
+<ul>
 <li>匹配结果可以通过<code>result.group()</code> 返回。
+</li></ul>
 </li>
 <li><code>re.search(pattern,string)</code> 扫描整个字符串，找到<strong>第一个</strong>匹配的地方。
 </li>
@@ -3675,10 +3693,11 @@ plt.show()</code></pre>
 <p>代码块<code>fig = plt.figure()</code></p>
 <ul>
 <li><code>plt.show()</code> 为<strong>阻塞式调用方法</strong>，会释放内存中的所有图形资源，并阻碍下面代码的运行。（可以指定<code>block=False</code> 改为非阻塞式调用）
-</li>
+<ul>
 <li>在使用内联绘图后端的 Jupyter Notebook 中，通常不用显式调用 <code>plt.show()</code> 也能显示图像。
 </li>
 <li>如果一次只创建一个图形，就不需要显式定义Figure对象
+</li></ul>
 </li></ul>
 <pre><code class="language-py">fig1 = plt.figure(1) # 指定当前活动图形
 plt.plot(np.random.randn(1000).cumsum()) # 将图形命令分配给Figure1
@@ -3689,8 +3708,9 @@ plt.plot(np.random.randn(500).cumsum()) # ...
 plt.show() #将内存中的Figure1和Figure2同时释放，并阻塞命令行</code></pre>
 <ul>
 <li><code>plt.subplots(2, 2)</code> 一次创建一个 Figure 和四个 Axes，比逐个调用 <code>add_subplot()</code> 更直接。
-</li>
+<ul>
 <li>返回的 <code>axes</code> 可按行列索引；左上角是 <code>axes[0, 0]</code>。
+</li></ul>
 </li></ul>
 <pre><code class="language-py">fig, axes = plt.subplots(2,2)
 axes[0,0] =
@@ -3698,12 +3718,13 @@ axes[0,1] =
 # 略</code></pre>
 <ul>
 <li><code>plt.subplots()</code> 其他选项
-</li>
+<ul>
 <li><code>sharex</code>与<code>sharey</code> 所有子图使用相同的x\y刻度
 </li>
 <li><code>figsize</code> 以元组\<em>宽度，高度\</em> 的形式传入
 </li>
 <li><code>dpi</code> 分辨率：默认值为100
+</li></ul>
 </li>
 <li><code>plt.subplots_adjust()</code> 用于调整subplot子图周围的间距
 </li></ul>
@@ -3711,19 +3732,21 @@ axes[0,1] =
 <h4 id="figure对象与axes对象">Figure对象与Axes对象</h4>
 <ul>
 <li>Figure是顶层画布，相当于一张纸
-</li>
+<ul>
 <li>Figure对象常用属性和方法：
-</li>
+<ul>
 <li>figsize画布大小；dpi分辨率
 </li>
 <li>fig.add_subplot()添加子图
 </li>
 <li>fig.savefig()保存图片
+</li></ul>
+</li></ul>
 </li>
 <li>Axes是图中的<strong>实际绘图区域</strong>，一个Figure对象中可以有多个Axes对象
-</li>
+<ul>
 <li>Axes对象常用属性和方法：
-</li>
+<ul>
 <li><code>axes.plot()</code> 折线；<code>axes.scatter()</code> 散点图
 </li>
 <li><code>axes.set_title()</code> 设置标题
@@ -3731,6 +3754,8 @@ axes[0,1] =
 <li><code>axes.set_xlabel()/ylabel()</code> 设置标签
 </li>
 <li><code>axes.set_xtick()/ytick()</code> 设置标签刻度
+</li></ul>
+</li></ul>
 </li></ul>
 <h4 id="pyplot的状态机接口机制">pyplot的状态机接口机制</h4>
 <ul>
@@ -3748,8 +3773,9 @@ ax.plot(x, y, color=&#39;g&#39;, marker=&#39;o&#39;, linestyle=&#39;--&#39;) # �
 <li>可以通过<strong>十六进制颜色编码</strong>指定颜色
 </li>
 <li><code>drawstyle</code> 选项
-</li>
+<ul>
 <li>三种：steps-pre; steps-mid; steps-post
+</li></ul>
 </li></ul>
 <pre><code class="language-py">plt.plot(data, &#39;bo--&#39;, label=&#39;Default&#39;)
 plt.plot(data, &#39;g-&#39;, drawstyle=&#39;steps-post&#39;, label=&#39;steps-post&#39;) #后跳步方式</code></pre>
@@ -3821,7 +3847,7 @@ axes.set_ylim([600,1800])</code></pre>
 <h4 id="将图片保存到文件">将图片保存到文件</h4>
 <ul>
 <li><code>fig.fivefig()/ plt.savefig()</code>
-</li>
+<ul>
 <li><code>fname</code> 指定文件名称
 </li>
 <li><code>dpi</code> 指定分辨率
@@ -3829,6 +3855,7 @@ axes.set_ylim([600,1800])</code></pre>
 <li><code>format</code> 指定格式
 </li>
 <li><code>bbox_inches</code> 要保存的图片范围，如果传递tight，则会去除掉空白部分
+</li></ul>
 </li></ul>
 <h4 id="axes图表方法">Axes图表方法</h4>
 <ul>
@@ -3841,7 +3868,7 @@ axes.set_ylim([600,1800])</code></pre>
 <h4 id="柱状图">柱状图</h4>
 <ul>
 <li>基本语法：Axes.bar(x, height, width=0.8, bottom=None, align=&#39;center&#39;,<code>\</code>color=None, edgecolor=None, **kwargs)
-</li>
+<ul>
 <li>x为分组，height为每组的高度
 </li>
 <li>width是每个柱的宽度
@@ -3849,12 +3876,14 @@ axes.set_ylim([600,1800])</code></pre>
 <li>bottom定义柱子在 y 轴方向上的起点，默认从 0 开始
 </li>
 <li>align控制柱子与xtick的对齐方式
-</li>
+<ul>
 <li>center即中心对齐
 </li>
 <li>edge为左对齐
+</li></ul>
 </li>
 <li>color为柱子的颜色，edgecolor为柱子边框的颜色
+</li></ul>
 </li></ul>
 <pre><code class="language-py">df = pd.DataFrame(np.random.randn(10,4).cumsum(0),
                   columns=[&#39;A&#39;,&#39;B&#39;,&#39;C&#39;,&#39;D&#39;],
@@ -3944,10 +3973,11 @@ plt.show()</code></pre>
 <h4 id="time模块">time模块</h4>
 <ul>
 <li>提供简单低等级的时间操作
-</li>
+<ul>
 <li>获取当前时间戳<code>time.time()</code>
 </li>
 <li>程序暂停功能<code>time.sleep(second)</code>
+</li></ul>
 </li></ul>
 <h4 id="datetime模块">datetime模块</h4>
 <ul>
@@ -3971,7 +4001,7 @@ delta.days # datetime.timedelta类型</code></pre>
 <h4 id="字符串与datetime类型的互相转化">字符串与datetime类型的互相转化</h4>
 <ul>
 <li>使用str方法或者传递一个指定的格式给<code>strftime()</code> 方法对<strong>datetime对象</strong>或pandas的<strong>Timestamp对象</strong>进行格式化
-</li>
+<ul>
 <li>%Y 四位年份， %y两位年份
 </li>
 <li>%m 两位年份
@@ -3984,6 +4014,7 @@ delta.days # datetime.timedelta类型</code></pre>
 </li>
 <li>%S 秒
 </li></ul>
+</li></ul>
 <pre><code class="language-py">stamp = datetime(2011, 1, 3)
 stampstr = stamp.strftime(&#39;%Y-%m-%d&#39;)</code></pre>
 <ul>
@@ -3993,8 +4024,9 @@ stampstr = stamp.strftime(&#39;%Y-%m-%d&#39;)</code></pre>
 [datetime.strptime(x, &#39;%m/%d/%Y&#39;) for x in datestrs]</code></pre>
 <ul>
 <li>dateutil包的parser.parse方法：能够解析大部分人类可理解的日期表示
-</li>
+<ul>
 <li>参数<code>dayfirst=True</code> 显式表明日期在月份之前
+</li></ul>
 </li></ul>
 <pre><code class="language-py">from dateutil.parser import parse
 parse(&#39;JAN 31, 1997, 10:45 PM&#39;)
@@ -4083,7 +4115,7 @@ grouped = dup_ts.groupby(level=0) # 实行聚合操作</code></pre>
 pd.date_range(start=&#39;2023-03-09&#39;, periods=20) # 指定期数</code></pre>
 <ul>
 <li><code>freq</code> 的用法
-</li>
+<ul>
 <li>D为每日，B为每工作日
 </li>
 <li>在 pandas 3.x 中，使用 <code>h</code>（小时）、<code>min</code>（分钟）、<code>s</code>（秒）。
@@ -4099,6 +4131,7 @@ pd.date_range(start=&#39;2023-03-09&#39;, periods=20) # 指定期数</code></pre
 <li>日期偏移与倍数：例如：4H代表每四个小时
 </li>
 <li>还有很多......
+</li></ul>
 </li></ul>
 <h4 id="移动数据">移动数据</h4>
 <ul>
@@ -4125,8 +4158,9 @@ monthly.index = monthly.index.to_period(&quot;M&quot;)  # 结果索引改为月�
 <li>closed指定了<strong>时间窗口</strong>哪边关闭
 </li>
 <li>label指定了重采样后的时间戳采用哪一侧的
-</li>
+<ul>
 <li>可以使用<code>offset</code> 对结果索引做位移操作（注意不是loffset）
+</li></ul>
 </li>
 <li>例如：1min--5min的降采样：
 </li></ul>
@@ -4140,16 +4174,18 @@ df_hour = df_daily.resample(&quot;h&quot;).ffill() # 向前填充</code></pre>
 <h4 id="ohlc重采样">OHLC重采样</h4>
 <ul>
 <li><code>ts.resample(freq).ohlc()</code> 是 Pandas 中用于时间序列重采样的一种方法，<strong>ohlc 是Open, High, Low, Close</strong> 的缩写，主要用于处理金融时间序列数据（如股票价格或交易量）。
-</li>
+<ul>
 <li>调用后，pandas自动计算窗口期内的最大值、最小值、第一个值、最后一个值，并返回一个四列的Dataframe
+</li></ul>
 </li></ul>
 <pre><code class="language-py">ts.resample(&#39;5min&#39;).ohlc()</code></pre>
 <h4 id="通过时期进行重采样">通过时期进行重采样</h4>
 <h4 id="移动窗口函数">移动窗口函数</h4>
 <ul>
 <li>移动窗口按顺序计算局部统计量，例如移动平均，用于观察趋势和短期波动。
-</li>
+<ul>
 <li><code>rolling(250)</code> 使用最近 250 个观测，股票日线中通常对应 250 个有效交易日；<code>rolling(&#39;250D&#39;)</code> 使用 250 日的时间跨度。整数窗口默认要求有完整窗口的观测数，时间窗口的 <code>min_periods</code> 默认是 1。
+</li></ul>
 </li></ul>
 <pre><code class="language-py">close_px_all[&#39;AAPL&#39;].plot() # 苹果公司的股价
 close_px_all[&#39;AAPL&#39;].rolling(250).mean().plot() # 苹果公司股价最近 250 个日线观测的移动平均
