@@ -32,7 +32,9 @@ c&=d
 \end{aligned}`;
   const article = buildArticleHtml({ title:"笔记", kind:"notes" }, "## 一\n\n$$"+formula+"$$\n\n## 二");
   assert.match(article, /class="math-block">\$\$\\begin\{aligned\}[\s\S]*\\end\{aligned\}\$\$<\/div>\s*<h2 id="二">二/);
-  assert.ok(article.includes("katex.min.js"));
+  assert.ok(article.includes("../js/vendor/katex-0.16.11/katex.min.js"));
+  assert.ok(article.includes("../css/vendor/katex-0.16.11/katex.min.css"));
+  assert.doesNotMatch(article, /cdn\.jsdelivr\.net/);
 });
 
 test("保留行内公式、原样代码和列表中的强调", () => {
@@ -40,4 +42,8 @@ test("保留行内公式、原样代码和列表中的强调", () => {
   assert.ok(html.includes("<strong>父项</strong>：\\(a&lt;b\\)"));
   assert.ok(html.includes("<code>list[-1]</code>"));
   assert.match(html, /<pre><code[^>]*>  - 这里是代码<\/code><\/pre>/);
+});
+test("长笔记的图片延迟加载，保留本地资源路径", () => {
+  const html = markdownToHtml("![](../content/assets/notes/note/image-01.png)");
+  assert.match(html, /<img loading="lazy" decoding="async" src="\.\.\/content\//);
 });

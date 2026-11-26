@@ -767,7 +767,7 @@ function markdownToHtml(markdown) {
       flushList();
       flushQuote();
       html.push(
-        `<figure><img src="${escapeHtml(imageMatch[2])}" alt="${escapeHtml(imageMatch[1])}">${imageMatch[1] ? `<figcaption>${escapeHtml(imageMatch[1])}</figcaption>` : ""}</figure>`,
+        `<figure><img loading="lazy" decoding="async" src="${escapeHtml(imageMatch[2])}" alt="${escapeHtml(imageMatch[1])}">${imageMatch[1] ? `<figcaption>${escapeHtml(imageMatch[1])}</figcaption>` : ""}</figure>`,
       );
       continue;
     }
@@ -819,7 +819,7 @@ function buildArticleHtml(meta, markdownBody) {
   const date = escapeHtml(meta.date || "");
   const tags = (meta.tags || []).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("");
   const mathStylesheet = hasMath
-    ? '  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">'
+    ? '  <link rel="stylesheet" href="../css/vendor/katex-0.16.11/katex.min.css">'
     : "";
   const tocLabel = isNote ? "Chapters" : "On This Page";
   const chapterPagination = isNote
@@ -891,8 +891,8 @@ ${mathStylesheet}
   <script src="../js/article.js?v=2.3.2"></script>
 ${
     hasMath
-      ? `<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+      ? `<script defer src="../js/vendor/katex-0.16.11/katex.min.js"></script>
+  <script defer src="../js/vendor/katex-0.16.11/auto-render.min.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       if (typeof renderMathInElement !== "function") return;

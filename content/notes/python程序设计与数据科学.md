@@ -2,11 +2,11 @@
 title: "Python程序设计与数据科学"
 slug: "python程序设计与数据科学"
 date: "2026-11-26"
-lastEditedTime: "2026-11-26T10:16:04.803Z"
+lastEditedTime: "2026-11-26T10:25:29.951Z"
 renderVersion: "9"
 category: "study"
 tags: ["coding","study"]
-status: "Ready"
+status: "Published"
 notionPageId: "424db726-82a8-81a5-92ee-e6cf7c07980d"
 ---
 

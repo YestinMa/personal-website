@@ -13,7 +13,7 @@
 
 ## Notion 内容同步
 
-同步脚本位于 `frontend/scripts/sync-notion.js`，仅同步状态为 `Published`、`Public` 或 `Ready` 的页面。生成的文章支持标题目录、公式、Mermaid、代码块和本地化图片。
+同步脚本位于 `frontend/scripts/sync-notion.js`，仅同步状态为 `Published`、`Public` 或 `Ready` 的页面。生成的文章支持标题目录、公式、Mermaid、代码块和本地化图片。新生成文章的 KaTeX 及字体随站点部署，不依赖外部公式 CDN；第三方许可证随样式存放。
 
 在仓库根目录配置 `.env`：
 
