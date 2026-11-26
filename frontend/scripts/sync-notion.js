@@ -811,6 +811,7 @@ function markdownToHtml(markdown) {
 
 function buildArticleHtml(meta, markdownBody) {
   const articleHtml = markdownToHtml(markdownBody);
+  const hasCode = articleHtml.includes("<pre><code");
   const hasMermaid = articleHtml.includes('class="mermaid"');
   const hasMath = containsMath(markdownBody);
   const isNote = meta.kind === "notes";
@@ -837,7 +838,7 @@ function buildArticleHtml(meta, markdownBody) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="${escapeHtml(meta.title)}">
   <title>${title} — Yuyao Ma</title>
-  <link rel="stylesheet" href="../css/style.css?v=2.0.3">
+  <link rel="stylesheet" href="../css/style.css?v=2.0.4">
 ${mathStylesheet}
 </head>
 <body class="article-page${isNote ? " article-notes-page" : ""}">
@@ -889,6 +890,13 @@ ${mathStylesheet}
 
   <script src="../js/main.js?v=2.3.0"></script>
   <script src="../js/article.js?v=2.3.2"></script>
+${
+    hasCode
+      ? `<script defer data-manual src="../js/vendor/prism-1.30.0/prism-core.min.js"></script>
+  <script defer src="../js/vendor/prism-1.30.0/prism-python.min.js"></script>
+  <script defer src="../js/article-code.js?v=1"></script>`
+      : ""
+  }
 ${
     hasMath
       ? `<script defer src="../js/vendor/katex-0.16.11/katex.min.js"></script>

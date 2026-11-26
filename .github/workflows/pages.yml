@@ -41,12 +41,15 @@ jobs:
           git archive HEAD -- "${public_paths[@]}" | tar -x -C dist
           node scripts/generate-logs.mjs dist/content/logs.json
           touch dist/.nojekyll
-      - name: Verify packaged math assets
+      - name: Verify packaged article assets
         run: |
           test -s dist/css/vendor/katex-0.16.11/katex.min.css
           test -s dist/js/vendor/katex-0.16.11/katex.min.js
           test -s dist/js/vendor/katex-0.16.11/auto-render.min.js
           test -s dist/css/vendor/katex-0.16.11/fonts/KaTeX_Main-Regular.woff2
+          test -s dist/js/vendor/prism-1.30.0/prism-core.min.js
+          test -s dist/js/vendor/prism-1.30.0/prism-python.min.js
+          test -s dist/js/article-code.js
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

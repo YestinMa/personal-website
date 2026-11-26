@@ -71,3 +71,13 @@ test("重建索引时同时保留 Windows 检出的旧笔记和新生成的笔�
   const index = JSON.parse(await readFile(path.join(root, "index.json"), "utf8"));
   assert.deepEqual(index.notes.map(({ href }) => href), ["notes/新笔记.html", "notes/旧笔记.html"]);
 });
+
+test("本地着色脚本只随有普通代码块的文章加载，保留原样代码", () => {
+  const meta = { title: "代码笔记", kind: "notes" };
+  const fence = String.fromCharCode(96).repeat(3);
+  const article = buildArticleHtml(meta, [fence + "py", 'if x < 1:', '    print("<tag>")', fence].join("\n"));
+  assert.match(article, /<pre><code class="language-py">if x &lt; 1:\n    print\(&quot;&lt;tag&gt;&quot;\)<\/code><\/pre>/);
+  assert.match(article, /src="\.\.\/js\/vendor\/prism-1\.30\.0\/prism-core\.min\.js"[\s\S]*prism-python\.min\.js[\s\S]*article-code\.js/);
+  const noCode = buildArticleHtml(meta, [fence + "mermaid", "graph LR", "A --> B", fence].join("\n"));
+  assert.doesNotMatch(noCode, /prism-|article-code\.js/);
+});
