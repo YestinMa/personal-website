@@ -29,8 +29,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Test logs generation
-        run: node --test scripts/generate-logs.test.mjs scripts/logs-ui.test.mjs
+      - name: Test logs and article rendering
+        run: node --test scripts/generate-logs.test.mjs scripts/logs-ui.test.mjs frontend/scripts/sync-notion.test.mjs
       - name: Package tracked public assets
         env:
           GITHUB_TOKEN: ${{ github.token }}

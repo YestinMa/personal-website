@@ -33,6 +33,13 @@ npm install
 npm run sync
 ```
 
+只发布一条笔记时，用 Notion 页面 ID 限定同步范围。该模式拒绝发布仍在草稿状态或无法下载原图的页面：
+
+```powershell
+cd frontend
+npm run sync -- --page-id <Notion页面ID>
+```
+
 仅根据现有 Markdown 重新生成文章 HTML，无需访问 Notion：
 
 ```powershell

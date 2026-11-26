@@ -273,6 +273,7 @@ img { display: block; max-width: 100%; }
 .article-content th { color: var(--ink); font-weight: 600; border-top: 1px solid var(--line); }
 .article-content p, .article-content ul, .article-content ol, .article-content blockquote, .article-content pre, .article-content figure, .article-content .math-block { margin: 0 0 1.4rem; }
 .article-content ul, .article-content ol { padding-left: 1.4rem; }
+.article-content li > :is(ul, ol, p) { margin: .25rem 0; }
 .article-content blockquote { margin-left: 0; padding-left: 1.4rem; border-left: 1px solid var(--navy); color: var(--muted); font-family: var(--serif); font-size: 1.15rem; }
 .article-content a { color: var(--navy); text-underline-offset: 3px; }
 .article-content code { font-family: Consolas, Monaco, monospace; font-size: .88em; }

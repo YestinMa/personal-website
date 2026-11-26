@@ -1,5 +1,4 @@
 import fs from "node:fs/promises";
-import https from "node:https";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
@@ -75,7 +74,6 @@ function getConfig() {
 
 async function notionRequest(token, apiPath, init = {}) {
   const url = new URL(`${NOTION_API_BASE}${apiPath}`);
-  const body = init.body || "";
   const method = init.method || "GET";
   const headers = {
     Authorization: `Bearer ${token}`,
@@ -84,57 +82,26 @@ async function notionRequest(token, apiPath, init = {}) {
     ...(init.headers || {}),
   };
 
-  for (let attempt = 1; attempt <= 3; attempt += 1) {
+  // 同步只读操作可安全重试，避免临时限流或连接重置中断长笔记。
+  for (let attempt = 1; attempt <= 4; attempt += 1) {
+    let response;
     try {
-      const response = await new Promise((resolve, reject) => {
-        const request = https.request(
-          url,
-          {
-            method,
-            headers,
-            timeout: 30000,
-          },
-          (result) => {
-            const chunks = [];
-            result.on("data", (chunk) => chunks.push(chunk));
-            result.on("end", () => {
-              const rawBody = Buffer.concat(chunks).toString("utf8");
-              resolve({
-                statusCode: result.statusCode || 0,
-                statusMessage: result.statusMessage || "",
-                body: rawBody,
-              });
-            });
-          },
-        );
-
-        request.on("timeout", () => {
-          request.destroy(new Error("Request timed out"));
-        });
-        request.on("error", reject);
-
-        if (body) {
-          request.write(body);
-        }
-        request.end();
+      response = await fetch(url, {
+        method, headers,
+        ...(init.body ? { body: init.body } : {}),
+        signal: AbortSignal.timeout(30000),
       });
-
-      if (response.statusCode < 200 || response.statusCode >= 300) {
-        throw new Error(`Notion API request failed: ${response.statusCode} ${response.statusMessage}\n${response.body}`);
+      const body = await response.text();
+      if (response.ok) return JSON.parse(body);
+      if (attempt === 4 || (response.status !== 429 && response.status < 500)) {
+        throw new Error(`Notion API request failed: ${response.status} ${body.slice(0, 300)}`);
       }
-
-      return JSON.parse(response.body);
     } catch (error) {
-      const isRetryable =
-        attempt < 3 &&
-        (error.code === "ECONNRESET" || error.code === "ETIMEDOUT" || error.message === "Request timed out");
-
-      if (!isRetryable) {
-        throw error;
-      }
-
-      await new Promise((resolve) => setTimeout(resolve, attempt * 1000));
+      const transient = ["ECONNRESET", "ETIMEDOUT", "UND_ERR_SOCKET", "UND_ERR_CONNECT_TIMEOUT"].includes(error.cause?.code);
+      if (attempt === 4 || (!transient && error.name !== "TimeoutError")) throw error;
     }
+    const retryAfter = Number(response?.headers.get("Retry-After")) || 0;
+    await new Promise((resolve) => setTimeout(resolve, Math.max(1000 * attempt, 1000 * retryAfter)));
   }
 }
 
@@ -387,43 +354,26 @@ function getExtensionFromContentType(contentType) {
   return mapping[normalized] || "";
 }
 
-async function downloadFile(url, redirectCount = 0) {
-  if (redirectCount > 5) {
-    throw new Error(`Too many redirects while downloading ${url}`);
+async function downloadFile(url) {
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
+    try {
+      const response = await fetch(url, { signal: AbortSignal.timeout(30000) });
+      if (!response.ok) {
+        await response.body?.cancel();
+        const error = new Error(`Image download failed: ${response.status}`);
+        error.retryable = response.status === 429 || response.status >= 500;
+        throw error;
+      }
+      return {
+        buffer: Buffer.from(await response.arrayBuffer()),
+        contentType: response.headers.get("content-type") || "",
+      };
+    } catch (error) {
+      const transient = ["ECONNRESET", "ETIMEDOUT", "UND_ERR_SOCKET", "UND_ERR_CONNECT_TIMEOUT"].includes(error.cause?.code);
+      if (attempt === 3 || (!transient && error.name !== "TimeoutError" && !error.retryable)) throw error;
+      await new Promise((resolve) => setTimeout(resolve, attempt * 750));
+    }
   }
-
-  return new Promise((resolve, reject) => {
-    const request = https.get(url, { timeout: 30000 }, (response) => {
-      const statusCode = response.statusCode || 0;
-
-      if (statusCode >= 300 && statusCode < 400 && response.headers.location) {
-        response.resume();
-        const redirectUrl = new URL(response.headers.location, url).toString();
-        downloadFile(redirectUrl, redirectCount + 1).then(resolve, reject);
-        return;
-      }
-
-      if (statusCode < 200 || statusCode >= 300) {
-        response.resume();
-        reject(new Error(`Image download failed: ${statusCode} ${response.statusMessage || ""}`.trim()));
-        return;
-      }
-
-      const chunks = [];
-      response.on("data", (chunk) => chunks.push(chunk));
-      response.on("end", () => {
-        resolve({
-          buffer: Buffer.concat(chunks),
-          contentType: response.headers["content-type"] || "",
-        });
-      });
-    });
-
-    request.on("timeout", () => {
-      request.destroy(new Error("Image download timed out"));
-    });
-    request.on("error", reject);
-  });
 }
 
 async function localizeImage(image, context) {
@@ -435,7 +385,10 @@ async function localizeImage(image, context) {
   try {
     const downloaded = await downloadFile(sourceUrl);
     const imageIndex = context.nextImageIndex();
-    const extension = getExtensionFromUrl(sourceUrl) || getExtensionFromContentType(downloaded.contentType) || ".img";
+    const extension = getExtensionFromContentType(downloaded.contentType) || getExtensionFromUrl(sourceUrl) || ".img";
+    if (context.strictImages && (extension === ".img" || !downloaded.buffer.length)) {
+      throw new Error("Unexpected image format or empty image");
+    }
     const fileName = `image-${String(imageIndex).padStart(2, "0")}${extension}`;
     const targetPath = path.join(context.assetDir, fileName);
 
@@ -445,6 +398,9 @@ async function localizeImage(image, context) {
     // HTML 文件位于 notes/ 或 blog/，因此本地图片用相对站点根目录的路径引用。
     return `${context.assetHrefBase}/${fileName}`;
   } catch (error) {
+    if (context.strictImages) {
+      throw new Error("Notion 图片本地化失败；发布产物不能引用会过期的签名 URL。", { cause: error });
+    }
     console.warn(`Unable to localize Notion image, falling back to signed URL: ${error.message}`);
     return sourceUrl;
   }
@@ -489,6 +445,7 @@ async function renderBlocks(token, blocks, context, depth = 0) {
         break;
       case "quote":
         lines.push(`${indent}> ${getBlockText(block, "quote")}`, "");
+        if (children.length) lines.push((await renderBlocks(token, children, context, depth)).trimEnd(), "");
         break;
       case "code": {
         const language = block.code.language || "";
@@ -502,7 +459,7 @@ async function renderBlocks(token, blocks, context, depth = 0) {
         break;
       case "image": {
         const url = await localizeImage(block.image, context);
-        const caption = richTextToMarkdown(block.image.caption || []) || "Notion image";
+        const caption = richTextToMarkdown(block.image.caption || []);
         lines.push(`![${caption}](${url})`, "");
         break;
       }
@@ -533,7 +490,8 @@ async function renderBlocks(token, blocks, context, depth = 0) {
     }
   }
 
-  return `${lines.join("\n").replace(/\n{3,}/g, "\n\n").trim()}\n`;
+  const joined = lines.join("\n").replace(/\n{3,}/g, "\n\n").trimEnd();
+  return `${depth ? joined : joined.trimStart()}\n`;
 }
 
 function toFrontmatter(meta) {
@@ -604,11 +562,15 @@ function parseInlineMarkdown(text) {
   });
 
   let html = escapeHtml(withPlaceholders);
+  // 表格单元格里的显式换行只放行 br 标签，其他 HTML 仍按文本转义。
+  html = html.replace(/&lt;br\s*\/?&gt;/gi, "<br>");
   html = html.replace(/`([^`]+)`/g, "<code>$1</code>");
   html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
   html = html.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
   html = html.replace(/\*([^*]+)\*/g, "<em>$1</em>");
-  html = html.replace(/~~([^~]+)~~/g, "<del>$1</del>");
+  html = html.replace(/(?<!\\)\*\*([^*\n]+)\*\*/g, "<strong>$1</strong>");
+  html = html.replace(/(?<!\\)\*([^*\n]+)\*/g, "<em>$1</em>");
+  html = html.replace(/(?<!\\)~~([^~\n]+)~~/g, "<del>$1</del>");
   html = html.replace(/\\([\\`*_{}\[\]()#+\-.!|>])/g, "$1");
   html = html.replace(/__INLINE_TOKEN_(\d+)__/g, (_, index) => {
     const segment = protectedSegments[Number(index)] || "";
@@ -633,7 +595,8 @@ function markdownToHtml(markdown) {
   let inCodeBlock = false;
   let codeLanguage = "";
   let codeLines = [];
-  let listType = null;
+  const lists = [];
+  let displayMath = null;
   let quoteLines = [];
   let tableRows = [];
 
@@ -643,10 +606,32 @@ function markdownToHtml(markdown) {
     paragraph = [];
   }
 
+  function closeList() {
+    const list = lists.pop();
+    if (list) html.push(`</li></${list.type}>`);
+  }
+
   function flushList() {
-    if (!listType) return;
-    html.push(`</${listType}>`);
-    listType = null;
+    while (lists.length) closeList();
+  }
+
+  function addListItem(indent, type, marker, content) {
+    // 子列表必须在父 <li> 内打开；退回同级时先关闭子列表与上一个条目。
+    while (lists.length && (lists.at(-1).indent > indent ||
+           (lists.at(-1).indent === indent && lists.at(-1).type !== type))) closeList();
+    const parent = lists.at(-1);
+    if (parent?.indent === indent) {
+      html.push("</li>");
+    } else {
+      const start = type === "ol" && marker !== 1 ? ` start="${marker}"` : "";
+      html.push(`<${type}${start}>`);
+      lists.push({ indent, type });
+    }
+    html.push(`<li>${parseInlineMarkdown(content)}`);
+  }
+
+  function renderDisplayMath(formula) {
+    html.push(`<div class="math-block">${escapeHtml(formula)}</div>`);
   }
 
   function flushQuote() {
@@ -684,7 +669,8 @@ function markdownToHtml(markdown) {
     tableRows = [];
   }
 
-  for (const rawLine of lines) {
+  for (let i = 0; i < lines.length; i += 1) {
+    const rawLine = lines[i];
     const line = rawLine.trimEnd();
 
     if (inCodeBlock) {
@@ -696,9 +682,22 @@ function markdownToHtml(markdown) {
       continue;
     }
 
+    if (displayMath !== null) {
+      displayMath.push(rawLine);
+      if (line.trimEnd().endsWith("$$")) {
+        renderDisplayMath(displayMath.join("\n"));
+        displayMath = null;
+      }
+      continue;
+    }
+
     if (!line.trim()) {
       flushParagraph();
-      flushList();
+      // 空行后的缩进条目或段落仍属上一项，不关闭父列表。
+      let nextIndex = i + 1;
+      while (nextIndex < lines.length && !lines[nextIndex].trim()) nextIndex += 1;
+      const next = lines[nextIndex] || "";
+      if (!lists.length || !/^\s+\S/.test(next)) flushList();
       flushQuote();
       flushTable();
       continue;
@@ -751,12 +750,14 @@ function markdownToHtml(markdown) {
       continue;
     }
 
-    if (isDisplayMathLine(line)) {
+    if (line.trimStart().startsWith("$$") &&
+        (isDisplayMathLine(line) || lines.slice(i + 1).some((later) => later.trimEnd().endsWith("$$")))) {
       flushParagraph();
       flushList();
       flushQuote();
-      // display 公式单独包裹，便于 KaTeX 识别与滚动显示。
-      html.push(`<div class="math-block">${escapeHtml(line.trim())}</div>`);
+      // Notion 的 aligned 等公式跨行；保留 LaTeX 空白与独立公式的边界。
+      if (isDisplayMathLine(line)) renderDisplayMath(line.trim());
+      else displayMath = [rawLine.trimStart()];
       continue;
     }
 
@@ -779,29 +780,18 @@ function markdownToHtml(markdown) {
       continue;
     }
 
-    const unorderedMatch = rawLine.match(/^\s*-\s+(.*)$/);
-    if (unorderedMatch) {
+    const listMatch = rawLine.match(/^([ \t]*)(-|([1-9]\d*)\.)\s+(\S.*)$/);
+    if (listMatch) {
       flushParagraph();
       flushQuote();
-      if (listType !== "ul") {
-        flushList();
-        listType = "ul";
-        html.push("<ul>");
-      }
-      html.push(`<li>${parseInlineMarkdown(unorderedMatch[1])}</li>`);
+      const indent = listMatch[1].replace(/\t/g, "  ").length;
+      addListItem(indent, listMatch[3] ? "ol" : "ul", Number(listMatch[3]), listMatch[4]);
       continue;
     }
 
-    const orderedMatch = rawLine.match(/^\s*1\.\s+(.*)$/);
-    if (orderedMatch) {
-      flushParagraph();
-      flushQuote();
-      if (listType !== "ol") {
-        flushList();
-        listType = "ol";
-        html.push("<ol>");
-      }
-      html.push(`<li>${parseInlineMarkdown(orderedMatch[1])}</li>`);
+    const indent = (rawLine.match(/^[ \t]*/)[0]).replace(/\t/g, "  ").length;
+    if (lists.length && indent > lists.at(-1).indent) {
+      html.push(`<p>${parseInlineMarkdown(line.trim())}</p>`);
       continue;
     }
 
@@ -847,7 +837,7 @@ function buildArticleHtml(meta, markdownBody) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="${escapeHtml(meta.title)}">
   <title>${title} — Yuyao Ma</title>
-  <link rel="stylesheet" href="../css/style.css?v=2.0.2">
+  <link rel="stylesheet" href="../css/style.css?v=2.0.3">
 ${mathStylesheet}
 </head>
 <body class="article-page${isNote ? " article-notes-page" : ""}">
@@ -952,6 +942,7 @@ async function indexExistingContent(rootDir) {
       if (notionPageIdMatch) {
         state.set(notionPageIdMatch[1], {
           path: fullPath,
+          status: parseFrontmatter(content)?.status || "",
           htmlPath: path.join(REPO_ROOT, kind, `${entry.name.replace(/\.md$/, "")}.html`),
           lastEditedTime: lastEditedTimeMatch ? lastEditedTimeMatch[1] : "",
           renderVersion: renderVersionMatch ? renderVersionMatch[1] : "",
@@ -963,7 +954,7 @@ async function indexExistingContent(rootDir) {
   return state;
 }
 
-async function syncPage(token, page, ancestors, defaultStatus, isContainer, existingById, contentRoot) {
+async function syncPage(token, page, ancestors, defaultStatus, isContainer, existingById, contentRoot, { strictImages = false } = {}) {
   if (isContainer) {
     return { status: "skipped", reason: "container", meta: { notionPageId: page.id } };
   }
@@ -999,6 +990,7 @@ async function syncPage(token, page, ancestors, defaultStatus, isContainer, exis
   if (
     existing &&
     existing.lastEditedTime === meta.lastEditedTime &&
+    existing.status === meta.status &&
     existing.path === targetPath &&
     htmlAlreadyExists &&
     existing.renderVersion === CONTENT_RENDER_VERSION
@@ -1011,6 +1003,7 @@ async function syncPage(token, page, ancestors, defaultStatus, isContainer, exis
   await fs.rm(assetDir, { recursive: true, force: true });
   let imageIndex = 0;
   const markdownBody = await renderBlocks(token, blocks, {
+    strictImages,
     assetDir,
     assetHrefBase: getAssetHrefBase(meta),
     nextImageIndex: () => {
@@ -1160,7 +1153,23 @@ async function main() {
   const config = getConfig();
   const contentRoot = config.contentRoot;
   const existingById = await indexExistingContent(contentRoot);
-  const sourcePages = await collectSourcePages(config);
+  const argumentIndex = process.argv.indexOf("--page-id");
+  const targetId = argumentIndex === -1 ? "" : process.argv[argumentIndex + 1];
+  if (argumentIndex !== -1 && (!targetId || !/^[0-9a-f-]{32,36}$/i.test(targetId) || targetId.replace(/-/g, "").length !== 32)) {
+    throw new Error("--page-id requires a Notion page UUID");
+  }
+  const entries = await collectSourcePages(config);
+  const sourcePages = targetId
+    ? entries.filter(({page}) => page.id.replace(/-/g, "") === targetId.replace(/-/g, "").toLowerCase())
+    : entries;
+  if (targetId && sourcePages.length !== 1) throw new Error("Requested page is not in the configured Notion source");
+  if (targetId) {
+    const entry = sourcePages[0];
+    const meta = parsePageMeta(entry.page, entry.ancestors, entry.defaultStatus);
+    if (!isPublishedStatus(meta.status) || !meta.kind || entry.isContainer) {
+      throw new Error("Requested page is not eligible for publication");
+    }
+  }
   const results = [];
 
   for (const item of sourcePages) {
@@ -1174,6 +1183,7 @@ async function main() {
         item.isContainer,
         existingById,
         contentRoot,
+        { strictImages: Boolean(targetId) },
       ),
     );
   }
@@ -1190,4 +1200,7 @@ async function main() {
   console.log(`Notion sync complete: ${JSON.stringify(summary)}`);
 }
 
-await main();
+export { buildArticleHtml, getConfig, listBlockChildren, loadEnvFile, markdownToHtml, parsePageMeta, retrievePage, writeContentIndex };
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  await main();
+}
