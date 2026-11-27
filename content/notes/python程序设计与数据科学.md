@@ -2,8 +2,8 @@
 title: "Python程序设计与数据科学"
 slug: "python程序设计与数据科学"
 date: "2026-11-26"
-lastEditedTime: "2026-11-26T10:49:50.125Z"
-renderVersion: "9"
+lastEditedTime: "2026-11-27T03:07:57.135Z"
+renderVersion: "10"
 category: "study"
 tags: ["coding","study"]
 status: "Published"
@@ -38,9 +38,9 @@ mutiple_str = '''
 '''
 print(mutiple_str)
 
->> 你好
-我是Python新手
-我的专业是金融科技
+# 输出：你好
+# 我是Python新手
+# 我的专业是金融科技
 ```
 
 #### 数据类型
@@ -83,11 +83,10 @@ dict(zip_list)
 
 ```py
 test_str = "Python"
---
-test_str*2 >>'PythonPython'
-test_str + 'AA'>> 'PythonAA'
-test_str[0] >> 'P'
-"y" in test_str >> True
+test_str*2  # 'PythonPython'
+test_str + 'AA'  # 'PythonAA'
+test_str[0]  # 'P'
+"y" in test_str  # True
 ```
 
 #### 字符串的编码
@@ -124,18 +123,18 @@ decoded_string = byte_sequence.decode(encoding='utf-8', errors='strict')
 ```py
 slice_str = 'FINTECH'
 
-print(slice_str[0:3]) >>FIN
-print(slice_str[0:3:1]) >>FIN
-print(slice_str[0:3:2]) >>FN
+print(slice_str[0:3])  # FIN
+print(slice_str[0:3:1])  # FIN
+print(slice_str[0:3:2])  # FN
 
 # 切片的规则都是从左往右，如果是从右往左，程序可以运行，但是无结果输出
-print(slice_str[-3:-1]) >>EC
-print(slice_str[1:-1]) >>INTEC
-print(slice_str[-3:]) >>ECH
+print(slice_str[-3:-1])  # EC
+print(slice_str[1:-1])  # INTEC
+print(slice_str[-3:])  # ECH
 
 # 步长为负可以改变输出方向,但是ab也要调换顺序
-print(slice_str[-1:-3:-1])>>HC
-print(slice_str[::-1])>>HCETNIF
+print(slice_str[-1:-3:-1])  # HC
+print(slice_str[::-1])  # HCETNIF
 ```
 
 #### 字符串查找与计数.find() & .count()
@@ -146,9 +145,9 @@ print(slice_str[::-1])>>HCETNIF
 
 ```py
 # 查找功能，返回第一次找到的索引值。未找到，返回-1
-print(slice_str.find('F')) >>0
-print(slice_str.find('FI')) >>0
-print(slice_str.find('FI',1,2)) >>-1
+print(slice_str.find('F'))  # 0
+print(slice_str.find('FI'))  # 0
+print(slice_str.find('FI',1,2))  # -1
 ```
 
 #### 字符串修改
@@ -169,7 +168,7 @@ print(slice_str.find('FI',1,2)) >>-1
 
 #### 字符串判断
 
-`.islower(); isupper(); isdigit()`；`startwith(); endwith()`
+`.islower(); isupper(); isdigit()`；`startswith(); endswith()`
 
 - 判断是否**全部**为某值
 - 输出True False
@@ -187,13 +186,13 @@ Python 中的列表（list）是一种**有序、可变的数据结构**，可�
 #### 列表的增删改查
 
 ```py
-·增（append insert extend）
+# 增（append insert extend）
 list.append() #在列表末尾添加一个元素
 list.insert(index, a) #在索引处插入
 list.extend(list_another) #拓展列表
 #如果不想改变原有list，可以采用加号的方式
 
-·删（del pop clear remove）
+# 删（del pop clear remove）
 list_A = [1, 2, 3, 4, 5]
 del list_A[2]  # 删除索引为2的元素
 print(list_A)  # 输出: [1, 2, 4, 5]
@@ -203,16 +202,16 @@ print(list_A)  # 输出: [1, 5]
 
 last_element = list_A.pop()  # 删除并返回最后一个元素
 print(last_element)  # 输出: 5
-print(list_A)  # 输出: [1, 2, 3, 4]
+print(list_A)  # 输出: [1]
 
 list_A.clear() #删除所有元素
 list_A.remove(value) #删除列表中第一个匹配的元素
 
-·改（通过索引的方式）
-·查（index count）
-·排序（sort sorted reverse）
-        sort作用于原列表，且只能作用于列表
-        sorted可作用于任何可迭代对象，原列表不变
+# 改（通过索引的方式）
+# 查（index count）
+# 排序（sort sorted reverse）
+# sort作用于原列表，且只能作用于列表
+# sorted可作用于任何可迭代对象，原列表不变
 sorted(list_A)
 list_A.sort()
 ```
@@ -242,9 +241,9 @@ dict_P = {i:round(3.14*i,2) for i in range(21)}
 ```py
 num_tuple = (0,1,2)
 num_tuple[0] = 1
->> # TypeError: 'tuple' object does not support item assignment
+# TypeError: 'tuple' object does not support item assignment
 
-del num_tuple[2] ×
+del num_tuple[2]  # 不支持删除单个元素
 ```
 
 - 元组保存的元素引用不能替换。如果元素本身是列表，可以修改该列表的内容，元组本身仍是不可变对象。
@@ -319,7 +318,7 @@ set_A.remove(100) #删除指定的数据
 set_A.discard()
 #remove和discard的区别在于：如果要删除的元素不在集合中，remove会抛出一个keyError异常
 
-set_A.pop()返回删除的元素
+set_A.pop()  # 返回删除的元素
 ```
 
 #### 集合的∩与∪
@@ -394,14 +393,14 @@ num_2 = 45
 
 print('{}+{}={}'.format(num_1,num_2,num_1+num_2))
 
->> 22+45=67
+# 22+45=67
 ```
 
 #### 转义字符
 
 默认具有特殊意义的字符
 
-```py
+```txt
 \n 换行字符
 \t 制表位字符（Tab、四个空格）
 需要输出“\、“、'”时，需要加上\来保证原样输出
@@ -447,14 +446,14 @@ def square(n = 10):
 
 gen = square()
 print(gen)
->>#generator object square at 0x000001D9E285A880>
->>#不会直接输出，当请求生成器的元素时，它才会执行代码
+# generator object square at 0x000001D9E285A880>
+# 不会直接输出，当请求生成器的元素时，它才会执行代码
 
 for x in gen:
     print(x, end = ' ')
->>#生成1至10的平方
->>#1 4 9 16 25 36 49 64 81 100
->>#注：这个生成器只能使用一次，如果希望重新生成，需要重新调用square()
+# 生成1至10的平方
+# 1 4 9 16 25 36 49 64 81 100
+# 注：这个生成器只能使用一次，如果希望重新生成，需要重新调用square()
 ```
 
 #### 生成器表达式
@@ -630,7 +629,7 @@ true-expr if condition else false-expr
 def FuncTypeTest():
     return 1,'Func',2.2
 type(FuncTypeTest())
->> tuple
+# tuple
 ```
 
 #### 函数传参
@@ -765,6 +764,7 @@ def attempt():
                 if_no_fault #如果没有错误，可用else承接
         finally:
                 #无论是否发生异常，finally代码块中的内容都会被执行
+                pass
 ```
 
 - 可以在except后指定异常类型，或者用**元组捕获多个异常**，如果不进行指定，except会捕获所有异常。
@@ -799,6 +799,8 @@ with open(path, 'r', encoding = 'utf-8') as f:
 ```
 
 #### os库
+
+本节待补。
 
 ### 面向对象编程
 
@@ -847,23 +849,23 @@ person1.introduce()
 
 #### 实例属性与类属性
 
-- 实例属性定义在`_init_` 中，用`self` 关键字表示
+- 实例属性可在 `__init__` 中通过 `self` 定义。
   - 每个对象都有独立的实例属性，互不干扰
 - 类属性定义在类的顶层，属于整个类
 
 ```py
 class Cats:
         species = 'felid'
-        def _init_(self, name, age):
-                self.age = name
-                ......
+        def __init__(self, name, age):
+                self.name = name
+                self.age = age
 
 # 实例化
-catyie = Cats()
+catyie = Cats("Catyie", 2)
 
 # 调用类属性
 catyie.species
-Cat.species # 两种调用方法返回同样的结果
+Cats.species # 两种调用方法返回同样的结果
 
 # 调用实例属性
 catyie.name
@@ -918,13 +920,23 @@ class ChildClass(ParentClass):
 
 #### 多态
 
+本节待补。
+
 #### 组合
+
+本节待补。
 
 #### 魔术方法
 
+本节待补。
+
 #### 抽象类与模板类
 
+本节待补。
+
 #### dataclass对象
+
+本节待补。
 
 ### Python进阶
 
@@ -941,11 +953,11 @@ def simple_decorator(func):
         print("函数执行完毕。")
     return wrapper # 返回wrapper
 
+@simple_decorator
 def greet():
     print('你好')
 
 # 调用
-@simple_decorator
 greet()
 ```
 
@@ -996,7 +1008,11 @@ asyncio.run(main())
 
 #### 模块、包、工程化导入
 
+本节待补。
+
 #### 类型注解
+
+本节待补。
 
 #### CLI程序与argparse库
 
@@ -1010,22 +1026,22 @@ CLI（Command Line Interface），命令行接口。用户通过在终端中输�
 
 bash
 
-```py
+```bash
 pwd # 查看当前目录
 
-ls     查看目录内容
-ls -l   以详细格式显示
-ls -a   显示隐藏文件
-ls -lh  以更易读的单位显示文件大小
+ls  # 查看目录内容
+ls -l  # 以详细格式显示
+ls -a  # 显示隐藏文件
+ls -lh  # 以更易读的单位显示文件大小
 
-cd project 进入某个目录
-cd ..      返回上一级目录
-cd ~       返回用户主目录
+cd project  # 进入某个目录
+cd ..  # 返回上一级目录
+cd ~  # 返回用户主目录
 
-mkdir data 创建文件夹
-mkdir -p data/raw/stock 创建多级目录
+mkdir data  # 创建文件夹
+mkdir -p data/raw/stock  # 创建多级目录
 
-......
+# ……
 ```
 
 CLI 的核心价值在于：把程序的运行逻辑参数化。假设没有 CLI，可能需要在代码里手动修改参数, 如果修改参数，就要改源代码，这对于一个成体系的项目来说非常不利。在量化研究、机器学习、数据处理项目中，CLI 是非常常见的工程入口。
@@ -1058,9 +1074,9 @@ args = parser.parse_args()
 # 现在这些参数就是args的“属性”
 def main(args):
     if args.mode == 'train':
-        ......
+        pass
 
- if __name__ == "__main__":
+if __name__ == "__main__":
     args = parse_args()
     main(args)
 ```
@@ -1085,7 +1101,11 @@ CLI 是程序的入口，argparse 是入口参数的解析器，调度器是自�
 
 #### Git与版本控制
 
+本节待补。
+
 #### Docker基础
+
+本节待补。
 
 ## 数据结构篇
 
@@ -1381,7 +1401,7 @@ Python的List
 
 ![](../content/assets/notes/python程序设计与数据科学/image-10.png)
 
-链表的操作：
+**链表的操作：**
 
 - 创建空链表：表头指针设置为空
 
@@ -1437,6 +1457,8 @@ pre.next = pre.next.next
 双链表
 
 #### 基于顺序表和链表的Josephus问题求解
+
+本节待补。
 
 ### 哈希表 (散列表)
 
@@ -1559,7 +1581,7 @@ Python 容器（`dict` 、`set` ）存 key 时，流程是：
 
 #### 树的术语和定义
 
-树的术语
+**树的术语**
 
 - 节点：它可以有自己的名字，我们称作“键”。节点也可以带有附加信息，我们称作“有效载荷”。
   - 子节点：一个节点通过出边与子节点相连。
@@ -1571,7 +1593,7 @@ Python 容器（`dict` 、`set` ）存 key 时，流程是：
 - 层数：节点n的层数是从根节点到n的唯一路径长度
 - 高度：节点层数的最大值
 
-树的定义
+**树的定义**
 
 1. 从节点和边来看，非空树有一个根节点。
    - 除根节点外，每个节点都有唯一的父节点。
@@ -1633,7 +1655,7 @@ def inorder(tree):
 - 最小堆（最小的元素一直在队首）
 - 最大堆（最大的元素一直在队首）
 
-二叉堆的操作：
+**二叉堆的操作：**
 
 ![](../content/assets/notes/python程序设计与数据科学/image-14.png)
 
@@ -1658,7 +1680,7 @@ insert(key)方法
 
 delMin()方法
 
-移走整个堆中最小的key:根节点heapList\[1\]
+移走堆中最小的键，即根节点 `heapList[1]`。
 
 为了保持“完全二叉树”的性质，只用最后一个节点来代替根节点.
 
@@ -1876,9 +1898,10 @@ class BST:
             return self._get(key, currentNode.rightChild)
 ```
 
-BST的形态与插入顺序有很大关系，例如\[10, 20, 30, 40, 50\] 和 \[10, 30, 50, 20, 40\]
+BST 的形态取决于插入顺序。对比 `[10, 20, 30, 40, 50]` 和 `[10, 30, 50, 20, 40]`：
 
-```py
+```txt
+  10
     \
      20
        \
@@ -1899,9 +1922,9 @@ BST的形态与插入顺序有很大关系，例如\[10, 20, 30, 40, 50\] 和 \[
       # 稍微平衡一些
 ```
 
-代码块  `10`
-
 #### 平衡二叉查找树（AVL）
+
+本节待补。
 
 ### 图论
 
@@ -2019,7 +2042,7 @@ class Graph:
 
 Apple经典"goto fail" BUG
 
-```py
+```c
 if ((err = SSLHashSHA1.update(&hashCtx, &serverRandom)) != 0)
     goto fail;
 if ((err = SSLHashSHA1.update(&hashCtx, &signedParams)) != 0)
@@ -2244,15 +2267,15 @@ turtle.done()
 ![](../content/assets/notes/python程序设计与数据科学/image-28.png)
 
 ```py
- def tree(branch_len):
-     if branch_len > 5:
-         t.forward(branch_len) # 画树干
-         t.right(20) # 右转20度
-         tree(branch_len - 15)
-         t.left(40)
-         tree(branch_len - 15)
-         t.right(20)
-         t.backward(branch_len)
+def tree(branch_len):
+    if branch_len > 5:
+        t.forward(branch_len) # 画树干
+        t.right(20) # 右转20度
+        tree(branch_len - 15)
+        t.left(40)
+        tree(branch_len - 15)
+        t.right(20)
+        t.backward(branch_len)
 ```
 
 ![](../content/assets/notes/python程序设计与数据科学/image-29.png)
@@ -2326,6 +2349,7 @@ else:
     # 先把 n-1 个搬到辅助柱子
     # 再把最大的一个搬到目标柱子
     # 再把 n-1 个从辅助柱子搬到目标柱子
+    pass  # 此处仅列出递归步骤
 ```
 
 ![](../content/assets/notes/python程序设计与数据科学/image-32.png)
@@ -2511,17 +2535,17 @@ Bag(tr, 20)
 
 #### 排序算法的分类
 
-是否基于比较
+**是否基于比较**
 
 - 基于比较：冒泡、插入、选择、希尔、归并、快速、堆排序等。一般比较排序的最坏情况比较次数下界为 \(\Omega(n \log n)\)。
 - 非比较：计数排序为 \(O(n+k)\)，其中 \(k\) 是取值范围大小；桶排序和基数排序的成本分别取决于输入分布及分桶方式、位数与基数。
 
-就地排序（in-place） vs 需要额外空间
+**就地排序（in-place） vs 需要额外空间**
 
 - 冒泡、插入、选择、希尔、堆排序，以及使用原地分区的快排可直接在原数组上操作。快排仍需递归栈；列表推导式的快排还会创建额外列表。
 - 需要额外空间：归并、计数、桶、基数
 
-稳定性（相等元素相对顺序是否保留）
+**稳定性（相等元素相对顺序是否保留）**
 
 - 冒泡、插入、归并，以及恰当实现的计数、桶、基数排序可以做到稳定。
 - 不稳定：选择、希尔、快排、堆排序
@@ -2751,6 +2775,8 @@ def merge(left, right):
 ![](../content/assets/notes/python程序设计与数据科学/image-41.png)
 
 #### 堆排序
+
+本节待补。
 
 ### 图的遍历与带权图算法
 
@@ -3079,15 +3105,15 @@ class DFSGraph(Graph):
 
 Kosaraju算法：
 
-第一次 DFS
+**第一次 DFS**
 
 - 在原图上做 DFS，记录每个顶点的“完成时间”（finishing time）。
 
-图转置
+**图转置**
 
 - 把原图里所有边的方向反过来，得到转置图（Transpose Graph）。
 
-第二次 DFS
+**第二次 DFS**
 
 - 按照完成时间递减的顺序，在转置图上依次跑 DFS。
 - 每次 DFS 能遍历到的顶点，就是一整个强连通分支。
@@ -3371,17 +3397,17 @@ data[~condition]
 
 ```py
 arr3 = np.arange(32).reshape((8,4))
->>array([[ 0,  1,  2,  3],
-       [ 4,  5,  6,  7],
-       [ 8,  9, 10, 11],
-       [12, 13, 14, 15],
-       [16, 17, 18, 19],
-       [20, 21, 22, 23],
-       [24, 25, 26, 27],
-       [28, 29, 30, 31]])
+# array([[ 0,  1,  2,  3],
+#        [ 4,  5,  6,  7],
+#        [ 8,  9, 10, 11],
+#        [12, 13, 14, 15],
+#        [16, 17, 18, 19],
+#        [20, 21, 22, 23],
+#        [24, 25, 26, 27],
+#        [28, 29, 30, 31]])
 
 arr3[[1,5,7,2],[0,3,1,2]] #神奇索引
->> #array([ 4, 23, 29, 10])
+# array([ 4, 23, 29, 10])
 ```
 
 #### 数组转置与换轴
@@ -3396,7 +3422,7 @@ arr3[[1,5,7,2],[0,3,1,2]] #神奇索引
 ```py
 arr4 = np.arange(24).reshape((2,3,4))
 arr_transpose = arr4.transpose((1,0,2)) #将第一个轴和第二个轴进行置换
-arr_transpose.shape >>(3, 2, 4)
+arr_transpose.shape  # (3, 2, 4)
 ```
 
 - 转置是换轴的一个特例，换轴还有通用方法`swapaxes()`
@@ -3409,26 +3435,27 @@ arr_transpose.shape >>(3, 2, 4)
 
 - 一元通用函数**只需要一个输入数组**。它对每个元素进行操作，并返回一个新的数组。
 
-| 函数名 | 描述 |
+| 函数 | 作用 |
 | --- | --- |
-| abs fabs | 逐元素计算整数、浮点数的绝对值 |
-| sqrt() | 计算每个元素的平方根 |
-| square() | 计算每个元素的平方 |
-| exp | 计算每个元素的自然指数e\^x |
-| log log10 log2 log1p | log1p为log(1+x) 其余字面意思 |
-| sign() | 符号函数 |
-| ceil() floor() | 向上取整和向下取整 |
-| rint | 四舍五入 |
-| co sin tan | 常规的三角函数 |
-| isnan | 返回数组中的元素是否为一个NaN，形式为布尔值数组 |
+| `abs`、`fabs` | 逐元素取绝对值。 |
+| `sqrt` | 平方根。 |
+| `square` | 平方。 |
+| `exp` | 自然指数。 |
+| `log`、`log10`、`log2` | 分别取自然对数、常用对数、以 2 为底的对数。 |
+| `log1p` | 计算 log(1 + x)。 |
+| `sign` | 返回元素的符号。 |
+| `ceil`、`floor` | 分别向上、向下取整。 |
+| `rint` | 取最近的整数；正好居中时取偶数。 |
+| `cos`、`sin`、`tan` | 余弦、正弦和正切。 |
+| `isnan` | 返回布尔数组，标记哪些元素为 NaN。 |
 
 #### 二元通用函数
 
-| 函数名 | 描述 |
+| 函数 | 作用 |
 | --- | --- |
-| add、subtract、multiply、<br />divide、power | 加减乘除幂（与+ - \* / \*\* 作用<br />相同） |
-| floor divide<br />\_ | 整除（放弃余数） |
-| mod | 取余（求模） |
+| `add`、`subtract`、`multiply`、`divide`、`power` | 逐元素加、减、乘、除、乘方。 |
+| `floor_divide` | 整除，商向下取整。 |
+| `mod` | 取余数。 |
 
 maximum、minimum\<br>
 
@@ -3452,27 +3479,23 @@ result = [(x if c else y) for x, y, c in zip(xarr, yarr, cond_arr)]  #用列表�
 np.where(cond_arr, xarr, yarr)
 ```
 
-- np.where的第二个和第三个参数不一定是数组，也可以是标量，例如：np.where(arr, 2,\`\`-2)
+- np.where的第二个和第三个参数不一定是数组，也可以是标量，例如：`np.where(arr, 2, -2)`
 
 #### 数学和统计方法
 
-| 方法 | 描述 |
+| 方法 | 作用 |
 | --- | --- |
-| sum | 沿轴向计算所有元素的累计和\<br>0长度的数组，累计和<br />为0 |
-| mean | 数学平均，0长度mean = NaN |
-| std, var | 标准差和方法，可以调整自由度 |
-| min,max | 最大值与最小值\<br>（注意与maximum和minimum方<br />法区分） |
-| argmin. argmax | 最大值和最小值的位置 |
-| cumsum | 从0开始元素的累计和 |
-| cumprod | 从0开始元素的累计积 |
+| `sum` | 沿指定轴求和；空数组的总和为 0。 |
+| `mean` | 算术平均值；空数组的均值为 NaN。 |
+| `std`、`var` | 标准差、方差；可以调整自由度。 |
+| `min`、`max` | 返回最小值、最大值。区别于逐元素比较的 minimum 和 maximum。 |
+| `argmin`、`argmax` | 返回最小值、最大值所在的位置。 |
+| `cumsum` | 依次累加各元素，返回每一步的和。 |
+| `cumprod` | 依次累乘各元素，返回每一步的积。 |
 
-- mean、sum等函数，既可以求整个数组的值，也可以指定一个axis，形成一个下降一个维度的数组。
-  - axis=0,意为压缩行
-- sum()方法通常可以用于计算布尔值数组中True的个数。
-
-`(arr8 > 9).sum()`
-
-- 对于布尔值数组，any用于检查数组中是否至少有一个是True，all用于检查每个值是否都为True。
+- `mean()` 和 `sum()` 默认对整个数组求均值或总和，也可以用 `axis` 指定归约的轴。例如，二维数组按 `axis=0` 归约会得到每一列的结果。
+- 布尔数组的 `sum()` 统计真值个数。例如，`(arr8 > 9).sum()` 统计数组中有多少个元素大于 9。
+- `any()` 检查是否至少有一个真值；`all()` 检查是否全为真值。
 
 #### sort方法
 
@@ -3532,7 +3555,7 @@ np.random.shuffle(arr)  # 原地打乱 arr 的顺序
 #其他分布：如poisson分布，二项分布等。
 ```
 
-- 注：rand只指定一个参数——生成的个数；randint只指定一个参数——生成一个\\\[0,b)的一个整数
+- `rand(n)` 生成 n 个随机数；`randint(b)` 生成区间 `[0, b)` 内的一个随机整数。
 
 #### 一个示例：随机游走
 
@@ -3647,7 +3670,7 @@ frame['area'] = pd.Series([2,2,2], index = [1,2,3])
 
 ```py
 index = frame.index
->># Index([1, 2, 3, 4, 5, 6], dtype='int32')
+# Index([1, 2, 3, 4, 5, 6], dtype='int32')
 ```
 
 - 索引对象不可修改，不变性使得在多种数据结构中分享索引对象更加安全
@@ -3804,20 +3827,23 @@ frame3.rank(axis = 0, ascending = False, method = 'first')
 
 #### 相关系数与协方差
 
+本节待补。
+
 #### 唯一值、计数与成员属性
+
+本节待补。
 
 ### 数据载入、存储与文件
 
 #### pandas显示设置
 
 ```py
+pd.set_option('display.max_rows', 5)  # 设置最大显示行数为5
 pd.set_option('display.max_columns', 5)         # 设置最大显示列数为5
 pd.set_option('display.max_colwidth', 10)       # 设置最大列宽为10个字符
 pd.set_option('display.float_format', lambda x: '%.2f' % x)  # 设置浮点数显示格式为保留两位小数
 pd.set_option('display.expand_frame_repr', False)  # 不在行数超出限制时换行显示
 ```
-
-代码块`pd.set_option('display.max_rows', 5)            #` 设置最大显示行数为`5`
 
 #### CSV文件读写
 
@@ -3828,52 +3854,30 @@ pd.set_option('display.expand_frame_repr', False)  # 不在行数超出限制时
 
 #### 常用参数（6个）
 
-- 现实世界的数据十分复杂，read\_csv的可选参数已经达到了50多个，只需要记住几个经典的即可。
+| 参数 | 用途与示例 |
+| --- | --- |
+| `sep` | 指定分隔符，例如 `','`；也可使用正则表达式。 |
+| `header` | 指定哪一行作为列名。未传 `names` 时默认推断首行为表头；无表头时用 `header=None`，列名从 0 编号。 |
+| `names` | 手动指定列名。要替换文件已有的表头，同时设置 `header=0`。 |
+| `skiprows` | 整数 n 表示跳过开头 n 行；列表表示跳过指定行号（从 0 开始）。 |
+| `index_col` | 用列位置或列名指定索引，如 `0` 或 `'A'`；传 `[0, 1]` 可建立两级索引。 |
+| `na_values` | 用字符串或列表指定缺失值标记；用字典分别指定各列的标记。 |
 
-sep
-
-- 用于指定分隔符，可以为**字符序列**和**正则表达式**。
-
-header和names
-
-- header指定哪些行作为列名。**默认值是0**，**表示第一行作为列名**。如果你的数据文件没有列名，可以设置为**None**，这样Pandas会生成默认的列名（0, 1, 2, ...）
-- 如果指定了header作为列名，那么可以用names手动指定列名
-
-skiprows
-
-- 从文件开头处起，跳过接收的整数或列表
-
-如果接收的是整数n,则跳过前n行；
-
-如果接收的是列表，则跳过列表中的指定行
-
-index\_col
-
-- 可以设置为单个列的索引（列名或列的整数位置）或多个列的列表。
-  - 如果是整数（如0），表示将第一列作为索引。
-  - 如果是列名（如'A'），表示将名为'A'的列作为索引。
-  - 如果需要使用多列，可以传递一个列表（如\[0, 1\]），表示将前两列作为多级索引。
-
-na\_values
-
-- 用于缺失值处理
-  - 传入列表或字符串
-  - 传入**字典**，指定每列应该处理的缺失值是什么
-
-```py
+```txt
 # This is a comment
 # This is another comment
 , Name, Age, City
 1, Alice, 30, New York
 2, Bob, 25, Los Angeles
 3, Charlie, 35, Chicago
--------------------------
-你希望读取这个CSV文件，并执行以下操作：
-跳过前两行（注释行）。
-使用逗号作为分隔符。
-将第一列（未命名的列）作为索引。
-将列名手动指定为['ID', 'Name', 'Age', 'City']。
 ```
+
+你希望读取这个CSV文件，并执行以下操作：
+
+- 跳过前两行（注释行）。
+- 使用逗号作为分隔符。
+- 将第一列（未命名的列）作为索引。
+- 将列名手动指定为 `['ID', 'Name', 'Age', 'City']`。
 
 ```py
 # 跳过开头两行注释和旧表头，再指定列名
@@ -3895,21 +3899,13 @@ chunker = pd.read_csv('large.csv',chunksize = 50, encoding = 'gbk')
 
 #### 参数选项
 
-sep
-
-- 同读，设置分隔符
-
-na\_rep
-
-- 缺失值在输出时以空字符串出现，可以使用**na\_rep**对缺失值进行标注
-
-index=False； header=False
-
-- 如果没有其他选项被指定，\*行和列的标签都将被写入\*，使用这两个命令可以禁止写入
-
-columns
-
-- 可以进写入列的子集，通过指定columns
+| 写入参数 | 作用 |
+| --- | --- |
+| `sep` | 指定输出分隔符。 |
+| `na_rep` | 指定缺失值的输出文本，默认是空字符串。 |
+| `index` | `index=False` 不写行索引。 |
+| `header` | `header=False` 不写列名。 |
+| `columns` | 只写入指定列。 |
 
 #### 特殊情况处理：使用分隔格式
 
@@ -3971,11 +3967,19 @@ with open('output.json', 'w') as file:
 
 #### 使用lxml.objectify解析XML
 
+本节待补。
+
 #### xls与xlsx数据
+
+本节待补。
 
 #### 二进制格式数据
 
+本节待补。
+
 #### Web交互与数据库交互
+
+本节待补。
 
 ### 数据清洗与准备
 
@@ -4098,7 +4102,9 @@ pd.qcut(data,4) #根据数据将样本分为等量的四份进行分箱
 - 描述性统计：`data.describe()`
 - 找出data中**A列**的绝对值大于3的行：
 
-代码块`data[np.abs(data['A'])>=3]`
+```py
+data[np.abs(data['A']) >= 3]
+```
 
 - 找出ABCD列**任一列**绝对值大于3的行
 
@@ -4171,8 +4177,8 @@ pieces = [x.strip() for x in val.split(',')]
 - `count()` 方法，返回字符串出现的次数
 - 定位子字符串：`in` , `find()` 和`index()`
   - `str.find()` 找不到时返回 -1；`str.index()` 找不到时抛出 `ValueError`。
-- `startwith(), endwith()` 字面意思，返回布尔值
-- lower()\`\`upper()\`\`title() 大小写转换方法
+- `startswith(), endswith()` 字面意思，返回布尔值
+- `lower()`、`upper()`、`title()` 用于转换大小写。
 
 #### 正则表达式（REGEX）
 
@@ -4208,17 +4214,15 @@ pieces = [x.strip() for x in val.split(',')]
 
 ![](../content/assets/notes/python程序设计与数据科学/image-70.png)
 
-- \\\[a-z\]表示所有的小写字母
-- \\\[A-Z\]表示所有的大写字母
-- \\\[0-9\]表示所有的数字
-- . 代表任意字符
-- 特殊元字符**(大写表示取反)**
-  - \\d = \\\[0,9\]; \\D =\\\[\^0-9\]
-  - \\w = \\\[a-zA-Z0-9\_\]; \\W
-  - \\s 匹配任何空白字符（空格，制表符，换行符）; \\S
-- \^匹配行首字符，\$匹配行尾字符
+- `[a-z]` 匹配 ASCII 小写字母，`[A-Z]` 匹配 ASCII 大写字母，`[0-9]` 匹配 ASCII 数字。
+- `.` 默认匹配换行符以外的任意字符。
+- 特殊字符类（大写形式取反）：
+  - `\d` 匹配十进制数字；`\D` 匹配非十进制数字。
+  - `\w` 匹配字母数字或下划线；`\W` 匹配其余字符。
+  - `\s` 匹配空白字符；`\S` 匹配非空白字符。
+- `^` 和 `$` 用于匹配开头和结尾。
 
-捕获组与非捕获组
+**捕获组与非捕获组**
 
 - 捕获组：会保存匹配的内容，**并可以在后续的处理（如替换、分组引用等）中使用它们**。通过数字编号（从 1 开始）来引用捕获的内容。
 - 非捕获组：只用于分组（例如，用来控制操作符的应用范围），**但不会保存匹配的内容**，不能通过组号引用这些内容。
@@ -4238,7 +4242,7 @@ print(match2.group(1)) #4567
 print(match2.group(2)) #7890
 ```
 
-贪婪匹配与懒惰匹配
+**贪婪匹配与懒惰匹配**
 
 - 贪婪匹配（Greedy Matching）在满足正则表达式的前提下，自动匹配最长的字符串
 - 懒惰匹配\~匹配最短的
@@ -4252,40 +4256,40 @@ print(match2.group(2)) #7890
 
 在通配符后添加一个？改为懒惰匹配
 
-前瞻与回顾
+**前瞻与回顾**
 
 - 前瞻（Lookahead）与回顾（Lookbehind）用于检查某个模式在当前位置之前或之后是否满足某个条件（**而不会把他们包含在最终的匹配结果中**）
 
-| 模式 | 解释 | 语法 |
+| 模式 | 匹配条件 | 写法 |
 | --- | --- | --- |
-| 正向前瞻 | 后面需要紧接着 | X(?=Y) |
-| 负向前瞻 | 后面不能紧接着 | X(?!Y) |
-| 正向回顾 | 前面需要紧接着 | (?\<=Y)X |
-| 负向回顾 | 前面不能紧接着 | (?\<\\!Y)X |
+| 正向前瞻 | X 后紧跟 Y | `X(?=Y)` |
+| 负向前瞻 | X 后不紧跟 Y | `X(?!Y)` |
+| 正向回顾 | X 前紧邻 Y | `(?<=Y)X` |
+| 负向回顾 | X 前不紧邻 Y | `(?<!Y)X` |
 
 #### 正则表达式例题
 
 - 给定文本「请联系 `support@company.com` 获取帮助，或通过 `admin@company.com` 提供反馈」，写出提取其中所有邮箱地址的正则表达式。
 
-```py
+```txt
 [a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}
 ```
 
 - 在一个字符串"联系方式：+86 138-0011-0022 和 13800110022"中，匹配出格式为中国大陆手机号码的部分，**包括不同的分隔方式（如空格、-、没有分隔符）**。
 
-```py
+```txt
 (\+86[\s-]?)?1[3-9][0-9]([\s-]*[0-9]{4}){2}
 ```
 
 - 匹配一段文本中所有包含**中文引号和中文书名号**中的内容
 
-```py
+```txt
 “([^“”]*?)”|《([^《》]*?)》
 ```
 
 - 匹配所有的日期格式，如2023-01-05，20230523，2023.1.5（要求：如果用户在前后使用了不同的连接符，则不进行匹配）
 
-```py
+```txt
 ^(?:(?:\d{4}[-./])?(?:\d{1,2})[-./](?:\d{1,2})|(?:\d{1,2})[-./](?:\d{1,2})[-./](?:\d{4}))$
 ```
 
@@ -4300,8 +4304,9 @@ print(match2.group(2)) #7890
 pattern = r'1[3-9]\d-\d{4}-\d{4}'
 string = '我的电话号码是158-4001-1911'
 
-result_match(pattern, string).group() >> AttributeError
-result_search(pattern, string).group() >>'158-4001-1911'
+match = re.match(pattern, string)
+print(match)  # None：号码不在字符串开头
+re.search(pattern, string).group()  # '158-4001-1911'
 ```
 
 - `re.findall(...)` ，扫描字符串并返回全部匹配的地方（列表形式）
@@ -4362,6 +4367,7 @@ import matplotlib.pyplot as plt
 - mat绘制的图位于**图片对象中**（Figure）
 
 ```py
+fig = plt.figure()
 # 用fig.add_subplot()方法添加子图
 ax1 = fig.add_subplot(2,2,1)
 ax2 = fig.add_subplot(2,2,2)
@@ -4376,8 +4382,6 @@ ax3.scatter(np.arange(30), np.arange(30)+3*np.random.randn(30))
 # 展示
 plt.show()
 ```
-
-代码块`fig = plt.figure()`
 
 - `plt.show()` 为**阻塞式调用方法**，会释放内存中的所有图形资源，并阻碍下面代码的运行。（可以指定`block=False` 改为非阻塞式调用）
   - 在使用内联绘图后端的 Jupyter Notebook 中，通常不用显式调用 `plt.show()` 也能显示图像。
@@ -4398,8 +4402,8 @@ plt.show() #将内存中的Figure1和Figure2同时释放，并阻塞命令行
 
 ```py
 fig, axes = plt.subplots(2,2)
-axes[0,0] =
-axes[0,1] =
+# axes[0,0]：此处省略绘图代码
+# axes[0,1]：此处省略绘图代码
 # 略
 ```
 
@@ -4549,7 +4553,7 @@ axes.set_ylim([600,1800])
 
 #### 柱状图
 
-- 基本语法：Axes.bar(x, height, width=0.8, bottom=None, align='center',\`\`color=None, edgecolor=None, **kwargs)
+- 基本语法：`Axes.bar(x, height, width=0.8, bottom=None, align='center', color=None, edgecolor=None, **kwargs)`
   - x为分组，height为每组的高度
   - width是每个柱的宽度
   - bottom定义柱子在 y 轴方向上的起点，默认从 0 开始
@@ -4565,7 +4569,7 @@ df = pd.DataFrame(np.random.randn(10,4).cumsum(0),
 
 # 对df每组的sum进行柱状图统计
 df_sum = df.sum(0) #Series类型
-plt.bar(df_sum.index， df_sum)
+plt.bar(df_sum.index, df_sum)
 
 # 或者，直接用Pandas内置方法
 df_sum.plot.bar()
@@ -4616,7 +4620,7 @@ ax.set_xticklabels(cat)
 
 #### 散点图
 
-- 基本语法：Axes.scatter(x, y, s=None, c=None, marker=None, cmap=None,\`\`alpha=None, edgecolors=None, **kwargs)
+- 基本语法：`Axes.scatter(x, y, s=None, c=None, marker=None, cmap=None, alpha=None, edgecolors=None, **kwargs)`
 
 #### 直方图与密度图
 
@@ -4887,6 +4891,8 @@ ts.resample('5min').ohlc()
 
 #### 通过时期进行重采样
 
+本节待补。
+
 #### 移动窗口函数
 
 - 移动窗口按顺序计算局部统计量，例如移动平均，用于观察趋势和短期波动。
@@ -5082,7 +5088,7 @@ res2 = pd.concat([s1,s2,s3], axis=1)
 ![](../content/assets/notes/python程序设计与数据科学/image-88.png)
 
 - 当**拼接的方向存在重复索引**时，可以指定join=或join\_axes=指定参与的索引
-- 可以指定keys=\[\]来区分参与连接的片段
+- 可以指定 `keys` 来区分参与连接的片段。
 
 ```py
 res = pd.concat([s1,s2,s3], axis=0, keys=['A','B','C'])
@@ -5165,7 +5171,7 @@ $$
 
 ![](../content/assets/notes/python程序设计与数据科学/image-91.png)
 
-张量初始化
+**张量初始化**
 
 - 直接定义
 - 生成全0、全1、服从各种分布的随机
@@ -5365,8 +5371,8 @@ def __call__(self, *args, **kwargs):
 所以在写
 
 ```py
-  model = MyNeuralNet()
-  y = model(x)
+model = MyNeuralNet()
+y = model(x)
 ```
 
 的时候，Python会寻找\_\_call\_\_方法，从而实现`y = model.forward(x)`
@@ -5496,7 +5502,7 @@ from torchsummary import summary
 summary(model, (2,))
 ```
 
-```py
+```txt
 ----------------------------------------------------------------
         Layer (type)               Output Shape         Param #
 ================================================================
@@ -5600,6 +5606,8 @@ $$
 
 #### 损失函数
 
+本节待补。
+
 #### Fashion-MNIST 数据集实战
 
 **1. 导入数据**
@@ -5643,7 +5651,7 @@ for label_class, plot_row in enumerate(ax):
 
 **3. 创建数据集并定义数据获取函数**
 
-- view是张量重塑操作，原本 `x` 是形状 `[N, 1, 28, 28]` （N 张图片），用了 x.view(-1,\`\`28*28) 后变成 `[N, 784]` ，把每张 28×28 的图片拉平成一维向量。`-1` 表示自动推算这一维的大小（即 N）
+- view是张量重塑操作，原本 `x` 是形状 `[N, 1, 28, 28]` （N 张图片），用了 `x.view(-1, 28*28)` 后变成 `[N, 784]` ，把每张 28×28 的图片拉平成一维向量。`-1` 表示自动推算这一维的大小（即 N）
 
 ```py
 class FMNISTDataset(Dataset):
@@ -5762,9 +5770,13 @@ Accuracy
 
 #### 学习率
 
+本节待补。
+
 #### 过拟合与正则化
 
 #### 批归一化
+
+本节待补。
 
 #### 优化器
 
@@ -5848,9 +5860,15 @@ $$
 
 #### 图卷积网络 GCN
 
+本节待补。
+
 #### GraphSAGE 架构
 
+本节待补。
+
 #### 图注意力网络 GAT
+
+本节待补。
 
 ### 注意力机制与Transformer架构
 

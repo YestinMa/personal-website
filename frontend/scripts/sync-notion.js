@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const FRONTEND_DIR = path.resolve(SCRIPT_DIR, "..");
 const REPO_ROOT = path.resolve(FRONTEND_DIR, "..");
-const CONTENT_RENDER_VERSION = "9";
+const CONTENT_RENDER_VERSION = "10";
 
 const NOTION_API_BASE = "https://api.notion.com/v1";
 const NOTION_VERSION = "2022-06-28";
@@ -660,12 +660,15 @@ function markdownToHtml(markdown) {
     const splitCells = (row) => row.trim().replace(/^\||\|$/g, "")
       .split(/(?<!\\)\|/).map((cell) => cell.trim().replace(/\\\|/g, "|"));
     const rows = tableRows.filter((row) => !/^\|?\s*(?:-+\s*\|\s*)+-+\s*\|?$/.test(row));
-    html.push("<table><tbody>");
+    html.push("<table>");
     rows.forEach((row, index) => {
+      if (index === 0) html.push("<thead>");
+      if (index === 1) html.push("<tbody>");
       const tag = index === 0 ? "th" : "td";
-      html.push(`<tr>${splitCells(row).map((cell) => `<${tag}>${parseInlineMarkdown(cell)}</${tag}>`).join("")}</tr>`);
+      html.push(`<tr>${splitCells(row).map((cell) => `<${tag}${index === 0 ? ' scope="col"' : ""}>${parseInlineMarkdown(cell)}</${tag}>`).join("")}</tr>`);
+      if (index === 0) html.push("</thead>");
     });
-    html.push("</tbody></table>");
+    html.push(rows.length > 1 ? "</tbody></table>" : "</table>");
     tableRows = [];
   }
 
@@ -766,9 +769,14 @@ function markdownToHtml(markdown) {
       flushParagraph();
       flushList();
       flushQuote();
-      html.push(
-        `<figure><img loading="lazy" decoding="async" src="${escapeHtml(imageMatch[2])}" alt="${escapeHtml(imageMatch[1])}">${imageMatch[1] ? `<figcaption>${escapeHtml(imageMatch[1])}</figcaption>` : ""}</figure>`,
-      );
+      const src = escapeHtml(imageMatch[2]);
+      const caption = escapeHtml(imageMatch[1]);
+      const image = `<img loading="lazy" decoding="async" src="${src}" alt="${caption}">`;
+      // 本地原图可直接放大查看；其他来源沿用原来的嵌入方式。
+      const preview = imageMatch[2].startsWith("../content/assets/")
+        ? `<a href="${src}" target="_blank" rel="noopener" aria-label="查看原图（新窗口）${caption}">${image}</a>`
+        : image;
+      html.push(`<figure>${preview}${caption ? `<figcaption>${caption}</figcaption>` : ""}</figure>`);
       continue;
     }
 
@@ -818,7 +826,7 @@ function buildArticleHtml(meta, markdownBody) {
   const title = escapeHtml(meta.title);
   const category = escapeHtml(meta.category || meta.kind);
   const date = escapeHtml(meta.date || "");
-  const tags = (meta.tags || []).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("");
+  const tags = [...new Set(meta.tags || [])].filter((tag) => tag.toLowerCase() !== (meta.category || meta.kind || "").toLowerCase()).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("");
   const mathStylesheet = hasMath
     ? '  <link rel="stylesheet" href="../css/vendor/katex-0.16.11/katex.min.css">'
     : "";
@@ -838,7 +846,7 @@ function buildArticleHtml(meta, markdownBody) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="${escapeHtml(meta.title)}">
   <title>${title} — Yuyao Ma</title>
-  <link rel="stylesheet" href="../css/style.css?v=2.0.4">
+  <link rel="stylesheet" href="../css/style.css?v=2.0.5">
 ${mathStylesheet}
 </head>
 <body class="article-page${isNote ? " article-notes-page" : ""}">
@@ -889,7 +897,7 @@ ${mathStylesheet}
   </footer>
 
   <script src="../js/main.js?v=2.3.0"></script>
-  <script src="../js/article.js?v=2.3.2"></script>
+  <script src="../js/article.js?v=2.3.3"></script>
 ${
     hasCode
       ? `<script defer data-manual src="../js/vendor/prism-1.30.0/prism-core.min.js"></script>

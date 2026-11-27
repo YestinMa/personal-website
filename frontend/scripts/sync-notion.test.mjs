@@ -81,3 +81,12 @@ test("本地着色脚本只随有普通代码块的文章加载，保留原样�
   const noCode = buildArticleHtml(meta, [fence + "mermaid", "graph LR", "A --> B", fence].join("\n"));
   assert.doesNotMatch(noCode, /prism-|article-code\.js/);
 });
+
+test("参数表的标识符是代码，表头有列语义，原图链接与缩略图对应", () => {
+  const tick = String.fromCharCode(96);
+  const table = markdownToHtml("| 参数 | 作用 |\n| --- | --- |\n| " + tick + "index_col" + tick + " | 索引列 |");
+  assert.match(table, /<thead>\s*<tr><th scope="col">参数/);
+  assert.match(table, /<tbody>\s*<tr><td><code>index_col<\/code>/);
+  const image = markdownToHtml("![示意图](../content/assets/notes/test/1.png)");
+  assert.match(image, /<a href="([^"]+)"[^>]*><img[^>]* src="\1" alt="示意图">/);
+});

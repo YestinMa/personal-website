@@ -312,3 +312,49 @@ if (document.readyState === "complete") {
 } else {
   window.addEventListener("load", populateArticleNavigation, { once: true });
 }
+
+
+function initializeReadingFigures() {
+  const scales = { small: 0.6, medium: 1, large: 1.65 };
+  document.querySelectorAll(".article-content figure > a > img").forEach((img) => {
+    const figure = img.closest("figure");
+    const key = "article-picture:" + img.getAttribute("src");
+    const label = document.createElement("label");
+    label.className = "picture-size";
+    label.append("图幅 ");
+    const select = document.createElement("select");
+    for (const [value, title] of [["small", "小"], ["medium", "适中"], ["large", "大"]]) {
+      select.add(new Option(title, value));
+    }
+    select.value = "medium";
+    try {
+      const saved = localStorage.getItem(key);
+      if (Object.hasOwn(scales, saved)) select.value = saved;
+    } catch { /* 禁用本地存储时仍可在当前页调整。 */ }
+    function apply() {
+      if (!img.naturalWidth) return;
+      // 同时限制预览宽度和高度，横图、长截图均按同一比例缩放。
+      figure.style.setProperty("--picture-width", img.naturalWidth + "px");
+      figure.style.setProperty("--picture-ratio", img.naturalWidth / img.naturalHeight);
+      figure.style.setProperty("--picture-scale", scales[select.value]);
+      figure.classList.add("sized-picture");
+    }
+    select.addEventListener("change", () => {
+      apply();
+      try { localStorage.setItem(key, select.value); } catch { /* 本次选择仍然有效。 */ }
+    });
+    img.addEventListener("load", apply, { once: true });
+    label.append(select);
+    figure.append(label);
+    apply();
+  });
+}
+document.addEventListener("DOMContentLoaded", initializeReadingFigures);
+
+// 小屏阅读正文时给文字让出右下角，滚回页首或页尾后恢复桌宠。
+const readingContent = document.querySelector(".article-notes-page .article-content");
+if (readingContent && "IntersectionObserver" in window) {
+  new IntersectionObserver(([entry]) => {
+    document.body.classList.toggle("reading-body", entry.isIntersecting);
+  }, { rootMargin: "0px 0px -12% 0px" }).observe(readingContent);
+}
