@@ -846,7 +846,7 @@ function buildArticleHtml(meta, markdownBody) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="${escapeHtml(meta.title)}">
   <title>${title} — Yuyao Ma</title>
-  <link rel="stylesheet" href="../css/style.css?v=2.0.5">
+  <link rel="stylesheet" href="../css/style.css?v=2.0.6">
 ${mathStylesheet}
 </head>
 <body class="article-page${isNote ? " article-notes-page" : ""}">
@@ -897,12 +897,15 @@ ${mathStylesheet}
   </footer>
 
   <script src="../js/main.js?v=2.3.0"></script>
-  <script src="../js/article.js?v=2.3.3"></script>
+  <script src="../js/article.js?v=2.3.4"></script>
 ${
     hasCode
       ? `<script defer data-manual src="../js/vendor/prism-1.30.0/prism-core.min.js"></script>
   <script defer src="../js/vendor/prism-1.30.0/prism-python.min.js"></script>
-  <script defer src="../js/article-code.js?v=1"></script>`
+  <script defer src="../js/vendor/prism-1.30.0/prism-clike.min.js"></script>
+  <script defer src="../js/vendor/prism-1.30.0/prism-c.min.js"></script>
+  <script defer src="../js/vendor/prism-1.30.0/prism-bash.min.js"></script>
+  <script defer src="../js/article-code.js?v=2"></script>`
       : ""
   }
 ${

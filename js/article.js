@@ -316,8 +316,18 @@ if (document.readyState === "complete") {
 
 function initializeReadingFigures() {
   const scales = { small: 0.6, medium: 1, large: 1.65 };
-  document.querySelectorAll(".article-content figure > a > img").forEach((img) => {
+  document.querySelectorAll(".article-content figure > img, .article-content figure > a > img").forEach((img) => {
     const figure = img.closest("figure");
+    // 历史文章直接嵌入 img；保留图注和现有链接，只为本地裸图补原图入口。
+    if (img.parentElement === figure && img.getAttribute("src")?.startsWith("../content/assets/")) {
+      const link = document.createElement("a");
+      link.href = img.src;
+      link.target = "_blank";
+      link.rel = "noopener";
+      link.setAttribute("aria-label", "查看原图（新窗口）");
+      img.replaceWith(link);
+      link.append(img);
+    }
     const key = "article-picture:" + img.getAttribute("src");
     const label = document.createElement("label");
     label.className = "picture-size";

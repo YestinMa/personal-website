@@ -1,5 +1,5 @@
 (() => {
-  const languageLabels = { py: "Python", python: "Python", txt: "Text", text: "Text" };
+  const languageLabels = { py: "Python", python: "Python", txt: "Text", text: "Text", c: "C", bash: "Bash" };
 
   function appendTokens(parent, tokens) {
     // 只用文本节点写入代码，保留缩进和特殊字符，不把示例内容当作 HTML。
@@ -41,6 +41,16 @@
   }
 
   const grammars = window.Prism?.languages ?? {};
+  // 只着色 Python 笔记里可识别的行内调用；正则模式、文件名、纯文本保持原样。
+  if (grammars.python && document.querySelector("pre > code:is(.language-py, .language-python)")) {
+    document.querySelectorAll(".article-content :not(pre) > code").forEach((code) => {
+      const source = code.textContent;
+      if (!/^[\w(][\s\S]*\.[A-Za-z_]\w*\([^\n]*\)$|^[A-Za-z_]\w*\([^\n]*\)$/.test(source) || source.includes("(?")) return;
+      const fragment = document.createDocumentFragment();
+      appendTokens(fragment, window.Prism.tokenize(source, grammars.python));
+      code.replaceChildren(fragment);
+    });
+  }
   document.querySelectorAll(".article-content pre:not(.mermaid) > code").forEach((code) => {
     const pre = code.parentElement;
     const language = [...code.classList].find((name) => name.startsWith("language-"))?.slice(9);

@@ -29,6 +29,9 @@ build/
 !/js/vendor/katex-0.16.11/auto-render.min.js
 !/js/vendor/prism-1.30.0/prism-core.min.js
 !/js/vendor/prism-1.30.0/prism-python.min.js
+!/js/vendor/prism-1.30.0/prism-clike.min.js
+!/js/vendor/prism-1.30.0/prism-c.min.js
+!/js/vendor/prism-1.30.0/prism-bash.min.js
 
 # 环境变量文件
 .env
