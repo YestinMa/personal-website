@@ -342,14 +342,13 @@ img { display: block; max-width: 100%; }
 .article-content figure { margin-left: 0; margin-right: 0; }
 .article-content figure > a { display: block; width: fit-content; max-width: 100%; margin-inline: auto; cursor: zoom-in; }
 .article-content img { width: auto; height: auto; max-width: 100%; margin-inline: auto; border: 1px solid var(--line); }
-.article-content .sized-picture > :is(a, img) {
-    width: min(100%, calc(80% * var(--picture-scale)), calc(var(--picture-width) * var(--picture-scale)), calc(54svh * var(--picture-ratio) * var(--picture-scale)));
-}
-.article-content .sized-picture > a > img { width: 100%; }
-.article-content figure[data-notion-width] > :is(a, img) { width: min(100%, calc(var(--notion-width) * var(--picture-scale, 1))); }
-.article-content figure[data-notion-width] > a > img { width: 100%; }
-.picture-size { display: flex; justify-content: center; align-items: center; gap: .4rem; margin: .35rem auto; color: var(--muted); font-size: .75rem; }
-.picture-size select { color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: .25rem; padding: .15rem .3rem; font: inherit; }
+.picture-frame { position: relative; width:fit-content; max-width:100%; margin-inline:auto; }
+.picture-frame > a, .article-content .picture-frame img { display:block; width:100%; height:auto; }
+.picture-grip { position:absolute; top:50%; transform:translateY(-50%); height:min(44px,100%); width:18px; padding:0; border:0; background:transparent; cursor:ew-resize; touch-action:none; }
+.picture-grip.left { left:0; }
+.picture-grip.right { right:0; }
+.picture-grip::after { content:""; display:block; margin:auto; height:68%; max-height:30px; width:4px; border-radius:3px; background:#47525b; box-shadow:0 0 0 1px #fff; opacity:.4; }
+.picture-frame:is(:hover,:focus-within,.dragging) .picture-grip::after { opacity:1; }
 .article-content thead { background: var(--paper-deep); }
 .article-content td, .article-content th { overflow-wrap: anywhere; line-height: 1.55; }
 .article-content td:first-child { min-width: 5rem; }

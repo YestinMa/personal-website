@@ -315,6 +315,7 @@ if (document.readyState === "complete") {
 
 
 function initializeReadingFigures() {
+  const occurrences = new Map();
   const scales = { small: 0.6, medium: 1, large: 1.65 };
   document.querySelectorAll(".article-content figure > img, .article-content figure > a > img").forEach((img) => {
     const figure = img.closest("figure");
@@ -328,35 +329,74 @@ function initializeReadingFigures() {
       img.replaceWith(link);
       link.append(img);
     }
-    const key = "article-picture:" + img.getAttribute("src");
-    const label = document.createElement("label");
-    label.className = "picture-size";
-    label.append("图幅 ");
-    const select = document.createElement("select");
-    for (const [value, title] of [["small", "小"], ["medium", "适中"], ["large", "大"]]) {
-      select.add(new Option(title, value));
-    }
-    select.value = "medium";
+    const src = img.getAttribute("src");
+    const occurrence = occurrences.get(src) || 0;
+    occurrences.set(src, occurrence + 1);
+    const key = JSON.stringify(["figure-width", location.pathname, src, occurrence]);
+    const frame = document.createElement("div");
+    frame.className = "picture-frame";
+    const media = img.closest("a") || img;
+    media.replaceWith(frame);
+    frame.append(media);
+    let scale = 1;
     try {
-      const saved = localStorage.getItem(key);
-      if (Object.hasOwn(scales, saved)) select.value = saved;
-    } catch { /* 禁用本地存储时仍可在当前页调整。 */ }
-    function apply() {
-      if (!img.naturalWidth) return;
-      // 同时限制预览宽度和高度，横图、长截图均按同一比例缩放。
-      figure.style.setProperty("--picture-width", img.naturalWidth + "px");
-      figure.style.setProperty("--picture-ratio", img.naturalWidth / img.naturalHeight);
-      figure.style.setProperty("--picture-scale", scales[select.value]);
-      figure.classList.add("sized-picture");
+      const width = Number(localStorage.getItem(key));
+      if (width > 0 && Number.isFinite(width)) frame.style.width = width + "px";
+      scale = scales[localStorage.getItem("article-picture:" + src)] || 1;
+    } catch { /* 本地存储不可用时仍允许拖动。 */ }
+    function initialSize() {
+      if (!img.naturalWidth || frame.style.width) return;
+      const base = Number(figure.dataset.notionWidth);
+      frame.style.width = base ? (base * scale) + "px" :
+        `min(${80 * scale}%, ${img.naturalWidth * scale}px, ${54 * scale * img.naturalWidth / img.naturalHeight}svh)`;
     }
-    select.addEventListener("change", () => {
-      apply();
-      try { localStorage.setItem(key, select.value); } catch { /* 本次选择仍然有效。 */ }
-    });
-    img.addEventListener("load", apply, { once: true });
-    label.append(select);
-    figure.append(label);
-    apply();
+    img.addEventListener("load", initialSize, {once:true});
+    initialSize();
+    function resize(width) {
+      frame.style.width = Math.min(figure.clientWidth, Math.max(32, width)) + "px";
+    }
+    function save() {
+      try { localStorage.setItem(key, parseFloat(frame.style.width)); }
+      catch { frame.title = "浏览器未允许保存；本次调整仅在当前页面有效"; }
+    }
+    for (const side of [-1, 1]) {
+      const handle = document.createElement("button");
+      handle.type = "button";
+      handle.className = "picture-grip " + (side < 0 ? "left" : "right");
+      handle.title = "拖动调整图幅，也可使用左右方向键";
+      handle.setAttribute("aria-label", (side < 0 ? "左" : "右") + "侧图幅调节柄");
+      frame.append(handle);
+      let drag;
+      handle.onpointerdown = e => {
+        if (!e.isPrimary || e.button !== 0) return;
+        drag = [e.clientX, frame.getBoundingClientRect().width, frame.style.width];
+        handle.setPointerCapture(e.pointerId);
+        frame.classList.add("dragging");
+        e.preventDefault();
+      };
+      // 图片始终居中，边缘移动一像素相当于总宽度变化两像素。
+      handle.onpointermove = e => {
+        if (drag && handle.hasPointerCapture(e.pointerId)) resize(drag[1] + 2 * side * (e.clientX - drag[0]));
+      };
+      handle.onpointerup = e => {
+        if (!drag || !handle.hasPointerCapture(e.pointerId)) return;
+        if (e.clientX !== drag[0]) { resize(drag[1] + 2 * side * (e.clientX - drag[0])); save(); }
+        else frame.style.width = drag[2];
+        drag = null;
+        frame.classList.remove("dragging");
+      };
+      handle.onlostpointercapture = () => {
+        if (drag) frame.style.width = drag[2];
+        drag = null;
+        frame.classList.remove("dragging");
+      };
+      handle.onkeydown = e => {
+        if (!["ArrowLeft", "ArrowRight"].includes(e.key)) return;
+        e.preventDefault();
+        resize(frame.getBoundingClientRect().width + (e.key === "ArrowRight" ? 1 : -1) * side * 12);
+        save();
+      };
+    }
   });
 }
 document.addEventListener("DOMContentLoaded", initializeReadingFigures);
