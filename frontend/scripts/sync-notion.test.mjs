@@ -90,3 +90,9 @@ test("参数表的标识符是代码，表头有列语义，原图链接与缩�
   const image = markdownToHtml("![示意图](../content/assets/notes/test/1.png)");
   assert.match(image, /<a href="([^"]+)"[^>]*><img[^>]* src="\1" alt="示意图">/);
 });
+
+test("同源图片按各自排版宽度渲染", () => {
+  const html = markdownToHtml("![原宽](logo.png)\n\n![缩窄](logo.png){width=36px}");
+  assert.match(html, /<figure><img[^>]+alt="原宽"/);
+  assert.match(html, /<figure style="--notion-width:36px" data-notion-width="36"><img[^>]+alt="缩窄"/);
+});

@@ -460,7 +460,8 @@ async function renderBlocks(token, blocks, context, depth = 0) {
       case "image": {
         const url = await localizeImage(block.image, context);
         const caption = richTextToMarkdown(block.image.caption || []);
-        lines.push(`![${caption}](${url})`, "");
+        const width = context.widths[block.id.replace(/-/g, "")];
+        lines.push(`![${caption}](${url})${Number.isFinite(width) && width > 0 ? `{width=${width}px}` : ""}`, "");
         break;
       }
       case "table": {
@@ -501,6 +502,7 @@ function toFrontmatter(meta) {
     date: meta.date,
     lastEditedTime: meta.lastEditedTime,
     renderVersion: CONTENT_RENDER_VERSION,
+    layoutRevision: meta.layoutRevision || "",
     category: meta.category || meta.kind,
     tags: meta.tags,
     status: meta.status,
@@ -764,7 +766,7 @@ function markdownToHtml(markdown) {
       continue;
     }
 
-    const imageMatch = line.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+    const imageMatch = line.match(/^!\[([^\]]*)\]\(([^)]+)\)(?:\{width=(\d+(?:\.\d+)?)px\})?$/);
     if (imageMatch) {
       flushParagraph();
       flushList();
@@ -776,7 +778,8 @@ function markdownToHtml(markdown) {
       const preview = imageMatch[2].startsWith("../content/assets/")
         ? `<a href="${src}" target="_blank" rel="noopener" aria-label="查看原图（新窗口）${caption}">${image}</a>`
         : image;
-      html.push(`<figure>${preview}${caption ? `<figcaption>${caption}</figcaption>` : ""}</figure>`);
+      const layout = imageMatch[3] ? ` style="--notion-width:${imageMatch[3]}px" data-notion-width="${imageMatch[3]}"` : "";
+      html.push(`<figure${layout}>${preview}${caption ? `<figcaption>${caption}</figcaption>` : ""}</figure>`);
       continue;
     }
 
@@ -846,7 +849,7 @@ function buildArticleHtml(meta, markdownBody) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="${escapeHtml(meta.title)}">
   <title>${title} — Yuyao Ma</title>
-  <link rel="stylesheet" href="../css/style.css?v=2.0.6">
+  <link rel="stylesheet" href="../css/style.css?v=2.0.7">
 ${mathStylesheet}
 </head>
 <body class="article-page${isNote ? " article-notes-page" : ""}">
@@ -897,7 +900,7 @@ ${mathStylesheet}
   </footer>
 
   <script src="../js/main.js?v=2.3.0"></script>
-  <script src="../js/article.js?v=2.3.4"></script>
+  <script src="../js/article.js?v=2.3.5"></script>
 ${
     hasCode
       ? `<script defer data-manual src="../js/vendor/prism-1.30.0/prism-core.min.js"></script>
@@ -963,6 +966,7 @@ async function indexExistingContent(rootDir) {
           path: fullPath,
           status: parseFrontmatter(content)?.status || "",
           htmlPath: path.join(REPO_ROOT, kind, `${entry.name.replace(/\.md$/, "")}.html`),
+          layoutRevision: parseFrontmatter(content)?.layoutRevision || "",
           lastEditedTime: lastEditedTimeMatch ? lastEditedTimeMatch[1] : "",
           renderVersion: renderVersionMatch ? renderVersionMatch[1] : "",
         });
@@ -1001,6 +1005,12 @@ async function syncPage(token, page, ancestors, defaultStatus, isContainer, exis
   const targetPath = path.join(targetDir, `${meta.slug}.md`);
   const htmlTargetPath = getHtmlOutputPath(meta);
 
+  // 导出包只提供布局；正文仍由现有 Notion 同步流程生成。
+  const layoutPath = path.join(REPO_ROOT, "notion-layout", page.id.replace(/-/g, "") + ".json");
+  let widths = {};
+  try { widths = JSON.parse(await fs.readFile(layoutPath, "utf8")); }
+  catch (error) { if (error.code !== "ENOENT") throw error; }
+  meta.layoutRevision = Object.entries(widths).map(([id,w]) => id + ":" + w).join(",");
   const htmlAlreadyExists = await fs
     .access(htmlTargetPath)
     .then(() => true)
@@ -1008,6 +1018,7 @@ async function syncPage(token, page, ancestors, defaultStatus, isContainer, exis
 
   if (
     existing &&
+    existing.layoutRevision === meta.layoutRevision &&
     existing.lastEditedTime === meta.lastEditedTime &&
     existing.status === meta.status &&
     existing.path === targetPath &&
@@ -1022,6 +1033,7 @@ async function syncPage(token, page, ancestors, defaultStatus, isContainer, exis
   await fs.rm(assetDir, { recursive: true, force: true });
   let imageIndex = 0;
   const markdownBody = await renderBlocks(token, blocks, {
+    widths,
     strictImages,
     assetDir,
     assetHrefBase: getAssetHrefBase(meta),

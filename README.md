@@ -102,3 +102,13 @@ GitHub Actions 的 `Deploy website and logs` 获取完整 Git 历史、生成日
 ## 编码
 
 所有文本文件均使用 UTF-8。终端中文显示异常时，应先切换终端编码，不要转换项目文件编码。
+
+### 沿用 Notion 中拖拽的图片宽度
+
+调整图片后，从 Notion 导出 HTML。在仓库根目录运行：
+
+```powershell
+python scripts/import-notion-layout.py "C:\路径\笔记导出.zip"
+```
+
+然后照常同步发布。可以一次导入多页；布局存于 `notion-layout/`，按页面和图片块 ID 匹配。导入只更新包内页面的布局，不发布草稿，也不替换正文。再次拖拽后需要重新导出、导入。未调整的图片沿用默认图幅，手机上的图片不会超过正文宽度。
