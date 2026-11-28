@@ -51,17 +51,24 @@
       code.replaceChildren(fragment);
     });
   }
+  // 只对即将进入视口的代码分词；首屏不处理整章的长示例。
+  const near = window.IntersectionObserver && new IntersectionObserver(entries=>{
+    for(const e of entries)if(e.isIntersecting){near.unobserve(e.target);highlight(e.target);}
+  },{rootMargin:"500px"});
+  function highlight(code){
+    const lang=code.className.replace("language-","");
+    if(!Object.hasOwn(grammars,lang))return;
+    const fragment=document.createDocumentFragment();
+    appendTokens(fragment,window.Prism.tokenize(code.textContent,grammars[lang]));
+    code.replaceChildren(fragment);
+  }
   document.querySelectorAll(".article-content pre:not(.mermaid) > code").forEach((code) => {
     const pre = code.parentElement;
     const language = [...code.classList].find((name) => name.startsWith("language-"))?.slice(9);
     const source = code.textContent;
     const grammar = language && Object.hasOwn(grammars, language) ? grammars[language] : null;
 
-    if (grammar) {
-      const highlighted = document.createDocumentFragment();
-      appendTokens(highlighted, window.Prism.tokenize(source, grammar));
-      code.replaceChildren(highlighted);
-    }
+    if(grammar){if(near)near.observe(code);else highlight(code);}
 
     const block = document.createElement("div");
     block.className = "article-code";

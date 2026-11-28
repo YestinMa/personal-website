@@ -896,7 +896,7 @@ ${mathStylesheet}
   </footer>
 
   <script src="../js/main.js?v=2.3.0"></script>
-  <script src="../js/article.js?v=2.5.0"></script>
+  <script src="../js/article.js?v=2.5.1"></script>
 ${
     hasCode
       ? `<script defer data-manual src="../js/vendor/prism-1.30.0/prism-core.min.js"></script>
@@ -904,7 +904,7 @@ ${
   <script defer src="../js/vendor/prism-1.30.0/prism-clike.min.js"></script>
   <script defer src="../js/vendor/prism-1.30.0/prism-c.min.js"></script>
   <script defer src="../js/vendor/prism-1.30.0/prism-bash.min.js"></script>
-  <script defer src="../js/article-code.js?v=2"></script>`
+  <script defer src="../js/article-code.js?v=3"></script>`
       : ""
   }
 ${
@@ -975,6 +975,44 @@ async function indexExistingContent(rootDir) {
   return state;
 }
 
+// 同层章标题切分为真正的静态文件；正文、公式和图片不会跨章进入 DOM。
+export async function writeArticlePages(file,meta,md,nativeBody){
+  const stem=path.basename(file,".html"), dir=path.dirname(file);
+  const html=nativeBody ?? markdownToHtml(md);
+  const headings=[...html.matchAll(/<h([1-4])(?: [^>]*)?>([\s\S]*?)<\/h\1>/g)];
+  const level=Math.min(...headings.map(h=>Number(h[1])));
+  const chapters=meta.kind==="notes"?headings.filter(h=>Number(h[1])===level):[];
+  const files=new Set();
+  const name=i=>stem+(i?".chapter-"+(i+1):"")+".html";
+  if(chapters.length<2)await fs.writeFile(file,buildArticleHtml(meta,md,nativeBody),"utf8");
+  else{
+    const labels=chapters.map(h=>h[2].replace(/<[^>]*>/g,""));
+    const used=new Set(), routes=[];
+    for(const h of headings){
+      const base=h[2].replace(/<[^>]*>/g,"").normalize("NFKC").toLowerCase().trim().replace(/[^a-z0-9\u3400-\u9fff]+/g,"-").replace(/^-+|-+$/g,"")||"section";
+      let id=base,n=2;while(used.has(id))id=base+"-"+n++;used.add(id);
+      const chapter=chapters.findLastIndex(c=>c.index<=h.index);
+      if(chapter>0)routes.push([id,name(chapter)]);
+    }
+    for(let i=0;i<chapters.length;i++){
+      const body=html.slice(i?chapters[i].index:0,chapters[i+1]?.index??html.length);
+      let page=buildArticleHtml(meta,body,body);
+      const links=labels.map((label,j)=>`<li><a href="${escapeHtml(name(j))}"${j===i?' aria-current="page"':''}>${label}</a></li>`).join("");
+      page=page.replaceAll("data-toc-list></ol>",`data-chapter-links>${links}</ol>`).replace('<body class=',`<body data-note-file="${escapeHtml(name(0))}" class=`);
+      const pager=[i?'<a href="'+escapeHtml(name(i-1))+'">← '+labels[i-1]+'</a>':"",i+1<chapters.length?'<a href="'+escapeHtml(name(i+1))+'">'+labels[i+1]+' →</a>':""].join(" ");
+      page=page.replace("</article>",'<nav class="chapter-pagination" aria-label="相邻章节">'+pager+'</nav></article>');
+      // 兼容旧的单页锚点，只重定向明确属于其他章节的标题。
+      if(!i)page=page.replace("</head>",'<script>if(location.hash){try{const f=new Map('+JSON.stringify(routes).replaceAll("<","\\u003c")+').get(decodeURIComponent(location.hash.slice(1)));if(f)location.replace(f+location.hash)}catch{}}</script></head>');
+      files.add(name(i));await fs.writeFile(path.join(dir,name(i)),page,"utf8");
+    }
+  }
+  await cleanChapterFiles(file,files);
+}
+async function cleanChapterFiles(file,keep=new Set()){
+  const dir=path.dirname(file), prefix=path.basename(file,".html")+".chapter-";
+  for(const f of await fs.readdir(dir))if(f.startsWith(prefix)&&/^\d+\.html$/.test(f.slice(prefix.length))&&!keep.has(f))await fs.unlink(path.join(dir,f));
+}
+
 async function syncPage(token, page, ancestors, defaultStatus, isContainer, existingById, contentRoot, { strictImages = false } = {}) {
   if (isContainer) {
     return { status: "skipped", reason: "container", meta: { notionPageId: page.id } };
@@ -991,7 +1029,8 @@ async function syncPage(token, page, ancestors, defaultStatus, isContainer, exis
     if (existing) {
       await fs.rm(existing.path, { force: true });
       if (existing.htmlPath) {
-        await fs.rm(existing.htmlPath, { force: true });
+        await cleanChapterFiles(existing.htmlPath);
+      await fs.rm(existing.htmlPath, { force: true });
       }
       await fs.rm(getAssetOutputDir(meta), { recursive: true, force: true });
       return { status: "removed", reason: "unpublished", meta };
@@ -1042,7 +1081,7 @@ async function syncPage(token, page, ancestors, defaultStatus, isContainer, exis
   });
   const fileContent = `${toFrontmatter(meta)}${markdownBody}`;
   const nativeBody = meta.kind === "notes" ? nativeHtml(blocks) : undefined;
-  const htmlContent = buildArticleHtml(meta, markdownBody, nativeBody);
+
 
   await fs.mkdir(targetDir, { recursive: true });
   await fs.mkdir(path.dirname(htmlTargetPath), { recursive: true });
@@ -1051,12 +1090,13 @@ async function syncPage(token, page, ancestors, defaultStatus, isContainer, exis
     await fs.rm(existing.path, { force: true });
   }
   if (existing && existing.htmlPath && existing.htmlPath !== htmlTargetPath) {
-    await fs.rm(existing.htmlPath, { force: true });
+    await cleanChapterFiles(existing.htmlPath);
+      await fs.rm(existing.htmlPath, { force: true });
   }
 
   if (nativeBody !== undefined) await fs.writeFile(targetPath + ".layout.json", JSON.stringify({markdownBody, nativeBody}), "utf8");
   await fs.writeFile(targetPath, fileContent, "utf8");
-  await fs.writeFile(htmlTargetPath, htmlContent, "utf8");
+  await writeArticlePages(htmlTargetPath, meta, markdownBody, nativeBody);
   return { status: existing ? "updated" : "created", reason: "synced", meta, path: targetPath };
 }
 
@@ -1171,7 +1211,7 @@ async function renderExistingContent(contentRoot) {
         const snapshot = JSON.parse(await fs.readFile(markdownPath + ".layout.json", "utf8"));
         if (snapshot.markdownBody.trim() === markdownBody.trim()) nativeBody = snapshot.nativeBody;
       } catch (error) { if (error.code !== "ENOENT") throw error; }
-      await fs.writeFile(htmlPath, buildArticleHtml(nextMeta, markdownBody, nativeBody), "utf8");
+      await writeArticlePages(htmlPath, nextMeta, markdownBody, nativeBody);
       rendered += 1;
     }
   }

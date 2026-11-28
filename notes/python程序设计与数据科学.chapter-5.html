@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Python程序设计与数据科学">
+  <title>Python程序设计与数据科学 — Yuyao Ma</title>
+  <link rel="stylesheet" href="../css/style.css?v=2.1.2">
+  <link rel="stylesheet" href="../css/vendor/katex-0.16.11/katex.min.css">
+</head>
+<body data-note-file="python程序设计与数据科学.html" class="article-page article-notes-page">
+  <header class="site-header">
+    <a class="site-mark" href="../index.html" aria-label="Yuyao Ma home">YM</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation">
+      <span></span><span></span><span></span><span class="sr-only">Toggle navigation</span>
+    </button>
+    <nav class="site-nav" id="site-navigation" aria-label="Primary navigation">
+      <a href="../work.html">Work</a>
+      <a class="active" href="../notes-blogs.html" aria-current="page">Notes</a>
+      <a href="../logs.html">Logs</a>
+      <a href="../index.html">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main class="article-layout">
+    <aside class="article-nav article-side-nav" aria-label="All notes">
+      <h2>All Notes</h2>
+      <ol data-note-list></ol>
+    </aside>
+
+    <article class="article-main">
+      <div class="article-mobile-nav">
+        <details><summary>All Notes</summary><ol class="article-nav" data-note-list></ol></details>
+        <details><summary>Chapters</summary><ol class="article-nav" data-chapter-links><li><a href="python程序设计与数据科学.html">一、程序设计基础篇</a></li><li><a href="python程序设计与数据科学.chapter-2.html">二、数据结构篇</a></li><li><a href="python程序设计与数据科学.chapter-3.html">三、算法篇</a></li><li><a href="python程序设计与数据科学.chapter-4.html">四、数据分析篇（上）</a></li><li><a href="python程序设计与数据科学.chapter-5.html" aria-current="page">数据分析篇（下）</a></li><li><a href="python程序设计与数据科学.chapter-6.html">机器学习篇</a></li><li><a href="python程序设计与数据科学.chapter-7.html">神经网络篇</a></li><li><a href="python程序设计与数据科学.chapter-8.html">数据库篇</a></li><li><a href="python程序设计与数据科学.chapter-9.html">爬虫篇</a></li><li><a href="python程序设计与数据科学.chapter-10.html">项目架构篇</a></li></ol></details>
+      </div>
+      <a class="article-back" href="../notes-blogs.html">← Notes &amp; Blogs</a>
+      <h1 class="article-title">Python程序设计与数据科学</h1>
+      <div class="article-meta">
+        <span>笔记 · v1.2</span><span>2024-11-10</span><span>study</span>
+        <span class="article-tags"><span>coding</span></span>
+      </div>
+      <div class="article-content"><h2>数据分析篇（下）</h2><h3>Matplotlib与可视化</h3><h4>matplotlib API入门</h4><ul><li>导入惯例</li></ul><pre><code class="language-python">import matplotlib.pyplot as plt</code></pre><h4>图片与子图、调用机制</h4><ul><li>mat绘制的图位于<strong>图片对象中</strong>（Figure）</li></ul><pre><code class="language-python">fig = plt.figure()
+# 用fig.add_subplot()方法添加子图
+ax1 = fig.add_subplot(2,2,1)
+ax2 = fig.add_subplot(2,2,2)
+ax3 =  fig.add_subplot(2,2,3)
+ax4 = fig.add_subplot(2,2,4)
+
+# 绘制子图
+ax1.plot(np.random.randn(50).cumsum(), &#39;k--&#39;)
+ax2.hist(np.random.randn(500), bins=20, color=&#39;k&#39;, alpha=0.3)
+ax3.scatter(np.arange(30), np.arange(30)+3*np.random.randn(30))
+
+# 展示
+plt.show()</code></pre><ul><li><code>plt.show()</code> 为<strong>阻塞式调用方法</strong>，会释放内存中的所有图形资源，并阻碍下面代码的运行。（可以指定<code>block=False</code> 改为非阻塞式调用）<ul><li>在使用内联绘图后端的 Jupyter Notebook 中，通常不用显式调用 <code>plt.show()</code> 也能显示图像。</li><li>如果一次只创建一个图形，就不需要显式定义Figure对象</li></ul></li></ul><pre><code class="language-python">fig1 = plt.figure(1) # 指定当前活动图形
+plt.plot(np.random.randn(1000).cumsum()) # 将图形命令分配给Figure1
+
+fig2 = plt.figure(2) # 重新指定当前活动图形为Figure2
+plt.plot(np.random.randn(500).cumsum()) # ...
+
+plt.show() #将内存中的Figure1和Figure2同时释放，并阻塞命令行</code></pre><ul><li><code>plt.subplots(2, 2)</code> 一次创建一个 Figure 和四个 Axes，比逐个调用 <code>add_subplot()</code> 更直接。<ul><li>返回的 <code>axes</code> 可按行列索引；左上角是 <code>axes[0, 0]</code>。</li></ul></li></ul><pre><code class="language-python">fig, axes = plt.subplots(2,2)
+# axes[0,0]：此处省略绘图代码
+# axes[0,1]：此处省略绘图代码
+# 略</code></pre><ul><li><code>plt.subplots()</code> 其他选项<ul><li><code>sharex</code>与<code>sharey</code> 所有子图使用相同的x\y刻度</li><li><code>figsize</code> 以元组*宽度，高度* 的形式传入</li><li><code>dpi</code> 分辨率：默认值为100</li></ul></li><li><code>plt.subplots_adjust()</code> 用于调整subplot子图周围的间距</li></ul><pre><code class="language-python">plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=0, hspace=0)</code></pre><h4>Figure对象与Axes对象</h4><ul><li>Figure是顶层画布，相当于一张纸<ul><li>Figure对象常用属性和方法：<ul><li>figsize画布大小；dpi分辨率</li><li>fig.add_subplot()添加子图</li><li>fig.savefig()保存图片</li></ul></li></ul></li><li>Axes是图中的<strong>实际绘图区域</strong>，一个Figure对象中可以有多个Axes对象<ul><li>Axes对象常用属性和方法：<ul><li><code>axes.plot()</code> 折线；<code>axes.scatter()</code> 散点图</li><li><code>axes.set_title()</code> 设置标题</li><li><code>axes.set_xlabel()/ylabel()</code> 设置标签</li><li><code>axes.set_xtick()/ytick()</code> 设置标签刻度</li></ul></li></ul></li></ul><h4>pyplot的状态机接口机制</h4><ul><li>通过这一接口，用户可以快速绘图，而不需要显式创建和管理 Figure 和 Axes 对象。（适用于简单情况的）</li><li>例如：<code>plt.plot()</code> ：实际上是根据用户的需求隐式创建了axes对象，并对axes对象进行操作</li></ul><h4>颜色、标记和线类型</h4><ul><li>plot函数接收带有x和y的数组，以及<strong>可选的字符串</strong>缩写参数来指明<strong>颜色和线类型</strong>。</li></ul><pre><code class="language-python">ax.plot(x, y, &#39;go--&#39;) #marker必须在color后面
+ax.plot(x, y, color=&#39;g&#39;, marker=&#39;o&#39;, linestyle=&#39;--&#39;) # 显式表达</code></pre><ul><li>可以通过<strong>十六进制颜色编码</strong>指定颜色</li><li><code>drawstyle</code> 选项<ul><li>三种：steps-pre; steps-mid; steps-post</li></ul></li></ul><pre><code class="language-python">plt.plot(data, &#39;bo--&#39;, label=&#39;Default&#39;)
+plt.plot(data, &#39;g-&#39;, drawstyle=&#39;steps-post&#39;, label=&#39;steps-post&#39;) #后跳步方式</code></pre><figure><a href="../content/assets/notes/python程序设计与数据科学/image-80.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-80.png" alt=""></a></figure><h4>刻度与标签</h4><ul><li>对axes对象：</li></ul><pre><code class="language-python">fig = plt.figure()
+ax = fig.add_subplot(1,1,1)
+
+# 以下全部是axes对象方法
+ax.plot(np.random.randn(1000).cumsum())
+xticks = ax.set_xticks([0,250,500,750,1000])
+xlabel = ax.set_xlabel(&#39;Stages&#39;)
+xticklabels = ax.set_xticklabels([&#39;one&#39;,&#39;two&#39;,&#39;three&#39;,&#39;four&#39;,&#39;five&#39;], rotation=30, fontsize=&#39;small&#39;)
+xtitle = ax.set_title(&#39;My first matplotlib image&#39;)</code></pre><ul><li>或者，也可以通过<code>axes.set(**kwargs)</code> 传入：</li></ul><pre><code class="language-python">props = {
+    &#39;title&#39;:&#39;My first image&#39;,
+    &#39;xlabel&#39;:&#39;Stages&#39;
+} # 参数字典
+fig = plt.figure()
+
+ax = fig.add_subplot(1,1,1)
+ax.plot(np.random.randn(1000).cumsum())
+ax.set(**props)</code></pre><h4>图例</h4><h4>设置label参数</h4><pre><code class="language-python">fig, axes = plt.subplots(1,1)
+axes.plot(np.arange(1000),np.random.normal(0,1,1000), label=&#39;one&#39;)
+axes.plot(np.arange(0,1000,10),np.random.normal(0,1,100), label=&#39;two&#39;)
+axes.plot(np.arange(0,1000,100),np.random.normal(0,1,10), label=&#39;three&#39;)</code></pre><figure><a href="../content/assets/notes/python程序设计与数据科学/image-81.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-81.png" alt=""></a></figure><h4>创建图例</h4><ul><li><code>ax.legend()/plt.legend()</code> 方法</li></ul><pre><code class="language-python">axes.legend(loc=&#39;best&#39;)</code></pre><ul><li>如果希望调用ax.legend()方法时不生成某个图像的图例，不指定label或<code>label=‘nolegend’</code> 即可。</li></ul><h4>注解</h4><ul><li><code>ax.text()</code> ; <code>ax.arrow()</code> ; <code>ax.annotate</code> 方法</li><li>下面的案例，可以学完时间序列回头看</li></ul><pre><code class="language-python">from datetime import datetime # 这里注意导入方式
+spx = data[&#39;SPX&#39;]
+crisis_data = [
+    (datetime(2007,10,11),&#39;Peak&#39;),
+    (datetime(2008,3,12),&#39;Bear Sterns Fails&#39;),
+    (datetime(2008,9,15),&#39;Lehman Bankruptcy&#39;)
+]
+fig, axes = plt.subplots(1,1)
+axes.plot(spx, &#39;k-&#39;) # 黑色实线
+for date,label in crisis_data:
+    axes.annotate(label, xy=(date, spx.asof(date)+75),
+                xytext=(date, spx.asof(date)+225),
+                arrowprops={&#39;facecolor&#39;:&#39;black&#39;,
+                            &#39;headwidth&#39;:4,
+                            &#39;width&#39;:2,
+                            &#39;headlength&#39;:4})
+axes.set_xlim([datetime(2007,1,1),datetime(2011,1,1)])
+axes.set_ylim([600,1800])</code></pre><h4>将图片保存到文件</h4><ul><li><code>fig.fivefig()/ plt.savefig()</code><ul><li><code>fname</code> 指定文件名称</li><li><code>dpi</code> 指定分辨率</li><li><code>format</code> 指定格式</li><li><code>bbox_inches</code> 要保存的图片范围，如果传递tight，则会去除掉空白部分</li></ul></li></ul><h4>Axes图表方法</h4><ul><li><code>Series.plot()</code>和<code>DataFrame.plot()</code> 方法：是Pandas内建的简化可视化过程的方法。</li></ul><h4>折线图</h4><ul><li>基本语法：<code>Axes.plot(*args, **kwargs)</code></li></ul><h4>柱状图</h4><ul><li>基本语法：<code>Axes.bar(x, height, width=0.8, bottom=None, align=&#39;center&#39;, color=None, edgecolor=None, **kwargs)</code><ul><li>x为分组，height为每组的高度</li><li>width是每个柱的宽度</li><li>bottom定义柱子在 y 轴方向上的起点，默认从 0 开始</li><li>align控制柱子与xtick的对齐方式<ul><li>center即中心对齐</li><li>edge为左对齐</li></ul></li><li>color为柱子的颜色，edgecolor为柱子边框的颜色</li></ul></li></ul><pre><code class="language-python">df = pd.DataFrame(np.random.randn(10,4).cumsum(0),
+                  columns=[&#39;A&#39;,&#39;B&#39;,&#39;C&#39;,&#39;D&#39;],
+                  index = np.arange(0,100,10))
+
+# 对df每组的sum进行柱状图统计
+df_sum = df.sum(0) #Series类型
+plt.bar(df_sum.index, df_sum)
+
+# 或者，直接用Pandas内置方法
+df_sum.plot.bar()</code></pre><figure><a href="../content/assets/notes/python程序设计与数据科学/image-82.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-82.png" alt=""></a></figure><h4>堆叠柱状图</h4><ul><li>基本原理：控制bottom参数，使第二组数据&quot;堆叠&quot;在第一组上</li></ul><pre><code class="language-python"># 数据
+cat = [&#39;A&#39;, &#39;B&#39;, &#39;C&#39;]
+g1 = [3, 5, 7]
+g2 = [2, 4, 6]
+g3 = [1, 3, 4]
+
+fig, ax = plt.subplots(1,1)
+ax.bar(cat, g1, color=&#39;blue&#39;, label=&#39;A&#39;)
+ax.bar(cat, g2, color=&#39;red&#39;, bottom=g1, label=&#39;B&#39;)
+ax.bar(cat, g3, color=&#39;orange&#39;, bottom=[i+j for i,j in zip(g1,g2)], label=&#39;C&#39;) # 注意这里列表推导式的使用
+plt.legend(loc=&#39;best&#39;)</code></pre><figure><a href="../content/assets/notes/python程序设计与数据科学/image-83.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-83.png" alt=""></a></figure><h4>交叉柱状图</h4><ul><li>核心是重新定义n组X轴刻度位置，再重新标注刻度</li></ul><pre><code class="language-python">fig, ax = plt.subplots()
+
+#定义x轴位置与偏移量
+width = 0.2
+x = np.arange(len(cat))
+
+# 作图
+ax.bar(x - width, g1, width=width, label=&#39;Group 1&#39;, color=&#39;blue&#39;)  # 第一组
+ax.bar(x, g2, width=width, label=&#39;Group 2&#39;, color=&#39;green&#39;)         # 第二组
+ax.bar(x + width, g3, width=width, label=&#39;Group 3&#39;, color=&#39;orange&#39;)# 第三组
+
+# 重新设置x轴刻度
+ax.set_xticks(x)
+ax.set_xticklabels(cat)</code></pre><h4>散点图</h4><ul><li>基本语法：<code>Axes.scatter(x, y, s=None, c=None, marker=None, cmap=None, alpha=None, edgecolors=None, **kwargs)</code></li></ul><h4>直方图与密度图</h4><h4>直方图</h4><ul><li><code>axes.hist()</code> 方法</li></ul><pre><code class="language-python">data = np.random.randn(1000000)
+
+# 使用matplotlib绘制直方图
+plt.hist(data, bins=30, color=&#39;blue&#39;, alpha=0.7) #bins指定了分组的数量
+plt.title(&#39;Histogram using matplotlib&#39;)
+plt.xlabel(&#39;Value&#39;)
+plt.ylabel(&#39;Frequency&#39;)
+plt.show()</code></pre><ul><li>这里bins也可以传入<strong>区间边界</strong>，例如<code>bin = [-3, -2, -1, 0, 1, 2, 3]</code> ，实现分组</li></ul><h4>密度图</h4><ul><li><code>sns.kdeplot()</code> 方法</li></ul><pre><code class="language-python">import seaborn as sns
+sns.kdeplot(data, shade=True, color=&#39;red&#39;)
+plt.title(&#39;Density Plot using seaborn&#39;)
+plt.xlabel(&#39;Value&#39;)
+plt.ylabel(&#39;Density&#39;)
+plt.show()</code></pre><h3>时间序列</h3><h4>日期和时间数据的类型</h4><h4>时间序列类型</h4><ul><li>时间戳Timestamp：具体的时刻</li><li>固定时期period：例如2007年1月或整个2010年</li><li>时间间隔interval：由起始和结束时间戳表示</li></ul><h4>time模块</h4><ul><li>提供简单低等级的时间操作<ul><li>获取当前时间戳<code>time.time()</code></li><li>程序暂停功能<code>time.sleep(second)</code></li></ul></li></ul><h4>datetime模块</h4><ul><li>高级别的时间操作</li><li>导入方式</li></ul><pre><code class="language-python">from datetime import datetime</code></pre><ul><li>获取当前时间</li></ul><pre><code class="language-python">now = datetime.now()
+now # datetime.datetime类型</code></pre><ul><li>时间加减</li></ul><pre><code class="language-python">date1 = datetime(2011,1,7)
+date2 = datetime(2024,4,5)
+delta = date2 - date1
+delta.days # datetime.timedelta类型</code></pre><h4>字符串与datetime类型的互相转化</h4><ul><li>使用str方法或者传递一个指定的格式给<code>strftime()</code> 方法对<strong>datetime对象</strong>或pandas的<strong>Timestamp对象</strong>进行格式化<ul><li>%Y 四位年份， %y两位年份</li><li>%m 两位年份</li><li>%d 两位日期</li><li>%H 24小时制小时，%I 12小时制小时</li><li>%M 两位数的分钟</li><li>%S 秒</li></ul></li></ul><pre><code class="language-python">stamp = datetime(2011, 1, 3)
+stampstr = stamp.strftime(&#39;%Y-%m-%d&#39;)</code></pre><ul><li><code>datetime.strptime()</code> 将字符串对象转化为datetime对象</li></ul><pre><code class="language-python">datestrs = [&#39;7/6/2011&#39;, &#39;8/7/2017&#39;]
+[datetime.strptime(x, &#39;%m/%d/%Y&#39;) for x in datestrs]</code></pre><ul><li>dateutil包的parser.parse方法：能够解析大部分人类可理解的日期表示<ul><li>参数<code>dayfirst=True</code> 显式表明日期在月份之前</li></ul></li></ul><pre><code class="language-python">from dateutil.parser import parse
+parse(&#39;JAN 31, 1997, 10:45 PM&#39;)
+#&gt;&gt;datetime.datetime(1997, 1, 31, 22, 45)</code></pre><ul><li>pandas的<code>to_datetime()</code> 方法</li></ul><pre><code class="language-python">idx = pd.to_datetime(datestrs + [None])
+idx[2] #&gt;&gt;NaT(Not a Time)
+pd.isnull(idx)
+#&gt;&gt;array([False, False,  True])</code></pre><h4>时间序列基础操作</h4><ul><li>Pandas中基础时间序列种类是由时间戳索引的Series，在Pandas外部通常表示为Python字符串或datetime对象</li><li>小案例：生成Index为2023年所有交易日的DateFrame，其他列随便编入一些数据</li></ul><pre><code class="language-python">from datetime import datetime, timedelta
+
+# 定义2023年证券交易所的假期（周末和法定节假日）
+holidays_2023 = [
+    datetime(2023, 1, 1),  # 元旦
+    datetime(2023, 1, 2),  # 元旦调休
+    datetime(2023, 1, 21),  # 春节前一天
+    datetime(2023, 1, 22),  # 春节
+    datetime(2023, 1, 23),  # 春节调休
+    datetime(2023, 1, 24),
+    datetime(2023, 1, 25),
+    datetime(2023, 1, 26),
+    datetime(2023, 1, 27),
+    datetime(2023, 4, 5),  # 清明节
+    datetime(2023, 5, 1),  # 劳动节
+    datetime(2023, 5, 2),
+    datetime(2023, 5, 3),
+    datetime(2023, 6, 22),  # 端午节
+    datetime(2023, 9, 29),  # 中秋节
+    datetime(2023, 10, 2),  # 国庆节
+    datetime(2023, 10, 3),
+    datetime(2023, 10, 4),
+    datetime(2023, 10, 5),
+    datetime(2023, 10, 6),
+]
+
+# 设置起止日期
+start_date = datetime(2023, 1, 1)
+end_date = datetime(2023, 12, 31)
+
+# 生成所有交易日
+trading_days_2023 = []
+current_date = start_date
+
+while current_date &lt;= end_date:
+    # 跳过周末和假期
+    if current_date.weekday() &lt; 5 and current_date not in holidays_2023: # weekdays返回0-6的索引
+        trading_days_2023.append(current_date)
+    current_date += timedelta(days=1)
+
+df = pd.DataFrame(np.random.randn(len(trading_days_2023)), index=trading_days_2023, columns=[&#39;A&#39;])
+df.index # 这些datetime对象被放入DatetimeIndex中</code></pre><ul><li>DatetimeIndex中的标量值是Pandas的Timestamp对象</li></ul><h4>索引、切片、子集</h4><ul><li>在进行索引时，可以选择基于<strong>标签</strong>和基于时间</li></ul><pre><code class="language-python"># 以下三种方式等价
+df.iloc[1]
+df.loc[&#39;2023-01-03&#39;]
+df.loc[&#39;20230103&#39;]</code></pre><ul><li>切片操作</li></ul><pre><code class="language-python">df.loc[&#39;2023-05&#39;] # 五月所有的日期
+df.loc[datetime(2023,6,4):] #2023年6月4日以后的日期
+# 这个日期可以是字符串、datetime或者Timestamp， 日期可以不在数据的时间序列范围之内</code></pre><h4>含有重复索引的时间序列</h4><pre><code class="language-python">dup_ts.index.is_unique # 检查是否存在重复时间索引
+grouped = dup_ts.groupby(level=0) # 实行聚合操作</code></pre><h4>日期生成、频率转换、移动窗口</h4><h4>生成日期范围</h4><ul><li>用 <code>pd.date_range(start=&#39;2023-03-09&#39;, periods=20, freq=&#39;D&#39;)</code> 生成从起始时间开始的 20 个日频时间点。</li></ul><pre><code class="language-python">index = pd.date_range(&#39;2023-03-03&#39;,&#39;2024-05-06&#39;) # 指定起始日期
+pd.date_range(start=&#39;2023-03-09&#39;, periods=20) # 指定期数</code></pre><ul><li><code>freq</code> 的用法<ul><li>D为每日，B为每工作日</li><li>在 pandas 3.x 中，使用 <code>h</code>（小时）、<code>min</code>（分钟）、<code>s</code>（秒）。</li><li>ME（Monthend）、BME（BusinessMonthend）</li><li>MS（MonthStart）BMS（BusinessMonthStart）</li><li>W-MON、W-TUE（Week）从指定的星期开始每周</li><li>WOM-1MON（WOM日期） 每月第几个星期几</li><li>日期偏移与倍数：例如：4H代表每四个小时</li><li>还有很多......</li></ul></li></ul><h4>移动数据</h4><ul><li><code>ts.shift()</code> 方法：前移为负，后移为正（索引不变）</li><li>通常用shift方法计算百分比变化，例如增长率：</li></ul><pre><code class="language-python">ts/ts.shift(1)-1</code></pre><ul><li>如果不指定<code>freq</code> 则会直接<strong>位移数据</strong>而产生缺失值，如果传递，则会位移时间戳</li></ul><pre><code class="language-python">ts = pd.Series(np.random.randn(20), index=pd.date_range(&#39;1/1/2000&#39;, periods=20, freq=&#39;BME&#39;))
+ts.shift(1)
+ts.shift(1, freq=&#39;BMS&#39;)</code></pre><h4>重采样与频率转换</h4><ul><li>重采样指将时间序列<strong>从一个频率转换到另一个频率的处理过程</strong>，使用<code>resample()</code>方法</li></ul><pre><code class="language-python">monthly = ts.resample(&quot;ME&quot;).mean()  # 时间戳按月末分组
+monthly.index = monthly.index.to_period(&quot;M&quot;)  # 结果索引改为月频 PeriodIndex</code></pre><figure><a href="../content/assets/notes/python程序设计与数据科学/image-84.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-84.png" alt=""></a></figure><h4>降采样与聚合</h4><ul><li>closed指定了<strong>时间窗口</strong>哪边关闭</li><li>label指定了重采样后的时间戳采用哪一侧的<ul><li>可以使用<code>offset</code> 对结果索引做位移操作（注意不是loffset）</li></ul></li><li>例如：1min--5min的降采样：</li></ul><figure><a href="../content/assets/notes/python程序设计与数据科学/image-85.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-85.png" alt=""></a></figure><h4>升采样与插值</h4><ul><li>需要设置<strong>升频之后的插值方式</strong>，基本上和<code>fillna</code> 和<code>reindex</code> 方法一致</li></ul><pre><code class="language-python">df_hour = df_daily.resample(&quot;h&quot;).asfreq() # 不填充
+df_hour = df_daily.resample(&quot;h&quot;).ffill() # 向前填充</code></pre><h4>OHLC重采样</h4><ul><li><code>ts.resample(freq).ohlc()</code> 是 Pandas 中用于时间序列重采样的一种方法，<strong>ohlc 是Open, High, Low, Close</strong> 的缩写，主要用于处理金融时间序列数据（如股票价格或交易量）。<ul><li>调用后，pandas自动计算窗口期内的最大值、最小值、第一个值、最后一个值，并返回一个四列的Dataframe</li></ul></li></ul><pre><code class="language-python">ts.resample(&#39;5min&#39;).ohlc()</code></pre><h4>通过时期进行重采样</h4><p>本节待补。</p><h4>移动窗口函数</h4><ul><li>移动窗口按顺序计算局部统计量，例如移动平均，用于观察趋势和短期波动。<ul><li><code>rolling(250)</code> 使用最近 250 个观测，股票日线中通常对应 250 个有效交易日；<code>rolling(&#39;250D&#39;)</code> 使用 250 日的时间跨度。整数窗口默认要求有完整窗口的观测数，时间窗口的 <code>min_periods</code> 默认是 1。</li></ul></li></ul><pre><code class="language-python">close_px_all[&#39;AAPL&#39;].plot() # 苹果公司的股价
+close_px_all[&#39;AAPL&#39;].rolling(250).mean().plot() # 苹果公司股价最近 250 个日线观测的移动平均
+aapl_std250 =close_px_all.AAPL.rolling(250, min_periods=10).std() # 计算滚动标准差（波动率）
+# min_periods指定了最小的计算标准，如果不满足，则返回NaN</code></pre><figure><a href="../content/assets/notes/python程序设计与数据科学/image-86.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-86.png" alt=""></a></figure><figure><a href="../content/assets/notes/python程序设计与数据科学/image-87.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-87.png" alt=""></a></figure><h4>指数加权移动平均法 EWM</h4><p>设 <span data-tex="inline">x_t</span> 为当前观测，<span data-tex="inline">y_t</span> 为指数加权均值。没有缺失值时，<code>adjust=False</code> 使用递推：</p><div class="math-block" data-tex="display">y_0=x_0,\qquad y_t=\alpha x_t+(1-\alpha)y_{t-1},\qquad \alpha=\frac{2}{\mathrm{span}+1}</div><p><code>span</code> 控制衰减快慢，不是截断历史的固定窗口。默认 <code>adjust=True</code> 时，用指数衰减的历史权重，并用权重之和归一化：</p><div class="math-block" data-tex="display">y_t=\frac{\sum_{j=0}^{t}(1-\alpha)^j x_{t-j}}{\sum_{j=0}^{t}(1-\alpha)^j}</div><p>调用 <code>ts.ewm(span=30).mean()</code>；也可指定 <code>alpha</code> 代替 <code>span</code>。<code>min_periods</code> 控制产生结果所需的有效观测数。</p><pre><code class="language-python"># EWMA30与MA30的对比
+aapl_px = close_px_all.AAPL[&#39;2006&#39;:&#39;2007&#39;]
+ma30 = aapl_px.rolling(30, min_periods=20).mean()
+ewma30 = aapl_px.ewm(span=30).mean()
+fig,ax = plt.subplots(1,1)
+ax.plot(ma30, &#39;k-&#39;, label=&#39;MA30&#39;)
+ax.plot(ewma30,&#39;g--&#39;, label=&#39;EWMA30&#39;)
+plt.legend(loc=&#39;best&#39;)</code></pre><figure><a href="../content/assets/notes/python程序设计与数据科学/image-88.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-88.png" alt=""></a></figure><h4>二元移动窗口函数——协方差与相关系数计算</h4><ul><li><code>rolling_corr()</code> 方法计算dataframe所有列与TS之间的协方差；<code>rolling_cov()</code> 则是协方差</li></ul><pre><code class="language-python"># returns为一个dataframe，spx_ret为标普500的return，意在每只股票与spx_ret之间的相关性
+corr = returns.rolling(125, min_periods=100).corr(spx_rets)</code></pre><h4>自定义窗口函数</h4><p><code>rolling_apply()</code> 方法</p><h4>移动时区</h4><p>（这个暂时用不到，先放下）</p><h3>数据连接与透视</h3><h4>分层索引 hierarchical indexing</h4><ul><li>分层索引指的是在一个轴上拥有两个及以上的索引</li></ul><pre><code class="language-python">data = pd.Series(np.random.randn(9), index=[[&#39;a&#39;,&#39;a&#39;,&#39;a&#39;,&#39;b&#39;,&#39;b&#39;,&#39;b&#39;,&#39;c&#39;,&#39;c&#39;,&#39;c&#39;],[1,2,3,1,3,1,2,2,3]])
+data.index # MutiIndex类型</code></pre><figure><a href="../content/assets/notes/python程序设计与数据科学/image-89.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-89.png" alt=""></a></figure><figure><a href="../content/assets/notes/python程序设计与数据科学/image-90.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-90.png" alt=""></a></figure><pre><code class="language-python">data.loc[&#39;b&#39;] # 进行部分索引
+data.loc[&#39;b&#39;:&#39;c&#39;]
+data.loc[[&#39;b&#39;,&#39;a&#39;]]
+data.loc[:,[1,2]] # 在内层中进行选取</code></pre><ul><li>利用<code>stack</code> 和<code>unstack</code> 在多层索引Series和DataFrame之间进行转换</li></ul><pre><code class="language-python">data_unstack = data.unstack()
+data_or = data_stack()
+# 注意，不能存在重复索引，否则会报错</code></pre><ul><li>对于DataFrame来说，每条轴都可以有分层索引</li></ul><pre><code class="language-python">frame = pd.DataFrame(np.arange(12).reshape((4,3)), index=[
+    [&#39;a&#39;,&#39;a&#39;,&#39;b&#39;,&#39;b&#39;],
+    [1,2,1,2]],
+    columns=[
+        [&#39;WW&#39;,&#39;WW&#39;,&#39;CC&#39;],
+        [&#39;GG&#39;,&#39;GG&#39;,&#39;RR&#39;]
+    ])
+frame.index.names = [&#39;key1&#39;,&#39;key2&#39;]
+frame.index.names = [&#39;state&#39;,&#39;color&#39;]
+
+# 传入多层索引要使用**分层列表**的结构</code></pre><figure><a href="../content/assets/notes/python程序设计与数据科学/image-91.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-91.png" alt=""></a></figure><ul><li>单独创建MultiIndex并复用</li></ul><pre><code class="language-python">columns1 = [&#39;WW&#39;,&#39;GG&#39;,&#39;GG&#39;]
+columns2 = [&#39;aa&#39;,&#39;bb&#39;,&#39;cc&#39;]
+
+pd.MultiIndex.from_arrays([columns1, columns2])</code></pre><h4>索引交换</h4><ul><li>调整某条轴上各级别的顺序：</li></ul><pre><code class="language-python">frame.swaplevel(0,1)
+# 或
+frame.swaplevel(&#39;key1&#39;,&#39;key2&#39;)</code></pre><ul><li>swaplevel常与sort_index连用：</li></ul><pre><code class="language-python">frame.swaplevel(0,1).sort_index(level=0)</code></pre><figure><a href="../content/assets/notes/python程序设计与数据科学/image-92.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-92.png" alt=""></a></figure><h4>列与索引的转化</h4><ul><li>用set_index()将DataFrame的列转化为索引，用reset_index将索引还原到列中：</li></ul><pre><code class="language-python">frame2 = frame.set_index([&#39;a&#39;,&#39;b&#39;], drop=True)
+frame2.reset_index()</code></pre><h4>数据集合并</h4><h4>merge操作（数据库风格）</h4><pre><code class="language-python">df1 = pd.DataFrame({ &#39;A&#39;: [&#39;A0&#39;, &#39;A1&#39;, &#39;A2&#39;, &#39;A3&#39;],
+                                        &#39;B&#39;: [&#39;B0&#39;, &#39;B1&#39;, &#39;B2&#39;, &#39;B3&#39;],
+                                         &#39;key&#39;: [&#39;K0&#39;, &#39;K1&#39;, &#39;K2&#39;, &#39;K3&#39;] })
+df2 = pd.DataFrame({ &#39;C&#39;: [&#39;C0&#39;, &#39;C1&#39;, &#39;C2&#39;, &#39;C3&#39;],
+                                        &#39;D&#39;: [&#39;D0&#39;, &#39;D1&#39;, &#39;D2&#39;, &#39;D3&#39;],
+                                        &#39;key&#39;: [&#39;K0&#39;, &#39;K1&#39;, &#39;K2&#39;, &#39;K3&#39;] })
+
+result = pd.merge(df1, df2, on=&#39;key&#39;)</code></pre><ul><li>on参数用于指定连接键</li><li>how参数用于指定连接方式</li></ul><figure><a href="../content/assets/notes/python程序设计与数据科学/image-93.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-93.png" alt=""></a></figure><ul><li>如果左表和右表的<strong>key列列名不同</strong>，可以这样操作：</li></ul><pre><code class="language-python">result = pd.merge(df1, df2, left_on=&#39;key_of_df1&#39;, right_on=&#39;key_of_df2&#39;)</code></pre><ul><li>多对多合并：例如df1中key有两个K0，df2中key有三个K0，合并后的key有六个K0</li><li>多键合并（略）</li><li>在进行列列连接时，原有的DataFrame索引会被丢弃</li><li>传入left_index=True或right_index=True来实现按索引合并</li></ul><h4>concat操作</h4><ul><li>与merge不同， concat是基于索引（标签）进行拼接的，没有了key的参与</li></ul><pre><code class="language-python">s1 = pd.Series([0, 1], index=[&#39;a&#39;, &#39;b&#39;])
+s2 = pd.Series([2, 3, 4], index=[&#39;c&#39;, &#39;d&#39;, &#39;e&#39;])
+s3 = pd.Series([5, 6], index=[&#39;f&#39;, &#39;g&#39;])
+
+res = pd.concat([s1,s2,s3], axis=0)
+res2 = pd.concat([s1,s2,s3], axis=1)</code></pre><figure><a href="../content/assets/notes/python程序设计与数据科学/image-94.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-94.png" alt=""></a></figure><figure><a href="../content/assets/notes/python程序设计与数据科学/image-95.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-95.png" alt=""></a></figure><ul><li>当<strong>拼接的方向存在重复索引</strong>时，可以指定join=或join_axes=指定参与的索引</li><li>可以指定 <code>keys</code> 来区分参与连接的片段。</li></ul><pre><code class="language-python">res = pd.concat([s1,s2,s3], axis=0, keys=[&#39;A&#39;,&#39;B&#39;,&#39;C&#39;])
+res2 = pd.concat([s1,s2,s3], axis=1,keys=[&#39;A&#39;,&#39;B&#39;,&#39;C&#39;])
+
+# 等价于下面这种方法
+res = pd.concat({&#39;A&#39;:s1,
+                 &#39;B&#39;:s2,
+                 &#39;C&#39;:s3},
+                 axis=1)</code></pre><figure><a href="../content/assets/notes/python程序设计与数据科学/image-96.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-96.png" alt=""></a></figure><figure><a href="../content/assets/notes/python程序设计与数据科学/image-97.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-97.png" alt=""></a></figure><ul><li>ignore_index = True用于不保留连接轴上的索引，产生一组新的索引</li></ul><h4>combine_first方法</h4><ul><li>DataFrame.combine_first(other)，用other中对应的数据填充df1</li></ul><h4>np.concatenate方法</h4><ul><li>数组拼接的方法，要注意拼接的方向必须具有相同的形状</li></ul><h4>重塑与轴向旋转</h4><ul><li>df.pivot()</li><li>df.pivot_table()</li></ul><p>pivot_table方法允许有重复索引，可以通过指定<code>aggfunc=</code> 参数指定聚合方式</p><ul><li>df.melt()</li></ul><h3>数据聚合与分组</h3><p>主要是groupby方法</p></div>
+    <nav class="chapter-pagination" aria-label="相邻章节"><a href="python程序设计与数据科学.chapter-4.html">← 四、数据分析篇（上）</a> <a href="python程序设计与数据科学.chapter-6.html">机器学习篇 →</a></nav></article>
+
+    <aside class="article-nav article-side-nav" aria-label="Chapters">
+      <h2>Chapters</h2>
+      <ol data-chapter-links><li><a href="python程序设计与数据科学.html">一、程序设计基础篇</a></li><li><a href="python程序设计与数据科学.chapter-2.html">二、数据结构篇</a></li><li><a href="python程序设计与数据科学.chapter-3.html">三、算法篇</a></li><li><a href="python程序设计与数据科学.chapter-4.html">四、数据分析篇（上）</a></li><li><a href="python程序设计与数据科学.chapter-5.html" aria-current="page">数据分析篇（下）</a></li><li><a href="python程序设计与数据科学.chapter-6.html">机器学习篇</a></li><li><a href="python程序设计与数据科学.chapter-7.html">神经网络篇</a></li><li><a href="python程序设计与数据科学.chapter-8.html">数据库篇</a></li><li><a href="python程序设计与数据科学.chapter-9.html">爬虫篇</a></li><li><a href="python程序设计与数据科学.chapter-10.html">项目架构篇</a></li></ol>
+    </aside>
+  </main>
+
+  <footer class="site-footer" id="contact">
+    <p>© 2026 YUYAO MA</p>
+    <div class="footer-contact"><a class="text-link" href="mailto:yestyn_ma@163.com">yestyn_ma@163.com</a><span aria-hidden="true">·</span><span>Shanghai, China</span></div>
+    <a class="text-link footer-social" href="https://github.com/YestinMa" target="_blank" rel="noreferrer">GitHub</a>
+  </footer>
+
+  <script src="../js/main.js?v=2.3.0"></script>
+  <script src="../js/article.js?v=2.5.1"></script>
+<script defer data-manual src="../js/vendor/prism-1.30.0/prism-core.min.js"></script>
+  <script defer src="../js/vendor/prism-1.30.0/prism-python.min.js"></script>
+  <script defer src="../js/vendor/prism-1.30.0/prism-clike.min.js"></script>
+  <script defer src="../js/vendor/prism-1.30.0/prism-c.min.js"></script>
+  <script defer src="../js/vendor/prism-1.30.0/prism-bash.min.js"></script>
+  <script defer src="../js/article-code.js?v=3"></script>
+<script defer src="../js/vendor/katex-0.16.11/katex.min.js"></script>
+  <script defer src="../js/vendor/katex-0.16.11/auto-render.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (typeof renderMathInElement !== "function") return;
+      document.querySelectorAll("[data-tex]").forEach(el => katex.render(el.textContent, el, {displayMode: el.dataset.tex === "display", throwOnError:false}));
+      renderMathInElement(document.querySelector(".article-content"), {
+        ignoredClasses: ["katex"],
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "\\[", right: "\\]", display: true },
+          { left: "\\(", right: "\\)", display: false },
+          { left: "$", right: "$", display: false }
+        ],
+        throwOnError: false
+      });
+    });
+  </script>
+
+</body>
+</html>

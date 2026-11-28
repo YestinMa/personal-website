@@ -112,6 +112,17 @@ function readHashId() {
 
 function populateArticleNavigation() {
   const { entries, headings, rootLevel } = collectHeadingEntries();
+  if(document.body.dataset.noteFile){
+    const sections=entries.filter(e=>e.level===rootLevel+1);
+    document.querySelectorAll("[data-chapter-links] a[aria-current=page]").forEach(link=>{
+      link.classList.add("is-active");
+      if(!sections.length)return;
+      const ol=document.createElement("ol");ol.className="toc-children";
+      ol.append(...sections.map(e=>createNavItem(createTocLink(e,rootLevel),"toc-level-2")));
+      link.after(ol);
+    });
+    addConstructionPlaceholder(document.querySelector(".article-content"));
+  }
   if (!entries.length) {
     if (document.body.classList.contains("article-notes-page")) {
       const content = document.querySelector(".article-content");
@@ -152,7 +163,7 @@ async function populateNoteNavigation() {
     const response = await fetch("../content/index.json", { cache: "no-store" });
     if (!response.ok) throw new Error(`Content index returned ${response.status}`);
     const data = await response.json();
-    const currentFile = decodeURIComponent(window.location.pathname.split("/").pop());
+    const currentFile = document.body.dataset.noteFile || decodeURIComponent(window.location.pathname.split("/").pop());
     const notes = Array.isArray(data.notes) ? data.notes : [];
 
     targets.forEach((target) => {
@@ -201,7 +212,7 @@ function initializeReadingFigures() {
     const src = img.getAttribute("src");
     const occurrence = occurrences.get(src) || 0;
     occurrences.set(src, occurrence + 1);
-    const key = JSON.stringify(["figure-width", location.pathname, src, occurrence]);
+    const key = JSON.stringify(["figure-width", document.body.dataset.noteFile ? new URL(document.body.dataset.noteFile,location.href).pathname : location.pathname, src, occurrence]);
     const frame = document.createElement("div");
     frame.className = "picture-frame";
     const media = img.closest("a") || img;

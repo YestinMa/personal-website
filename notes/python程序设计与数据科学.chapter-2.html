@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Python程序设计与数据科学">
+  <title>Python程序设计与数据科学 — Yuyao Ma</title>
+  <link rel="stylesheet" href="../css/style.css?v=2.1.2">
+  <link rel="stylesheet" href="../css/vendor/katex-0.16.11/katex.min.css">
+</head>
+<body data-note-file="python程序设计与数据科学.html" class="article-page article-notes-page">
+  <header class="site-header">
+    <a class="site-mark" href="../index.html" aria-label="Yuyao Ma home">YM</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation">
+      <span></span><span></span><span></span><span class="sr-only">Toggle navigation</span>
+    </button>
+    <nav class="site-nav" id="site-navigation" aria-label="Primary navigation">
+      <a href="../work.html">Work</a>
+      <a class="active" href="../notes-blogs.html" aria-current="page">Notes</a>
+      <a href="../logs.html">Logs</a>
+      <a href="../index.html">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main class="article-layout">
+    <aside class="article-nav article-side-nav" aria-label="All notes">
+      <h2>All Notes</h2>
+      <ol data-note-list></ol>
+    </aside>
+
+    <article class="article-main">
+      <div class="article-mobile-nav">
+        <details><summary>All Notes</summary><ol class="article-nav" data-note-list></ol></details>
+        <details><summary>Chapters</summary><ol class="article-nav" data-chapter-links><li><a href="python程序设计与数据科学.html">一、程序设计基础篇</a></li><li><a href="python程序设计与数据科学.chapter-2.html" aria-current="page">二、数据结构篇</a></li><li><a href="python程序设计与数据科学.chapter-3.html">三、算法篇</a></li><li><a href="python程序设计与数据科学.chapter-4.html">四、数据分析篇（上）</a></li><li><a href="python程序设计与数据科学.chapter-5.html">数据分析篇（下）</a></li><li><a href="python程序设计与数据科学.chapter-6.html">机器学习篇</a></li><li><a href="python程序设计与数据科学.chapter-7.html">神经网络篇</a></li><li><a href="python程序设计与数据科学.chapter-8.html">数据库篇</a></li><li><a href="python程序设计与数据科学.chapter-9.html">爬虫篇</a></li><li><a href="python程序设计与数据科学.chapter-10.html">项目架构篇</a></li></ol></details>
+      </div>
+      <a class="article-back" href="../notes-blogs.html">← Notes &amp; Blogs</a>
+      <h1 class="article-title">Python程序设计与数据科学</h1>
+      <div class="article-meta">
+        <span>笔记 · v1.2</span><span>2024-11-10</span><span>study</span>
+        <span class="article-tags"><span>coding</span></span>
+      </div>
+      <div class="article-content"><h2>二、数据结构篇</h2><h3>2.1 线性结构</h3><h4>（1）线性结构的定义</h4><p><strong>线性结构</strong>按先后次序组织元素。除首项外，每项有一个直接前驱；除末项外，每项有一个直接后继。这是逻辑次序，不要求元素在内存中相邻。</p><p>本节区分两个问题：<strong>从哪里存取？</strong> 栈只开放一端，队列从一端进、另一端出，双端队列两端都可进出。<strong>怎样保存次序？</strong> 顺序表依靠连续槽位，链表依靠节点之间的链接。</p><h4>（2）栈 Stack</h4><p><strong>① 栈的概念</strong></p><p><strong>栈（Stack）</strong>只允许从同一端插入和移除元素，这一端称为栈顶。因此，最后入栈的元素最先出栈（LIFO）。</p><figure><a href="../content/assets/notes/python程序设计与数据科学/image-12.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-12.png" alt=""></a></figure><ul><li>现实应用：浏览器的back, word的撤销（undo）操作</li><li>操作：<ul><li><code>Stack()</code>：创建空栈</li><li><code>push(item)</code>：将 <code>item</code> 压入栈顶</li><li><code>pop()</code>：移除并返回栈顶元素</li><li><code>peek()</code>：读取栈顶元素，不移除</li><li><code>isEmpty()</code>：判断栈是否为空</li><li><code>size()</code>：返回元素数量</li></ul></li></ul><pre><code class="language-python">class Stack:
+    def __init__(self):
+        self.items = []
+
+    def push(self, item):
+        self.items.append(item)
+
+    def pop(self):
+        return self.items.pop()
+
+    def peek(self):
+        return self.items[-1]
+
+    def size(self):
+        return len(self.items)
+
+    def isEmpty(self):
+        return (self.items == [])</code></pre><p><strong>② 栈的应用</strong></p><p>栈的应用（一）括号匹配</p><figure><a href="../content/assets/notes/python程序设计与数据科学/image-13.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-13.png" alt=""></a></figure><ul><li>思路：从左到右对括号进行堆栈，如果是右括号，则抵消一个左括号；如果最后剩下左括号或者右括号，说明括号不匹配<pre><code class="language-python">## 栈的应用：括号匹配（只匹配小括号）
+def bracketMatcher(brackets: str) -&gt; bool:
+    stack = Stack()
+    for brac in brackets:
+        if brac == &#39;(&#39;:
+            stack.push(brac)
+        elif brac == &#39;)&#39;:
+            if stack.isEmpty(): # 一旦右括号落到了栈底，那么匹配失败
+                return False
+            stack.pop()
+
+    return stack.isEmpty() # 最后看是否剩余左括号来判断是否成功匹配</code></pre><pre><code class="language-python">## 栈的应用：复杂括号匹配（可以匹配大中小括号）
+def bracketMatcher_v2(brackets: str) -&gt; bool:
+    stack = Stack()
+    matches = {&#39;(&#39;:&#39;)&#39;, &#39;[&#39;:&#39;]&#39;, &#39;{&#39;:&#39;}&#39;}
+    for brac in brackets:
+        if brac in &#39;([{&#39;:
+            stack.push(brac)
+        elif brac in &#39;)]}&#39;:
+            # 如果右括号不等于上一个堆栈对应的括号，就是错的！
+            if stack.isEmpty() or matches[stack.peek()] != brac:
+                return False
+            stack.pop()
+    return stack.isEmpty()</code></pre></li></ul><p>栈的应用（二）：十进制转二进制</p><p>栈的应用（三）：中缀转后缀表达式</p><p>波兰表达式（Polish Notation），也称为前缀表达式，是一种数学表达式的表示方法，由波兰数学家扬·卢卡西威茨（Jan Łukasiewicz）在20世纪20年代提出。它的特点是运算符位于操作数之前，因此无需使用括号来表示运算的优先级。</p><ol><li>无需括号：由于运算符的顺序已经明确了运算的优先级，波兰表达式不需要括号。</li><li>结构清晰：按运算符及其操作数的个数识别子表达式。</li></ol><p>以 <code>(1 + 2) * (3 + 4)</code> 为例：</p><ul><li>中缀：<code>(1 + 2) * (3 + 4)</code></li><li>前缀（波兰表达式）：<code>* + 1 2 + 3 4</code></li><li>运算符在操作数前。每个运算符的操作数个数已知，因此不需要额外括号；也可以用栈来求值。</li></ul><h4>（3）队列 Queue</h4><p><strong>① 队列的概念</strong></p><p><strong>队列（Queue）</strong>遵循先进先出（FIFO）：新元素从队尾入队，最早入队的元素从队首出队。打印任务和键盘输入缓冲都是按到达顺序处理数据的例子。</p><p>Python实现</p><pre><code class="language-python">class Queue:
+    def __init__(self):
+        self.items = []
+    def isEmpty(self):
+        return self.items == []
+
+
+    def enqueue(self, item):
+        self.items.insert(0, item) # 复杂度为O(n)
+
+    def dequeue(self):
+        return self.items.pop()
+
+    def size(self):
+        return len(self.items)</code></pre><p><strong>② 队列的应用</strong></p><p>队列的应用（一）：Josephus问题</p><blockquote><strong>约瑟夫问题：</strong>若干人围成一圈，从第一人开始报数，每数到第 k 人就将其移出，从下一人重新报数。怎样确定最后留下的人？</blockquote><p>用队列表示圆圈：将队首移到队尾，重复 <code>k - 1</code> 次，然后移除当前队首。每轮减少一人，直到队列只剩一个元素。</p><pre><code class="language-python">def JosephusRing(namelist, num):
+    q = Queue()
+
+    for name in namelist: # 全部入队
+        q.enqueue(name)
+
+    while q.size() &gt; 1:
+        for _ in range(num -1):
+            q.enqueue(q.dequeue()) # 队首出队，队尾入队
+        q.dequeue() # 出队
+
+    return q.dequeue()</code></pre><p>队列的应用（二）：打印机队列建模</p><pre><code class="language-python">class Printer:
+    def __init__(self, ppm):
+        self.pagerate = ppm # 初始化打印速度
+        self.currentTask = None # 打印任务
+        self.timeRemaining = 0 # 任务倒计时
+
+    def tick(self):
+        if self.currentTask != None:
+            self.timeRemaining = self.timeRemaining - 1
+            if self.timeRemaining &lt;= 0:
+                self.currentTask = None
+
+    def busy(self):
+        if self.currentTask != None:
+            return True
+        else:
+            return False
+    def startNext(self, newtask):
+        self.currentTask = newtask
+        self.timeRemaining = newtask.getPages() * 60 / self.pagerate
+
+class Task:
+    def __init__(self, time):
+        self.timestamp = time
+        self.pages = random.randrange(1, 21)
+
+    def getStamp(self):
+        return self.timestamp
+
+    def getPages(self):
+        return self.pages
+
+    def waitTime(self, currentTime):
+        return currentTime - self.timestamp
+
+def newPrintTask():
+    num = random.randrange(1, 101)
+    if num == 100:
+        return True
+    else:
+        return False
+
+def simulation(T, PPM):
+    printer = Printer(PPM)
+    printQueue = Queue()
+    waitingtimes = []
+
+    # 时间开始流逝......
+    for currentSecond in range(T):
+
+        # 以一定概率随机生成任务, 并加入队列
+        if newPrintTask():
+            task = Task(currentSecond)
+            printQueue.enqueue(task)
+
+        # 将队列任务加入到打印机
+        if not (printer.busy() or printQueue.isEmpty()):
+            nexttask = printQueue.dequeue()
+            waitingtimes.append(nexttask.waitTime(currentSecond))
+            printer.startNext(nexttask)
+
+        # 打印机当前任务-1s
+        printer.tick()
+
+    avg_waiting = sum(waitingtimes)/len(waitingtimes)
+
+    return avg_waiting</code></pre><h4>（4）双端队列 Deque</h4><ul><li>既可以从尾端加入移除，也可以从首端加入或移除（同时具备了队列和栈的特性）</li><li>应用：回文词判定（先将单词加入deque，再从两端同时移除字符并判定是否相同，直到deque中剩0/1个字符 ）</li></ul><h4>（5）线性表 Linear List</h4><ul><li>线性表是最基础的线性结构，栈和队列是操作受限的线性结构，是线性表的子集。</li><li>顺序表和链表是线性表的两种实现方式（储存方式）</li></ul><h4>（6）顺序表</h4><p>定义：</p><p>表中元素顺序存放在一片足够大的连续存储区里，首元素(第一个元素)存入存储区的开始位置，其余元素依次顺序存放。元素之间的逻辑顺序关系通过元素在存储区里的物理位置表示(隐式表示元素间的关系)。</p><figure><a href="../content/assets/notes/python程序设计与数据科学/image-14.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-14.png" alt=""></a></figure><p>如果每个元素大小相等：直接储存；</p><p>如果元素大小不等：在内存中存入链接，通过链接间接访问</p><p>顺序表的操作：</p><ul><li>创建空表：分配一块元素存储，记录表的容量，并将元素计数值设为0.（创建新表的存储区后，应立即将两个表信息记录域(max和num)设置好，保证这个表处于合法状态。）</li><li>不修改表结构的操作：直接访问O1，查找On</li><li>加入元素：尾端加入O1，非保序插入O1，保序插入On（因为要逐一下移）</li><li>删除元素：同理</li></ul><figure><a href="../content/assets/notes/python程序设计与数据科学/image-15.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-15.png" alt=""></a></figure><p>顺序表的结构</p><figure><a href="../content/assets/notes/python程序设计与数据科学/image-16.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-16.png" alt=""></a></figure><p>分离式顺序表结构的优点：可以实现扩充容量：</p><p>另外申请一个更大的元素储存区</p><p>把表中原有的元素复制到新的储存区</p><p>改变表对象的元素区链接</p><p>实际加入新元素</p><p>动态顺序表后端插入技术（考虑尾端插入n个元素的平均复杂度）</p><p>线性增长策略 On</p><p>倍增策略 O1（付出了空间代价）</p><p><strong>Python的List</strong></p><ul><li>list就是一种采用分离式技术实现的动态顺序表。</li></ul><p>在Python的官方系统中,list实现采用了如下的实际策略:在建立空表(或者很小的表)时，系统分配一块能容纳8个元素的存储区;在执行插入操作(insent或append等)时，如果元素区满就换一块4倍大的存储区。但如果当时的表已经很大，系统将改变策略，换存储区时容量加倍。这里的“很大”是一个实现确定的参数，目前的值是50000。引入后一个策略是为了避免出现过多空闲的存储位置。如前所述，通过这套技术实现的1ist，尾端加入元素操作的平均时间复杂度是 O(1)。</p><h4>（7）链表</h4><p><strong>单链表</strong>由节点串接而成。每个节点保存元素和指向后继的链接，表头引用第一个节点；普通单链表的末节点以 <code>None</code> 表示结束。查找第 <span data-tex="inline">i</span> 项需要从表头逐步向后走。</p><figure><a href="../content/assets/notes/python程序设计与数据科学/image-17.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-17.png" alt=""></a></figure><p><strong>链表的操作：</strong></p><ul><li>创建空链表：表头指针设置为空</li></ul><pre><code class="language-python">class LNode:
+    def __init__(self, elem, next_ = None):
+        self.elem = elem
+        self.next = next_</code></pre><ul><li>删除链表：丢弃链表的所有节点（在Python中，只需把表头指针设置为None，解释器就会自动收回不用的存储）</li><li>判断链表是否为空：将表头指针的值与空链接比较</li><li>插入元素：</li></ul><figure><a href="../content/assets/notes/python程序设计与数据科学/image-18.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-18.png" alt=""></a></figure><figure><a href="../content/assets/notes/python程序设计与数据科学/image-19.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-19.png" alt=""></a></figure><pre><code class="language-python"># 在首端插入元素
+q = LNode(13)
+q.next = head  # 先接住旧表头，再更新 head
+head = q # 修改表头指针，使之指向新结点
+
+# 在中间/尾端插入元素
+q = LNode(13)
+q.next = pre.next # 把原结点的next域的值存入新结点的next域
+pre.next = q # 让pre的next域指向新结点</code></pre><ul><li>删除元素：</li></ul><figure><a href="../content/assets/notes/python程序设计与数据科学/image-20.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-20.png" alt=""></a></figure><pre><code class="language-python"># 删除表首元素 只需要修改表首的指针，使其指向表中第二个结点
+head = head.next
+
+# 删除表中任意一个元素
+pre.next = pre.next.next</code></pre><ul><li>扫描、定位和遍历</li><li>链表的反转*</li><li>链表的排序*</li></ul><p><strong>① 用 Python 实现单链表</strong></p><p>沿用上面的 <code>LNode</code>：节点保存元素和后继，链表对象只保存头节点。头插时先让新节点指向旧表头；删除时让前驱绕过目标节点。删除表头没有前驱，需要单独更新 <code>head</code>。</p><pre><code class="language-python">class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    def prepend(self, value):
+        self.head = LNode(value, self.head)
+
+    def __iter__(self):
+        node = self.head
+        while node is not None:
+            yield node.elem
+            node = node.next
+
+    def remove(self, value):
+        prev, node = None, self.head
+        while node is not None:
+            if node.elem == value:
+                if prev is None:
+                    self.head = node.next
+                else:
+                    prev.next = node.next
+                return True
+            prev, node = node, node.next
+        return False
+
+xs = LinkedList()
+for value in (3, 2, 1):
+    xs.prepend(value)
+assert list(xs) == [1, 2, 3]
+assert xs.remove(2) and list(xs) == [1, 3]</code></pre><p>头插是 <span data-tex="inline">O(1)</span>；按值删除需要先找到节点，最坏是 <span data-tex="inline">O(n)</span>。</p><p><strong>② 链表的变体与类的继承</strong></p><p>链表持有节点，是组合关系。变体可以沿用 <code>prepend</code>、<code>remove</code> 和迭代接口，但不一定能直接继承实现：上例以 <code>None</code> 作为遍历终点，直接用于循环链表会一直绕圈。判断能否复用方法，要看它依赖的链接规则是否仍然成立。</p><p><strong>③ 循环单链表</strong></p><p>尾节点指回头节点。只有一个节点时，它的后继就是自己；遍历非空表时，访问头节点一次，之后再次回到头节点就停止。若保存尾指针 <code>tail</code>，表头就是 <code>tail.next</code>；头插只需令新节点指向旧表头，再让 <code>tail.next</code> 指向新节点。</p><p><strong>④ 双链表</strong></p><p>每个节点多保存一个前驱 <code>prev</code>。例如从 <code>A ⇄ B ⇄ C</code> 删除 B，需要同时令 <code>A.next = C</code> 和 <code>C.prev = A</code>。已知节点时删除为 <span data-tex="inline">O(1)</span>，按值查找仍是 <span data-tex="inline">O(n)</span>。若目标是首尾节点，还要更新表头或表尾；多出的前驱链接换来反向遍历能力。</p><h3>2.2 哈希表（散列表）</h3><h4>（1）哈希表的定义</h4><p><strong>哈希表（散列表）是按键存取数据的结构。查找时，先用哈希函数计算键的哈希值，再将它映射到数组中的槽位</strong>。槽位是查找的起点，而不是键的身份；最终仍须比较键是否相等。</p><ul><li><strong>冲突：</strong>不同键映射到同一槽位。例如槽号取 <code>key % 5</code> 时，12 和 17 都落在槽 2。</li><li><strong>负载因子：</strong>表中元素数除以槽位数。负载越高，通常要处理的冲突越多；预留过多槽位则浪费空间。</li><li><strong>查找代价：</strong>若计算哈希值和比较键的成本为常数，在散列均匀、负载受控时，期望时间为 <span data-tex="inline">O(1)</span>；大量碰撞时，最坏可达 <span data-tex="inline">O(n)</span>。</li></ul><p><strong>完美哈希</strong>针对给定的一组键，使不同键落入不同槽位。键集合改变后，原函数不一定仍然无冲突，因此普通哈希表需要冲突处理机制。</p><h4>（2）哈希函数设计</h4><ul><li><strong>一致性：</strong>相等的键必须产生相同的哈希值；键存入表后，参与散列的状态不能改变。</li><li><strong>分布：</strong>让常见输入尽量均匀地落入不同槽位，减少聚集。</li><li><strong>成本：</strong>定位本身也需要时间，例如首次逐字符计算长度为 <span data-tex="inline">L</span> 的字符串的哈希值通常需要 <span data-tex="inline">O(L)</span> 时间。</li></ul><p>整数键可直接对槽位数取模。字符串可用多项式把字符顺序纳入计算：下式中，<span data-tex="inline">s_i</span> 是字符编码值，<span data-tex="inline">p</span> 是基数，<span data-tex="inline">m</span> 是槽位数。</p><div class="math-block" data-tex="display">h(s)=\left(\sum_{i=0}^{k-1}s_i p^{k-1-i}\right)\bmod m</div><p><strong>与文件摘要的区别。</strong> 哈希表关心键在槽位间的分布；下面的 MD5 示例则为字节串计算固定的 128 位摘要。MD5 可以检测非恶意的数据变化，但摘要相同不能证明文件相同，也不应将它用于安全签名。</p><pre><code class="language-python">import hashlib
+
+s = &quot;hello world&quot;
+md5_value = hashlib.md5(s.encode()).hexdigest()
+print(md5_value)  # 输出: 5eb63bbbe01eeed093cb22bb8f5acdc3</code></pre><h4>（3）冲突解决</h4><p>沿用键 12 和 17 的例子：12 已占据槽 2，此时插入 17，常见方法有两种。</p><ul><li><strong>开放寻址法：换一个槽位。</strong> 线性探测逐槽向后找，容易形成连续聚集；二次探测使用二次偏移；双重哈希用另一个哈希函数决定步长。查找必须遵循插入时的探测规则。删除时不能随意把中途的槽标为从未使用，否则会截断查找路径。</li><li><strong>链地址法：留在同一个桶。</strong> 两个键都放入桶 2。查找时先定位桶，再在桶内比较键。删除只需移除对应条目，但桶内结构需要额外空间。</li></ul><p><strong>另一种取舍：布谷鸟哈希。</strong> 每个键有固定数量的候选位置，查找只检查这些位置；插入却可能需要搬移已有条目，甚至重建表。</p><h4>（4）Python语言中的哈希应用</h4><p><code>dict</code> 和 <code>set</code> 都通过哈希表实现高效查找。在 CPython 中，两者使用各自的实现。</p><p>CPython 的 <code>dict</code> 用开放寻址存储键值对。查询 <code>d[key]</code> 时，先用 <code>hash(key)</code> 确定探测起点，再沿探测序列检查候选键；确认相等后，才返回对应值。<code>set</code> 只保存元素，不保存关联值。两者对键或元素有相同的要求：<strong>可哈希</strong>。</p><p>可哈希对象在生命周期内的哈希值不能变化；相等的对象必须有相同的哈希值。<code>list</code>、<code>dict</code> 和 <code>set</code> 不可哈希；按身份比较和散列的自定义对象可以有可变属性。</p><h3>2.3 树与二叉树</h3><h4>（1）树的定义与术语</h4><p><strong>有根树</strong>用父子关系组织节点。非空树有一个根；除根外，每个节点恰有一个父节点。从根到任一节点有且只有一条路径。递归地看，非空树由根和它的若干棵子树构成。</p><ul><li><strong>节点与边：</strong>节点保存键和附加数据，边连接父节点与子节点。同一父节点的子节点互为兄弟；没有子节点的是叶节点。</li><li><strong>深度与高度：</strong>以边数计，根的深度为 0；从根到某节点的路径长度是其深度。树的高度等于最大深度。</li><li><strong>二叉树：</strong>每个节点至多有两个子节点，且区分左、右位置。只有左孩子和只有右孩子是两种不同的结构。</li></ul><h4>（2）树的遍历</h4><p>前序遍历</p><p>在前序遍历中，先访问根节点，然后递归地前序遍历左子树，最后递归地前序遍历右子树。</p><p>中序遍历</p><p>在中序遍历中，先递归地中序遍历左子树，然后访问根节点，最后递归地中序遍历右子树。</p><p>后序遍历</p><p>在后序遍历中，我们先递归地后序遍历访问左子树和右子树，最后访问根节点</p><pre><code class="language-python">def preorder(tree):
+    &quot;&quot;&quot;前序遍历&quot;&quot;&quot;
+    if tree:
+        print(tree.getRootVal())
+        preorder(tree.getLeftChild())
+        preorder(tree.getRightChild())
+
+def postorder(tree):
+    &quot;&quot;&quot;后序遍历&quot;&quot;&quot;
+    if tree != None:
+        postorder(tree.getLeftChild())
+        postorder(tree.getRightChild())
+        print(tree.getRootVal())
+
+def inorder(tree):
+    &quot;&quot;&quot;中序遍历&quot;&quot;&quot;
+    if tree != None:
+        inorder(tree.getLeftChild())
+        print(tree.getRootVal())
+        inorder(tree.getRightChild())</code></pre><h4>（3）优先队列与二叉堆</h4><p><strong>优先队列</strong>按优先级而非到达顺序取出元素。<strong>二叉堆</strong>是它的一种实现：形状是完全二叉树，通常用数组存储。</p><ul><li><strong>最小堆：</strong>父节点的键不大于子节点，根是最小值。</li><li><strong>最大堆：</strong>父节点的键不小于子节点，根是最大值。</li></ul><p>堆序只约束父子关系，不要求整个数组有序。查看堆顶为 <span data-tex="inline">O(1)</span>；插入或删除堆顶最多沿树高调整，最坏为 <span data-tex="inline">O(\log n)</span>。</p><p><strong>二叉堆的操作：</strong></p><figure><a href="../content/assets/notes/python程序设计与数据科学/image-21.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-21.png" alt=""></a></figure><p>完全二叉树：完全二叉树，叶节点最多只出现在最底层和次底层，而且最底层的叶节点都连续集中在最左边，每个内部节点都有两个子节点， 最多可有1个节点例外</p><ul><li>下标为p</li><li>左子节点下标为2p</li><li>右子节点为2p+1</li><li>父节点下标为p//2</li></ul><figure><a href="../content/assets/notes/python程序设计与数据科学/image-22.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-22.png" alt=""></a></figure><p><strong>二叉堆的实现</strong></p><p>insert(key)方法</p><p>新key加在列表末尾，显然无法保持“堆”次序虽然对其它路径的次序没有影响，但对于其到根的路径可能破坏次序</p><p>需要将新key沿着路径来“上浮”到其正确位置</p><p>注意：新key的“上浮”不会影响其它路径节点的“堆”次序</p><p><strong>删除最小键：</strong><code>delMin()</code></p><p>移走堆中最小的键，即根节点 <code>heapList[1]</code>。</p><p>为了保持“完全二叉树”的性质，只用最后一个节点来代替根节点.</p><ul><li>将新的根节点沿着一条路径“下沉”，直到比两个子节点都小</li><li>“下沉”路径的选择：如果比子节点大，那么选择较小的子节点交换下沉</li></ul><figure><a href="../content/assets/notes/python程序设计与数据科学/image-23.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-23.png" alt=""></a></figure><figure><a href="../content/assets/notes/python程序设计与数据科学/image-24.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-24.png" alt=""></a></figure><p><strong>批量建堆：</strong><code>buildHeap(lst)</code></p><p>用insert(key)方法，将无序表中的数据项逐个insert到堆中，但这么做的总代价是O(nlog n)</p><p>其实，用“下沉”法，能够将总代价控制在O(n)</p><figure><a href="../content/assets/notes/python程序设计与数据科学/image-25.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-25.png" alt=""></a></figure><pre><code class="language-python">class BinHeap:
+    def __init__(self):
+        self.heapList = [0] # 0项无用，但为了后面代码可以用到简单的整数乘除法，仍保留它。
+        self.currentSize = 0
+
+    def percUp(self, i):
+        &#39;&#39;&#39;上浮操作&#39;&#39;&#39;
+        while i//2 &gt; 0: # 终止条件：1//2 = 0 也就是当下标回溯到根节点的时候，停止循环
+            # 子节点和父节点的值比较，如果子节点小于父节点的值，则交换次序
+            if self.heapList[i] &lt; self.heapList[i//2]:
+                self.heapList[i], self.heapList[i//2] = self.heapList[i//2], self.heapList[i]
+
+            i = i//2
+
+    def percDown(self, i):
+        &#39;&#39;&#39;下沉操作&#39;&#39;&#39;
+        def minChild(i):
+            &#39;&#39;&#39;找最小子节点&#39;&#39;&#39;
+            if i*2+1 &gt; self.currentSize: # 如果没有右节点
+                return i*2
+            else:
+                if self.heapList[i*2] &lt; self.heapList[i*2+1]:
+                    return i*2
+                else:
+                    return i*2+1
+
+        while (i*2) &lt;= self.currentSize:
+            minchild = minChild(i)
+
+            # 父节点与其最小的子节点作比较，如果大于，则下沉交换
+            if self.heapList[i] &gt; self.heapList[minchild]:
+                self.heapList[i], self.heapList[minchild] = self.heapList[minchild], self.heapList[i]
+            i = minchild
+
+
+    def insert(self, k):
+        self.heapList.append(k) # 把数据添加到堆底
+        self.currentSize += 1
+        self.percUp(self.currentSize)
+
+    def delMin(self):
+        &#39;&#39;&#39;移走整个堆中最小的key:根节点heapList[1]&#39;&#39;&#39;
+        minval = self.heapList[1]
+        self.heapList[1] = self.heapList[self.currentSize] # 将最后一个堆值替代堆顶值
+        self.currentSize -= 1
+        self.heapList.pop() # 移除最后一个堆值
+        self.percDown(1)
+        return minval
+
+    def buildHeap(self, lst):
+        &#39;&#39;&#39;策略: 从最后一个非叶结点开始下沉，复杂度为O(n)&#39;&#39;&#39;
+        i = len(lst)//2 # 最后一个非叶节点的位置
+        self.currentSize = len(lst)
+        self.heapList = [0] + lst[:]
+
+        while i &gt; 0:
+            self.percDown(i)
+            i -= 1
+        print(self.heapList)</code></pre><h4>（4）二叉查找树（BST）</h4><p>二叉搜索树，它是映射的另一种实现，映射抽象数据类型前面两种实现，它们分别是列表二分搜索和散列表。</p><p>性质：比父节点小的key都出现在左子树，比父节点大的key都出现在右子树。</p><figure><a href="../content/assets/notes/python程序设计与数据科学/image-26.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-26.png" alt=""></a></figure><p><strong>节点与树。</strong> <code>TreeNode</code> 保存键、值和子节点引用；<code>BST</code> 通过 <code>self.root</code> 持有根节点，通过 <code>self.size</code> 记录节点数。</p><p><strong>插入或更新：</strong><strong><code>put(key, val)</code></strong></p><ol><li>若树为空，创建根节点 <code>TreeNode(key, val)</code>。</li><li>否则由 <code>_put(key, val, currentNode)</code> 比较键：小于当前键走左侧，大于当前键走右侧。在选定的一侧遇到空位，就挂上新节点。</li><li>若键相等，只更新 <code>currentNode.payload</code>。只有新建节点才增加 <code>self.size</code>。</li></ol><p><strong>按键查找：</strong><strong><code>get(key)</code></strong></p><p>查找沿用插入时的比较规则，但不创建节点。<code>_get(key, currentNode)</code> 命中时返回节点，走到空子树时返回 <code>None</code>。对外的 <code>get(key)</code> 返回节点存储的值，而不是节点本身；空树或键不存在时返回 <code>None</code>。</p><p>插入和查找都只沿一条路径进行，耗时取决于树高。下面的实现只演示这两种操作，不含删除。</p><pre><code class="language-python">class BST:
+    def __init__(self):
+        # 初始化二叉搜索树
+        # root 指向根节点
+        # size 记录树中节点数量
+        self.root = None
+        self.size = 0
+
+    def put(self, key, val):
+        &quot;&quot;&quot;
+        插入操作：根据 key 把 (key, val) 插入到 BST 中
+        如果 key 已存在，则覆盖原有值
+        &quot;&quot;&quot;
+        if self.root:
+            # 树已存在根节点 -&gt; 调用递归辅助方法插入
+            self._put(key, val, self.root)
+        else:
+            # 空树 -&gt; 新建根节点
+            self.root = TreeNode(key, val)
+            self.size += 1  # 别忘了根节点也要计数
+
+    def _put(self, key, val, currentNode):
+        &quot;&quot;&quot;
+        递归辅助方法：从 currentNode 开始，根据 key 大小选择插入到左/右子树
+        &quot;&quot;&quot;
+        if key &lt; currentNode.key:
+            # 如果 key 更小 -&gt; 去左子树
+            if currentNode.hasLeftChild():
+                # 左子树存在 -&gt; 递归继续插
+                self._put(key, val, currentNode.leftChild)
+            else:
+                # 左子树不存在 -&gt; 新建节点放这里
+                currentNode.leftChild = TreeNode(key, val, parent=currentNode)
+                self.size += 1
+
+        elif key &gt; currentNode.key:
+            # 如果 key 更大 -&gt; 去右子树
+            if currentNode.hasRightChild():
+                # 右子树存在 -&gt; 递归继续插
+                self._put(key, val, currentNode.rightChild)
+            else:
+                # 右子树不存在 -&gt; 新建节点放这里
+                currentNode.rightChild = TreeNode(key, val, parent=currentNode)
+                self.size += 1
+
+        else:
+            # 如果 key 相等 -&gt; 覆盖当前节点的数据
+            currentNode.payload = val
+            return
+
+    def get(self, key):
+        &quot;&quot;&quot;
+        查找操作：根据 key 在 BST 中查找值
+        如果找到返回 payload，否则返回 None
+        &quot;&quot;&quot;
+        if self.root:
+            res = self._get(key, self.root)
+            if res is not None:  # 找到节点
+                return res.payload
+            else:
+                return None
+        else:
+            return None
+
+    def _get(self, key, currentNode):
+        &quot;&quot;&quot;
+        递归辅助方法：从 currentNode 开始查找 key
+        &quot;&quot;&quot;
+        if not currentNode:
+            # 遍历到空节点 -&gt; 没找到
+            return None
+
+        elif currentNode.key == key:
+            # 命中目标
+            return currentNode
+
+        elif key &lt; currentNode.key:
+            # key 更小 -&gt; 去左子树查找
+            return self._get(key, currentNode.leftChild)
+
+        else:
+            # key 更大 -&gt; 去右子树查找
+            return self._get(key, currentNode.rightChild)</code></pre><p>BST 的形态取决于插入顺序。对比 <code>[10, 20, 30, 40, 50]</code> 和 <code>[10, 30, 50, 20, 40]</code>：</p><pre><code class="language-plain text">  10
+    \
+     20
+       \
+        30
+          \
+           40
+             \
+              50
+              # 完全退化成链表
+
+  10
+    \
+     30
+    /  \
+   20   50
+       /
+      40
+      # 稍微平衡一些</code></pre><h4>（5）平衡二叉查找树（AVL）</h4><p>普通 BST 依次插入 10、20、30，会变成向右延伸的链。AVL 保留二叉查找树的大小关系，同时要求每个节点的左右子树高度差不超过 1。取平衡因子为“左高减右高”，上例根节点 10 的平衡因子变为 −2。</p><p><strong>旋转改变父子关系，不改变中序次序。</strong> 对 10 左旋，20 成为根，10 和 30 分居左右，中序仍是 10、20、30。左左失衡用右旋，右右用左旋；左右、右左失衡则先旋子节点，再反向旋失衡节点。插入或删除后沿祖先路径更新高度并恢复平衡，树高保持 <span data-tex="inline">O(\log n)</span>。</p><h3>2.4 图的术语与表示</h3><h4>（1）图的术语</h4><p><strong>图</strong>由顶点集合 <span data-tex="inline">V</span> 和边集合 <span data-tex="inline">E</span> 构成，记为 <span data-tex="inline">G=(V,E)</span>。顶点表示对象，可以保存标识和数据；边表示对象之间的关系。</p><ul><li><strong>方向：</strong>有向边 A→B 不代表 B→A；无向边连接的两个顶点地位对称。</li><li><strong>权重：</strong>边可以附带数值，例如距离、时间或费用。权重的含义由问题决定。</li></ul><figure><a href="../content/assets/notes/python程序设计与数据科学/image-27.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-27.png" alt=""></a></figure><ul><li>路径：Path，由边依次连接起来的顶点序列；<ul><li>无权路径的长度为边的数量</li><li>带权路径的长度为所有边权重的和</li></ul></li><li>圈：Cycle，首尾顶点相同的路径</li></ul><p>如果有向图中不存在任何圈，则称作：有向无圈图（Directed Acyclic Graph, DAG）。DAG有很好的性质，可以用算法去解决。</p><h4>（2）图的表示与实现</h4><p>以有向边 A→B、A→C 为例：邻接表记录 <code>A: [B, C]</code>，B、C 的出邻居为空；若矩阵行列按 A、B、C 排列，A 行是 <code>[0, 1, 1]</code>，另外两行全为 0。矩阵可直接查指定边，邻接表适合逐个枚举邻居；稀疏图不必为不存在的边留出矩阵单元。</p><p><strong>邻接矩阵</strong>用行、列分别表示起点与终点。查看指定边只需访问一个单元，耗时 <span data-tex="inline">O(1)</span>；无论实际有多少边，矩阵都需要 <span data-tex="inline">O(|V|^2)</span> 空间。</p><figure><a href="../content/assets/notes/python程序设计与数据科学/image-28.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-28.png" alt=""></a></figure><p><strong>邻接表</strong>为每个顶点保存邻居及可选的边权。空间为 <span data-tex="inline">O(|V|+|E|)</span>；枚举一个顶点的出邻居，只需遍历它自己的邻接记录。</p><figure><a href="../content/assets/notes/python程序设计与数据科学/image-29.png" target="_blank" rel="noopener"><img loading="lazy" decoding="async" src="../content/assets/notes/python程序设计与数据科学/image-29.png" alt=""></a></figure><pre><code class="language-python">class Vertex:
+    def __init__(self, key):
+        self.id = key
+        self.connectedTo = {}
+
+    def addNeighbor(self, nbr, weight=0):
+        self.connectedTo[nbr] = weight
+
+    def __str__(self):
+        return f&quot;{self.id} connected to {[x.id for x in self.connectedTo]}&quot;
+
+    def getConnections(self):
+        return self.connectedTo.keys()
+
+    def getId(self):
+        return self.id
+
+    def getWeight(self, nbr):
+        return self.connectedTo[nbr]
+
+
+class Graph:
+    def __init__(self):
+        self.vertList = {}
+        self.numVertices = 0
+
+    def addVertex(self, key):
+        if key not in self.vertList:
+            self.vertList[key] = Vertex(key)
+            self.numVertices += 1
+        return self.vertList[key]
+
+    def addEdge(self, f, t, weight=0):
+        start, end = self.addVertex(f), self.addVertex(t)
+        start.addNeighbor(end, weight)
+
+    def getVertex(self, key):
+        return self.vertList.get(key)
+
+    def getVertices(self):
+        return self.vertList.keys()
+
+    def __contains__(self, key):
+        return key in self.vertList
+
+    def __iter__(self):
+        return iter(self.vertList.values())</code></pre></div>
+    <nav class="chapter-pagination" aria-label="相邻章节"><a href="python程序设计与数据科学.html">← 一、程序设计基础篇</a> <a href="python程序设计与数据科学.chapter-3.html">三、算法篇 →</a></nav></article>
+
+    <aside class="article-nav article-side-nav" aria-label="Chapters">
+      <h2>Chapters</h2>
+      <ol data-chapter-links><li><a href="python程序设计与数据科学.html">一、程序设计基础篇</a></li><li><a href="python程序设计与数据科学.chapter-2.html" aria-current="page">二、数据结构篇</a></li><li><a href="python程序设计与数据科学.chapter-3.html">三、算法篇</a></li><li><a href="python程序设计与数据科学.chapter-4.html">四、数据分析篇（上）</a></li><li><a href="python程序设计与数据科学.chapter-5.html">数据分析篇（下）</a></li><li><a href="python程序设计与数据科学.chapter-6.html">机器学习篇</a></li><li><a href="python程序设计与数据科学.chapter-7.html">神经网络篇</a></li><li><a href="python程序设计与数据科学.chapter-8.html">数据库篇</a></li><li><a href="python程序设计与数据科学.chapter-9.html">爬虫篇</a></li><li><a href="python程序设计与数据科学.chapter-10.html">项目架构篇</a></li></ol>
+    </aside>
+  </main>
+
+  <footer class="site-footer" id="contact">
+    <p>© 2026 YUYAO MA</p>
+    <div class="footer-contact"><a class="text-link" href="mailto:yestyn_ma@163.com">yestyn_ma@163.com</a><span aria-hidden="true">·</span><span>Shanghai, China</span></div>
+    <a class="text-link footer-social" href="https://github.com/YestinMa" target="_blank" rel="noreferrer">GitHub</a>
+  </footer>
+
+  <script src="../js/main.js?v=2.3.0"></script>
+  <script src="../js/article.js?v=2.5.1"></script>
+<script defer data-manual src="../js/vendor/prism-1.30.0/prism-core.min.js"></script>
+  <script defer src="../js/vendor/prism-1.30.0/prism-python.min.js"></script>
+  <script defer src="../js/vendor/prism-1.30.0/prism-clike.min.js"></script>
+  <script defer src="../js/vendor/prism-1.30.0/prism-c.min.js"></script>
+  <script defer src="../js/vendor/prism-1.30.0/prism-bash.min.js"></script>
+  <script defer src="../js/article-code.js?v=3"></script>
+<script defer src="../js/vendor/katex-0.16.11/katex.min.js"></script>
+  <script defer src="../js/vendor/katex-0.16.11/auto-render.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (typeof renderMathInElement !== "function") return;
+      document.querySelectorAll("[data-tex]").forEach(el => katex.render(el.textContent, el, {displayMode: el.dataset.tex === "display", throwOnError:false}));
+      renderMathInElement(document.querySelector(".article-content"), {
+        ignoredClasses: ["katex"],
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "\\[", right: "\\]", display: true },
+          { left: "\\(", right: "\\)", display: false },
+          { left: "$", right: "$", display: false }
+        ],
+        throwOnError: false
+      });
+    });
+  </script>
+
+</body>
+</html>
