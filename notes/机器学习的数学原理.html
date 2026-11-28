@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="机器学习的数学原理">
   <title>机器学习的数学原理 — Yuyao Ma</title>
-  <link rel="stylesheet" href="../css/style.css?v=2.0.8">
+  <link rel="stylesheet" href="../css/style.css?v=2.1.2">
   <link rel="stylesheet" href="../css/vendor/katex-0.16.11/katex.min.css">
 </head>
 <body class="article-page article-notes-page">
@@ -37,8 +37,8 @@
       <a class="article-back" href="../notes-blogs.html">← Notes &amp; Blogs</a>
       <h1 class="article-title">机器学习的数学原理</h1>
       <div class="article-meta">
-        <span>notes</span><span>2025-08-31</span><span>study</span>
-        <span class="article-tags"><span>study</span><span>notes</span></span>
+        <span>笔记 · v1.2</span><span>2025-08-31</span><span>study</span>
+        <span class="article-tags"><span>notes</span></span>
       </div>
       <div class="article-content"><h1 id="一-引入">一、引入</h1>
 <p>对概率的诠释有两大学派，一种是频率派，另一种是贝叶斯派。后面我们对观测集采用下面记号：</p>
@@ -80,13 +80,26 @@
 <p>于是：</p>
 <div class="math-block">$$\frac{\partial}{\partial\mu}\sum\limits_{i=1}^{N}(x_i-\mu)^2=0\longrightarrow\mu_{MLE}=\frac{1}{N}\sum\limits_{i=1}^{N}x_i$$</div>
 <p>其次对 \(\theta\) 中的另一个参数 \(\sigma\)，有：</p>
-<p>$$\begin{aligned} \sigma_{MLE}&amp;=\mathop{argmax}\limits_{\sigma}\log p(X|\theta)\\ &amp;=\mathop{argmax}\limits_{\sigma}\sum\limits_{i=1}^{N}\left[-\log\sigma-\frac{1}{2\sigma^2}(x_i-\mu)^2\right]\\ &amp;=\mathop{argmin}\limits_{\sigma}\sum\limits_{i=1}^{N}\left[\log\sigma+\frac{1}{2\sigma^2}(x_i-\mu)^2\right] \end{aligned}$$</p>
+<div class="math-block">$$\begin{aligned}
+\sigma_{MLE}&amp;=\mathop{argmax}\limits_{\sigma}\log p(X|\theta)\\
+&amp;=\mathop{argmax}\limits_{\sigma}\sum\limits_{i=1}^{N}\left[-\log\sigma-\frac{1}{2\sigma^2}(x_i-\mu)^2\right]\\
+&amp;=\mathop{argmin}\limits_{\sigma}\sum\limits_{i=1}^{N}\left[\log\sigma+\frac{1}{2\sigma^2}(x_i-\mu)^2\right]
+\end{aligned}$$</div>
 <p>于是：</p>
 <div class="math-block">$$\frac{\partial}{\partial\sigma}\sum\limits_{i=1}^{N}\left[\log\sigma+\frac{1}{2\sigma^2}(x_i-\mu)^2\right]=0\longrightarrow\sigma_{MLE}^2=\frac{1}{N}\sum\limits_{i=1}^{N}(x_i-\mu)^2$$</div>
 <p>值得注意的是，上面的推导中，首先对 mu 求 MLE，然后利用这个结果求 \(\sigma_{MLE}\)，因此可以预期的是，对数据集求期望时 \(\sigma_{MLE}\) 是无偏的：</p>
 <div class="math-block">$$\mathbb{E}_{\mathcal{D}}[\mu_{MLE}]=\mathbb{E}_{\mathcal{D}}\left[\frac{1}{N}\sum\limits_{i=1}^{N}x_i\right]=\frac{1}{N}\sum\limits_{i=1}^{N}\mathbb{E}_{\mathcal{D}}[x_i]=\mu$$</div>
 <p>但是当对 \(\sigma_{MLE}\) 求期望的时候，由于使用了单个数据集的 \(\sigma_{MLE}\)，因此对所有数据集求期望的时候我们会发现 \(\sigma_{MLE}\) 是有偏的：</p>
-<p>$$\begin{aligned} \mathbb{E}_{\mathcal{D}}[\sigma_{MLE}^2] &amp;=\mathbb{E}_{\mathcal{D}}\left[\frac{1}{N}\sum\limits_{i=1}^{N}(x_i-\mu_{MLE})^2\right]\\ &amp;=\mathbb{E}_{\mathcal{D}}\left[\frac{1}{N}\sum\limits_{i=1}^{N}x_i^2-\mu_{MLE}^2\right]\\ &amp;=\mathbb{E}_{\mathcal{D}}\left[\frac{1}{N}\sum\limits_{i=1}^{N}x_i^2-\mu^2\right]-\mathbb{E}_{\mathcal{D}}[\mu_{MLE}^2-\mu^2]\\ &amp;=\sigma^2-\left(\mathbb{E}_{\mathcal{D}}[\mu_{MLE}^2]-\mathbb{E}_{\mathcal{D}}^2[\mu_{MLE}]\right)\\ &amp;=\sigma^2-Var[\mu_{MLE}]\\ &amp;=\sigma^2-Var\left[\frac{1}{N}\sum\limits_{i=1}^{N}x_i\right]\\ &amp;=\sigma^2-\frac{1}{N^2}\sum\limits_{i=1}^{N}Var[x_i]=\frac{N-1}{N}\sigma^2 \end{aligned}$$</p>
+<div class="math-block">$$\begin{aligned}
+\mathbb{E}_{\mathcal{D}}[\sigma_{MLE}^2]
+&amp;=\mathbb{E}_{\mathcal{D}}\left[\frac{1}{N}\sum\limits_{i=1}^{N}(x_i-\mu_{MLE})^2\right]\\
+&amp;=\mathbb{E}_{\mathcal{D}}\left[\frac{1}{N}\sum\limits_{i=1}^{N}x_i^2-\mu_{MLE}^2\right]\\
+&amp;=\mathbb{E}_{\mathcal{D}}\left[\frac{1}{N}\sum\limits_{i=1}^{N}x_i^2-\mu^2\right]-\mathbb{E}_{\mathcal{D}}[\mu_{MLE}^2-\mu^2]\\
+&amp;=\sigma^2-\left(\mathbb{E}_{\mathcal{D}}[\mu_{MLE}^2]-\mathbb{E}_{\mathcal{D}}^2[\mu_{MLE}]\right)\\
+&amp;=\sigma^2-Var[\mu_{MLE}]\\
+&amp;=\sigma^2-Var\left[\frac{1}{N}\sum\limits_{i=1}^{N}x_i\right]\\
+&amp;=\sigma^2-\frac{1}{N^2}\sum\limits_{i=1}^{N}Var[x_i]=\frac{N-1}{N}\sigma^2
+\end{aligned}$$</div>
 <p>所以：</p>
 <div class="math-block">$$\hat{\sigma}^2=\frac{1}{N-1}\sum\limits_{i=1}^{N}(x_i-\mu)^2$$</div>
 <h3 id="多维情况">多维情况</h3>
@@ -102,15 +115,15 @@
 <p>我们注意到 y_i 是 x-mu 在特征向量 u_i 上的投影长度，因此上式子就是 Delta 取不同值时的同心椭圆。</p>
 <p>下面我们看多维高斯模型在实际应用时的两个问题：</p>
 <ol>
-<li>参数 Sigma 和 mu 的自由度为：</li>
-</ol>
+<li>参数 Sigma 和 mu 的自由度为：
+</li></ol>
 <div class="math-block">$$O(p^2)$$</div>
 <p>高自由度的来源是 Sigma 有如下自由参数个数：</p>
 <div class="math-block">$$\frac{p(p+1)}{2}$$</div>
 <p>可以假设其是对角矩阵，甚至在各向同性假设中假设其对角线上的元素都相同。前一种的算法有 Factor Analysis，后一种有概率 PCA（p-PCA）。</p>
 <ol>
-<li>第二个问题是单个高斯分布是单峰的，对有多个峰的数据分布不能得到好的结果。解决方案：高斯混合 GMM 模型。</li>
-</ol>
+<li>第二个问题是单个高斯分布是单峰的，对有多个峰的数据分布不能得到好的结果。解决方案：高斯混合 GMM 模型。
+</li></ol>
 <p>下面对多维高斯分布的常用定理进行介绍。</p>
 <p>我们记：</p>
 <div class="math-block">$$x=(x_1,x_2,\cdots,x_p)^T=(x_{a,m\times1},x_{b,n\times1})^T$$</div>
@@ -129,8 +142,8 @@
 <p>下面利用这个定理得到下面四个量：</p>
 <div class="math-block">$$p(x_a),\quad p(x_b),\quad p(x_a|x_b),\quad p(x_b|x_a)$$</div>
 <ol>
-<li>对 x_a，有：</li>
-</ol>
+<li>对 x_a，有：
+</li></ol>
 <div class="math-block">$$x_a=\begin{pmatrix}\mathbb{I}_{m\times m}&amp;\mathbb{O}_{m\times n}\end{pmatrix}\begin{pmatrix}x_a\\x_b\end{pmatrix}$$</div>
 <p>代入定理中得到：</p>
 <div class="math-block">$$\mathbb{E}[x_a]=\begin{pmatrix}\mathbb{I}&amp;\mathbb{O}\end{pmatrix}\begin{pmatrix}\mu_a\\\mu_b\end{pmatrix}=\mu_a$$</div>
@@ -138,12 +151,12 @@
 <p>所以：</p>
 <div class="math-block">$$x_a\sim\mathcal{N}(\mu_a,\Sigma_{aa})$$</div>
 <ol>
-<li>同样地：</li>
-</ol>
+<li>同样地：
+</li></ol>
 <div class="math-block">$$x_b\sim\mathcal{N}(\mu_b,\Sigma_{bb})$$</div>
 <ol>
-<li>对于两个条件概率，我们引入三个量：</li>
-</ol>
+<li>对于两个条件概率，我们引入三个量：
+</li></ol>
 <div class="math-block">$$x_{b\cdot a}=x_b-\Sigma_{ba}\Sigma_{aa}^{-1}x_a$$</div>
 <div class="math-block">$$\mu_{b\cdot a}=\mu_b-\Sigma_{ba}\Sigma_{aa}^{-1}\mu_a$$</div>
 <div class="math-block">$$\Sigma_{bb\cdot a}=\Sigma_{bb}-\Sigma_{ba}\Sigma_{aa}^{-1}\Sigma_{ab}$$</div>
@@ -158,8 +171,8 @@
 <div class="math-block">$$\mathbb{E}[x_b|x_a]=\mu_{b\cdot a}+\Sigma_{ba}\Sigma_{aa}^{-1}x_a$$</div>
 <div class="math-block">$$Var[x_b|x_a]=\Sigma_{bb\cdot a}$$</div>
 <ol>
-<li>同样地：</li>
-</ol>
+<li>同样地：
+</li></ol>
 <div class="math-block">$$x_{a\cdot b}=x_a-\Sigma_{ab}\Sigma_{bb}^{-1}x_b$$</div>
 <div class="math-block">$$\mu_{a\cdot b}=\mu_a-\Sigma_{ab}\Sigma_{bb}^{-1}\mu_b$$</div>
 <div class="math-block">$$\Sigma_{aa\cdot b}=\Sigma_{aa}-\Sigma_{ab}\Sigma_{bb}^{-1}\Sigma_{ba}$$</div>
@@ -183,7 +196,10 @@
 <p>我们可以得到：</p>
 <div class="math-block">$$Cov[x,y]=\mathbb{E}[(x-\mathbb{E}[x])(y-\mathbb{E}[y])^T]$$</div>
 <p>对于这个协方差可以直接计算：</p>
-<p>$$\begin{aligned} Cov(x,y)&amp;=\mathbb{E}[(x-\mu)(Ax-A\mu+\epsilon)^T]\\ &amp;=\mathbb{E}[(x-\mu)(x-\mu)^TA^T]=Var[x]A^T=\Lambda^{-1}A^T \end{aligned}$$</p>
+<div class="math-block">$$\begin{aligned}
+Cov(x,y)&amp;=\mathbb{E}[(x-\mu)(Ax-A\mu+\epsilon)^T]\\
+&amp;=\mathbb{E}[(x-\mu)(x-\mu)^TA^T]=Var[x]A^T=\Lambda^{-1}A^T
+\end{aligned}$$</div>
 <p>注意到协方差矩阵的对称性，所以：</p>
 <div class="math-block">$$p(z)=\mathcal{N}\left(\begin{pmatrix}\mu\\A\mu+b\end{pmatrix},\begin{pmatrix}\Lambda^{-1}&amp;\Lambda^{-1}A^T\\A\Lambda^{-1}&amp;L^{-1}+A\Lambda^{-1}A^T\end{pmatrix}\right)$$</div>
 <p>根据之前的公式，我们可以得到：</p>
@@ -200,9 +216,19 @@
 <p>对这个问题，采用二范数定义的平方误差来定义损失函数：</p>
 <div class="math-block">$$L(w)=\sum\limits_{i=1}^N\|w^Tx_i-y_i\|_2^2$$</div>
 <p>展开得到：</p>
-<p>$$\begin{aligned} L(w)&amp;=(w^Tx_1-y_1,\cdots,w^Tx_N-y_N)\cdot(w^Tx_1-y_1,\cdots,w^Tx_N-y_N)^T\\ &amp;=(w^TX^T-Y^T)\cdot(Xw-Y)\\ &amp;=w^TX^TXw-Y^TXw-w^TX^TY+Y^TY\\ &amp;=w^TX^TXw-2w^TX^TY+Y^TY \end{aligned}$$</p>
+<div class="math-block">$$\begin{aligned}
+L(w)&amp;=(w^Tx_1-y_1,\cdots,w^Tx_N-y_N)\cdot(w^Tx_1-y_1,\cdots,w^Tx_N-y_N)^T\\
+&amp;=(w^TX^T-Y^T)\cdot(Xw-Y)\\
+&amp;=w^TX^TXw-Y^TXw-w^TX^TY+Y^TY\\
+&amp;=w^TX^TXw-2w^TX^TY+Y^TY
+\end{aligned}$$</div>
 <p>最小化这个值的 \(\hat {w}\)：</p>
-<p>$$\begin{aligned} \hat{w}=\arg\min\limits_wL(w) &amp;\Longrightarrow \frac{\partial}{\partial w}L(w)=0\\ &amp;\Longrightarrow 2X^TX\hat{w}-2X^TY=0\\ &amp;\Longrightarrow \hat{w}=(X^TX)^{-1}X^TY=X^+Y \end{aligned}$$</p>
+<div class="math-block">$$\begin{aligned}
+\hat{w}=\arg\min\limits_wL(w)
+&amp;\Longrightarrow \frac{\partial}{\partial w}L(w)=0\\
+&amp;\Longrightarrow 2X^TX\hat{w}-2X^TY=0\\
+&amp;\Longrightarrow \hat{w}=(X^TX)^{-1}X^TY=X^+Y
+\end{aligned}$$</div>
 <p>这个式子中， \((X^TX)^{-1}X^T\) 又被称为伪逆。对于行满秩或者列满秩的 \(X\)，可以直接求解；但是对于非满秩的样本集合，需要使用奇异值分解（SVD）的方法。对 \(X\) 求奇异值分解，得到：</p>
 <div class="math-block">$$X=U\Sigma V^T$$</div>
 <p>于是：</p>
@@ -211,22 +237,37 @@
 <div class="math-block">$$X^T(Y-X\beta)=0\Longrightarrow \beta=(X^TX)^{-1}X^TY$$</div>
 <h2 id="噪声为高斯分布的-mle">噪声为高斯分布的 MLE</h2>
 <p>对于一维的情况，记  \(y=w^Tx+\epsilon, \epsilon\sim\mathcal{N}(0,\sigma^2)\)，那么 \(y\sim\mathcal{N}(w^Tx,\sigma^2)\)。代入极大似然估计中：</p>
-<p>$$\begin{aligned} L(w)=\log p(Y|X,w) &amp;=\log\prod\limits_{i=1}^Np(y_i|x_i,w)\\ &amp;=\sum\limits_{i=1}^N\log\left(\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(y_i-w^Tx_i)^2}{2\sigma^2}}\right)\\ \arg\max\limits_wL(w)&amp;=\arg\min\limits_w\sum\limits_{i=1}^N(y_i-w^Tx_i)^2 \end{aligned}$$</p>
+<div class="math-block">$$\begin{aligned}
+L(w)=\log p(Y|X,w)
+&amp;=\log\prod\limits_{i=1}^Np(y_i|x_i,w)\\
+&amp;=\sum\limits_{i=1}^N\log\left(\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(y_i-w^Tx_i)^2}{2\sigma^2}}\right)\\
+\arg\max\limits_wL(w)&amp;=\arg\min\limits_w\sum\limits_{i=1}^N(y_i-w^Tx_i)^2
+\end{aligned}$$</div>
 <p>这个表达式和最小二乘估计得到的结果一样。</p>
 <h2 id="权重先验也为高斯分布的-map">权重先验也为高斯分布的 MAP</h2>
 <p>取先验分布 \(w\sim\mathcal{N}(0,\sigma_0^2)\)。于是：</p>
-<p>$$\begin{aligned} \hat{w}=\arg\max\limits_wp(w|Y) &amp;=\arg\max\limits_wp(Y|w)p(w)\\ &amp;=\arg\max\limits_w\big(\log p(Y|w)+\log p(w)\big)\\ &amp;=\arg\min\limits_w\left[(y-w^Tx)^2+\frac{\sigma^2}{\sigma_0^2}w^Tw\right] \end{aligned}$$</p>
+<div class="math-block">$$\begin{aligned}
+\hat{w}=\arg\max\limits_wp(w|Y)
+&amp;=\arg\max\limits_wp(Y|w)p(w)\\
+&amp;=\arg\max\limits_w\big(\log p(Y|w)+\log p(w)\big)\\
+&amp;=\arg\min\limits_w\left[(y-w^Tx)^2+\frac{\sigma^2}{\sigma_0^2}w^Tw\right]
+\end{aligned}$$</div>
 <p>这里省略了 \(X\)， \(p(Y)\) 和 \(w\) 没有关系，同时也利用了上面高斯分布的 MLE 的结果。</p>
 <p>我们将会看到，超参数 \(\sigma_0\) 的存在和下面会介绍的 Ridge 正则项可以对应。同样地，如果将先验分布取为 Laplace 分布，那么就会得到和 L1 正则类似的结果。</p>
 <h2 id="正则化">正则化</h2>
 <p>在实际应用时，如果样本容量不远远大于样本的特征维度，很可能造成过拟合。对这种情况，我们有下面三个解决方式：</p>
 <ol>
-<li>加数据</li>
-<li>特征选择（降低特征维度）如 PCA 算法</li>
-<li>正则化</li>
-</ol>
+<li>加数据
+</li>
+<li>特征选择（降低特征维度）如 PCA 算法
+</li>
+<li>正则化
+</li></ol>
 <p>正则化一般是在损失函数（如上面介绍的最小二乘损失）上加入正则化项（表示模型的复杂度对模型的惩罚），下面我们介绍一般情况下的两种正则化框架：</p>
-<p>$$\begin{aligned} L1:&amp;\ \arg\min\limits_wL(w)+\lambda\|w\|_1,\quad \lambda&gt;0\\ L2:&amp;\ \arg\min\limits_wL(w)+\lambda\|w\|_2^2,\quad \lambda&gt;0 \end{aligned}$$</p>
+<div class="math-block">$$\begin{aligned}
+L1:&amp;\ \arg\min\limits_wL(w)+\lambda\|w\|_1,\quad \lambda&gt;0\\
+L2:&amp;\ \arg\min\limits_wL(w)+\lambda\|w\|_2^2,\quad \lambda&gt;0
+\end{aligned}$$</div>
 <p>下面对最小二乘误差分别分析这两者的区别。</p>
 <h3 id="l1-lasso">L1 Lasso</h3>
 <p>L1 正则化可以引起稀疏解。</p>
@@ -237,31 +278,52 @@
 <div class="math-block">$$\|w\|_1&lt;C$$</div>
 <p>我们已经看到平方误差损失函数在 \(w\) 空间是一个椭球，因此上式求解就是椭球和 \(\|w\|_1=C\) 的切点，因此更容易相切在坐标轴上。</p>
 <h3 id="l2-ridge">L2 Ridge</h3>
-<p>$$\begin{aligned} \hat{w}=\arg\min\limits_wL(w)+\lambda w^Tw &amp;\Longrightarrow \frac{\partial}{\partial w}L(w)+2\lambda w=0\\ &amp;\Longrightarrow 2X^TX\hat{w}-2X^TY+2\lambda\hat{w}=0\\ &amp;\Longrightarrow \hat{w}=(X^TX+\lambda I)^{-1}X^TY \end{aligned}$$</p>
+<div class="math-block">$$\begin{aligned}
+\hat{w}=\arg\min\limits_wL(w)+\lambda w^Tw
+&amp;\Longrightarrow \frac{\partial}{\partial w}L(w)+2\lambda w=0\\
+&amp;\Longrightarrow 2X^TX\hat{w}-2X^TY+2\lambda\hat{w}=0\\
+&amp;\Longrightarrow \hat{w}=(X^TX+\lambda I)^{-1}X^TY
+\end{aligned}$$</div>
 <p>可以看到，这个正则化参数和前面的 MAP 结果不谋而合。利用 2 范数进行正则化不仅可以使模型选择较小的参数，同时也避免 \(X^TX\) 不可逆的问题。</p>
 <h2 id="小结-2">小结</h2>
 <p>线性回归模型是最简单的模型，但是麻雀虽小，五脏俱全。在这里，我们利用最小二乘误差得到了闭式解。同时也发现，在噪声为高斯分布的时候，MLE 的解等价于最小二乘误差，而增加了正则项后，最小二乘误差加上 L2 正则项等价于高斯噪声先验下的 MAP 解，加上 L1 正则项后，等价于 Laplace 噪声先验。</p>
 <p>传统的机器学习方法或多或少都有线性回归模型的影子：</p>
 <ol>
-<li>线性模型往往不能很好地拟合数据，因此有三种方案克服这一劣势：</li>
-<li>对特征的维数进行变换，例如多项式回归模型就是在线性特征的基础上加入高次项。</li>
-<li>在线性方程后面加入一个非线性变换，即引入一个非线性的激活函数，典型的有线性分类模型如感知机。</li>
-<li>对于一致的线性系数，我们进行多次变换，这样同一个特征不仅仅被单个系数影响，例如多层感知机（深度前馈网络）。</li>
-<li>线性回归在整个样本空间都是线性的，我们修改这个限制，在不同区域引入不同的线性或非线性，例如线性样条回归和决策树模型。</li>
-<li>线性回归中使用了所有的样本，但是对数据预先进行加工学习的效果可能更好（所谓的维数灾难，高维度数据更难学习），例如 PCA 算法和流形学习。</li>
-</ol>
+<li>线性模型往往不能很好地拟合数据，因此有三种方案克服这一劣势：
+</li>
+<li>对特征的维数进行变换，例如多项式回归模型就是在线性特征的基础上加入高次项。
+<ol>
+<li>在线性方程后面加入一个非线性变换，即引入一个非线性的激活函数，典型的有线性分类模型如感知机。
+</li>
+<li>对于一致的线性系数，我们进行多次变换，这样同一个特征不仅仅被单个系数影响，例如多层感知机（深度前馈网络）。
+</li></ol>
+</li>
+<li>线性回归在整个样本空间都是线性的，我们修改这个限制，在不同区域引入不同的线性或非线性，例如线性样条回归和决策树模型。
+</li>
+<li>线性回归中使用了所有的样本，但是对数据预先进行加工学习的效果可能更好（所谓的维数灾难，高维度数据更难学习），例如 PCA 算法和流形学习。
+</li></ol>
 <h1 id="三-线性分类">三、线性分类</h1>
 <p>对于分类任务，线性回归模型就无能为力了，但是我们可以在线性模型的函数后再加入一层激活函数，这个函数是非线性的，激活函数的反函数叫做链接函数。我们有两种线性分类的方式：</p>
 <ol>
-<li>硬分类，我们直接需要输出观测对应的分类。这类模型的代表为：</li>
-<li>线性判别分析（Fisher 判别）</li>
-<li>感知机</li>
-<li>软分类，产生不同类别的概率，这类算法根据概率方法的不同分为两种：</li>
-<li>生成式（根据贝叶斯定理先计算参数后验，再进行推断）：高斯判别分析（GDA）和朴素贝叶斯等为代表</li>
-<li>GDA</li>
-<li>Naive Bayes</li>
-<li>判别式（直接对条件概率进行建模）：Logistic 回归</li>
-</ol>
+<li>硬分类，我们直接需要输出观测对应的分类。这类模型的代表为：
+</li>
+<li>线性判别分析（Fisher 判别）
+<ol>
+<li>感知机
+</li></ol>
+</li>
+<li>软分类，产生不同类别的概率，这类算法根据概率方法的不同分为两种：
+</li>
+<li>生成式（根据贝叶斯定理先计算参数后验，再进行推断）：高斯判别分析（GDA）和朴素贝叶斯等为代表
+</li>
+<li>GDA
+<ol>
+<li>Naive Bayes
+</li></ol>
+<ol>
+<li>判别式（直接对条件概率进行建模）：Logistic 回归
+</li></ol>
+</li></ol>
 <h2 id="两分类-硬分类-感知机算法">两分类-硬分类-感知机算法</h2>
 <p>我们选取激活函数为：</p>
 <div class="math-block">$$sign(a)=\left\{\begin{matrix}+1,&amp;a\ge 0\\-1,&amp;a&lt;0\end{matrix}\right.$$</div>
@@ -278,21 +340,43 @@
 <h2 id="两分类-硬分类-线性判别分析-lda">两分类-硬分类-线性判别分析 LDA</h2>
 <p>在 LDA 中，我们的基本想法是选定一个方向，将试验样本顺着这个方向投影，投影后的数据需要满足两个条件，从而可以更好地分类：</p>
 <ol>
-<li>相同类内部的试验样本距离接近。</li>
-<li>不同类别之间的距离较大。</li>
-</ol>
+<li>相同类内部的试验样本距离接近。
+</li>
+<li>不同类别之间的距离较大。
+</li></ol>
 <p>首先是投影，我们假定原来的数据是向量 \(x\)，那么顺着 \(w\) 方向的投影就是标量：</p>
 <div class="math-block">$$z=w^T\cdot x(=\|w\|\cdot\|x\|\cos\theta)$$</div>
 <p>对第一点，相同类内部的样本更为接近，我们假设属于两类的试验样本数量分别是 \(N_1\) 和 \(N_2\)。那么我们采用方差矩阵来表征每一个类内的总体分布，这里我们使用了协方差的定义，用 \(S\) 表示原数据的协方差：</p>
-<p>$$\begin{aligned} C_1:Var_z[C_1]&amp;=\frac{1}{N_1}\sum\limits_{i=1}^{N_1}(z_i-\overline{z_{c1}})(z_i-\overline{z_{c1}})^T\\ &amp;=\frac{1}{N_1}\sum\limits_{i=1}^{N_1}\left(w^Tx_i-\frac{1}{N_1}\sum\limits_{j=1}^{N_1}w^Tx_j\right)\left(w^Tx_i-\frac{1}{N_1}\sum\limits_{j=1}^{N_1}w^Tx_j\right)^T\\ &amp;=w^T\frac{1}{N_1}\sum\limits_{i=1}^{N_1}(x_i-\overline{x_{c1}})(x_i-\overline{x_{c1}})^Tw\\ &amp;=w^TS_1w\\ C_2:Var_z[C_2]&amp;=\frac{1}{N_2}\sum\limits_{i=1}^{N_2}(z_i-\overline{z_{c2}})(z_i-\overline{z_{c2}})^T\\ &amp;=w^TS_2w \end{aligned}$$</p>
+<div class="math-block">$$\begin{aligned}
+C_1:Var_z[C_1]&amp;=\frac{1}{N_1}\sum\limits_{i=1}^{N_1}(z_i-\overline{z_{c1}})(z_i-\overline{z_{c1}})^T\\
+&amp;=\frac{1}{N_1}\sum\limits_{i=1}^{N_1}\left(w^Tx_i-\frac{1}{N_1}\sum\limits_{j=1}^{N_1}w^Tx_j\right)\left(w^Tx_i-\frac{1}{N_1}\sum\limits_{j=1}^{N_1}w^Tx_j\right)^T\\
+&amp;=w^T\frac{1}{N_1}\sum\limits_{i=1}^{N_1}(x_i-\overline{x_{c1}})(x_i-\overline{x_{c1}})^Tw\\
+&amp;=w^TS_1w\\
+C_2:Var_z[C_2]&amp;=\frac{1}{N_2}\sum\limits_{i=1}^{N_2}(z_i-\overline{z_{c2}})(z_i-\overline{z_{c2}})^T\\
+&amp;=w^TS_2w
+\end{aligned}$$</div>
 <p>所以类内距离可以记为：</p>
 <div class="math-block">$$Var_z[C_1]+Var_z[C_2]=w^T(S_1+S_2)w$$</div>
 <p>对于第二点，我们可以用两类的均值表示这个距离：</p>
-<p>$$\begin{aligned} (\overline{z_{c1}}-\overline{z_{c2}})^2 &amp;=\left(\frac{1}{N_1}\sum\limits_{i=1}^{N_1}w^Tx_i-\frac{1}{N_2}\sum\limits_{i=1}^{N_2}w^Tx_i\right)^2\\ &amp;=\left(w^T(\overline{x_{c1}}-\overline{x_{c2}})\right)^2\\ &amp;=w^T(\overline{x_{c1}}-\overline{x_{c2}})(\overline{x_{c1}}-\overline{x_{c2}})^Tw \end{aligned}$$</p>
+<div class="math-block">$$\begin{aligned}
+(\overline{z_{c1}}-\overline{z_{c2}})^2
+&amp;=\left(\frac{1}{N_1}\sum\limits_{i=1}^{N_1}w^Tx_i-\frac{1}{N_2}\sum\limits_{i=1}^{N_2}w^Tx_i\right)^2\\
+&amp;=\left(w^T(\overline{x_{c1}}-\overline{x_{c2}})\right)^2\\
+&amp;=w^T(\overline{x_{c1}}-\overline{x_{c2}})(\overline{x_{c1}}-\overline{x_{c2}})^Tw
+\end{aligned}$$</div>
 <p>综合这两点，由于协方差是一个矩阵，于是我们用将这两个值相除来得到我们的损失函数，并最大化这个值：</p>
-<p>$$\begin{aligned} \hat{w}=\arg\max\limits_wJ(w) &amp;=\arg\max\limits_w\frac{(\overline{z_{c1}}-\overline{z_{c2}})^2}{Var_z[C_1]+Var_z[C_2]}\\ &amp;=\arg\max\limits_w\frac{w^T(\overline{x_{c1}}-\overline{x_{c2}})(\overline{x_{c1}}-\overline{x_{c2}})^Tw}{w^T(S_1+S_2)w}\\ &amp;=\arg\max\limits_w\frac{w^TS_bw}{w^TS_ww} \end{aligned}$$</p>
+<div class="math-block">$$\begin{aligned}
+\hat{w}=\arg\max\limits_wJ(w)
+&amp;=\arg\max\limits_w\frac{(\overline{z_{c1}}-\overline{z_{c2}})^2}{Var_z[C_1]+Var_z[C_2]}\\
+&amp;=\arg\max\limits_w\frac{w^T(\overline{x_{c1}}-\overline{x_{c2}})(\overline{x_{c1}}-\overline{x_{c2}})^Tw}{w^T(S_1+S_2)w}\\
+&amp;=\arg\max\limits_w\frac{w^TS_bw}{w^TS_ww}
+\end{aligned}$$</div>
 <p>这样，我们就把损失函数和原数据集以及参数结合起来了。下面对这个损失函数求偏导，注意我们其实对 \(w\) 的绝对值没有任何要求，只对方向有要求，因此只要一个方程就可以求解了：</p>
-<p>$$\begin{aligned} &amp;\frac{\partial}{\partial w}J(w)=2S_bw(w^TS_ww)^{-1}-2w^TS_bw(w^TS_ww)^{-2}S_ww=0\\ &amp;\Longrightarrow S_bw(w^TS_ww)=(w^TS_bw)S_ww\\ &amp;\Longrightarrow w\propto S_w^{-1}S_bw\propto S_w^{-1}(\overline{x_{c1}}-\overline{x_{c2}}) \end{aligned}$$</p>
+<div class="math-block">$$\begin{aligned}
+&amp;\frac{\partial}{\partial w}J(w)=2S_bw(w^TS_ww)^{-1}-2w^TS_bw(w^TS_ww)^{-2}S_ww=0\\
+&amp;\Longrightarrow S_bw(w^TS_ww)=(w^TS_bw)S_ww\\
+&amp;\Longrightarrow w\propto S_w^{-1}S_bw\propto S_w^{-1}(\overline{x_{c1}}-\overline{x_{c2}})
+\end{aligned}$$</div>
 <p>于是 \(S_w^{-1}(\overline{x_{c1}}-\overline{x_{c2}})\) 就是我们需要寻找的方向。最后可以归一化求得单位的 \(w\) 值。</p>
 <h2 id="两分类-软分类-概率判别模型-logistic-回归">两分类-软分类-概率判别模型-Logistic 回归</h2>
 <p>有时候我们只要得到一个类别的概率，那么我们需要一种能输出 \([0,1]\) 区间的值的函数。考虑两分类模型，我们利用判别模型，希望对 \(p(C|x)\) 建模，利用贝叶斯定理：</p>
@@ -316,16 +400,27 @@
 <h2 id="两分类-软分类-概率生成模型-高斯判别分析-gda">两分类-软分类-概率生成模型-高斯判别分析 GDA</h2>
 <p>生成模型中，我们对联合概率分布进行建模，然后采用 MAP 来获得参数的最佳值。两分类的情况，我们采用的假设：</p>
 <ol>
-<li>\(y\sim Bernoulli(\phi)\)</li>
-<li>\(x|y=1\sim\mathcal{N}(\mu_1,\Sigma)\)</li>
-<li>\(x|y=0\sim\mathcal{N}(\mu_0,\Sigma)\)</li>
-</ol>
+<li>\(y\sim Bernoulli(\phi)\)
+</li>
+<li>\(x|y=1\sim\mathcal{N}(\mu_1,\Sigma)\)
+</li>
+<li>\(x|y=0\sim\mathcal{N}(\mu_0,\Sigma)\)
+</li></ol>
 <p>那么独立全同的数据集最大后验概率可以表示为：</p>
-<p>$$\begin{aligned} \arg\max_{\phi,\mu_0,\mu_1,\Sigma}\log p(X|Y)p(Y) &amp;=\arg\max_{\phi,\mu_0,\mu_1,\Sigma}\sum\limits_{i=1}^N(\log p(x_i|y_i)+\log p(y_i))\\ &amp;=\arg\max_{\phi,\mu_0,\mu_1,\Sigma}\sum\limits_{i=1}^N\Big((1-y_i)\log\mathcal{N}(\mu_0,\Sigma)+y_i\log\mathcal{N}(\mu_1,\Sigma)\\ &amp;\qquad\qquad\qquad\qquad +y_i\log\phi+(1-y_i)\log(1-\phi)\Big) \end{aligned}$$</p>
+<div class="math-block">$$\begin{aligned}
+\arg\max_{\phi,\mu_0,\mu_1,\Sigma}\log p(X|Y)p(Y)
+&amp;=\arg\max_{\phi,\mu_0,\mu_1,\Sigma}\sum\limits_{i=1}^N(\log p(x_i|y_i)+\log p(y_i))\\
+&amp;=\arg\max_{\phi,\mu_0,\mu_1,\Sigma}\sum\limits_{i=1}^N\Big((1-y_i)\log\mathcal{N}(\mu_0,\Sigma)+y_i\log\mathcal{N}(\mu_1,\Sigma)\\
+&amp;\qquad\qquad\qquad\qquad +y_i\log\phi+(1-y_i)\log(1-\phi)\Big)
+\end{aligned}$$</div>
 <p>首先对 \(\phi\) 进行求解，将式子对 \(\phi\) 求偏导：</p>
 <div class="math-block">$$\sum\limits_{i=1}^N\frac{y_i}{\phi}+\frac{y_i-1}{1-\phi}=0\Longrightarrow \phi=\frac{\sum\limits_{i=1}^Ny_i}{N}=\frac{N_1}{N}$$</div>
 <p>然后求解 \(\mu_1\)：</p>
-<p>$$\begin{aligned} \hat{\mu}_1 &amp;=\arg\max_{\mu_1}\sum\limits_{i=1}^Ny_i\log\mathcal{N}(\mu_1,\Sigma)\\ &amp;=\arg\min_{\mu_1}\sum\limits_{i=1}^Ny_i(x_i-\mu_1)^T\Sigma^{-1}(x_i-\mu_1) \end{aligned}$$</p>
+<div class="math-block">$$\begin{aligned}
+\hat{\mu}_1
+&amp;=\arg\max_{\mu_1}\sum\limits_{i=1}^Ny_i\log\mathcal{N}(\mu_1,\Sigma)\\
+&amp;=\arg\min_{\mu_1}\sum\limits_{i=1}^Ny_i(x_i-\mu_1)^T\Sigma^{-1}(x_i-\mu_1)
+\end{aligned}$$</div>
 <p>由于：</p>
 <div class="math-block">$$\sum\limits_{i=1}^Ny_i(x_i-\mu_1)^T\Sigma^{-1}(x_i-\mu_1)=\sum\limits_{i=1}^Ny_ix_i^T\Sigma^{-1}x_i-2y_i\mu_1^T\Sigma^{-1}x_i+y_i\mu_1^T\Sigma^{-1}\mu_1$$</div>
 <p>求微分左边乘以 \(\Sigma\) 可以得到：</p>
@@ -333,7 +428,12 @@
 <p>同理：</p>
 <div class="math-block">$$\mu_0=\frac{\sum\limits_{i=1}^N(1-y_i)x_i}{N_0}$$</div>
 <p>最为困难的是求解 $Sigma$。我们的模型假设对正反例采用相同的协方差矩阵。首先我们有：</p>
-<p>$$\begin{aligned} \sum\limits_{i=1}^N\log\mathcal{N}(\mu,\Sigma) &amp;=Const-\frac{1}{2}N\log|\Sigma|-\frac{1}{2}\operatorname{Trace}((x_i-\mu)^T\Sigma^{-1}(x_i-\mu))\\ &amp;=Const-\frac{1}{2}N\log|\Sigma|-\frac{1}{2}\operatorname{Trace}((x_i-\mu)(x_i-\mu)^T\Sigma^{-1})\\ &amp;=Const-\frac{1}{2}N\log|\Sigma|-\frac{1}{2}N\operatorname{Trace}(S\Sigma^{-1}) \end{aligned}$$</p>
+<div class="math-block">$$\begin{aligned}
+\sum\limits_{i=1}^N\log\mathcal{N}(\mu,\Sigma)
+&amp;=Const-\frac{1}{2}N\log|\Sigma|-\frac{1}{2}\operatorname{Trace}((x_i-\mu)^T\Sigma^{-1}(x_i-\mu))\\
+&amp;=Const-\frac{1}{2}N\log|\Sigma|-\frac{1}{2}\operatorname{Trace}((x_i-\mu)(x_i-\mu)^T\Sigma^{-1})\\
+&amp;=Const-\frac{1}{2}N\log|\Sigma|-\frac{1}{2}N\operatorname{Trace}(S\Sigma^{-1})
+\end{aligned}$$</div>
 <p>在这个表达式中，我们在标量上加入迹从而可以交换矩阵的顺序。对于包含绝对值和迹的表达式的导数，我们有：</p>
 <div class="math-block">$$\frac{\partial}{\partial A}|A|=|A|A^{-1},\qquad \frac{\partial}{\partial A}\operatorname{Trace}(AB)=B^T$$</div>
 <p>于是：</p>
@@ -351,10 +451,12 @@
 <div class="math-block">$$p(y|x)=\frac{p(x|y)p(y)}{p(x)}=\frac{\prod\limits_{i=1}^pp(x_i|y)p(y)}{p(x)}$$</div>
 <p>对于单个维度的条件概率以及类先验作出进一步的假设：</p>
 <ol>
-<li>\(x_i\) 为连续变量： \(p(x_i|y)=mathcal{N}(\mu_i,\sigma_i^2)\)</li>
-<li>\(x_i\) 为离散变量：类别分布（Categorical）： \(p(x_i=i|y)=\theta_i, \sum\limits_{i=1}^K \theta_i=1\)</li>
-<li>\(p(y)=\phi^y(1-\phi)^{1-y}\)</li>
-</ol>
+<li>\(x_i\) 为连续变量： \(p(x_i|y)=mathcal{N}(\mu_i,\sigma_i^2)\)
+</li>
+<li>\(x_i\) 为离散变量：类别分布（Categorical）： \(p(x_i=i|y)=\theta_i, \sum\limits_{i=1}^K \theta_i=1\)
+</li>
+<li>\(p(y)=\phi^y(1-\phi)^{1-y}\)
+</li></ol>
 <p>对这些参数的估计，常用 MLE 的方法直接在数据集上估计。由于不需要知道各个维度之间的关系，因此所需数据量大大减少了。估算完这些参数，再代入贝叶斯定理中得到类别的后验分布。</p>
 <h2 id="小结-3">小结</h2>
 <p>分类任务分为两类。对于需要直接输出类别的任务，感知机算法中我们在线性模型的基础上加入符号函数作为激活函数，那么就能得到这个类别。但是符号函数不光滑，于是我们采用错误驱动的方式，引入</p>
@@ -373,19 +475,22 @@
 <p>这就是所谓的维度灾难，在高维数据中，主要样本都分布在立方体的边缘，所以数据集更加稀疏。</p>
 <p>降维的算法分为：</p>
 <ol>
-<li>直接降维，特征选择</li>
-<li>线性降维，PCA，MDS 等</li>
-<li>分线性，流形包括 Isomap，LLE 等</li>
-</ol>
+<li>直接降维，特征选择
+</li>
+<li>线性降维，PCA，MDS 等
+</li>
+<li>分线性，流形包括 Isomap，LLE 等
+</li></ol>
 <p>为了方便，我们首先将协方差矩阵（数据集）写成中心化的形式：</p>
 <p>这个式子利用了中心矩阵 H 的对称性，这也是一个投影矩阵。</p>
 <h2 id="线性降维-主成分分析-pca">线性降维-主成分分析 PCA</h2>
 <h3 id="损失函数">损失函数</h3>
 <p>主成分分析中，我们的基本想法是将所有数据投影到一个子空间中，从而达到降维的目标。为了寻找这个子空间，我们基本想法是：</p>
 <ol>
-<li>所有数据在子空间中更为分散</li>
-<li>损失的信息最小，即在补空间的分量少</li>
-</ol>
+<li>所有数据在子空间中更为分散
+</li>
+<li>损失的信息最小，即在补空间的分量少
+</li></ol>
 <p>原来的数据很有可能各个维度之间是相关的，于是我们希望找到一组 p 个新的线性无关的单位基 \(u_i\)，降维就是取其中的 q 个基。于是对于一个样本 \(x_i\)，经过这个坐标变换后：</p>
 <p>对于数据集来说，我们首先将其中心化然后再取上面的式子的第一项，并使用其系数的平方平均作为损失函数并最大化：</p>
 <p>由于每个基都是线性无关的，于是每一个 \(u_j\) 的求解可以分别进行，使用拉格朗日乘子法：</p>
@@ -410,16 +515,20 @@
 <h1 id="五-支持向量机">五、支持向量机</h1>
 <p>支持向量机（SVM）算法在分类问题中有着重要地位，其主要思想是最大化两类之间的间隔。按照数据集的特点：</p>
 <ol>
-<li>线性可分问题，如之前的感知机算法处理的问题</li>
-<li>线性可分，但只有一点点错误点，如感知机算法发展出来的 Pocket 算法处理的问题</li>
-<li>非线性问题，完全不可分，如多层感知机和深度学习处理的问题</li>
-</ol>
+<li>线性可分问题，如之前的感知机算法处理的问题
+</li>
+<li>线性可分，但只有一点点错误点，如感知机算法发展出来的 Pocket 算法处理的问题
+</li>
+<li>非线性问题，完全不可分，如多层感知机和深度学习处理的问题
+</li></ol>
 <p>这三种情况对于 SVM 分别有下面三种处理手段：</p>
 <ol>
-<li>hard-margin SVM</li>
-<li>soft-margin SVM</li>
-<li>kernel method</li>
-</ol>
+<li>hard-margin SVM
+</li>
+<li>soft-margin SVM
+</li>
+<li>kernel method
+</li></ol>
 <p>SVM 的求解中大量用到了 Lagrange 乘子法，首先对这种方法进行介绍。</p>
 <h2 id="约束优化问题">约束优化问题</h2>
 <p>一般地，约束优化问题（原问题）可以写成：</p>
@@ -433,16 +542,20 @@
 <p>其中 Relint 表示相对内部（不包含边界的内部）。</p>
 <p>上面介绍了原问题和对偶问题的对偶关系，但是实际还需要对参数进行求解，求解方法使用 KKT 条件进行：</p>
 <ol>
-<li>可行域：</li>
-</ol>
-<p>$$	\begin{aligned} m_i(x^*)&amp;\le 0\\ n_j(x^*)&amp;=0\\ \lambda^*&amp;\ge 0 \end{aligned}$$</p>
+<li>可行域：
+</li></ol>
+<div class="math-block">$$	\begin{aligned}
+m_i(x^*)&amp;\le 0\\
+n_j(x^*)&amp;=0\\
+\lambda^*&amp;\ge 0
+\end{aligned}$$</div>
 <ol>
-<li>互补松弛：</li>
-</ol>
+<li>互补松弛：
+</li></ol>
 <div class="math-block">$$\lambda_i^*m_i(x^*)=0$$</div>
 <ol>
-<li>梯度为 0：</li>
-</ol>
+<li>梯度为 0：
+</li></ol>
 <div class="math-block">$$\left.\frac{\partial L(x,\lambda^*,\eta^*)}{\partial x}\right|_{x=x^*}=0$$</div>
 <h2 id="hard-margin-svm">Hard-margin SVM</h2>
 <p>支撑向量机也是一种硬分类模型。在之前的感知机模型中，我们在线性模型的基础上叠加了符号函数。在几何直观上，如果两类分得很开，那么会存在无穷多条线可以将两类分开。在 SVM 中，我们引入最大化间隔这个概念，间隔指的是数据和直线的距离的最小值，因此最大化这个值反映了我们的模型倾向。</p>
@@ -475,9 +588,10 @@
 <p>例如：</p>
 <p>是一个核函数。正定核函数有下面的等价定义：</p>
 <ol>
-<li>对称性</li>
-<li>正定性</li>
-</ol>
+<li>对称性
+</li>
+<li>正定性
+</li></ol>
 <p>也就是对于任意样本点 \(x_1,x_2,…,x_N\) 属于样本空间 X，对应的 Gram Matrix</p>
 <p>是半正定的。</p>
 <h2 id="小结-5">小结</h2>
@@ -485,10 +599,6 @@
 <p>对需要的超平面参数的求解采用强对偶问题的 KKT 条件进行。</p>
 <p>当允许一点错误的时候，可以在 Hard-margin SVM 中加入错误项，用 Hinge Function 表示错误项的大小。</p>
 <p>对于完全不可分的问题，我们采用特征转换的方式。在 SVM 中，我们引入正定核函数来直接对内积进行变换，只要这个变换满足对称性和正定性，那么就可以用作核函数。</p></div>
-      <nav class="chapter-pagination" data-chapter-pagination aria-label="章节导航" hidden>
-        <a class="chapter-page chapter-page-prev" data-chapter-prev href="#" hidden><span>上一篇</span><strong></strong></a>
-        <a class="chapter-page chapter-page-next" data-chapter-next href="#" hidden><span>下一篇</span><strong></strong></a>
-      </nav>
     </article>
 
     <aside class="article-nav article-side-nav" aria-label="Chapters">
@@ -504,13 +614,16 @@
   </footer>
 
   <script src="../js/main.js?v=2.3.0"></script>
-  <script src="../js/article.js?v=2.4.0"></script>
+  <script src="../js/article.js?v=2.5.0"></script>
+
 <script defer src="../js/vendor/katex-0.16.11/katex.min.js"></script>
   <script defer src="../js/vendor/katex-0.16.11/auto-render.min.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       if (typeof renderMathInElement !== "function") return;
+      document.querySelectorAll("[data-tex]").forEach(el => katex.render(el.textContent, el, {displayMode: el.dataset.tex === "display", throwOnError:false}));
       renderMathInElement(document.querySelector(".article-content"), {
+        ignoredClasses: ["katex"],
         delimiters: [
           { left: "$$", right: "$$", display: true },
           { left: "\\[", right: "\\]", display: true },

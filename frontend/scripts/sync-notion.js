@@ -1,3 +1,4 @@
+import { nativeHtml } from "./notion-blocks.js";
 import fs from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
@@ -6,7 +7,7 @@ import { fileURLToPath } from "node:url";
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const FRONTEND_DIR = path.resolve(SCRIPT_DIR, "..");
 const REPO_ROOT = path.resolve(FRONTEND_DIR, "..");
-const CONTENT_RENDER_VERSION = "10";
+const CONTENT_RENDER_VERSION = "12";
 
 const NOTION_API_BASE = "https://api.notion.com/v1";
 const NOTION_VERSION = "2022-06-28";
@@ -411,6 +412,7 @@ async function renderBlocks(token, blocks, context, depth = 0) {
 
   for (const block of blocks) {
     const children = block.has_children ? await listBlockChildren(token, block.id) : [];
+    block.children = children;
     const indent = "  ".repeat(depth);
 
     switch (block.type) {
@@ -459,6 +461,8 @@ async function renderBlocks(token, blocks, context, depth = 0) {
         break;
       case "image": {
         const url = await localizeImage(block.image, context);
+        block.previewSrc = url;
+        block.previewWidth = context.widths[block.id.replace(/-/g, "")];
         const caption = richTextToMarkdown(block.image.caption || []);
         const width = context.widths[block.id.replace(/-/g, "")];
         lines.push(`![${caption}](${url})${Number.isFinite(width) && width > 0 ? `{width=${width}px}` : ""}`, "");
@@ -820,11 +824,11 @@ function markdownToHtml(markdown) {
   return html.join("\n");
 }
 
-function buildArticleHtml(meta, markdownBody) {
-  const articleHtml = markdownToHtml(markdownBody);
+function buildArticleHtml(meta, markdownBody, nativeBody) {
+  const articleHtml = nativeBody ?? markdownToHtml(markdownBody);
   const hasCode = articleHtml.includes("<pre><code");
   const hasMermaid = articleHtml.includes('class="mermaid"');
-  const hasMath = containsMath(markdownBody);
+  const hasMath = nativeBody ? nativeBody.includes("data-tex=") || containsMath(markdownBody) : containsMath(markdownBody);
   const isNote = meta.kind === "notes";
   const title = escapeHtml(meta.title);
   const category = escapeHtml(meta.category || meta.kind);
@@ -834,14 +838,6 @@ function buildArticleHtml(meta, markdownBody) {
     ? '  <link rel="stylesheet" href="../css/vendor/katex-0.16.11/katex.min.css">'
     : "";
   const tocLabel = isNote ? "Chapters" : "On This Page";
-  const chapterPagination = isNote
-    ? `
-      <nav class="chapter-pagination" data-chapter-pagination aria-label="章节导航" hidden>
-        <a class="chapter-page chapter-page-prev" data-chapter-prev href="#" hidden><span>上一篇</span><strong></strong></a>
-        <a class="chapter-page chapter-page-next" data-chapter-next href="#" hidden><span>下一篇</span><strong></strong></a>
-      </nav>`
-    : "";
-
   return `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -849,7 +845,7 @@ function buildArticleHtml(meta, markdownBody) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="${escapeHtml(meta.title)}">
   <title>${title} — Yuyao Ma</title>
-  <link rel="stylesheet" href="../css/style.css?v=2.0.8">
+  <link rel="stylesheet" href="../css/style.css?v=2.1.2">
 ${mathStylesheet}
 </head>
 <body class="article-page${isNote ? " article-notes-page" : ""}">
@@ -881,10 +877,10 @@ ${mathStylesheet}
       <a class="article-back" href="../notes-blogs.html">← Notes &amp; Blogs</a>
       <h1 class="article-title">${title}</h1>
       <div class="article-meta">
-        <span>${escapeHtml(meta.kind)}</span><span>${date}</span><span>${category}</span>
+        <span>${isNote ? "笔记 · v1.2" : escapeHtml(meta.kind)}</span><span>${date}</span><span>${category}</span>
         <span class="article-tags">${tags}</span>
       </div>
-      <div class="article-content">${articleHtml}</div>${chapterPagination}
+      <div class="article-content">${articleHtml}</div>
     </article>
 
     <aside class="article-nav article-side-nav" aria-label="${tocLabel}">
@@ -900,7 +896,7 @@ ${mathStylesheet}
   </footer>
 
   <script src="../js/main.js?v=2.3.0"></script>
-  <script src="../js/article.js?v=2.4.0"></script>
+  <script src="../js/article.js?v=2.5.0"></script>
 ${
     hasCode
       ? `<script defer data-manual src="../js/vendor/prism-1.30.0/prism-core.min.js"></script>
@@ -918,7 +914,9 @@ ${
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       if (typeof renderMathInElement !== "function") return;
+      document.querySelectorAll("[data-tex]").forEach(el => katex.render(el.textContent, el, {displayMode: el.dataset.tex === "display", throwOnError:false}));
       renderMathInElement(document.querySelector(".article-content"), {
+        ignoredClasses: ["katex"],
         delimiters: [
           { left: "$$", right: "$$", display: true },
           { left: "\\\\[", right: "\\\\]", display: true },
@@ -1043,7 +1041,8 @@ async function syncPage(token, page, ancestors, defaultStatus, isContainer, exis
     },
   });
   const fileContent = `${toFrontmatter(meta)}${markdownBody}`;
-  const htmlContent = buildArticleHtml(meta, markdownBody);
+  const nativeBody = meta.kind === "notes" ? nativeHtml(blocks) : undefined;
+  const htmlContent = buildArticleHtml(meta, markdownBody, nativeBody);
 
   await fs.mkdir(targetDir, { recursive: true });
   await fs.mkdir(path.dirname(htmlTargetPath), { recursive: true });
@@ -1055,6 +1054,7 @@ async function syncPage(token, page, ancestors, defaultStatus, isContainer, exis
     await fs.rm(existing.htmlPath, { force: true });
   }
 
+  if (nativeBody !== undefined) await fs.writeFile(targetPath + ".layout.json", JSON.stringify({markdownBody, nativeBody}), "utf8");
   await fs.writeFile(targetPath, fileContent, "utf8");
   await fs.writeFile(htmlTargetPath, htmlContent, "utf8");
   return { status: existing ? "updated" : "created", reason: "synced", meta, path: targetPath };
@@ -1165,7 +1165,13 @@ async function renderExistingContent(contentRoot) {
 
       await fs.mkdir(path.dirname(htmlPath), { recursive: true });
       await fs.writeFile(markdownPath, nextContent, "utf8");
-      await fs.writeFile(htmlPath, buildArticleHtml(nextMeta, markdownBody), "utf8");
+      // 仅当正文与同步快照一致时复用原生排版；手工编辑的 Markdown 按原合同重建。
+      let nativeBody;
+      try {
+        const snapshot = JSON.parse(await fs.readFile(markdownPath + ".layout.json", "utf8"));
+        if (snapshot.markdownBody.trim() === markdownBody.trim()) nativeBody = snapshot.nativeBody;
+      } catch (error) { if (error.code !== "ENOENT") throw error; }
+      await fs.writeFile(htmlPath, buildArticleHtml(nextMeta, markdownBody, nativeBody), "utf8");
       rendered += 1;
     }
   }

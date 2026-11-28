@@ -1,22 +1,7 @@
 {
-  "generatedAt": "2026-11-27T03:08:48.934Z",
+  "generatedAt": "2026-11-28T07:13:41.091Z",
   "blog": [],
   "notes": [
-    {
-      "title": "Python程序设计与数据科学",
-      "slug": "python程序设计与数据科学",
-      "date": "2026-11-26",
-      "lastEditedTime": "2026-11-27T03:07:57.135Z",
-      "category": "study",
-      "tags": [
-        "coding",
-        "study"
-      ],
-      "status": "Published",
-      "notionPageId": "424db726-82a8-81a5-92ee-e6cf7c07980d",
-      "href": "notes/python程序设计与数据科学.html",
-      "kind": "notes"
-    },
     {
       "title": "随机过程",
       "slug": "随机过程",
@@ -90,6 +75,21 @@
       "status": "Published",
       "notionPageId": "3a2db726-82a8-80d3-adec-e0640e3554c0",
       "href": "notes/机器学习的数学原理.html",
+      "kind": "notes"
+    },
+    {
+      "title": "Python程序设计与数据科学",
+      "slug": "python程序设计与数据科学",
+      "date": "2024-11-10",
+      "lastEditedTime": "2026-11-28T04:36:00.000Z",
+      "category": "study",
+      "tags": [
+        "coding",
+        "study"
+      ],
+      "status": "Published",
+      "notionPageId": "424db726-82a8-81a5-92ee-e6cf7c07980d",
+      "href": "notes/python程序设计与数据科学.html",
       "kind": "notes"
     },
     {

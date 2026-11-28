@@ -96,3 +96,14 @@ test("同源图片按各自排版宽度渲染", () => {
   assert.match(html, /<figure><img[^>]+alt="原宽"/);
   assert.match(html, /<figure style="--notion-width:36px" data-notion-width="36"><img[^>]+alt="缩窄"/);
 });
+
+test("原生块区分行头与列头，并保留嵌套列表内的复合文字样式", async()=>{
+  const {nativeHtml}=await import("./notion-blocks.js");
+  const rich=[{type:"text",plain_text:"<key>",annotations:{bold:true,code:true,color:"red"}}];
+  const item={type:"bulleted_list_item",bulleted_list_item:{rich_text:rich}};
+  const html=nativeHtml([{...item,children:[{type:"quote",quote:{rich_text:rich}}]},item,
+    {type:"table",table:{has_row_header:true},children:[{table_row:{cells:[rich,rich]}}]}]);
+  assert.match(html,/<ul><li>.*<strong><code>&lt;key&gt;<\/code><\/strong>.*<blockquote>/);
+  assert.match(html,/<\/blockquote><\/li><li>/);
+  assert.match(html,/<th scope="row">/);assert.doesNotMatch(html,/scope="col"/);
+});

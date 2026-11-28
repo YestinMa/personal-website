@@ -432,3 +432,32 @@ img { display: block; max-width: 100%; }
     .reveal { opacity: 1; transform: none; }
     .display-name { transform: none !important; }
 }
+
+/* 笔记使用连续文档排版；表格宽于正文时只在表格内部滚动。 */
+.article-notes-page { background:#fff; color:#37352f; }
+.article-notes-page .article-main { width:100%; max-width:708px; justify-self:center; }
+.article-notes-page .article-back { margin-bottom:1.5rem; }
+.article-notes-page .article-title { font:700 clamp(2rem,3vw,2.5rem)/1.2 var(--sans); letter-spacing:-.035em; text-wrap:initial; }
+.article-notes-page .article-meta { border:0; margin:.75rem 0 2rem; padding:0; text-transform:none; letter-spacing:0; }
+.article-notes-page .article-content { font:400 16px/1.55 var(--sans); color:#37352f; overflow-wrap:break-word; }
+.article-notes-page .article-content :is(h1,h2,h3,h4) { font-family:inherit; font-weight:650; letter-spacing:-.02em; border:0; padding:0; line-height:1.3; margin:1.5em 0 .35em; }
+.article-notes-page .article-content h2 {font-size:1.85em}
+.article-notes-page .article-content h3 {font-size:1.45em}
+.article-notes-page .article-content h4 {font-size:1.15em}
+.article-notes-page .article-content :is(p,ul,ol,blockquote) {margin:.25em 0}
+.article-notes-page .article-content li { margin:.16em 0; }
+.article-notes-page .article-content blockquote {font:inherit;color:inherit;border-left:3px solid currentColor;padding:.15em 0 .15em .9em;}
+.article-notes-page .article-content :not(pre)>code {color:#a83938;background:#f1f1ef;border-radius:4px;}
+.article-notes-page .note-table { overflow-x:auto; margin:.75rem 0; }
+.article-notes-page .note-table table {width:max-content;max-width:100%;margin:0;}
+.article-notes-page .note-table :is(th,td) {border:1px solid #deddd9;padding:.38em .65em;min-width:5em;}
+.article-notes-page .note-table th {background:#f7f7f5;}
+.article-notes-page .article-nav .toc-chapter > a + .toc-children {display:block;}
+.article-notes-page .article-content figure {margin:.85em 0;}
+
+.article-notes-page .article-nav .toc-chapter > a:not(.is-current-chapter) + .toc-children {display:block;}
+@media(max-width:720px){
+  .article-notes-page .article-layout {padding-top:1.25rem;}
+  .article-notes-page .article-mobile-nav {margin-bottom:1rem;}
+  .article-notes-page .article-back {margin-bottom:.85rem;}
+}

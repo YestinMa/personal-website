@@ -88,37 +88,6 @@ function populateHierarchicalToc(entries, rootLevel) {
   });
 }
 
-function splitContentIntoChapters(content, entries, rootLevel) {
-  const rootIds = new Set(entries.filter((entry) => entry.level === rootLevel).map((entry) => entry.id));
-  const originalNodes = [...content.childNodes];
-  const preface = [];
-  const sections = [];
-  const fragment = document.createDocumentFragment();
-  let currentSection = null;
-
-  // 每个最高级标题开始一个章节；标题前的来源说明并入第一章，保证原文顺序不变。
-  originalNodes.forEach((node) => {
-    if (node.nodeType === Node.ELEMENT_NODE && rootIds.has(node.id)) {
-      currentSection = document.createElement("section");
-      currentSection.className = "article-chapter";
-      currentSection.dataset.chapterId = node.id;
-      currentSection.setAttribute("aria-labelledby", node.id);
-      if (!sections.length) currentSection.append(...preface);
-      currentSection.append(node);
-      sections.push(currentSection);
-      fragment.append(currentSection);
-      return;
-    }
-
-    if (currentSection) currentSection.append(node);
-    else preface.push(node);
-  });
-
-  if (!sections.length) return [];
-  content.replaceChildren(fragment);
-  return sections;
-}
-
 function addConstructionPlaceholder(container) {
   // 只在没有正文、公式或媒体内容时占位；章节标题本身不算正文。
   const contentNodes = container.querySelectorAll("p, li, blockquote, pre, figure, table, .math-block, img, video, audio, iframe");
@@ -141,105 +110,6 @@ function readHashId() {
   }
 }
 
-function initializeChapterNavigation(entries, rootLevel) {
-  const content = document.querySelector(".article-content");
-  if (!content || rootLevel === null) return;
-
-  const chapters = entries.filter((entry) => entry.level === rootLevel);
-  const sections = splitContentIntoChapters(content, entries, rootLevel);
-  if (!sections.length) return;
-  sections.forEach(addConstructionPlaceholder);
-
-  const entryById = new Map(entries.map((entry) => [entry.id, entry]));
-  const sectionById = new Map(sections.map((section) => [section.dataset.chapterId, section]));
-  const pagination = document.querySelector("[data-chapter-pagination]");
-  const previousLink = document.querySelector("[data-chapter-prev]");
-  const nextLink = document.querySelector("[data-chapter-next]");
-  let observer = null;
-  let activeChapterId = "";
-
-  const updateTocState = (headingId, chapterId) => {
-    document.querySelectorAll("[data-heading-id]").forEach((link) => {
-      const isActive = link.dataset.headingId === headingId;
-      link.classList.toggle("is-active", isActive);
-      link.classList.toggle(
-        "is-current-chapter",
-        link.dataset.tocRoot === "true" && link.dataset.headingId === chapterId,
-      );
-      if (isActive) link.setAttribute("aria-current", "location");
-      else link.removeAttribute("aria-current");
-    });
-  };
-
-  const setPagerLink = (link, chapter, titleTarget) => {
-    link.hidden = !chapter;
-    if (!chapter) return;
-    link.href = `#${chapter.id}`;
-    link.dataset.chapterTarget = chapter.id;
-    titleTarget.textContent = chapter.label;
-  };
-
-  const updatePagination = (chapterId) => {
-    if (!pagination || !previousLink || !nextLink) return;
-    const index = chapters.findIndex((chapter) => chapter.id === chapterId);
-    pagination.hidden = chapters.length < 2;
-    setPagerLink(previousLink, chapters[index - 1], previousLink.querySelector("strong"));
-    setPagerLink(nextLink, chapters[index + 1], nextLink.querySelector("strong"));
-  };
-
-  const observeCurrentChapter = (section) => {
-    if (observer) observer.disconnect();
-    if (!("IntersectionObserver" in window)) return;
-    observer = new IntersectionObserver((observedEntries) => {
-      const visible = observedEntries.find((observed) => observed.isIntersecting);
-      if (visible) updateTocState(visible.target.id, activeChapterId);
-    }, { rootMargin: "-12% 0px -72%", threshold: 0 });
-    section.querySelectorAll("h1, h2, h3, h4").forEach((heading) => observer.observe(heading));
-  };
-
-  const activate = (requestedId, shouldScroll = false) => {
-    const requestedEntry = entryById.get(requestedId);
-    const chapterId = requestedEntry?.chapterId || chapters[0].id;
-    const targetId = requestedEntry?.id || chapterId;
-    const activeSection = sectionById.get(chapterId);
-    if (!activeSection) return;
-
-    sections.forEach((section) => {
-      const isCurrent = section === activeSection;
-      section.hidden = !isCurrent;
-      section.toggleAttribute("inert", !isCurrent);
-    });
-    activeChapterId = chapterId;
-    updateTocState(targetId, chapterId);
-    updatePagination(chapterId);
-    observeCurrentChapter(activeSection);
-
-    if (shouldScroll) {
-      const target = document.getElementById(targetId);
-      const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
-      requestAnimationFrame(() => target?.scrollIntoView({ behavior, block: "start" }));
-    }
-  };
-
-  const navigate = (targetId) => {
-    window.history.pushState(null, "", `#${encodeURIComponent(targetId)}`);
-    activate(targetId, true);
-    document.querySelectorAll(".article-mobile-nav details[open]").forEach((details) => {
-      details.open = false;
-    });
-  };
-
-  document.querySelector(".article-layout")?.addEventListener("click", (event) => {
-    const link = event.target.closest("a[data-heading-id], a[data-chapter-target]");
-    if (!link) return;
-    event.preventDefault();
-    navigate(link.dataset.headingId || link.dataset.chapterTarget);
-  });
-
-  window.addEventListener("hashchange", () => activate(readHashId(), true));
-  activate(readHashId(), Boolean(window.location.hash));
-}
-
 function populateArticleNavigation() {
   const { entries, headings, rootLevel } = collectHeadingEntries();
   if (!entries.length) {
@@ -258,11 +128,10 @@ function populateArticleNavigation() {
   if (document.body.classList.contains("article-notes-page")) {
     // 笔记目录只展示章节与其下一层知识点，三级标题仍保留正文锚点。
     populateHierarchicalToc(entries.filter((entry) => entry.level <= rootLevel + 1), rootLevel);
-    initializeChapterNavigation(entries, rootLevel);
-    return;
+  } else {
+    populateFlatToc(entries, rootLevel);
   }
-
-  populateFlatToc(entries, rootLevel);
+  if (location.hash) document.getElementById(readHashId())?.scrollIntoView();
   if (!("IntersectionObserver" in window)) return;
   const observer = new IntersectionObserver((observedEntries) => {
     observedEntries.forEach((entry) => {
